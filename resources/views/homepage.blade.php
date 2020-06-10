@@ -17,6 +17,21 @@
 <body>
 
 
+<button class="bouton-inscription">Inscription</button>
+<button class="bouton-connexion">Connexion</button>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card text-center">
+                <h1>Coucou</h1>
+                <p>Coucou</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 </html>
