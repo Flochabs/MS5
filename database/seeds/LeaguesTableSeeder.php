@@ -1,6 +1,8 @@
 <?php
 
+use App\Model\League;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class LeaguesTableSeeder extends Seeder
 {
@@ -13,16 +15,17 @@ class LeaguesTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for($i=0; $i<5; $i++){
-
-
+        for ($i = 0; $i < 10; $i++) {
             $data = [
-                ['team_external_id' => $faker->numberBetween($min = 1, $max= 8),
-                    'name' => $faker->colorName,
-                    'city' => $faker->city,
-                    'stadium' => $faker->city,
+                ['user_id' => $faker->numberBetween($min = 1, $max = 5),
+                    'name' => $faker->company,
+                    'number_teams' => $faker->numberBetween($min = 2, $max = 12),
+                    'public' => $faker->boolean($chanceOfGettingTrue = 50),
+                    'token' => $faker->md5,
+
                 ]
             ];
-            Nbateam::insert($data);
+            League::insert($data);
+        }
     }
 }
