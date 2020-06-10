@@ -24,13 +24,27 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card text-center">
-                <h1>Coucou</h1>
+                <h1><b>Céez votre compte</b></h1>
                 <p>Coucou</p>
             </div>
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="form-group row">
+        <label for="firstname"
+               class="col-md-4 col-form-label text-md-right">Prénom</label>
 
+        <div class="col-md-6">
+            <input id="firstname" type="firstname"
+                   class="form-control"
+                   name="firstname" autocomplete="firstname">
+        </div>
+    </div>
+</div>
 
 
 </body>

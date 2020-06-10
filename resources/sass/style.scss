@@ -10,6 +10,8 @@ p{
     font-family: $p-font-family-sans-serif;
 }
 
+
+
 @for $i from 1 through 6{
     h#{$i}{
         font-family: Mudhead-Serif;
@@ -49,6 +51,11 @@ p{
 }
 
 // Input
+label{
+    font-family: $p-font-family-sans-serif;
+    color: #fff;
+}
+
 .input{
 
 }
