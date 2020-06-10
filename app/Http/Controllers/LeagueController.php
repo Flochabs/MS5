@@ -35,7 +35,25 @@ class LeagueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
+        $validatedData = $request->validate([
+            'user_id' => 'numeric',
+            'name' => 'required|max:255',
+            'number_teams' => 'required|integer',
+            'public' => 'required|boolean',
+            'token' => 'required',
+        ]);
+        $show = League::create($validatedData);
+
+//        $title = 'Confirmation d\'inscription';
+//        $content = 'Bonjour, l\'entreprise ' . $validatedData['name'] . '<br>' .
+//            'Votre inscription avec l\'adresse mail ' . $validatedData['email'] . ', '
+//            . 'le logo ' . $validatedData['logo'] . ' et le site web ' . $validatedData['site_web']
+//            . 'a bien été prise en compte.';
+//
+//        Mail::to($validatedData['email'])->send(new Inscription($title, $content));
+
+        return redirect('/companies')->with('success', 'L\'entreprise a été enregistrée.');
     }
 
     /**
