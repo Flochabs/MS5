@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,71 +9,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 @yield('css')
 <title>MS5</title>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
     <!-- Styles -->
-<style>
-    @font-face {
-        font-family: Mudhead-Serif;
-        src: url('{{ public_path('fonts/Mudhead-Serif.otf') }}');
-    }
-    html, body {
-        background-color: #2b2236;
-        color: #fff;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 400;
-        height: 100vh;
-        margin: 0;
-    }
-
-    h1{
-        font-family: Mudhead-Serif;
-        color: #eb671b;
-    }
-
-    .full-height {
-        height: 100vh;
-    }
-
-    .flex-center {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-    }
-
-    .position-ref {
-        position: relative;
-    }
-
-    .top-right {
-        position: absolute;
-        right: 10px;
-        top: 18px;
-    }
-
-    .content {
-        text-align: center;
-    }
-
-    .title {
-        font-size: 84px;
-    }
-
-    .links > a {
-        color: #636b6f;
-        padding: 0 25px;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: .1rem;
-        text-decoration: none;
-        text-transform: uppercase;
-    }
-
-    .m-b-md {
-        margin-bottom: 30px;
-    }
-</style>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 @yield('scripts-header')
 </head>
 <body>
