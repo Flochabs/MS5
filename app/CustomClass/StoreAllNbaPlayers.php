@@ -3,13 +3,16 @@
 
 namespace App\CustomClass;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use JasonRoman\NbaApi\Client\Client;
 use JasonRoman\NbaApi\Request\Data\Prod\Roster\LeagueRosterPlayersRequest;
 
-class StoreAllNbaPlayers
+class StoreAllNbaPlayers extends Command
 {
-    public function __invoke()
+    protected $signature = 'StoreAllNbaPlayers';
+
+    public function handle()
     {
         //envoi de la rêquete à l'api externe
         $client = new Client();

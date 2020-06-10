@@ -5,14 +5,17 @@ namespace App\CustomClass;
 
 
 use App\Model\Player;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use JasonRoman\NbaApi\Client\Client;
 use JasonRoman\NbaApi\Request\Data\MobileTeams\Player\PlayerCardRequest;
 use JasonRoman\NbaApi\Request\Data\Prod\Player\PlayerProfileRequest;
 
-class StoreNbaPlayerData
+class StoreNbaPlayerData extends Command
 {
-    public function __invoke()
+    protected $signature = 'StoreNbaPlayerData';
+
+    public function handle()
     {
 
         $players = Storage::disk('public')->get('data/nbaplayers.json');
@@ -20,14 +23,19 @@ class StoreNbaPlayerData
         $players = json_decode($players, false);
         $players = $players->league->standard;
 
+        //tableau qui stocke les id des joueurs trouvés dans le tableau
+        $foundIds = [];
+
         //boucle pour enregistrer chaque jouer dans la db
         foreach ($players as $player) {
-            if ($player->isActive == true) {
+            if ($player->isActive) {
 
                 $playerId = $player->personId;
                 // (int) pour faire en sorte que le player id soit bien un integer et non une string
                 $playerId = (int)$playerId;
 
+                // hasPlayer pour enregistrer l'id du joueur si déjà présent dans la table
+                $hasPlayer = Player::where('player_external_id', $playerId)->first();
 
                 // Récupération des stats générales pour un joueur
                 $client = new Client();
@@ -66,21 +74,24 @@ class StoreNbaPlayerData
                 $latestStats = $response->getObjectFromJson();
                 $latestStats = json_encode($latestStats);
 
-                $data = [
-                    'player_external_id' => $playerId,
-                    'price' => 0,
-                    'score' => 0,
-                    'created_at' => new \DateTime(),
-                    'updated_at' => new \DateTime(),
-                    'data' => $generalStats,
-                    'latest_stats' => $latestStats,
-                ];
 
-                Player::insert($data);
+                if(!$hasPlayer) {
+                    $hasPlayer = new Player();
+                    $hasPlayer->player_external_id = $playerId;
                 }
 
+                $hasPlayer->price = 0;
+                $hasPlayer->score = 0;
+                $hasPlayer->data = $generalStats;
+                $hasPlayer->latest_stats = $latestStats;
+                $hasPlayer->save();
 
+                $foundIds[] = $hasPlayer->id;
+                echo '.';
+            }
         }
+
+        Player::whereNotIn('id',$foundIds)->delete();
     }
 
 }

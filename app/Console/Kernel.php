@@ -17,7 +17,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        \App\CustomClass\StoreAllNbaTeams::class,
+        \App\CustomClass\StoreNbaPlayerData::class,
+        \App\CustomClass\StoreAllNbaPlayers::class,
     ];
 
     /**
@@ -30,20 +32,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->call(function () {
-         DB::table('nbateams')->delete();
-        })->everyMinute();
 
-        $schedule->call(new storeAllNbaTeams)->everyMinute();
-
-//        $schedule->call(function () {
-//            DB::table('players')->delete();
-//        })->everyMinute();
-
-        $schedule->call(new StoreNbaPlayerData)->everyMinute();
+        $schedule->command('StoreAllNbaTeams')->everyMinute();
 
 
-        $schedule->call(new storeAllNbaPlayers)->weeklyOn(1, '8:00');
+        $schedule->command('StoreNbaPlayerData')->everyMinute();
+
+
+        $schedule->command('StoreAllNbaPlayers')->weeklyOn(1, '8:00');
 
     }
 

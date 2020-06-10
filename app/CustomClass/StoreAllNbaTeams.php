@@ -4,11 +4,17 @@ namespace App\CustomClass;
 
 use App\Model\Nbateam;
 
+use App\Model\Player;
+use Illuminate\Console\Command;
 use JasonRoman\NbaApi\Client\Client;
 use JasonRoman\NbaApi\Request\Data\Prod\Teams\TeamsRequest;
 
-class storeAllNbaTeams{
-    public function __invoke() {
+class StoreAllNbaTeams extends Command{
+
+    protected $signature = 'StoreAllNbaTeams';
+
+
+    public function handle() {
         $client = new Client();
 
         $request  = TeamsRequest::fromArray( [
@@ -20,26 +26,31 @@ class storeAllNbaTeams{
 
         $nbaTeams = $nbaTeams->league->standard;
 
-        $dataTeam = json_encode($nbaTeams);
-
+        $foundIds = [];
         foreach ($nbaTeams as $nbaTeam) {
 
-            if($nbaTeam->isNBAFranchise == true){
+            if($nbaTeam->isNBAFranchise){
 
-                $data = [
-                    'team_external_id' => $nbaTeam->teamId,
-                    'name' => $nbaTeam->nickname,
-                    'city' => $nbaTeam->city,
-                    'stadium' => $nbaTeam->city,
-                    'created_at' => new \DateTime(),
-                    'updated_at' => new \DateTime(),
-                ];
+                $teamId = $nbaTeam->teamId;
+                $hasTeam = Nbateam::where('team_external_id', $teamId)->first();
 
-                Nbateam::insert($data);
+                if(!$hasTeam) {
+                    $hasTeam = new Nbateam();
+                    $hasTeam->team_external_id = $teamId;
+                }
+
+                $hasTeam->name = $nbaTeam->nickname;
+                $hasTeam->city = $nbaTeam->city;
+                $hasTeam->stadium = $nbaTeam->city;
+
+                $hasTeam->save();
+
+                $foundIds[] = $hasTeam->id;
+                echo '.';
 
             }
         }
-
-
+        Nbateam::whereNotIn('id',$foundIds)->delete();
     }
 }
+
