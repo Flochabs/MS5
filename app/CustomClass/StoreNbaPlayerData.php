@@ -4,6 +4,7 @@
 namespace App\CustomClass;
 
 
+use App\Model\Player;
 use Illuminate\Support\Facades\Storage;
 use JasonRoman\NbaApi\Client\Client;
 use JasonRoman\NbaApi\Request\Data\MobileTeams\Player\PlayerCardRequest;
@@ -43,7 +44,7 @@ class StoreNbaPlayerData
                 $response = $client->request($request);
 
                 $generalStats = $response->getObjectFromJson();
-                dd($generalStats);
+
 
                 //encodage des stats en json pour stockage dans table data de la bdd
                 $generalStats = json_encode($generalStats);
@@ -67,29 +68,16 @@ class StoreNbaPlayerData
 
                 $data = [
                     'player_external_id' => $playerId,
-                    //       'price' => ,
+                    'price' => 0,
                     'score' => 0,
                     'created_at' => new \DateTime(),
                     'updated_at' => new \DateTime(),
                     'data' => $generalStats,
                     'latest_stats' => $latestStats,
                 ];
-                //dd($data);
-                // }
-                //Player::insert($data);
-            }
 
-
-            function calculatePrice()
-            {
-
-
-            }
-
-            function calculateScore()
-            {
-
-            }
+                Player::insert($data);
+                }
 
 
         }

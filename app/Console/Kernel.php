@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\CustomClass\StoreAllNbaPlayers;
+use App\CustomClass\storeAllNbaTeams;
+use App\CustomClass\StoreNbaPlayerData;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
@@ -26,12 +29,22 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-//        $schedule->call(function () {
-//            DB::table('users')->delete();
-//        })->everyMinute();
+
+        $schedule->call(function () {
+         DB::table('nbateams')->delete();
+        })->everyMinute();
+
         $schedule->call(new storeAllNbaTeams)->everyMinute();
 
-        
+//        $schedule->call(function () {
+//            DB::table('players')->delete();
+//        })->everyMinute();
+
+        $schedule->call(new StoreNbaPlayerData)->everyMinute();
+
+
+        $schedule->call(new storeAllNbaPlayers)->weeklyOn(1, '8:00');
+
     }
 
     /**
