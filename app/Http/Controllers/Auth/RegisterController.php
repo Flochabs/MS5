@@ -95,7 +95,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        User::create([
+        $user = User::create([
             'lastname'      => $data['lastname'],
             'firstname'     => $data['firstname'],
             'pseudo'        => $data['pseudo'],
@@ -105,6 +105,9 @@ class RegisterController extends Controller
             'nbateam_id'    => $data['nbateam_id'],
         ]);
         // Envoi de l'email via la fonction mail()
+
+        // On ajoute le role
+        $user->roles()->sync([2]);
 
         return true;
     }
