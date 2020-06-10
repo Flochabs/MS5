@@ -16,9 +16,10 @@ class CreatePlayersTable extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->integer('player_external_id');
+            $table->integer('price');
             $table->json('data');
             $table->json('latest_stats');
-            $table->integer('price');
+            $table->integer('score');
             $table->timestamps();
         });
     }

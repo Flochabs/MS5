@@ -30,9 +30,6 @@ Route::prefix( 'nba' )
         Route::resource( '/', 'PlayerController' );
     } );
 
-// routes pour players -> récupérer les joueurs et les afficher pour la draft
-Route::get('/players', 'PlayerController@getAllPlayers')->name('players');
-
 // Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
 Route::prefix( 'leagues' )
 //    ->middleware( 'auth' )
@@ -40,3 +37,6 @@ Route::prefix( 'leagues' )
     ->group( function () {
         Route::resource( '/', 'LeagueController' );
     } );
+
+//Route de test pour enregistrement bdd(à supprimer)
+Route::get('/stockageNbaTeams', 'StorageController@storeAllNbaTeams');
