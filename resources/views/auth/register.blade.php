@@ -152,8 +152,10 @@
                                             name="nbateam_id" autocomplete="nbateam_id">
 
                                         <option value="">aucune</option>
-                                        @foreach()
-                                        <option value="">aucune</option>
+
+                                        @foreach( $nameNbaTeams as  $nameNbaTeam)
+                                            <option value="{{$nameNbaTeam->id}}">{{$nameNbaTeam->name }}</option>
+                                        @endforeach
 
                                     </select>
 
