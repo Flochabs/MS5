@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\League;
 use Illuminate\Http\Request;
 
 class LeagueController extends Controller
@@ -13,10 +14,7 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        $players =  Player::getAllNbaPlayers();
-        dd($players);
-
-        return view('nba/index', compact('players'));
+        return view('leagues/index', compact('leagues'));
     }
 
     /**

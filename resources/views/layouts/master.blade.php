@@ -92,6 +92,9 @@
                 <a class="nav-link" href="#">NBA</a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link" href="#">Leagues</a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="#">Tableau de bord</a>
             </li>
         </ul>
