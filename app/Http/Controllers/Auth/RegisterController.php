@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Register;
 use App\Providers\RouteServiceProvider;
 use App\Model\User;
 use Illuminate\Auth\Events\Registered;
@@ -76,6 +77,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+        // Vérification du formualire
         return Validator::make($data, [
 
             'lastname'          => ['nullable', 'string', 'max:255'],
@@ -106,8 +109,10 @@ class RegisterController extends Controller
             'nbateam_id'    => $data['nbateam_id'],
         ]);
 
+
         // On ajoute le role
         $user->roles()->sync([2]);
+
 
         // Envoi de l'email via la fonction mail()
 
@@ -117,8 +122,10 @@ class RegisterController extends Controller
             'Votre inscription avec l\'adresse mail ' . $user['email'] . ', '
             . 'a bien été prise en compte.';
 
-        Mail::to($user['email'])->send(new Inscription($title, $content));
+        Mail::to($user['email'])->send(new Register($title, $content));
+
 
         return true;
+
     }
 }
