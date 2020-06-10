@@ -46,6 +46,18 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $nbaTeams = Nbateam::all();
+        return view('auth.register')->with('nbaTeams', $nbaTeams);
+    }
+
     /**
      * Handle a registration request for the application.
      *

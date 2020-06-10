@@ -136,8 +136,8 @@
 
                                         <option value="">aucune</option>
 
-                                        @foreach( $nameNbaTeams as  $nameNbaTeam)
-                                            <option value="{{$nameNbaTeam->id}}">{{$nameNbaTeam->name }}</option>
+                                        @foreach( $nbaTeams as  $nbaTeam)
+                                            <option value="{{$nbaTeam->id}}">{{$nbaTeam->name }}</option>
                                         @endforeach
 
                                     </select>
