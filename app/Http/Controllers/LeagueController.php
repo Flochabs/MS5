@@ -14,7 +14,7 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        return view('leagues/index', compact('leagues'));
+        return view('leagues/index');
     }
 
     /**
