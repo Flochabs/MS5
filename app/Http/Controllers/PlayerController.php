@@ -17,9 +17,15 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players =  Player::getAllNbaPlayers();
-        dd($players);
+        $players =  Player::all();
 
+        // Boucle qui permet de récupérer les stats générales du joueur stockées en json = A NE PAS SUPPRIMER
+        // boucle à insérer dans la view
+        foreach($players as $player) {
+            $player->id;
+            $playerData = json_decode($player->data);
+
+        }
         return view('nba/index', compact('players'));
     }
 
@@ -53,7 +59,7 @@ class PlayerController extends Controller
     public function show($id)
     {
         //cherche l'id dans la bdd
-        $player = Player::findOrFail($id);
+        $player = Player::findOrFail(1);
         // décode le fichier json, le retranscrit en object php
         $playerStats = json_decode($player->data, false);
         //stats générales
