@@ -54,8 +54,10 @@ Route::prefix( 'nba' )
 
 
 
-
-
+//Route de développement du SASS (à supprimer)
+Route::get( '/devsass', function () {
+    return view( 'devsass' );
+} );
 
 
 //Route de test pour enregistrement bdd(à supprimer)
