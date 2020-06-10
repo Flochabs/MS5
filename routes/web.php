@@ -30,5 +30,34 @@ Route::prefix( 'nba' )
         Route::resource( '/', 'PlayerController' );
     } );
 
-// routes pour players -> récupérer les joueurs et les afficher pour la draft
-Route::get('/players', 'PlayerController@getAllPlayers')->name('players');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Route de test pour enregistrement bdd(à supprimer)
+Route::get('/stockageNbaTeams', 'StorageController@storeAllNbaTeams');
+

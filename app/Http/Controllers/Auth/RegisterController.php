@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Register;
 use App\Providers\RouteServiceProvider;
 use App\Model\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -75,6 +77,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+        // Vérification du formualire
         return Validator::make($data, [
 
             'lastname'          => ['nullable', 'string', 'max:255'],
@@ -95,7 +99,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        User::create([
+        $user = User::create([
             'lastname'      => $data['lastname'],
             'firstname'     => $data['firstname'],
             'pseudo'        => $data['pseudo'],
@@ -104,8 +108,24 @@ class RegisterController extends Controller
             'birthday'      => $data['birthday'],
             'nbateam_id'    => $data['nbateam_id'],
         ]);
+
+
+        // On ajoute le role
+        $user->roles()->sync([2]);
+
+
         // Envoi de l'email via la fonction mail()
 
+        $title = 'Confirmation d\'inscription';
+
+        $content = 'Bonjour, l\'user ' . $user['name'] . '<br>' .
+            'Votre inscription avec l\'adresse mail ' . $user['email'] . ', '
+            . 'a bien été prise en compte.';
+
+        Mail::to($user['email'])->send(new Register($title, $content));
+
+
         return true;
+
     }
 }

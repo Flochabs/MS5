@@ -11,7 +11,7 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
-                                <p>git test</p>
+
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -150,11 +150,11 @@
                                     <select class="form-control"
                                             id="nbateam_id @error('nbateam_id') is-invalid @enderror"
                                             name="nbateam_id" autocomplete="nbateam_id">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+
+                                        <option value="">aucune</option>
+                                        @foreach()
+                                        <option value="">aucune</option>
+
                                     </select>
 
                                     @error('nbateam_id')
