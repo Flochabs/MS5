@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -108,25 +109,16 @@ class RegisterController extends Controller
         // On ajoute le role
         $user->roles()->sync([2]);
 
-        return true;
-    }
+        // Envoi de l'email via la fonction mail()
 
-    // Envoi de l'email via la fonction mail()
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'nullable|email:rfc,dns',
-            'logo' => 'required', 'image',
-            'site_web' => 'nullable|url',
-        ]);
-        $show = CompanyModel::create($validatedData);
         $title = 'Confirmation d\'inscription';
-        $content = 'Bonjour, l\'entreprise ' . $validatedData['name'] . '<br>' .
-            'Votre inscription avec l\'adresse mail ' . $validatedData['email'] . ', '
-            . 'le logo ' . $validatedData['logo'] . ' et le site web ' . $validatedData['site_web']
+
+        $content = 'Bonjour, l\'user ' . $user['name'] . '<br>' .
+            'Votre inscription avec l\'adresse mail ' . $user['email'] . ', '
             . 'a bien été prise en compte.';
-        Mail::to($validatedData['email'])->send(new Inscription($title, $content));
-        return redirect('/companies')->with('success', 'L\'entreprise a été enregistrée.');
+
+        Mail::to($user['email'])->send(new Inscription($title, $content));
+
+        return true;
     }
 }
