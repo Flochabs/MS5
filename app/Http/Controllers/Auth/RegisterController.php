@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Register;
+use App\Model\Nbateam;
 use App\Providers\RouteServiceProvider;
 use App\Model\User;
 use Illuminate\Auth\Events\Registered;
@@ -45,8 +46,6 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
-
     /**
      * Handle a registration request for the application.
      *
@@ -124,8 +123,6 @@ class RegisterController extends Controller
 
         Mail::to($user['email'])->send(new Register($title, $content));
 
-
         return true;
-
     }
 }
