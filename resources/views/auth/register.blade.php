@@ -11,23 +11,6 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
-
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text"
-                                           class="form-control @error('name') is-invalid @enderror " name="name"
-                                           value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
                             <div class="form-group row">
                                 <label for="lastname"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
@@ -103,7 +86,7 @@
                             <div class="form-group row">
 
                                 <label for="password"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -120,7 +103,7 @@
 
                             <div class="form-group row">
                                 <label for="password-confirm"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Confirmer le mot de passe') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
