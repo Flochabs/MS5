@@ -22,7 +22,6 @@ class LeaguesTableSeeder extends Seeder
                     'number_teams' => $faker->numberBetween($min = 2, $max = 12),
                     'public' => $faker->boolean($chanceOfGettingTrue = 50),
                     'token' => $faker->md5,
-
                 ]
             ];
             League::insert($data);
