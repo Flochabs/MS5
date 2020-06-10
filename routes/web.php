@@ -33,7 +33,7 @@ Route::prefix( 'nba' )
 // routes pour players -> récupérer les joueurs et les afficher pour la draft
 Route::get('/players', 'PlayerController@getAllPlayers')->name('players');
 
-// Routes concernant l'affichage des joueurs NBA en liste (index) et individuels (show)
+// Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
 Route::prefix( 'leagues' )
 //    ->middleware( 'auth' )
     ->name( 'leagues.' )
