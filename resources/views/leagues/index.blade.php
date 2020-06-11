@@ -32,7 +32,35 @@
                         <div class="card-body">
                             <h5 class="card-title">Créer une league</h5>
                             <p class="card-text">Crées ta propre league, et choisis qui tu veux affronter.</p>
-                            <a href="{{ route('leagues.create')}}" class="btn btn-primary">Créer une league</a>
+                            <form method="post" role="form" action="{{ route('leagues.store') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name">Nom de la league :</label>
+                                    <input type="text" class="form-control" name="name" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="number_teams">Nombre d'équipes :</label>
+                                    <select class="form-control" id="number_teams" name="number_teams" required>
+                                        <option>choisir un nombre d'équipes !</option>
+                                        <option value="2">2 équipes</option>
+                                        <option value="4">4 équipes</option>
+                                        <option value="6">6 équipes</option>
+                                        <option value="8">8 équipes</option>
+                                        <option value="10">10 équipes</option>
+                                        <option value="12">12 équipes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="public">Statut de la league :</label>
+                                    <select class="form-control" id="public" name="public" required>
+                                        <option>choisir un statut !</option>
+                                        <option value="0">publique</option>
+                                        <option value="1">privée</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Créer une league</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
