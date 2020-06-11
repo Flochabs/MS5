@@ -1,0 +1,13 @@
+@import "variables";
+
+@mixin card(){
+    background: $secondary;
+    border: solid 1px transparent;
+    min-height: auto;
+    max-width: 300px;
+    color: $tertiary;
+}
+
+@mixin input(){
+
+}

@@ -1,0 +1,62 @@
+@import "variables";
+@import "mixins";
+
+// Content
+body{
+     background: $primary;
+ }
+
+p{
+    font-family: $p-font-family-sans-serif;
+}
+
+
+
+@for $i from 1 through 6{
+    h#{$i}{
+        font-family: Mudhead-Serif;
+        src: $title-font-family-sans-serif;
+    }
+}
+
+// Bouton
+.bouton-inscription{
+    background: $secondary;
+    border: solid 1px transparent;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+
+    &:hover{
+        background: darken($secondary, 20);
+    }
+}
+
+.bouton-connexion{
+    background: transparent;
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 10px 30px;
+    color: #fff;
+
+    &:hover{
+        background: transparent;
+        opacity: 0.5;
+    }
+}
+
+// Card
+.card{
+    @include card
+}
+
+// Input
+label{
+    font-family: $p-font-family-sans-serif;
+    color: #fff;
+}
+
+.input{
+
+}
+
