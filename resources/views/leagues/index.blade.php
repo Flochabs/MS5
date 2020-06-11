@@ -2,17 +2,12 @@
 @extends('layouts.master')
 
 @section('content')
-    <style>
-        .uper {
-            margin-top: 40px;
-        }
-    </style>
     <div class="container">
         <div class="uper">
             <h1 class="mb-5">Bienvenue sur le portail des Leagues MS5</h1>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card bg-dark" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
                         <img src="http://placekitten.com/200/200" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Rejoindre une league privée</h5>
@@ -22,7 +17,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card bg-dark" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
                         <img src="http://placekitten.com/200/200" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Rejoindre une league publique</h5>
@@ -32,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card bg-dark" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
                         <img src="http://placekitten.com/200/200" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Créer une league</h5>
