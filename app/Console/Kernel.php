@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         \App\CustomClass\StoreAllNbaTeams::class,
         \App\CustomClass\StoreNbaPlayerData::class,
         \App\CustomClass\StoreAllNbaPlayers::class,
+        \App\CustomClass\StoreAllNbaPlayerInjuryData::class,
     ];
 
     /**
@@ -40,6 +41,8 @@ class Kernel extends ConsoleKernel
 
 
         $schedule->command('StoreAllNbaPlayers')->weeklyOn(1, '8:00');
+        $schedule->command('StoreNbaPlayerInjuryData')->weeklyOn(1, '8:00');
+
 
     }
 
