@@ -40,6 +40,13 @@ Route::prefix( 'leagues' )
         Route::resource( '/', 'LeagueController' );
     } );
 
+// Routes concernant l'affichage de la draft
+Route::prefix( 'draft' )
+//    ->middleware( 'auth' )
+    ->name( 'draft.' )
+    ->group( function () {
+        Route::resource( '/', 'DraftController' );
+    } );
 
 
 
