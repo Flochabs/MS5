@@ -25,7 +25,7 @@
         <div class="col-md-12">
             <div class="card text-center">
                 <h1><b>Céez votre compte</b></h1>
-                <p>Coucou</p>
+                <p>abcdefghijklmnopqrstuvwxyz</p>
             </div>
         </div>
     </div>
