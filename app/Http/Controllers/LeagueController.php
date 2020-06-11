@@ -141,8 +141,7 @@ class LeagueController extends Controller
 
     public function publicLeagues()
     {
-        $leagues = League::where('public', 0)->paginate(3);
-        dd($leagues);
-        return view('leagues/public')->with('leagues', $leagues);
+        $leagues = League::where('public', 0)->paginate(15);
+        return view('leagues.public')->with('leagues', $leagues);
     }
 }

@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Rejoindre une league publique</h5>
                             <p class="card-text">Confrontes toi à la communauté (attention aux fessées ! ^^).</p>
-                            <a href="#" class="btn btn-primary">Voir les leagues publiques</a>
+                            <a href="{{ route('leagues.public')}}" class="btn btn-primary">Voir les leagues publiques</a>
                         </div>
                     </div>
                 </div>
