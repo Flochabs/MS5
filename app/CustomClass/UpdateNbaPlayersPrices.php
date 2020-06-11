@@ -17,7 +17,6 @@ class UpdateNbaPlayersPrices extends Command
 
         foreach ($players as $player) {
             $hasPlayed = json_decode($player->data)->pl->ca->gp;
-
             if ($hasPlayed !== null) {
 
                 //pour récupérer les stats moyennes de la dernière saison présente dans le tableau des stats du joueur

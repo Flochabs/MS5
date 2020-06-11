@@ -9,6 +9,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use JasonRoman\NbaApi\Client\Client;
 use JasonRoman\NbaApi\Request\Data\MobileTeams\Player\PlayerCardRequest;
+use JasonRoman\NbaApi\Request\Data\Prod\Player\PlayerGameLogRequest;
 use JasonRoman\NbaApi\Request\Data\Prod\Player\PlayerProfileRequest;
 
 
@@ -23,7 +24,6 @@ class StoreNbaPlayerData extends Command
         //decode dans un object php
         $players = json_decode($players, false);
         $players = $players->league->standard;
-
 
         //tableau qui stocke les id des joueurs trouvés dans le tableau des joueurs
         $foundIds = [];
@@ -53,8 +53,6 @@ class StoreNbaPlayerData extends Command
                 $response = $client->request($request);
 
                 $generalStats = $response->getObjectFromJson();
-
-
                 //encodage des stats en json pour stockage dans table data de la bdd
                 $generalStats = json_encode($generalStats);
 
@@ -62,9 +60,9 @@ class StoreNbaPlayerData extends Command
 
                 $client = new Client();
 
-                $request = PlayerProfileRequest::fromArray(
+                $request = PlayerGameLogRequest::fromArray(
 
-                    ['format' => 'json',
+                    [
                         'playerId' => $playerId,
                         'year' => 2019,
                     ]

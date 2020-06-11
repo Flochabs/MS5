@@ -3,6 +3,7 @@
 namespace App\Console;
 
 
+use App\CustomClass\UpdateNbaPlayersScores;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
         \App\CustomClass\StoreAllNbaPlayersInjuryData::class,
         \App\CustomClass\StoreNbaPlayerInjuryData::class,
         \App\CustomClass\UpdateNbaPlayersPrices::class,
+        \App\CustomClass\UpdateNbaPlayersScores::class,
     ];
 
     /**
