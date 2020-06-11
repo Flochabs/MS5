@@ -57,3 +57,7 @@
         </form>
     </div>
 @endsection
+
+@section('scripts-footer')
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+@endsection
