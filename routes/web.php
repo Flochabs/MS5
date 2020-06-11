@@ -29,6 +29,3 @@ Route::prefix( 'nba' )
     ->group( function () {
         Route::resource( '/', 'PlayerController' );
     } );
-
-
-Route::get('/test', 'DraftController@test');
