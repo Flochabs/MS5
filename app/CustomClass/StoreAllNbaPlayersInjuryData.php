@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Storage;
 use JasonRoman\NbaApi\Client\Client;
 use JasonRoman\NbaApi\Request\StatsProd\StatsCms\Rotowire\RotowirePlayersRequest;
 
-class StoreAllNbaPlayerInjuryData  extends Command
+class StoreAllNbaPlayersInjuryData  extends Command
 {
-    protected $signature = 'StoreAllNbaPlayerInjuryData';
+    protected $signature = 'StoreAllNbaPlayersInjuryData';
 
     public function handle()
     {

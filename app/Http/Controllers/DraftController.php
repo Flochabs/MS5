@@ -11,6 +11,8 @@ use JasonRoman\NbaApi\Request\StatsProd\StatsCms\Rotowire\RotowirePlayerRequest;
 
 class DraftController extends Controller
 {
-   //
-}
+    public function test() {
 
+
+    }
+}
