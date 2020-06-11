@@ -30,22 +30,27 @@
         </div>
     </div>
 </div>
-<br>
-<br>
-<br>
-<div class="container">
-    <div class="form-group row">
-        <label for="firstname"
-               class="col-md-4 col-form-label text-md-right">Prénom</label>
 
-        <div class="col-md-6">
-            <input id="firstname" type="firstname"
-                   class="form-control"
-                   name="firstname" autocomplete="firstname">
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="firstname" class="col-md-12 col-form-label">Prénom</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input id="firstname" type="firstname"
+                       class="form-control"
+                       name="firstname" autocomplete="firstname">
+            </div>
         </div>
     </div>
 </div>
-
 
 </body>
 </html>
