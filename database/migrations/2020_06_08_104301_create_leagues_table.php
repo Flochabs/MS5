@@ -19,7 +19,7 @@ class CreateLeaguesTable extends Migration
             $table->string('name');
             $table->integer('number_teams');
             $table->boolean('public');
-            $table->uuid('token');
+            $table->string('token')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

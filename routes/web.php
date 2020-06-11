@@ -37,6 +37,7 @@ Route::prefix( 'leagues' )
     ->name( 'leagues.' )
     ->group( function () {
         Route::resource( '/', 'LeagueController' );
+        Route::get('/public', 'LeagueController@publicLeagues');
     } );
 
 
