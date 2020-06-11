@@ -11,8 +11,8 @@ class Register extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $title;
-    public $content;
+    protected $title;
+    protected $content;
 
     /**
      * Create a new message instance.
@@ -34,6 +34,6 @@ class Register extends Mailable
     {
         return $this->from(getenv('MAIL_FROM_ADDRESS'), getenv('APP_NAME'))
             ->subject(getenv('APP_ENV') . $this->title)
-            ->view('layouts.email-mailtrap');
+            ->markdown('vendor.mail.html.default',['content'=>$this->content] );
     }
 }
