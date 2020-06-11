@@ -2,8 +2,11 @@
 
 namespace App\Console;
 
+
+use App\CustomClass\UpdateNbaPlayersScores;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +16,13 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        \App\CustomClass\StoreAllNbaTeams::class,
+        \App\CustomClass\StoreNbaPlayerData::class,
+        \App\CustomClass\StoreAllNbaPlayers::class,
+        \App\CustomClass\StoreAllNbaPlayersInjuryData::class,
+        \App\CustomClass\StoreNbaPlayerInjuryData::class,
+        \App\CustomClass\UpdateNbaPlayersPrices::class,
+        \App\CustomClass\UpdateNbaPlayersScores::class,
     ];
 
     /**
@@ -25,6 +34,20 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+
+
+        $schedule->command('StoreAllNbaTeams')->everyMinute();
+
+
+        $schedule->command('StoreNbaPlayerData')->weeklyOn(1, '7:00');
+
+
+        $schedule->command('StoreAllNbaPlayers')->weeklyOn(1, '8:00');
+        $schedule->command('StoreAllNbaPlayersInjuryData')->weeklyOn(1, '8:00');
+        $schedule->command('StoreNbaPlayerInjuryData')->weeklyOn(1, '8:00');
+        $schedule->command('UpdateNbaPlayersPrices')->weeklyOn(1, '8:00');
+
+
     }
 
     /**

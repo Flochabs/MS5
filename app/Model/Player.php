@@ -13,6 +13,6 @@ use JasonRoman\NbaApi\Request\Data\Prod\Roster\LeagueRosterPlayersRequest;
 class Player extends Model
 {
 
-//
+ protected $fillable = ['injured'];
 
 }

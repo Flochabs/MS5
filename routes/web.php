@@ -31,6 +31,7 @@ Route::prefix( 'nba' )
     } );
 
 
+
 // Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
 Route::prefix( 'leagues' )
 //    ->middleware( 'auth' )
@@ -52,3 +53,4 @@ Route::prefix( 'leagues' )
 Route::get( '/devsass', function () {
     return view( 'devsass' );
 } );
+
