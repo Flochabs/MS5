@@ -31,19 +31,13 @@ Route::prefix( 'nba' )
     } );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
+Route::prefix( 'leagues' )
+//    ->middleware( 'auth' )
+    ->name( 'leagues.' )
+    ->group( function () {
+        Route::resource( '/', 'LeagueController' );
+    } );
 
 
 
@@ -58,8 +52,3 @@ Route::prefix( 'nba' )
 Route::get( '/devsass', function () {
     return view( 'devsass' );
 } );
-
-
-//Route de test pour enregistrement bdd(à supprimer)
-Route::get('/stockageNbaTeams', 'StorageController@storeAllNbaTeams');
-
