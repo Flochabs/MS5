@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Register;
 use App\Model\League;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class LeagueController extends Controller
@@ -37,14 +39,18 @@ class LeagueController extends Controller
      */
     public function store(Request $request)
     {
+        // Récupération des données du formulaire et association de l'id de l'utilisateur
         $user_id = Auth::user()->id;
         $token = md5(uniqid($user_id, true));
+        $email = Auth::user()->email;
         $values = $request->all();
+        $publicLeague = (int)$values['public'];
         $rules = [
             'name'             => 'string|required',
             'number_teams'     => 'integer|required',
             'public'           => 'integer|required',
         ];
+        // Vérification de la validité des informations transmises par l'utilisateur
         $validator = Validator::make($values, $rules, [
             'name.string' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
             'name.required' => 'Il faut choisir un nom de league !',
@@ -57,24 +63,33 @@ class LeagueController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        // Création de la nouvelle league avec les informations transmises
         $newLeague = new League();
         $newLeague->user_id         = $user_id;
         $newLeague->name            = $values['name'];
         $newLeague->number_teams    = $values['number_teams'];
-        $newLeague->public          = $values['public'];
-        $newLeague->token           = $token;
+        $newLeague->public          = $publicLeague;
+        if ($publicLeague === 1) {
+            $newLeague->token           = $token;
+        }
         $newLeague->save();
 
         // On ajoute le role créateur de league
         Auth::user()->roles()->attach([3]);
 
-//        $title = 'Confirmation d\'inscription';
-//        $content = 'Bonjour, l\'entreprise ' . $validatedData['name'] . '<br>' .
-//            'Votre inscription avec l\'adresse mail ' . $validatedData['email'] . ', '
-//            . 'le logo ' . $validatedData['logo'] . ' et le site web ' . $validatedData['site_web']
-//            . 'a bien été prise en compte.';
-//
-//        Mail::to($validatedData['email'])->send(new Inscription($title, $content));
+        // Envoi d'un mail de confirmation
+        $title = 'Confirmation de création league !';
+        $content = 'Salut, ta league ' . $newLeague['name'] .
+            'a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
+
+            if ($publicLeague === 0) {
+                $content .=  "Il s'agit d'une league publique, que tout le monde peut rejoindre";
+            } else{
+                $content .= "Pour inviter tes potes, donne leur le mot de passe :<br><br> $token";
+            }
+            $content .= "<br><br>Bonne route vers la gloire !";
+
+            Mail::to($email)->send(new Register($title, $content));
 
 //        return redirect('/companies')->with('success', 'L\'entreprise a été enregistrée.');
     }
