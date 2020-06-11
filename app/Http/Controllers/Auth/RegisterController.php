@@ -129,9 +129,9 @@ class RegisterController extends Controller
 
         $title = 'Confirmation d\'inscription';
 
-        $content = 'Bonjour, l\'user ' . $user['name'] . '<br>' .
-            'Votre inscription avec l\'adresse mail ' . $user['email'] . ', '
-            . 'a bien été prise en compte.';
+        $content = 'Hello ' . $user['pseudo'] . '<br>' .
+            'Bienvenue dans la grande famille des Fivers!<br>Tu as utilisé l\'adresse mail ' . $user['email'] . ' '
+            . 'pour t\'inscrire, et nous t\'en remercions ;)<br>Bonne route vers la gloire !';
 
         Mail::to($user['email'])->send(new Register($title, $content));
 
