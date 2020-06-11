@@ -22,16 +22,6 @@ class LeagueController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -144,5 +134,12 @@ class LeagueController extends Controller
         $leagues = League::where('public', 0)->paginate(15);
 //        dd($leagues);
         return view('leagues.public')->with('leagues', $leagues);
+    }
+
+    public function joinPrivateLeague(Request $request)
+    {
+        $league = League::where('name', $request);
+        dd($league);
+//        return view('leagues.public');
     }
 }

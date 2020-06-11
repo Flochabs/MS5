@@ -38,6 +38,7 @@ Route::prefix( 'leagues' )
     ->group( function () {
         Route::resource( '/', 'LeagueController' );
         Route::get('public', 'LeagueController@publicLeagues')->name('public');
+        Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('joinPrivateLeague');
     } );
 
 

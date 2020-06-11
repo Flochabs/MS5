@@ -12,7 +12,18 @@
                         <div class="card-body">
                             <h5 class="card-title">Rejoindre une league privée</h5>
                             <p class="card-text">Défies tes potes dans un championnat uniquement entre vous.</p>
-                            <a href="#" class="btn btn-primary">Voir les leagues privées</a>
+                            <form method="post" role="form" action="{{ route('leagues.joinPrivateLeague') }}">
+                            @csrf
+                                <div class="form-group">
+                                    <label for="name">Nom de la league :</label>
+                                    <input type="text" class="form-control" name="name" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="token">Mot de passe :</label>
+                                    <input type="text" class="form-control" name="token" required/>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Rejoindre</button>
+                            </form>
                         </div>
                     </div>
                 </div>
