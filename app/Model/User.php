@@ -13,6 +13,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    /**
+     * @param string $token
+     */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordReset($token));
