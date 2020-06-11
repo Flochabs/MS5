@@ -33,7 +33,7 @@ Route::prefix( 'nba' )
 
 // Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
 Route::prefix( 'leagues' )
-//    ->middleware( 'auth' )
+    ->middleware( 'auth' )
     ->name( 'leagues.' )
     ->group( function () {
         Route::resource( '/', 'LeagueController' );

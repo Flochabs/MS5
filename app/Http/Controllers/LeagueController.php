@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Model\League;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LeagueController extends Controller
 {
@@ -35,15 +37,36 @@ class LeagueController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        $validatedData = $request->validate([
-            'user_id' => 'numeric',
-            'name' => 'required|max:255',
-            'number_teams' => 'required|integer',
-            'public' => 'required|boolean',
-            'token' => 'required',
+        $user_id = Auth::user()->id;
+        $token = md5(uniqid($user_id, true));
+        $values = $request->all();
+        $rules = [
+            'name'             => 'string|required',
+            'number_teams'     => 'integer|required',
+            'public'           => 'integer|required',
+        ];
+        $validator = Validator::make($values, $rules, [
+            'name.string' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
+            'name.required' => 'Il faut choisir un nom de league !',
+            'number_teams.required' => 'Il faut choisir un nombre de teams !',
+            'public.required' => 'Privé ou public ???',
+
         ]);
-        $show = League::create($validatedData);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $newLeague = new League();
+        $newLeague->user_id         = $user_id;
+        $newLeague->name            = $values['name'];
+        $newLeague->number_teams    = $values['number_teams'];
+        $newLeague->public          = $values['public'];
+        $newLeague->token           = $token;
+        $newLeague->save();
+
+        // On ajoute le role créateur de league
+        Auth::user()->roles()->attach([3]);
 
 //        $title = 'Confirmation d\'inscription';
 //        $content = 'Bonjour, l\'entreprise ' . $validatedData['name'] . '<br>' .
@@ -53,7 +76,7 @@ class LeagueController extends Controller
 //
 //        Mail::to($validatedData['email'])->send(new Inscription($title, $content));
 
-        return redirect('/companies')->with('success', 'L\'entreprise a été enregistrée.');
+//        return redirect('/companies')->with('success', 'L\'entreprise a été enregistrée.');
     }
 
     /**

@@ -32,7 +32,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Créer une league</h5>
                             <p class="card-text">Crées ta propre league, et choisis qui tu veux affronter.</p>
-                            <a href="#" class="btn btn-primary">Créer une league</a>
+                            <a href="{{ route('leagues.create')}}" class="btn btn-primary">Créer une league</a>
                         </div>
                     </div>
                 </div>

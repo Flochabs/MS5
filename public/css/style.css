@@ -9,31 +9,37 @@ p {
 h1 {
   font-family: Mudhead-Serif;
   src: url("/public/storage/fonts/Mudhead_Serif/Mudhead-Serif.otf"), sans-serif;
+  color: #fff;
 }
 
 h2 {
   font-family: Mudhead-Serif;
   src: url("/public/storage/fonts/Mudhead_Serif/Mudhead-Serif.otf"), sans-serif;
+  color: #fff;
 }
 
 h3 {
   font-family: Mudhead-Serif;
   src: url("/public/storage/fonts/Mudhead_Serif/Mudhead-Serif.otf"), sans-serif;
+  color: #fff;
 }
 
 h4 {
   font-family: Mudhead-Serif;
   src: url("/public/storage/fonts/Mudhead_Serif/Mudhead-Serif.otf"), sans-serif;
+  color: #fff;
 }
 
 h5 {
   font-family: Mudhead-Serif;
   src: url("/public/storage/fonts/Mudhead_Serif/Mudhead-Serif.otf"), sans-serif;
+  color: #fff;
 }
 
 h6 {
   font-family: Mudhead-Serif;
   src: url("/public/storage/fonts/Mudhead_Serif/Mudhead-Serif.otf"), sans-serif;
+  color: #fff;
 }
 
 .bouton-inscription {
@@ -66,7 +72,7 @@ h6 {
   border: solid 1px transparent;
   min-height: auto;
   max-width: 300px;
-  color: #ff8500;
+  color: #fff;
 }
 
 label {
