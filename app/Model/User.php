@@ -61,4 +61,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Model\League', 'league_user', 'user_id', 'league_id');
     }
 
+    //methode pour lier utilisateur à son équipe
+    public function team()
+    {
+        return $this->hasOne(Team::class);
+    }
+
 }

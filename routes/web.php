@@ -42,6 +42,15 @@ Route::prefix( 'leagues' )
         Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('joinPrivateLeague');
     } );
 
+// Routes concernant l'affichage de la draft
+
+Route::prefix( 'draft' )
+    ->middleware( 'auth' )
+    ->name( 'draft.' )
+    ->group( function () {
+        Route::get('auction/{id}', 'DraftController@auction')->name('auction');
+        Route::resource( '/', 'DraftController' );
+    } );
 
 
 
