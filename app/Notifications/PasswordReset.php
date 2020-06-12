@@ -46,6 +46,4 @@ class PasswordReset extends ResetPassword
             ->line('Tu as demandé à réinitialiser ton mot de passe. Cliques sur le beau bouton ci-dessous et ce sera chose faite!')
             ->action('Changer votre mot de passe', route('password.reset', $this->token));
     }
-
-
 }
