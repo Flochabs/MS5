@@ -11,6 +11,7 @@ p {
   font-family: Poppins, Arial, sans-serif;
   text-align: left;
   margin: 0px;
+  color: #fff;
 }
 
 h1 {
@@ -45,11 +46,6 @@ h6 {
   color: #ff8500;
 }
 
-input,
-select {
-  width: 33% !important;
-}
-
 .bouton-inscription {
   background: #7c38bf;
   border: solid 1px transparent;
@@ -61,6 +57,8 @@ select {
 .bouton-inscription:hover {
   background: #8947c9;
   font-weight: bold;
+  text-decoration: none;
+  color: #fff;
 }
 
 .bouton-connexion {
@@ -75,6 +73,7 @@ select {
   background: #fff;
   color: #000;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .card {

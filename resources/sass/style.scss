@@ -16,6 +16,7 @@ p {
     font-family: $p-font-family-sans-serif;
     text-align: left;
     margin: 0px;
+    color: $white;
 }
 
 
@@ -33,10 +34,6 @@ p {
     color: $tertiary;
 }
 
-input, select{
-    width: 33% !important;
-}
-
 // Bouton
 .bouton-inscription {
     background: $secondary;
@@ -48,6 +45,8 @@ input, select{
     &:hover {
         background: lighten($secondary, 5);
         font-weight: bold;
+        text-decoration: none;
+        color: $white;
     }
 }
 
@@ -62,6 +61,7 @@ input, select{
         background: $white;
         color: #000;
         font-weight: bold;
+        text-decoration: none;
     }
 }
 
