@@ -1,21 +1,30 @@
 @extends('layouts.master')
 @section('content')
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
-                    <div class="col-md-6 text-white my-2">
+                    <div class="col-md-3 text-white my-2">
                         <p>Par Ordre</p>
                         <a href="/draft?order=asc" class="btn-secondary">ordre croissant</a>
                         <a href="/draft?order=desc" class="btn-secondary">ordre decroissant</a>
                     </div>
-                    <div class="col-md-6 text-white my-2">
+                    <div class="col-md-3 text-white my-2">
                         <p>position</p>
                         <a href="/draft" class="btn-secondary">tous les joueurs</a>
                         <a href="/draft?position=G" class="btn-secondary">arrieres</a>
                         <a href="/draft?position=F" class="btn-secondary">ailiers</a>
                         <a href="/draft?position=C" class="btn-secondary">Pivot</a>
+                    </div>
+                    <div class="col-md-3 text-white my-2">
+                        <p>cacher joueurs drafter</p>
+                        <a href="/draft" class="btn-secondary">montrer</a>
+                        <a href="/draft?hide" class="btn-secondary">cacher</a>
+                    </div>
+
+                    <div class="col-md-3 text-white my-2">
+                        <p>recherche</p>
+
                     </div>
                 </div>
                 <div class="row">
@@ -78,7 +87,7 @@
                                     <td>{{$currentSeasonStats->blk}}</td>
                                     <td>{{$currentSeasonStats->tov}}</td>
                                     <td>{{$player->price}}</td>
-                                    <td><a href="" class="btn-secondary rounded-pill">Faire une offre</td>
+                                    <td><a href="/draft/auction/{{$player->id}}" class="btn-secondary rounded-pill">Faire une offre</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -92,14 +101,61 @@
                 <div class="row">
                     <div class="col-md-12 text-white">
                         <p>Mon Salary Cap</p>
-                        <p>team->salary_cap</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Salary Cap Initial</p>
+                            </div>
+                            <div class="col-md-6">
+                               <p>110 millions</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Salary Cap Restant</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{$team->salary_cap}} millions</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Coût Total des Joueurs Draftés</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Coût Total des Joueurs Draftés</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Coût Total des Enchères en cours</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Coût Total des Enchères en cours</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Coût Total des Enchères en cours + Draftés</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Coût Total des Enchères en cours + Drafté</p>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12 text-white">
                         <h2>Mes Enchères En cours</h2>
-                        <p>Auction->id</p>
+                        <table class="text-white">
+                            @foreach($auctions as $auction)
+                            <tr>
+                                <td>{{$auction->player_id}}</td>
+                            </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
 

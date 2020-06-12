@@ -43,4 +43,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    //methode pour lier utilisateur à son équipe
+    public function team()
+    {
+        return $this->hasOne(Team::class);
+    }
+
 }

@@ -1,10 +1,15 @@
 <?php
 
+use Illuminate\Http\Response;
+
 namespace App\Http\Controllers;
 
+use App\Model\Auction;
 use App\Model\Player;
+use App\Model\Team;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DraftController extends Controller
@@ -16,7 +21,33 @@ class DraftController extends Controller
      */
     public function index()
     {
+        //Authentification et données sur le salary cap
+        $user = Auth::user();
+        $userLeague = $user->team->league_id;
+
+        // salary cap en cours
+        $team = Team::where('user_id', $user->id)->first();
+
+
         $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->simplePaginate(50);
+
+        //Montrer/cacher les joueurs draftés
+        if (request()->has('hide')) {
+            $draftedPlayers = Player::all();
+
+            $notDisplayedPlayers = [];
+            foreach ($draftedPlayers as $draftedPlayer) {
+                if (!empty($draftedPlayer->teams[0])) {
+                    if ($draftedPlayer->teams[0]->league_id === $userLeague) {
+                        $notDisplayedPlayers[] = $draftedPlayer->id;
+                    }
+                }
+            }
+            $players = Player::whereNotIn('id', $notDisplayedPlayers)
+                ->where('price', '>', 1)
+                ->orderBy('price', 'desc')
+                ->get();
+        }
 
         //trier par prix
         if (request()->has('order')) {
@@ -41,10 +72,18 @@ class DraftController extends Controller
                 ->get();
 
         }
-        if(request()->has('position&order')){
+        if (request()->has('position&order')) {
             dd('test');
         }
-        return view('draft.index', compact('players'));
+
+        //retourne toutes les enchères en cours de l'utilisateur
+        $auctions = Auction::all();
+
+        return view('draft.index')
+            ->with('players', $players)
+            ->with('team', $team)
+            ->with('auctions', $auctions);
+
     }
 
     /**
@@ -111,5 +150,30 @@ class DraftController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return Response
+     */
+
+    public function auction($id)
+    {
+        $auctions = Auction::all();
+        $user = Auth::user();
+        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
+        $team = Team::where('user_id', $user->id)->first();
+        $team = $team->id;
+
+        $data = [[
+            'team_id' => $team,
+            'player_id' => $id,
+            'auction' => 35,
+        ]];
+
+        Auction::insert($data);
+        return back();
     }
 }
