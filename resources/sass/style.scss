@@ -25,6 +25,18 @@ p {
     }
 }
 
+.bg-primary{
+    background: $primary;
+}
+
+.tertiary {
+    color: $tertiary;
+}
+
+input, select{
+    width: 33% !important;
+}
+
 // Bouton
 .bouton-inscription {
     background: $secondary;
@@ -79,9 +91,6 @@ label {
     border: 1px solid #fff;
 }
 
-.tertiary {
-    color: $tertiary;
-}
 
 .bg-crown{
     background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;

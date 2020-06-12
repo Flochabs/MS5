@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>MS5</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -38,7 +38,9 @@
                                 <i class="fab fa-twitter fa-2x icon text-center pt-1 m-2"></i>
                             </div>
                             <div class="row no-gutters justify-content-center pt-4">
-                                <img class="img-fluid mt-5" src="{{asset('storage/images/Logo.png')}}" alt="logo">
+                                <div class="col-md-12">
+                                    <img class="img-fluid mt-5" src="{{asset('storage/images/Logo.png')}}" alt="logo">
+                                </div>
                             </div>
 
                             @guest
