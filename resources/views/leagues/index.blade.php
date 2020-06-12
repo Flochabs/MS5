@@ -4,6 +4,15 @@
 @section('content')
     <div class="container">
         <div class="uper">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <h1 class="mb-5">Bienvenue sur le portail des Leagues MS5</h1>
             <div class="row">
                 <div class="col-md-4">
@@ -15,11 +24,7 @@
                             <form method="post" role="form" action="{{ route('leagues.joinPrivateLeague') }}">
                             @csrf
                                 <div class="form-group">
-                                    <label for="name">Nom de la league :</label>
-                                    <input type="text" class="form-control" name="name" required/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="token">Mot de passe :</label>
+                                    <label for="token">Mot de passe de la league :</label>
                                     <input type="text" class="form-control" name="token" required/>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Rejoindre</button>

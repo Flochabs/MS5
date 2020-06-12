@@ -47,7 +47,7 @@ class LeagueController extends Controller
             'name.required' => 'Il faut choisir un nom de league !',
             'name.unique' => 'Il faut choisir un autre nom de league!',
             'number_teams.required' => 'Il faut choisir un nombre de teams !',
-            'public.required' => 'Privé ou public ???',
+            'public.required' => 'Privée ou publique ???',
 
         ]);
         if ($validator->fails()) {
@@ -62,7 +62,7 @@ class LeagueController extends Controller
         $newLeague->number_teams    = $values['number_teams'];
         $newLeague->public          = $publicLeague;
         if ($publicLeague === 1) {
-            $newLeague->token           = $token;
+            $newLeague->token        = $token;
         }
         $newLeague->save();
 
@@ -94,7 +94,7 @@ class LeagueController extends Controller
      */
     public function show($id)
     {
-        //
+        // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
     }
 
     /**
@@ -135,14 +135,19 @@ class LeagueController extends Controller
     {
         $leagues = League::where('public', 0)->paginate(15);
 
-//        dd($leagues);
         return view('leagues.public')->with('leagues', $leagues);
     }
 
     public function joinPrivateLeague(Request $request)
     {
-        $league = League::where('name', $request);
-        dd($league);
-//        return view('leagues.public');
+        if (League::where('token', '=', $request->token)->exists()) {
+            // insère les id dans la table pivot
+            $user = Auth::user();
+            $league = League::where('token', '=', $request->token)->first();
+            $user->leagues()->sync([$league->id]);
+        } else {
+            return redirect('leagues')->withErrors('Cette league n\'existe pas');
+        }
     }
+
 }
