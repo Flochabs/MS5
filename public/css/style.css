@@ -65,8 +65,9 @@ h6 {
 }
 
 .card {
-  background: #7c38bf;
-  border: solid 1px transparent;
+  background: #3a2e49;
+  border: solid 1px #fff;
+  border-radius: 2px;
   min-height: auto;
   max-width: 300px;
   color: #fff;
