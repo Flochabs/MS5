@@ -1,19 +1,23 @@
 <?php
 
-use Illuminate\Http\Response;
 
 namespace App\Http\Controllers;
 
 use App\Model\Auction;
 use App\Model\Player;
 use App\Model\Team;
+use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DraftController extends Controller
 {
+//$user = App\User::find(1);
+//
+//$user->roles()->updateExistingPivot($roleId, $attributes);
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +25,15 @@ class DraftController extends Controller
      */
     public function index()
     {
+        //all nba players name
+        $players = Storage::disk('public')->get('data/nbaplayers.json');
+        //decode dans un object php
+        $players = json_decode($players, false);
+        $players = $players->league->standard;
+
         //Authentification et données sur le salary cap
         $user = Auth::user();
+
         $userLeague = $user->team->league_id;
 
         // salary cap en cours
@@ -69,7 +80,7 @@ class DraftController extends Controller
             $players = Player::whereIn('id', $allPlayersFromPosition)
                 ->where('price', '>', 1)
                 ->orderBy('price', 'desc')
-                ->get();
+                ->simplePaginate(50);
 
         }
         if (request()->has('position&order')) {
@@ -77,12 +88,18 @@ class DraftController extends Controller
         }
 
         //retourne toutes les enchères en cours de l'utilisateur
-        $auctions = Auction::all();
+        $auctions = Auction::where('team_id', $user->team->id)->get();
+
+        //retourne les joueurs draftés par l'utilisateur
+        $drafted = $team->getPlayers;
+
 
         return view('draft.index')
             ->with('players', $players)
             ->with('team', $team)
-            ->with('auctions', $auctions);
+            ->with('auctions', $auctions)
+            ->with('drafted', $drafted)
+            ->with('players', $players);
 
     }
 

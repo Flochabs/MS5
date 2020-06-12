@@ -23,8 +23,10 @@
                     </div>
 
                     <div class="col-md-3 text-white my-2">
-                        <p>recherche</p>
-
+                        <form action="" class="form-group">
+                        <input type="search">
+                        <submit>Rechercher</submit>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -122,7 +124,7 @@
                                 <p>Coût Total des Joueurs Draftés</p>
                             </div>
                             <div class="col-md-6">
-                                <p>Coût Total des Joueurs Draftés</p>
+                                <p>faire le calcul du tarif des joueurs draftés</p>
                             </div>
                         </div>
                         <div class="row">
@@ -130,7 +132,7 @@
                                 <p>Coût Total des Enchères en cours</p>
                             </div>
                             <div class="col-md-6">
-                                <p>Coût Total des Enchères en cours</p>
+                                <p>{{$auctions->sum("auction")}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -153,6 +155,9 @@
                             @foreach($auctions as $auction)
                             <tr>
                                 <td>{{$auction->player_id}}</td>
+                                <td>{{$auction->auction}}</td>
+                                <td>Annuler l'enchère</td>
+                                <td>Réenchérir</td>
                             </tr>
                             @endforeach
                         </table>
@@ -162,7 +167,13 @@
                 <div class="row">
                     <div class="col-md-12 text-white">
                         <h2>Mes Joueurs Draftés</h2>
-                        <p>player_team</p>
+                        <table class="text-white">
+                            @foreach($drafted as $draftedPlayer)
+                                <tr>
+                                    <td>{{$draftedPlayer->id}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
 
