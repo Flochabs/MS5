@@ -3,6 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
+{{-----------------------FILTRES TABLEAU JOUEURS NBA ---------------------}}
                 <div class="row">
                     <div class="col-md-3 text-white my-2">
                         <p>Par Ordre</p>
@@ -32,20 +33,20 @@
                 <div class="row">
                     <div class="col-md-12 text-white">
 
-                        {{--                table des joueurs a drafter--}}
-                        <table class="table text-white">
-                            <thead class="thead-dark">
+{{-----------------------TABLEAU JOUEURS NBA ---------------------}}
+                        <table class="table text-white table-condensed table-striped" style="width: 100%;">
+                            <thead class="thead-light">
                             <tr>
                                 <th scope="col">Joueur</th>
                                 <th scope="col">Equipe</th>
                                 <th scope="col">Poste</th>
-                                <th scope="col">Minutes</th>
-                                <th scope="col">Points</th>
-                                <th scope="col">Passes Décisives</th>
-                                <th scope="col">Rebonds</th>
-                                <th scope="col">Blocks</th>
-                                <th scope="col">Interceptions</th>
-                                <th scope="col">Pertes de Balles</th>
+                                <th scope="col">Min</th>
+                                <th scope="col">Pts</th>
+                                <th scope="col">Passes D</th>
+                                <th scope="col">Reb</th>
+                                <th scope="col">Blk</th>
+                                <th scope="col">Int</th>
+                                <th scope="col">PdB</th>
                                 <th scope="col">Prix</th>
                                 <th scope="col">Pick</th>
 
@@ -67,12 +68,9 @@
                                     } else {
                                         $position = 'Centre';
                                     }
-
-
                                 @endphp
-
                                 <tr>
-                                    <td scope="row">
+                                    <td>
                                         <a href="/draft/{{$player->id}}" class="text-white">
                                             <img
                                                 src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
@@ -89,7 +87,12 @@
                                     <td>{{$currentSeasonStats->blk}}</td>
                                     <td>{{$currentSeasonStats->tov}}</td>
                                     <td>{{$player->price}}</td>
-                                    <td><a href="/draft/auction/{{$player->id}}" class="btn-secondary rounded-pill">Faire une offre</td>
+                                    <td>
+                                        <form action="{{ route('draft.auction', ['id' => $player->id])}}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-success">faire une offre</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -98,8 +101,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
 
+            <div class="col-md-4">
+{{-----------------------DONNEES SUR SALARY CAP ---------------------}}
                 <div class="row">
                     <div class="col-md-12 text-white">
                         <p>Mon Salary Cap</p>
@@ -147,7 +151,7 @@
 
                     </div>
                 </div>
-
+{{-----------------------ENCHERES EN COURS ---------------------}}
                 <div class="row">
                     <div class="col-md-12 text-white">
                         <h2>Mes Enchères En cours</h2>
@@ -156,27 +160,81 @@
                             <tr>
                                 <td>{{$auction->player_id}}</td>
                                 <td>{{$auction->auction}}</td>
-                                <td>Annuler l'enchère</td>
+                                <td>{{$auction->auction}}</td>
+                                <td>
+                                    <form action="{{ route('draft.delete.auction', ['id' => $auction->player_id])}}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-secondary rounded-circle">X</button>
+                                </form>
                                 <td>Réenchérir</td>
                             </tr>
                             @endforeach
                         </table>
                     </div>
                 </div>
-
+{{-----------------------JOUEURS DRAFTES ---------------------}}
                 <div class="row">
                     <div class="col-md-12 text-white">
                         <h2>Mes Joueurs Draftés</h2>
+                        <p>Arrières</p>
+                        <p>Minium 4</p>
                         <table class="text-white">
-                            @foreach($drafted as $draftedPlayer)
+                            @if(isset($guards))
+                            @foreach($guards as $guard)
+                                <@php
+                                    $PlayerInfos = json_decode($player->data);
+                                @endphp
                                 <tr>
-                                    <td>{{$draftedPlayer->id}}</td>
+                                    {{--                                    <td>{{$draftedPlayer->id}}</td>--}}
+                                    <td>{{$PlayerInfos->pl->ln}}</td>
+                                    <td>{{$PlayerInfos->pl->fn}}</td>
+                                    <td>{{$PlayerInfos->pl->pos}}</td>
                                 </tr>
                             @endforeach
+                            @endif
+                        </table>
+
+                        <p>Ailiers</p>
+                        <p>Minium 4</p>
+                        <table class="text-white">
+                            @if(isset($forwards))
+                            @foreach($forwards as $player)
+                                @php
+                                    $PlayerInfos = json_decode($player->data);
+                                @endphp
+                                    <tr>
+                                        {{--                                    <td>{{$draftedPlayer->id}}</td>--}}
+                                        <td>{{$PlayerInfos->pl->ln}}</td>
+                                        <td>{{$PlayerInfos->pl->fn}}</td>
+                                        <td>{{$PlayerInfos->pl->pos}}</td>
+                                    </tr>
+                            @endforeach
+                            @endif
+                        </table>
+
+                        <p>Centres</p>
+                        <p>Minium 3</p>
+                        <table class="text-white">
+                            @if(isset($centers))
+                            @foreach($centers as $player)
+                                @php
+                                    $PlayerInfos = json_decode($player->data);
+                                @endphp
+                                <tr>
+                                    {{--                                    <td>{{$draftedPlayer->id}}</td>--}}
+                                    <td>{{$PlayerInfos->pl->ln}}</td>
+                                    <td>{{$PlayerInfos->pl->fn}}</td>
+                                    <td>{{$PlayerInfos->pl->pos}}</td>
+                                </tr>
+                            @endforeach
+                            @endif
                         </table>
                     </div>
                 </div>
-
+                <div class="row">
+                    <button class="btn btn-secondary">Valider Draft</button>
+                </div>
             </div>
         </div>
     </div>

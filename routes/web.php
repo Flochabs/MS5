@@ -48,7 +48,9 @@ Route::prefix( 'draft' )
     ->middleware( 'auth' )
     ->name( 'draft.' )
     ->group( function () {
-        Route::get('auction/{id}', 'DraftController@auction')->name('auction');
+        Route::post('confirmDraft/{forwards}{guards}{centers}', 'DraftController@confirmDraft')->name('confirm');
+        Route::post('auction/{id}', 'DraftController@auction')->name('auction');
+        Route::delete('deleteAuction/{id}', 'DraftController@deleteAuction')->name('delete.auction');
         Route::resource( '/', 'DraftController' );
     } );
 

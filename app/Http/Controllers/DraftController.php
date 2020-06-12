@@ -25,18 +25,14 @@ class DraftController extends Controller
      */
     public function index()
     {
-        //all nba players name
-        $players = Storage::disk('public')->get('data/nbaplayers.json');
-        //decode dans un object php
-        $players = json_decode($players, false);
-        $players = $players->league->standard;
 
-        //Authentification et données sur le salary cap
+        //récupération des données users
         $user = Auth::user();
 
+        //league à laquelle appartient l'utilisateur qui fait sa draft
         $userLeague = $user->team->league_id;
 
-        // salary cap en cours
+        // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
 
 
@@ -54,6 +50,7 @@ class DraftController extends Controller
                     }
                 }
             }
+            // retourne les joueurs qui ne sont pas présents dans le tableau des joueurs draftés dans la ligue
             $players = Player::whereNotIn('id', $notDisplayedPlayers)
                 ->where('price', '>', 1)
                 ->orderBy('price', 'desc')
@@ -64,6 +61,7 @@ class DraftController extends Controller
         if (request()->has('order')) {
             $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->simplePaginate(50);
         }
+
         //trier par position
         if (request()->has('position')) {
             $allPlayersFromPosition = [];
@@ -88,10 +86,47 @@ class DraftController extends Controller
         }
 
         //retourne toutes les enchères en cours de l'utilisateur
+
+        //récupérer tous les nom sdes joueurs nba
+        $playersNames = Storage::disk('public')->get('data/nbaplayers.json');
+        //decode dans un object php
+        $playersNames = json_decode($playersNames, false);
+        //sert à afficher le nom des joueurs dans le tableau auction de la view
+        $playersNames = $playersNames->league->standard;
+
+
+        //retourne toutes les enchères en cours de l'utilisateur
         $auctions = Auction::where('team_id', $user->team->id)->get();
+
+        //tableau qui permet d'associer les enchères aux noms des joueurs correspondants
+        $auctionPlayersData = [];
+//        foreach ($auctions as $auction) {
+//            foreach ($playersNames as $playername) {
+//                if($auction->player_id === $playername->personId) {
+//                    dd($playername->firstName);
+//                }
+//            }
+//
+//        }
 
         //retourne les joueurs draftés par l'utilisateur
         $drafted = $team->getPlayers;
+        //tableaux pour stocker les données des joueurs selon leurs positions pour les afficher dans la view en fonction
+        $forwards = [];
+        $guards = [];
+        $centers = [];
+        foreach($drafted as $draftedPlayer) {
+            $draftedInfos = json_decode($drafted[0]->data);
+            $position  = substr($draftedInfos->pl->pos, 0,1);
+
+            if($position === "F") {
+                $forwards[] =  $draftedPlayer;
+            } elseif($position === "C") {
+                $centers[] = $draftedPlayer;
+            } else {
+                $guards[] = $draftedPlayer;
+            }
+        }
 
 
         return view('draft.index')
@@ -99,7 +134,9 @@ class DraftController extends Controller
             ->with('team', $team)
             ->with('auctions', $auctions)
             ->with('drafted', $drafted)
-            ->with('players', $players);
+            ->with('forwards', $forwards)
+            ->with('guards', $guards)
+            ->with('centers', $centers);
 
     }
 
@@ -170,7 +207,7 @@ class DraftController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Add the auction to the table.
      *
      * @param int $id
      * @return Response
@@ -191,6 +228,27 @@ class DraftController extends Controller
         ]];
 
         Auction::insert($data);
+        return redirect()->back();
+    }
+
+    /**
+     * Supprime l'enchère de l'utilisateur sur le joueur sélectionné
+     *
+     * @param int $id
+     * @return Response
+     */
+
+    public function deleteAuction($id){
+        $auctions = Auction::all();
+        $user = Auth::user();
+        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
+        $team = Team::where('user_id', $user->id)->first();
+        $team = $team->id;
+        Auction::where([['player_id',$id], ['team_id', $team]])->delete();
         return back();
+    }
+
+    public function confirmDraft(){
+
     }
 }
