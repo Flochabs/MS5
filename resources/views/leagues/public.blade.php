@@ -12,7 +12,9 @@
                         <thead class="font-weight-bold">
                         <tr>
                             <td>Nom de la league</td>
-                            <td>Nombre d'équipes</td>
+{{--                            <td>Créateur de la league</td>--}}
+                            <td>Places restantes</td>
+
                             <td>Rejoindre</td>
                         </tr>
                         </thead>
@@ -20,7 +22,8 @@
                         @foreach($leagues as $league)
                             <tr>
                                 <td>{{$league->name}}</td>
-                                <td>{{$league->number_teams}}</td>
+{{--                                <td>{{$league->user->pseudo}}</td>--}}
+                                <td>{{$league->pivot->user_id->count}}</td>
                                 <td><a href="#" class="btn btn-primary">Rejoindre</a></td>
                             </tr>
                         @endforeach

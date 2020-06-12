@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Register;
 use App\Model\League;
+use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -132,6 +133,7 @@ class LeagueController extends Controller
     public function publicLeagues()
     {
         $leagues = League::where('public', 0)->paginate(15);
+
 //        dd($leagues);
         return view('leagues.public')->with('leagues', $leagues);
     }
