@@ -42,7 +42,13 @@ Route::prefix( 'leagues' )
         Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('joinPrivateLeague');
     } );
 
-
+// Routes concernant l'affichage du dashboard
+Route::prefix( 'dashboard' )
+    ->middleware( 'auth' )
+    ->name( 'dashboard.' )
+    ->group( function () {
+        Route::resource( '/', 'DashboardController' );
+    } );
 
 
 
