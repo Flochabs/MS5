@@ -28,7 +28,9 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -52,7 +54,8 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
@@ -63,7 +66,8 @@
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     @csrf
                                 </form>
                             </div>
@@ -78,7 +82,36 @@
         @yield('content')
     </main>
 
+    <footer>
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-md-4 p-1">
+                    <p class="tertiary">LE SITE</p>
+                    <p><a class="text-white" href="#">A propos de nous</a></p>
+                    <p><a class="text-white" href="#">Contact</a></p>
+                    <p><a class="text-white" href="#">Mention Légale</a></p>
+                    <p><a class="text-white" href="#"></a></p>
+                </div>
 
+                <div class="col-md-4 p-1">
+                    <p class="tertiary">RESSOURCES</p>
+                    <p><a class="text-white" href="#">Centre d'aide</a></p>
+                    <p><a class="text-white" href="#">Notre blog</a></p>
+                    <p><a class="text-white" href="#">Histoire de clients</a></p>
+                    <p><a class="text-white" href="#">Notre PayPal</a></p>
+                </div>
+
+                <div class="col-md-4 p-1">
+                    <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
+                </div>
+            </div>
+            <div class="container-fluid py-4">
+                <hr class="white">
+            </div>
+
+        </div>
+
+    </footer>
 </div>
 </body>
 </html>

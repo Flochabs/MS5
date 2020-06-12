@@ -7,11 +7,18 @@ body {
   background: #2b2236;
 }
 
+footer {
+  background: #6541df;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 p {
   font-family: Poppins, Arial, sans-serif;
   text-align: left;
   margin: 0px;
-  color: #fff;
 }
 
 h1 {
@@ -46,8 +53,16 @@ h6 {
   color: #ff8500;
 }
 
+hr {
+  background: #fff;
+}
+
+.pb-connexion {
+  padding-bottom: 7.7rem;
+}
+
 .bouton-inscription {
-  background: #7c38bf;
+  background: #6541df;
   border: solid 1px transparent;
   border-radius: 5px;
   color: #fff;
@@ -55,7 +70,7 @@ h6 {
 }
 
 .bouton-inscription:hover {
-  background: #8947c9;
+  background: #7757e3;
   font-weight: bold;
   text-decoration: none;
   color: #fff;
@@ -73,11 +88,10 @@ h6 {
   background: #fff;
   color: #000;
   font-weight: bold;
-  text-decoration: none;
 }
 
 .card {
-  background: #7c38bf;
+  background: #6541df;
   border: solid 1px #fff;
   border-radius: 2px;
   min-height: auto;
@@ -107,5 +121,10 @@ label {
 .bg-crown {
   background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
   background-size: cover;
+}
+
+.logo-footer {
+  max-height: 75%;
+  max-width: 75%;
 }
 
