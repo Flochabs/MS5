@@ -12,9 +12,8 @@
                         <thead class="font-weight-bold">
                         <tr>
                             <td>Nom de la league</td>
-{{--                            <td>Créateur de la league</td>--}}
+                            <td>Créateur de la league</td>
                             <td>Places restantes</td>
-
                             <td>Rejoindre</td>
                         </tr>
                         </thead>
@@ -22,9 +21,13 @@
                         @foreach($leagues as $league)
                             <tr>
                                 <td>{{$league->name}}</td>
-{{--                                <td>{{$league->user->pseudo}}</td>--}}
-                                <td>{{$league->pivot->user_id->count}}</td>
+                                <td>{{$league->user->pseudo}}</td>
+                                <td>{{$league->number_teams - $league->users->count()}}</td>
+                                @if($league->number_teams <= $league->users->count())
+                                <td>Complet</td>
+                                @else
                                 <td><a href="#" class="btn btn-primary">Rejoindre</a></td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

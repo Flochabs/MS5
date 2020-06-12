@@ -56,9 +56,9 @@ class User extends Authenticatable
     /**
      * Associe l'utilisateur à la league via la table pivot.
      */
-    public function league()
+    public function leagues()
     {
-        return $this->belongsToMany('App\Model\League', 'league_user', 'user_id', 'league_id');
+        return $this->belongsToMany('App\Model\League');
     }
 
 }

@@ -37,7 +37,7 @@ class LeagueController extends Controller
         $values = $request->all();
         $publicLeague = (int)$values['public'];
         $rules = [
-            'name'             => 'string|required',
+            'name'             => 'string|required|unique:leagues',
             'number_teams'     => 'integer|required',
             'public'           => 'integer|required',
         ];
@@ -45,6 +45,7 @@ class LeagueController extends Controller
         $validator = Validator::make($values, $rules, [
             'name.string' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
             'name.required' => 'Il faut choisir un nom de league !',
+            'name.unique' => 'Il faut choisir un autre nom de league!',
             'number_teams.required' => 'Il faut choisir un nombre de teams !',
             'public.required' => 'Privé ou public ???',
 

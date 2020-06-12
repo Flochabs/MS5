@@ -58,7 +58,6 @@
                                         <option value="6">6 équipes</option>
                                         <option value="8">8 équipes</option>
                                         <option value="10">10 équipes</option>
-                                        <option value="12">12 équipes</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
