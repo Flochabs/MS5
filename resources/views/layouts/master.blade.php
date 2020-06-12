@@ -5,13 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+
 @yield('css')
 <title>MS5</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -30,10 +26,10 @@
                 <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">NBA</a>
+                <a class="nav-link" href="{{ route('nba.index')}}">NBA</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Leagues</a>
+                <a class="nav-link" href="{{ route('leagues.index')}}">Leagues</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Tableau de bord</a>
