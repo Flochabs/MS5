@@ -1,63 +1,89 @@
 @import "variables";
 @import "mixins";
 
-// Content
-body{
-     background: $primary;
- }
+// Font
+@font-face {
+    font-family: 'Mudhead-Serif';
+    src: url("/../storage/fonts/Mudhead-Serif.otf") format('truetype');
+}
 
-p{
+// Content
+body {
+    background: $primary;
+}
+
+p {
     font-family: $p-font-family-sans-serif;
+    text-align: left;
+    margin: 0px;
 }
 
 
-
-@for $i from 1 through 6{
-    h#{$i}{
-        font-family: Mudhead-Serif;
-        src: $title-font-family-sans-serif;
-        color: $white;
+@for $i from 1 through 6 {
+    h#{$i} {
+     font-family: Mudhead-Serif, sans-serif;
     }
 }
 
 // Bouton
-.bouton-inscription{
+.bouton-inscription {
     background: $secondary;
     border: solid 1px transparent;
     border-radius: 5px;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 35px;
 
-    &:hover{
-        background: darken($secondary, 20);
+    &:hover {
+        background: lighten($secondary, 5);
+        font-weight: bold;
     }
 }
 
-.bouton-connexion{
+.bouton-connexion {
     background: transparent;
     border: solid 1px;
     border-radius: 5px;
-    padding: 10px 30px;
+    padding: 10px 20px;
     color: #fff;
 
-    &:hover{
-        background: transparent;
-        opacity: 0.5;
+    &:hover {
+        background: $white;
+        color: #000;
+        font-weight: bold;
     }
 }
 
 // Card
-.card{
+.card {
     @include card
 }
 
 // Input
-label{
+label {
     font-family: $p-font-family-sans-serif;
     color: #fff;
 }
 
-.input{
-
+// Bannière
+.banner {
+    background: url(/../storage/images/Fond_header.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
 }
 
+.icon{
+    background: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+}
+
+.tertiary {
+    color: $tertiary;
+}
+
+.bg-crown{
+    background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
+    background-size: cover;
+}
