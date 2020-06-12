@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+// Routes redirection sur dashboard après inscription
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get( '/', function () {
@@ -48,6 +49,7 @@ Route::prefix( 'dashboard' )
     ->name( 'dashboard.' )
     ->group( function () {
         Route::resource( '/', 'DashboardController' );
+        Route::get('profil', 'DashboardController@profil')->name('profil');
     } );
 
 
