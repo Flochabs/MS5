@@ -58,6 +58,11 @@ p {
     @include card
 }
 
+// Card-dashboard
+.card-dashboard {
+    @include card-dashboard
+}
+
 // Input
 label {
     font-family: $p-font-family-sans-serif;
@@ -86,4 +91,38 @@ label {
 .bg-crown{
     background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
     background-size: cover;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***** SCSS JEREMY **********/
+
+.banner-league-publique{
+    background: url(/../storage/images/league_publique.jpg) no-repeat;
+    background-size: 100% auto;
+    height: 30vh;
 }

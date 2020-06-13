@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+// Routes redirection sur dashboard après inscription
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get( '/', function () {
@@ -42,8 +43,8 @@ Route::prefix( 'leagues' )
         Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('joinPrivateLeague');
     } );
 
-// Routes concernant l'affichage de la draft
 
+// Routes concernant l'affichage de la draft
 Route::prefix( 'draft' )
     ->middleware( 'auth' )
     ->name( 'draft.' )
@@ -52,6 +53,15 @@ Route::prefix( 'draft' )
         Route::resource( '/', 'DraftController' );
     } );
 
+// Routes concernant l'affichage du dashboard
+Route::prefix( 'dashboard' )
+    ->middleware( 'auth' )
+    ->name( 'dashboard.' )
+    ->group( function () {
+        Route::resource( '/', 'DashboardController' );
+        Route::get('profile', 'DashboardController@profile')->name('profile');
+        Route::get('match_result', 'DashboardController@match_result')->name('match_result');
+    } );
 
 
 
