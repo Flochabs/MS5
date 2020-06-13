@@ -83,7 +83,7 @@ class LeagueController extends Controller
 
             Mail::to($email)->send(new Register($title, $content));
 
-//        return redirect('/companies')->with('success', 'L\'entreprise a été enregistrée.');
+        return redirect('dashboard.index')->with('success', 'La league a été enregistrée.');
     }
 
     /**
@@ -145,6 +145,7 @@ class LeagueController extends Controller
             $user = Auth::user();
             $league = League::where('token', '=', $request->token)->first();
             $user->leagues()->sync([$league->id]);
+            return redirect('dashboard.index')->with('success', 'La league a été enregistrée.');
         } else {
             return redirect('leagues')->withErrors('Cette league n\'existe pas');
         }
