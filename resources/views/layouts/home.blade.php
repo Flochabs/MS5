@@ -53,9 +53,8 @@
                                                href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                         </li>
                                     @endif
-
-                                    @endguest
                                 </div>
+                            @endguest
                         </div>
                     </div>
                 </div>
