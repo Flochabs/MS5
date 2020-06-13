@@ -72,7 +72,7 @@
                     <div class="card-dashboard">
                         <div class="card-body">
                             <div class="col-md-12">
-                                <h5 class="card-title text-center">Résultat dernier du match</h5>
+                                <h5 class="card-title text-center">Résultat du dernier match</h5>
                                 <hr class="bg-white">
                             </div>
                             <div class="col-md-12 p-2">
