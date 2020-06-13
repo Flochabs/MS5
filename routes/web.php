@@ -43,6 +43,16 @@ Route::prefix( 'leagues' )
         Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('joinPrivateLeague');
     } );
 
+
+// Routes concernant l'affichage de la draft
+Route::prefix( 'draft' )
+    ->middleware( 'auth' )
+    ->name( 'draft.' )
+    ->group( function () {
+        Route::get('auction/{id}', 'DraftController@auction')->name('auction');
+        Route::resource( '/', 'DraftController' );
+    } );
+
 // Routes concernant l'affichage du dashboard
 Route::prefix( 'dashboard' )
     ->middleware( 'auth' )
@@ -51,7 +61,6 @@ Route::prefix( 'dashboard' )
         Route::resource( '/', 'DashboardController' );
         Route::get('profile', 'DashboardController@profile')->name('profile');
         Route::get('match_result', 'DashboardController@match_result')->name('match_result');
-
     } );
 
 
