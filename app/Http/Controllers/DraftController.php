@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Auction;
+use App\Model\League;
 use App\Model\Player;
 use App\Model\Team;
 use App\Model\User;
@@ -25,27 +26,38 @@ class DraftController extends Controller
      */
     public function index()
     {
-
+//-------------  RECUPERATION DONNES GENERALES  ---------------//
         //récupération des données users
         $user = Auth::user();
 
         //league à laquelle appartient l'utilisateur qui fait sa draft
-        $userLeague = $user->team->league_id;
+        $userLeagueId = $user->team->league_id;
 
         // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
 
-
         $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->simplePaginate(20);
 
+        //equipes présentent dans la ligue de l'utilisateur
+        $leagueTeams = Team::where('league_id', $userLeagueId)->get();
+
+
+        // récupère les enchères en cours dans la ligue
+        $auctionsOnPlayers = DB::table('auctions')
+            ->leftjoin('players', 'players.id', '=', 'auctions.player_id')
+            ->whereIn('team_id', $leagueTeams)
+            ->get();
+
+
+//------------- FILTRES AFFICHAGES JOUEURS NBA ---------------//
         //Montrer/cacher les joueurs draftés
         if (request()->has('hide')) {
             $draftedPlayers = Player::all();
-
+            //si le joueur est déjà drafté, donc présenttt dans la table pivot player_team
             $notDisplayedPlayers = [];
             foreach ($draftedPlayers as $draftedPlayer) {
                 if (!empty($draftedPlayer->teams[0])) {
-                    if ($draftedPlayer->teams[0]->league_id === $userLeague) {
+                    if ($draftedPlayer->teams[0]->league_id === $userLeagueId) {
                         $notDisplayedPlayers[] = $draftedPlayer->id;
                     }
                 }
@@ -57,12 +69,12 @@ class DraftController extends Controller
                 ->get();
         }
 
-        //trier par prix
+        // trier par prix //
         if (request()->has('order')) {
             $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->simplePaginate(20);
         }
 
-//----------- trier par position --------------- //
+        // trier par position  //
         if (request()->has('position')) {
             $allPlayersFromPosition = [];
             $players = Player::all();
@@ -85,29 +97,10 @@ class DraftController extends Controller
             dd('test');
         }
 
-//----------- retourne toutes les enchères en cours de l'utilisateur -------------------- //
-
-        //récupérer tous les nom sdes joueurs nba
-        $playersNames = Storage::disk('public')->get('data/nbaplayers.json');
-        //decode dans un object php
-        $playersNames = json_decode($playersNames, false);
-        //sert à afficher le nom des joueurs dans le tableau auction de la view
-        $playersNames = $playersNames->league->standard;
-
+//----------- retourne toutes données relatives enchères en cours de l'utilisateur -------------------- //
 
         //retourne toutes les enchères en cours de l'utilisateur
         $auctions = Auction::where('team_id', $user->team->id)->get();
-
-        //tableau qui permet d'associer les enchères aux noms des joueurs correspondants
-        $auctionPlayersData = [];
-//        foreach ($auctions as $auction) {
-//            foreach ($playersNames as $playername) {
-//                if($auction->player_id === $playername->personId) {
-//                    dd($playername->firstName);
-//                }
-//            }
-//
-//        }
 
         // stocker les id des joueurs sur lesquels l'utilisateur a mis une enchère pour ne plus afficher le bouton enchérir dans la view
         $auctionPlayersId = [];
@@ -115,6 +108,7 @@ class DraftController extends Controller
             $auctionPlayersId[] = $auction->player_id;
         }
 
+//--------------   JOUEURS DRAFTES ---------------------------------- //
         //retourne les joueurs draftés par l'utilisateur
         $drafted = $team->getPlayers;
         //tableaux pour stocker les données des joueurs selon leurs positions pour les afficher dans la view en fonction
@@ -135,6 +129,7 @@ class DraftController extends Controller
             }
         }
 
+//-------------------------- INFORMATIONS RETOURNEE DANS LA VUE ---------------------------------- //
         return view('draft.index')
             ->with('players', $players)
             ->with('team', $team)
@@ -143,7 +138,8 @@ class DraftController extends Controller
             ->with('forwards', $forwards)
             ->with('guards', $guards)
             ->with('centers', $centers)
-            ->with('auctionPlayersId', $auctionPlayersId);
+            ->with('auctionPlayersId', $auctionPlayersId)
+            ->with('auctionsOnPlayers', $auctionsOnPlayers);
 
     }
 
@@ -227,11 +223,11 @@ class DraftController extends Controller
         //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
         $team = Team::where('user_id', $user->id)->first();
         $team = $team->id;
-
+        $player = Player::where('id', $id)->get()->first();
         $data = [[
             'team_id' => $team,
             'player_id' => $id,
-            'auction' => 35,
+            'auction' => $player->price,
         ]];
 
         Auction::insert($data);
@@ -254,6 +250,22 @@ class DraftController extends Controller
         Auction::where([['player_id',$id], ['team_id', $team]])->delete();
         return back();
     }
+    /**
+     * Met à jour l'enchère de l'utilisateur sur le joueur sélectionné
+     *
+     * @param int $id
+     * @return Response
+     */
+
+    public function updateAuction($id){
+        $user = Auth::user();
+        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
+        $team = Team::where('user_id', $user->id)->first();
+        $team = $team->id;
+        Auction::where([['player_id',$id], ['team_id', $team]])->update(['auction' => 45]);
+        return back();
+    }
+
 
     public function confirmDraft(){
 

@@ -4,6 +4,7 @@ namespace App\Model;
 
 use ArrayObject;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use JasonRoman\NbaApi\Client\Client;
 use JasonRoman\NbaApi\Request\Data\MobileTeams\Player\PlayerCardRequest;

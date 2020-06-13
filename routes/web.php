@@ -50,6 +50,7 @@ Route::prefix( 'draft' )
     ->group( function () {
         Route::post('confirmDraft/{forwards}{guards}{centers}', 'DraftController@confirmDraft')->name('confirm');
         Route::post('auction/{id}', 'DraftController@auction')->name('auction');
+        Route::post('updateAuction/{id}', 'DraftController@updateAuction')->name('auction.updateValue');
         Route::delete('deleteAuction/{id}', 'DraftController@deleteAuction')->name('delete.auction');
         Route::resource( '/', 'DraftController' );
     } );
