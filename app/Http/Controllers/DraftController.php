@@ -59,10 +59,10 @@ class DraftController extends Controller
 
         //trier par prix
         if (request()->has('order')) {
-            $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->simplePaginate(50);
+            $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->simplePaginate(20);
         }
 
-        //trier par position
+//----------- trier par position --------------- //
         if (request()->has('position')) {
             $allPlayersFromPosition = [];
             $players = Player::all();
@@ -78,14 +78,14 @@ class DraftController extends Controller
             $players = Player::whereIn('id', $allPlayersFromPosition)
                 ->where('price', '>', 1)
                 ->orderBy('price', 'desc')
-                ->simplePaginate(50);
+                ->simplePaginate(20);
 
         }
         if (request()->has('position&order')) {
             dd('test');
         }
 
-        //retourne toutes les enchères en cours de l'utilisateur
+//----------- retourne toutes les enchères en cours de l'utilisateur -------------------- //
 
         //récupérer tous les nom sdes joueurs nba
         $playersNames = Storage::disk('public')->get('data/nbaplayers.json');
@@ -109,6 +109,12 @@ class DraftController extends Controller
 //
 //        }
 
+        // stocker les id des joueurs sur lesquels l'utilisateur a mis une enchère pour ne plus afficher le bouton enchérir dans la view
+        $auctionPlayersId = [];
+        foreach ($auctions as $auction) {
+            $auctionPlayersId[] = $auction->player_id;
+        }
+
         //retourne les joueurs draftés par l'utilisateur
         $drafted = $team->getPlayers;
         //tableaux pour stocker les données des joueurs selon leurs positions pour les afficher dans la view en fonction
@@ -116,7 +122,8 @@ class DraftController extends Controller
         $guards = [];
         $centers = [];
         foreach($drafted as $draftedPlayer) {
-            $draftedInfos = json_decode($drafted[0]->data);
+            $position = '';
+            $draftedInfos = json_decode($draftedPlayer->data);
             $position  = substr($draftedInfos->pl->pos, 0,1);
 
             if($position === "F") {
@@ -128,7 +135,6 @@ class DraftController extends Controller
             }
         }
 
-
         return view('draft.index')
             ->with('players', $players)
             ->with('team', $team)
@@ -136,7 +142,8 @@ class DraftController extends Controller
             ->with('drafted', $drafted)
             ->with('forwards', $forwards)
             ->with('guards', $guards)
-            ->with('centers', $centers);
+            ->with('centers', $centers)
+            ->with('auctionPlayersId', $auctionPlayersId);
 
     }
 

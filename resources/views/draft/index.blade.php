@@ -167,6 +167,7 @@
                                     <td class="align-middle">{{$currentSeasonStats->blk}}</td>
                                     <td class="align-middle">{{$currentSeasonStats->tov}}</td>
                                     <td class="align-middle">{{$player->price}}</td>
+                                    @if(!in_array($player->id, $auctionPlayersId))
                                     <td colspan="2" class="align-middle">
                                         <form action="{{ route('draft.auction', ['id' => $player->id])}}" method="POST" class="mb-0">
                                             @csrf
@@ -174,6 +175,11 @@
                                             </button>
                                         </form>
                                     </td>
+                                    @else
+                                        <td colspan="2" class="align-middle">
+                                            Enchère en cours
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
@@ -190,76 +196,79 @@
                         <div class="bg-secondary">
                             <h2 class="">Joueurs Draftés</h2>
                         </div>
+                        @if(isset($guards) && !empty($guards))
                         <table class="table table-dark table-sm">
                             <thead>
                             <tr>
                                 <th scope="col">Arrières</th>
+                                <th>{{count($guards)}}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @if(isset($guards))
                                 @foreach($guards as $guard)
                                     <@php
-                                        $PlayerInfos = json_decode($player->data)
+                                        $playerInfos = json_decode($player->data);
+                                        $position  = substr($playerInfos->pl->pos, 0,1);
                                     @endphp
                                     <tr>
                                         {{--                                    <td>{{$draftedPlayer->id}}</td>--}}
-                                        <td>{{$PlayerInfos->pl->pos}}</td>
-                                        <td>{{$PlayerInfos->pl->fn}}</td>
-                                        <td>{{$PlayerInfos->pl->ln}}</td>
+                                        <td>{{$position}}</td>
+                                        <td>{{$playerInfos->pl->fn}}</td>
+                                        <td>{{$playerInfos->pl->ln}}</td>
                                     </tr>
                                 @endforeach
-                            @endif
                             </tbody>
                         </table>
-
+                        @endif
+                        @if(isset($forwards) && !empty($forwards))
                         <table class="table text-white">
                             <table class="table table-dark table-sm">
                                 <thead>
                                 <tr>
                                     <th scope="col">Ailiers</th>
+                                    <th>{{count($forwards)}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(isset($forwards))
                                     @foreach($forwards as $player)
                                         @php
-                                            $PlayerInfos = json_decode($player->data)
+                                            $playerInfos = json_decode($player->data);
+                                            $position  = substr($playerInfos->pl->pos, 0,1);
                                         @endphp
                                         <tr>
                                             {{--                                    <td>{{$draftedPlayer->id}}</td>--}}
-                                            <td>{{$PlayerInfos->pl->pos}}</td>
-                                            <td>{{$PlayerInfos->pl->fn}}</td>
-                                            <td>{{$PlayerInfos->pl->ln}}</td>
+                                            <td>{{$position}}</td>
+                                            <td>{{$playerInfos->pl->fn}}</td>
+                                            <td>{{$playerInfos->pl->ln}}</td>
                                         </tr>
                                     @endforeach
-                                @endif
                                 </tbody>
                             </table>
-
-                            <table class="table text-white">
-                                <table class="table table-dark table-sm">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Pivots</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if(isset($centers))
-                                        @foreach($centers as $player)
-                                            @php
-                                                $PlayerInfos = json_decode($player->data)
-                                            @endphp
-                                            <tr>
-                                                {{--                                    <td>{{$draftedPlayer->id}}</td>--}}
-                                                <td>{{$PlayerInfos->pl->pos}}</td>
-                                                <td>{{$PlayerInfos->pl->fn}}</td>
-                                                <td>{{$PlayerInfos->pl->ln}}</td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
-                                    </tbody>
-                                </table>
+                            @endif
+                            @if(isset($centers) && !empty($centers))
+                            <table class="table table-dark table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Pivots</th>
+                                    <th>{{count($centers)}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($centers as $player)
+                                        @php
+                                            $playerInfos = json_decode($player->data);
+                                            $position  = substr($playerInfos->pl->pos, 0,1);
+                                        @endphp
+                                        <tr>
+                                            {{--                                    <td>{{$draftedPlayer->id}}</td>--}}
+                                            <td>{{$position}}</td>
+                                            <td>{{$playerInfos->pl->fn}}</td>
+                                            <td>{{$playerInfos->pl->ln}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endif
                     </div>
                 </div>
                 {{-----------------------ENCHERES EN COURS ---------------------}}
