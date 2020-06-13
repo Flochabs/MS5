@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 @font-face {
   font-family: "Mudhead-Serif";
   src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
@@ -73,7 +75,16 @@ h6 {
   color: #fff;
 }
 
-label {
+.card-dashboard {
+  background: #3a2e49;
+  border: solid 1px #fff;
+  border-radius: 2px;
+  min-height: auto;
+  max-width: 400px;
+  color: #fff;
+}
+
+’ label {
   font-family: Poppins, Arial, sans-serif;
   color: #fff;
 }
