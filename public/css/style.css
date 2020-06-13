@@ -64,11 +64,9 @@ h6 {
   font-weight: bold;
 }
 
-.card {
-  background: #7c38bf;
-  border: solid 1px transparent;
-  min-height: auto;
-  max-width: 300px;
+.MS5card {
+  background: #3a2e49;
+  border: solid 1px #fff;
   color: #fff;
 }
 
@@ -95,8 +93,27 @@ label {
   color: #ff8500;
 }
 
+.quaternary {
+  color: #eb671b;
+}
+
 .bg-crown {
   background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
   background-size: cover;
+}
+
+#card_create_league {
+  background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+  background-size: contain;
+}
+
+#card_private_league {
+  background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+  background-size: contain;
+}
+
+#card_public_league {
+  background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+  background-size: contain;
 }
 

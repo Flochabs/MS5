@@ -14,7 +14,7 @@ class UpdateLeaguesTable extends Migration
     public function up()
     {
         Schema::table('leagues', function (Blueprint $table) {
-            $table->addColumn('boolean', 'isActive');
+            $table->addColumn('boolean', 'isActive')->default(0);
         });
     }
 

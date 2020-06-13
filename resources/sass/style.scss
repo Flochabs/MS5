@@ -54,8 +54,8 @@ p {
 }
 
 // Card
-.card {
-    @include card
+.MS5card {
+    @include MS5card
 }
 
 // Input
@@ -83,7 +83,27 @@ label {
     color: $tertiary;
 }
 
+.quaternary {
+    color: $quaternary;
+}
+
 .bg-crown{
     background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
     background-size: cover;
+}
+
+//-------------------------------------------------------- LEAGUES --------------------------------------------------//
+#card_create_league {
+    background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+    background-size: contain;
+}
+
+#card_private_league {
+    background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+    background-size: contain;
+}
+
+#card_public_league {
+    background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+    background-size: contain;
 }

@@ -95,6 +95,7 @@ class LeagueController extends Controller
     public function show($id)
     {
         // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
+        return view('leagues/index')->with($id);
     }
 
     /**
