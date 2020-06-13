@@ -16,8 +16,13 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
 
-    public function profil()
+    public function profile()
     {
-        return view('dashboard.profil');
+        return view('dashboard.profile');
+    }
+
+    public function  match_result()
+    {
+        return view('dashboard.match_result');
     }
 }

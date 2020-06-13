@@ -12,7 +12,7 @@
                             <hr class="bg-white">
                             <img src="https://via.placeholder.com/90" alt="">
                             <h6 class="card-subtitle mb-2 text-muted">UserName</h6>
-                            <a class="btn btn-primary text-white" href="{{ route('dashboard.profil') }}">
+                            <a class="btn btn-primary text-white" href="{{ route('dashboard.profile') }}">
                                 Profil
                             </a>
                         </div>
@@ -26,7 +26,7 @@
                             <hr class="bg-white">
                             <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a class="btn btn-primary text-white" href="{{ route('dashboard.profil') }}">
+                            <a class="btn btn-primary text-white" href="#">
                                 League
                             </a>
                         </div>
@@ -61,7 +61,7 @@
                                 </tbody>
                             </table>
                             <hr class="bg-white">
-                            <a class="btn btn-primary text-white" href="{{ route('dashboard.profil') }}">
+                            <a class="btn btn-primary text-white" href="#">
                                 Equipe
                             </a>
                         </div>
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 d-flex justify-content-center pb-2">
-                            <a href="#" class="btn btn-primary">Feuille de match</a>
+                            <a href="{{ route('dashboard.match_result') }}" class="btn btn-primary">Feuille de match</a>
                         </div>
                     </div>
                 </div>

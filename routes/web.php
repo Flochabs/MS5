@@ -49,7 +49,9 @@ Route::prefix( 'dashboard' )
     ->name( 'dashboard.' )
     ->group( function () {
         Route::resource( '/', 'DashboardController' );
-        Route::get('profil', 'DashboardController@profil')->name('profil');
+        Route::get('profile', 'DashboardController@profile')->name('profile');
+        Route::get('match_result', 'DashboardController@match_result')->name('match_result');
+
     } );
 
 
