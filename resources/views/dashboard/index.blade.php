@@ -147,16 +147,12 @@
 
         <!-- Troisième sections -->
         <div class="row">
-
+            <!-- Card Prochain match -->
             <div class="col-md-6 d-flex justify-content-center pt-3">
                 <div class="card-dashboard">
                     <div class="card-body">
                         <div class="col-md-12">
                             <h5 class="card-title text-center">Prochain match</h5>
-                            <hr class="bg-white">
-                        </div>
-                        <div class="col-md-12 p-2">
-                            <h5 class="text-center">Nom de la league</h5>
                         </div>
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
                             <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
@@ -164,7 +160,7 @@
                                 <p class="text-center pt-3">Equipe</p>
                             </div>
                             <div class="col-md-4 d-flex justify-content-center">
-                                <h4>86 - 130</h4>
+                                <h4>VS</h4>
                             </div>
                             <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
                                 <img src="https://via.placeholder.com/90" alt="">
@@ -172,34 +168,47 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-header">
-                        <h5 class="text-center">Statistiques du match</h5>
+                    <div class="card-header col-md-12 d-flex justify-content-center pb-2">
+                        <h5>Début du math</h5>
                     </div>
-                    <div class="card-body col-md-12 d-flex justify-content-center">
-                        <div class="col-md-4">
-                            <p class="text-center">24</p>
-                            <p class="text-center">30</p>
-                            <p class="text-center">68</p>
-                            <p class="text-center">86</p>
+                    <div class="card-body col-md-12 d-flex flex-column justify-content-center">
+                        <div class="col-md-12 text-center">
+                            <h4>14 : 00 : 59 : 27</h4>
                         </div>
-                        <div class="col-md-4">
-                            <p class="text-center">1</p>
-                            <p class="text-center">2</p>
-                            <p class="text-center">3</p>
-                            <p class="text-center">4</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="text-center">37</p>
-                            <p class="text-center">50</p>
-                            <p class="text-center">98</p>
-                            <p class="text-center">130</p>
+                        <div class="col-md-12 d-flex">
+                            <p class="m-3">Jours</p>
+                            <p class="m-3">Heures</p>
+                            <p class="m-3">mins</p>
+                            <p class="m-3">Secs</p>
                         </div>
                     </div>
                     <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <a href="#" class="btn btn-primary">Feuille de match</a>
+                        <a class="btn btn-primary text-white" href="#">
+                            Préparation de l'équipe
+                        </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Card Draft -->
+            <div class="col-md-6 d-flex justify-content-center pt-3">
+                <div class="card-dashboard">
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <h5 class="card-title text-center">Draft</h5>
+                        </div>
+                    </div>
+                    <div class="card-header col-md-12 d-flex justify-content-center pb-2">
+                        <h5>Draft en cours</h5>
+                    </div>
+                    <div class="card-header col-md-12 d-flex justify-content-center pb-2">
+                        <a href="#" class="btn btn-primary">Début du draft</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
     </div>
 @endsection
