@@ -115,6 +115,18 @@ label {
 .banner-league-publique {
   background: url(/../storage/images/league_publique.jpg) no-repeat;
   background-size: 100% auto;
-  height: 30vh;
+  height: 45vh;
+}
+
+.banner-match-result {
+  background: url(/../storage/images/match_result.png) no-repeat;
+  background-size: 100% auto;
+  height: 45vh;
+}
+
+.banner-next-match {
+  background: url(/../storage/images/next_match.png) no-repeat;
+  background-size: 100% auto;
+  height: 45vh;
 }
 

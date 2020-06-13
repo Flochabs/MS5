@@ -22,8 +22,10 @@
                 <!-- CARD League -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
                     <div class="card-dashboard">
+                        <div class="banner-league-publique">
+                            <h5 class="card-title text-center">League</h5>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title text-center banner-league-publique">League</h5>
                             <table class="table">
                                 <thead class="thead-dark">
                                 <tr>
@@ -91,11 +93,10 @@
                 <!-- CARD Resultat du dernier match -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
                     <div class="card-dashboard">
+                        <div class="banner-match-result">
+                            <h5 class="card-title text-center">Résultat du dernier match</h5>
+                        </div>
                         <div class="card-body">
-                            <div class="col-md-12">
-                                <h5 class="card-title text-center">Résultat du dernier match</h5>
-                                <hr class="bg-white">
-                            </div>
                             <div class="col-md-12 p-2">
                                 <h5 class="text-center">Nom de la league</h5>
                             </div>
@@ -150,10 +151,10 @@
             <!-- Card Prochain match -->
             <div class="col-md-6 d-flex justify-content-center pt-3">
                 <div class="card-dashboard">
+                    <div class="banner-next-match">
+                        <h5 class="card-title text-center">Prochain match</h5>
+                    </div>
                     <div class="card-body">
-                        <div class="col-md-12">
-                            <h5 class="card-title text-center">Prochain match</h5>
-                        </div>
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
                             <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
                                 <img src="https://via.placeholder.com/90" alt="">
