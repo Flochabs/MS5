@@ -34,9 +34,11 @@
                 </div>
 
         </div>
+
+        <!-- Deuxième sections -->
         <div class="row justify-content-around">
 
-
+                 <!-- CARD Equipe -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
                     <div class="card-dashboard" >
                         <div class="card-body">
@@ -44,30 +46,29 @@
                             <hr class="bg-white">
                             <table class="table">
                                 <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
+                                    <tr>
+                                        <th class="text-center" scope="col">Joueur</th>
+                                        <th class="text-center" scope="col">Position</th>
+                                        <th class="text-center" scope="col">Score</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
+                                    <tr>
+                                        <th class="text-center text-white" scope="row">Steven Adams</th>
+                                        <td class="text-center text-white">ailier</td>
+                                        <td class="text-center text-white">11</td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <hr class="bg-white">
-                            <a class="btn btn-primary text-white" href="#">
-                                Equipe
-                            </a>
+                            <div class="col-md-12 d-flex justify-content-center pb-2">
+                                <a href="#" class="btn btn-primary">Equipe</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- CARD Resultat du dernier match -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
                     <div class="card-dashboard">
                         <div class="card-body">
@@ -84,7 +85,7 @@
                                     <p class="text-center pt-3">Equipe</p>
                                 </div>
                                 <div class="col-md-4 d-flex justify-content-center">
-                                    <h4>86-130</h4>
+                                    <h4>86 - 130</h4>
                                 </div>
                                 <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
                                     <img src="https://via.placeholder.com/90" alt="">
