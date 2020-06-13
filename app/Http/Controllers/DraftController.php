@@ -36,7 +36,7 @@ class DraftController extends Controller
         $team = Team::where('user_id', $user->id)->first();
 
 
-        $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->simplePaginate(50);
+        $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->simplePaginate(20);
 
         //Montrer/cacher les joueurs draftés
         if (request()->has('hide')) {
@@ -251,4 +251,11 @@ class DraftController extends Controller
     public function confirmDraft(){
 
     }
+    /**
+     * Supprime l'enchère de l'utilisateur sur le joueur sélectionné
+     *
+     * @param int $id
+     * @return Response
+     */
+
 }
