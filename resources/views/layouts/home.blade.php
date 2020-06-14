@@ -43,7 +43,7 @@
                             </div>
                         </div>
 
-                        @guest
+
                             <div class="row no-gutters justify-content-center p-5">
                                 <li class="nav-item">
                                     <a class="bouton-connexion"
@@ -56,7 +56,7 @@
                                     </li>
                                 @endif
 
-                                @endguest
+
                             </div>
                     </div>
                 </div>

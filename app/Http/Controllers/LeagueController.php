@@ -19,7 +19,7 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        return view('leagues/index');
+        return view('leagues.index');
     }
 
     /**
@@ -72,7 +72,7 @@ class LeagueController extends Controller
         // Envoi d'un mail de confirmation
         $title = 'Confirmation de création league !';
         $content = 'Salut, ta league ' . $newLeague['name'] .
-            'a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
+            ' a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
 
             if ($publicLeague === 0) {
                 $content .=  "Il s'agit d'une league publique, que tout le monde peut rejoindre";
@@ -95,6 +95,7 @@ class LeagueController extends Controller
     public function show($id)
     {
         // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
+        return view('leagues/show');
     }
 
     /**

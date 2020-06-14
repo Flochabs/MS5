@@ -90,12 +90,9 @@ hr {
   font-weight: bold;
 }
 
-.card {
+.MS5card {
   background: #3a2e49;
   border: solid 1px #fff;
-  border-radius: 2px;
-  min-height: auto;
-  max-width: 300px;
   color: #fff;
 }
 
@@ -118,6 +115,10 @@ label {
   border: 1px solid #fff;
 }
 
+.quaternary {
+  color: #eb671b;
+}
+
 .bg-crown {
   background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
   background-size: cover;
@@ -131,5 +132,20 @@ label {
 .logo-header {
   max-height: 25%;
   max-width: 25%;
+}
+
+#card_create_league {
+  background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+  background-size: contain;
+}
+
+#card_private_league {
+  background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+  background-size: contain;
+}
+
+#card_public_league {
+  background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+  background-size: contain;
 }
 

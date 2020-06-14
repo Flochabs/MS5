@@ -79,8 +79,8 @@ hr{
 }
 
 // Card
-.card {
-    @include card
+.MS5card {
+    @include MS5card
 }
 
 // Input
@@ -105,6 +105,10 @@ label {
 }
 
 
+.quaternary {
+    color: $quaternary;
+}
+
 .bg-crown{
     background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
     background-size: cover;
@@ -115,7 +119,22 @@ label {
     max-width: 75%;
 }
 
-.logo-header{
+.logo-header {
     max-height: 25%;
     max-width: 25%;
+}
+//-------------------------------------------------------- LEAGUES --------------------------------------------------//
+#card_create_league {
+    background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+    background-size: contain;
+}
+
+#card_private_league {
+    background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+    background-size: contain;
+}
+
+#card_public_league {
+    background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+    background-size: contain;
 }

@@ -1,53 +1,32 @@
-
 @extends('layouts.master')
 
 @section('content')
     <div class="container">
-        <div class="uper">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <h1 class="mb-5">Bienvenue sur le portail des Leagues MS5</h1>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="http://placekitten.com/200/200" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Rejoindre une league privée</h5>
-                            <p class="card-text">Défies tes potes dans un championnat uniquement entre vous.</p>
-                            <form method="post" role="form" action="{{ route('leagues.joinPrivateLeague') }}">
-                            @csrf
-                                <div class="form-group">
-                                    <label for="token">Mot de passe de la league :</label>
-                                    <input type="text" class="form-control" name="token" required/>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Rejoindre</button>
-                            </form>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+            <h1 class="my-5 text-white">Bienvenue sur le portail des Leagues MS5</h1>
+            <div class="row justify-content-center">
+
+                <div class="row">
+
+{{--                    Créer une league--}}
+
+                    <div class="MS5card card mr-2 mt-5" style="width: 18rem;">
+                        <div id="card_create_league" class="py-4 d-flex flex-column align-items-center">
+                            <img src="{{asset('storage/images/leagues_portal/picto_creer_league_min.png')}}" alt="photo">
+                            <h2>Créér une league</h2>
+                            <p class="tertiary">Crée ta league et choisis qui tu invites !</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="http://placekitten.com/200/200" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Rejoindre une league publique</h5>
-                            <p class="card-text">Confrontes toi à la communauté (attention aux fessées ! ^^).</p>
-                            <a href="{{ route('leagues.public')}}" class="btn btn-primary">Voir les leagues publiques</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="http://placekitten.com/200/200" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Créer une league</h5>
-                            <p class="card-text">Crées ta propre league, et choisis qui tu veux affronter.</p>
+                        <div class="card-body mt-1">
+                            <p class="card-text mb-1">Crées ta propre league, et choisis qui tu veux affronter.</p>
                             <form method="post" role="form" action="{{ route('leagues.store') }}">
                                 @csrf
                                 <div class="form-group">
@@ -73,14 +52,56 @@
                                         <option value="1">privée</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Créer une league</button>
+                                <button type="submit" class="mt-3 btn btn-secondary w-100">Créer une league</button>
                             </form>
 
                         </div>
                     </div>
+
+{{--                    Rejoindre une league privée--}}
+
+                    <div class="MS5card card mb-5" style="width: 18rem;">
+                        <div id="card_private_league" class="py-4 d-flex flex-column align-items-center">
+                            <img src="{{asset('storage/images/leagues_portal/picto_league_privee_min.png')}}" alt="photo">
+                            <h2>League privée</h2>
+                            <p class="tertiary">Joue avec tes potes !</p>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <p class="card-text">Tu veux jouer au calme avec tes amis ? Loin de la lumière des projecteurs et de la foule ?</p>
+                            <p class="card-text">Tout ce que tu as à faire, c'est saisir le mot de passe
+                                qu'on t'a envoyé.</p>
+                            <form method="post" role="form" action="{{ route('leagues.joinPrivateLeague') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="token">Mot de passe de la league :</label>
+                                    <br>
+                                    <input type="text" class="form-control" name="token" required/>
+                                </div>
+                                <button type="submit" class="btn btn-secondary w-100 mt-5">Rejoindre</button>
+                            </form>
+                        </div>
+                    </div>
+
+{{--                    Rejoindre une league publique--}}
+
+                    <div class="MS5card card ml-2 mt-5" style="width: 18rem;">
+                        <div id="card_public_league" class="py-4 d-flex flex-column align-items-center">
+                            <img src="{{asset('storage/images/leagues_portal/picto_league_publique_min.png')}}" alt="photo">
+                            <h2>League publique</h2>
+                            <p class="tertiary">Frotte-toi aux meilleurs !</p>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <p class="card-text">Confrontes toi à la communauté (attention aux fessées ! ^^).</p>
+                            <p>Ici tu pourras rejoindre des leagues ouvertes à tous, et où les bons sentiments sont laissés au vestiaire. Bon courage !</p>
+                            <a href="{{ route('leagues.public')}}" class="btn btn-secondary w-100">Voir les leagues publiques</a>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
-        </div>
+
+
     </div>
 @endsection
 

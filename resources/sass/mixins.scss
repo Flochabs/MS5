@@ -1,11 +1,8 @@
 @import "variables";
 
-@mixin card(){
+@mixin MS5card(){
     background: $bg-card;
     border: solid 1px $white;
-    border-radius: 2px;
-    min-height: auto;
-    max-width: 300px;
     color: $white;
 }
 
