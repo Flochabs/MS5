@@ -42,62 +42,57 @@
                                 <img class="img-fluid mt-5" src="{{asset('storage/images/Logo.png')}}" alt="logo">
                             </div>
                         </div>
-
-
-                            <div class="row no-gutters justify-content-center p-5">
+                        <div class="row no-gutters justify-content-center p-5">
+                            <li class="nav-item">
+                                <a class="bouton-connexion"
+                                   href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                            </li>
+                            @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="bouton-connexion"
-                                       href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                                    <a class="bouton-inscription"
+                                       href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                 </li>
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="bouton-inscription"
-                                           href="{{ route('register') }}">{{ __('Inscription') }}</a>
-                                    </li>
-                                @endif
-
-
-                            </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </header>
 
-    <main class="">
-        @yield('content')
-    </main>
-    <footer>
-        <div class="container pt-5">
-            <div class="row">
-                <div class="col-md-4 p-1">
-                    <p class="tertiary">LE SITE</p>
-                    <p><a class="text-white" href="#">A propos de nous</a></p>
-                    <p><a class="text-white" href="#">Contact</a></p>
-                    <p><a class="text-white" href="#">Mention Légale</a></p>
-                    <p><a class="text-white" href="#"></a></p>
-                </div>
-
-                <div class="col-md-4 p-1">
-                    <p class="tertiary">RESSOURCES</p>
-                    <p><a class="text-white" href="#">Centre d'aide</a></p>
-                    <p><a class="text-white" href="#">Notre blog</a></p>
-                    <p><a class="text-white" href="#">Histoire de clients</a></p>
-                    <p><a class="text-white" href="#">Notre PayPal</a></p>
-                </div>
-
-                <div class="col-md-4 p-1">
-                    <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
-                </div>
-            </div>
-            <div class="container-fluid py-4">
-                <hr class="white">
+<main class="">
+    @yield('content')
+</main>
+<footer>
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-md-4 p-1">
+                <p class="tertiary">LE SITE</p>
+                <p><a class="text-white" href="#">A propos de nous</a></p>
+                <p><a class="text-white" href="#">Contact</a></p>
+                <p><a class="text-white" href="#">Mention Légale</a></p>
+                <p><a class="text-white" href="#"></a></p>
             </div>
 
+            <div class="col-md-4 p-1">
+                <p class="tertiary">RESSOURCES</p>
+                <p><a class="text-white" href="#">Centre d'aide</a></p>
+                <p><a class="text-white" href="#">Notre blog</a></p>
+                <p><a class="text-white" href="#">Histoire de clients</a></p>
+                <p><a class="text-white" href="#">Notre PayPal</a></p>
+            </div>
+
+            <div class="col-md-4 p-1">
+                <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
+            </div>
+        </div>
+        <div class="container-fluid py-4">
+            <hr class="white">
         </div>
 
-    </footer>
+    </div>
+
+</footer>
 
 </div>
 </body>

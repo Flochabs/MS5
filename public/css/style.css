@@ -90,18 +90,9 @@ hr {
   font-weight: bold;
 }
 
-<<<<<<< HEAD
-.card {
-  background: #3a2e49;
-  border: solid 1px #fff;
-  border-radius: 2px;
-  min-height: auto;
-  max-width: 300px;
-=======
 .MS5card {
   background: #3a2e49;
   border: solid 1px #fff;
->>>>>>> aace33cab50931ff77c1414f88a4dab09c4e3f16
   color: #fff;
 }
 
@@ -142,14 +133,6 @@ label {
   background-size: cover;
 }
 
-<<<<<<< HEAD
-/***** SCSS JEREMY **********/
-
-.banner-league-publique {
-  background: url(/../storage/images/league_publique.jpg) no-repeat;
-  background-size: 100% auto;
-  height: 30vh;
-=======
 .logo-footer {
   max-height: 75%;
   max-width: 75%;
@@ -173,6 +156,5 @@ label {
 #card_public_league {
   background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
   background-size: contain;
->>>>>>> aace33cab50931ff77c1414f88a4dab09c4e3f16
 }
 
