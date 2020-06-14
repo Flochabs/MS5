@@ -68,7 +68,7 @@
                         </div>
                         <div class="card-body d-flex flex-column justify-content-between">
                             <p class="card-text">Tu veux jouer au calme avec tes amis ? Loin de la lumière des projecteurs et de la foule ?</p>
-                            <p class="card-text">Tout ce que tu as à faire p, c'est saisir le mot de passe
+                            <p class="card-text">Tout ce que tu as à faire, c'est saisir le mot de passe
                                 qu'on t'a envoyé.</p>
                             <form method="post" role="form" action="{{ route('leagues.joinPrivateLeague') }}">
                                 @csrf

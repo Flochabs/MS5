@@ -19,7 +19,7 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        return view('leagues/index');
+        return view('leagues.index');
     }
 
     /**
@@ -95,7 +95,7 @@ class LeagueController extends Controller
     public function show($id)
     {
         // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
-        return view('leagues/index')->with($id);
+        return view('leagues/show');
     }
 
     /**
