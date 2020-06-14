@@ -58,7 +58,8 @@
                         définir !</p>
                 </div>
                 <div class="col-md-3 text-center p-3">
-                    <img style="height: 75px; width: 75px;" src="{{asset('storage/images/terrain.jpeg')}}" alt="terrain">
+                    <img style="height: 75px; width: 75px;" src="{{asset('storage/images/terrain.jpeg')}}"
+                         alt="terrain">
                     <h5 class="py-2"><b><span class="tertiary">10 000</span> matchs joués</b></h5>
                     <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
                         définir !
@@ -78,69 +79,114 @@
     <div class="container bg-crown">
 
         <div class="row no-gutters text-center">
-            <div class="col-md-12 p-5 text-center">
+            <div class="col-12 p-5 text-center">
                 <h1 class="text-white">Hall Of Fame</h1>
             </div>
         </div>
 
-        <div class="row no-gutters">
+        <div class="row no-gutters justify-content-center">
 
-            <div class="col-md-2">
-                <img src="https://placehold.it/100/100" alt="">
+            <div class="col-md-4">
+                <div class="row justify-content-center">
+                    <div class="pr-2">
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">KillerChouquette23</h4>
+                        <h6 class="text-white">Les viennoiseries vener</h6>
+                        <p class="tertiary">Meilleur Ratio victoire/défaite</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-2">
-                <h4 class="text-white">KillerChouquette23</h4>
-                <h6 class="text-white">Les viennoiseries vener</h6>
-                <p class="tertiary">Meilleur Ratio victoire/défaite</p>
+            <div class="col-md-4">
+                <div class="row justify-content-center">
+                    <div class="pr-2 ">
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">Michel Jourdan</h4>
+                        <h6 class="text-white">Chicago Moulles</h6>
+                        <p class="tertiary">Meilleure attaque</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-2">
-                <img src="https://placehold.it/100/100" alt="">
+            <div class="col-md-4">
+                <div class="row justify-content-center">
+                    <div class="pr-2">
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">Larry Beurk</h4>
+                        <h6 class="text-white">Les Poireaux Muttants</h6>
+                        <p class="tertiary">Meilleure défense</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-2">
-                <h4 class="text-white">Michel Jourdan</h4>
-                <h6 class="text-white">Chicago Moulles</h6>
-                <p class="tertiary">Meilleure attaque</p>
+        </div>
+
+        <div class="row no-gutters py-4 justify-content-center">
+
+            <div class="col-md-6">
+                <div class="row justify-content-center">
+                    <div class="pr-2">
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">Charlote l'abeille</h4>
+                        <h6 class="text-white">Flylikelebron</h6>
+                        <p class="tertiary">Nombre de rebonds gagnés</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-2">
-                <img src="https://placehold.it/100/100" alt="">
-            </div>
-
-            <div class="col-md-2">
-                <h4 class="text-white">Larry Beurk</h4>
-                <h6 class="text-white">Les Poireaux Muttants</h6>
-                <p class="tertiary">Meilleure défense</p>
+            <div class="col-md-6">
+                <div class="row justify-content-center">
+                    <div class="pr-2">
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">Naheu</h4>
+                        <h6 class="text-white">TeamToShop</h6>
+                        <p class="tertiary">Médaille en chocolat</p>
+                    </div>
+                </div>
             </div>
 
         </div>
 
-        <div class="row no-gutters">
-            <div class="col-md-3">
-                <img src="https://placehold.it/100/100" alt="">
-            </div>
-
-            <div class="col-md-3">
-                <h4 class="text-white">Charlote l'abeille</h4>
-                <h6 class="text-white">Flylikelebron</h6>
-                <p class="tertiary">Nombre de rebonds gagnés</p>
-            </div>
-
-            <div class="col-md-3">
-                <img src="https://placehold.it/100/100" alt="">
-            </div>
-
-            <div class="col-md-3">
-                <h4 class="text-white">Naheu</h4>
-                <h6 class="text-white">TeamToShop</h6>
-                <p class="tertiary">Médaille en chocolat</p>
-            </div>
+        <div class="row no-gutters justify-content-center pb-4">
+            <span>
+                <button class="bouton-connexion">Voir le Hall Of Fame</button>
+            </span>
 
         </div>
-        <div class="row no-gutters">
-            <button class="bouton-connexion">Voir le Hall Of Fame</button>
+    </div>
+
+    <div class="container-fluid bg-jersey tutoimg ">
+        <div class="row h-100 align-items-md-center">
+            <div class="col-md-6 offset-md-6">
+                <p class="quaternary py-2">Les Tuto de Mr.MVP</p>
+                <h1 class="text-white py-2">Créer une équipe équilibrée</h1>
+                <p class="text-white py-2 overflow-auto w-50">Texte à définir ! Texte à définir !Texte à définir !
+                    Texte à définir !Texte à définir !Texte à définir ! Texte à définir ! Texte à définir ! Texte à
+                    définir !
+                    Texte à définir ! Texte à définir ! Texte à définir ! Texte à définir ! Texte à définir ! Texte à
+                    définir !
+                    Texte à définir ! Texte à définir !</p>
+                <button class="bouton-inscription my-4">Lire l'article complet</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <a class="twitter-timeline" data-width="500" data-height="700" data-theme="dark"
+                   href="https://twitter.com/home?ref_src=twsrc%5Etfw">Tweets by home</a>
+            </div>
         </div>
     </div>
 

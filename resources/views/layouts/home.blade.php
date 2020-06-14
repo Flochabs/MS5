@@ -60,40 +60,40 @@
         </div>
     </header>
 
-<main class="">
-    @yield('content')
-</main>
-<footer>
-    <div class="container pt-5">
-        <div class="row">
-            <div class="col-md-4 p-1">
-                <p class="tertiary">LE SITE</p>
-                <p><a class="text-white" href="#">A propos de nous</a></p>
-                <p><a class="text-white" href="#">Contact</a></p>
-                <p><a class="text-white" href="#">Mention Légale</a></p>
-                <p><a class="text-white" href="#"></a></p>
+    <main class="">
+        @yield('content')
+    </main>
+    <footer>
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-md-4 p-1">
+                    <p class="tertiary">LE SITE</p>
+                    <p><a class="text-white" href="#">A propos de nous</a></p>
+                    <p><a class="text-white" href="#">Contact</a></p>
+                    <p><a class="text-white" href="#">Mention Légale</a></p>
+                    <p><a class="text-white" href="#"></a></p>
+                </div>
+
+                <div class="col-md-4 p-1">
+                    <p class="tertiary">RESSOURCES</p>
+                    <p><a class="text-white" href="#">Centre d'aide</a></p>
+                    <p><a class="text-white" href="#">Notre blog</a></p>
+                    <p><a class="text-white" href="#">Histoire de clients</a></p>
+                    <p><a class="text-white" href="#">Notre PayPal</a></p>
+                </div>
+
+                <div class="col-md-4 p-1">
+                    <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
+                </div>
+            </div>
+            <div class="container-fluid py-4">
+                <hr class="white">
             </div>
 
-            <div class="col-md-4 p-1">
-                <p class="tertiary">RESSOURCES</p>
-                <p><a class="text-white" href="#">Centre d'aide</a></p>
-                <p><a class="text-white" href="#">Notre blog</a></p>
-                <p><a class="text-white" href="#">Histoire de clients</a></p>
-                <p><a class="text-white" href="#">Notre PayPal</a></p>
-            </div>
-
-            <div class="col-md-4 p-1">
-                <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
-            </div>
         </div>
-        <div class="container-fluid py-4">
-            <hr class="white">
-        </div>
 
-    </div>
-
-</footer>
-
+    </footer>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 </body>
 </html>
