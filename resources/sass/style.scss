@@ -5,6 +5,7 @@
 @import "footer";
 @import "homepage";
 @import "bouton";
+@import "leagues";
 
 // Font
 @font-face {
@@ -36,6 +37,15 @@ p {
     }
 }
 
+hr{
+    background: $white;
+}
+
+label {
+    font-family: $p-font-family-sans-serif;
+    color: #fff;
+}
+
 //Couleur
 .bg-primary{
     background: $primary;
@@ -49,50 +59,12 @@ p {
     color: $quaternary;
 }
 
-hr{
-    background: $white;
-}
-
 // Card
 .MS5card {
     @include MS5card
 }
 
-// Card-dashboard
 .card-dashboard {
     @include card-dashboard
 }
 
-// Input
-label {
-    font-family: $p-font-family-sans-serif;
-    color: #fff;
-}
-
-// Bannière
-
-
-
-
-
-
-
-
-
-
-
-//-------------------------------------------------------- LEAGUES --------------------------------------------------//
-#card_create_league {
-    background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
-    background-size: contain;
-}
-
-#card_private_league {
-    background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
-    background-size: contain;
-}
-
-#card_public_league {
-    background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
-    background-size: contain;
-}
