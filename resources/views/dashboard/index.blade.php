@@ -6,15 +6,20 @@
         <div class="row">
                 <!-- CARD Profil -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; height: 15rem">
                         <div class="card-body">
                             <h5 class="card-title text-center">Profil</h5>
-                            <hr class="bg-white">
-                            <img src="https://via.placeholder.com/90" alt="">
-                            <h6 class="card-subtitle mb-2 text-muted">UserName</h6>
-                            <a class="btn btn-primary text-white" href="{{ route('dashboard.profile') }}">
-                                Profil
-                            </a>
+                            <div>
+                                <img src="https://via.placeholder.com/90" alt="">
+                            </div>
+                            <div>
+                                <h3 class="card-subtitle mb-2 text-white">{{$user_pseudo}}</h3>
+                            </div>
+                            <div class="card-header col-md-12 d-flex justify-content-center pb-2">
+                                <a class="btn btn-primary text-white" href="{{ route('dashboard.profile') }}">
+                                    Profil
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -203,7 +208,7 @@
                         <h5>Draft en cours</h5>
                     </div>
                     <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <a href="#" class="btn btn-primary">Début du draft</a>
+                        <a href="{{ route('draft.index') }}" class="btn btn-primary">Début du draft</a>
                     </div>
                 </div>
             </div>
