@@ -13,6 +13,8 @@
             </div>
         @endif
             <h1 class="my-5 text-white">Bienvenue sur le portail des Leagues MS5</h1>
+            <h2 class="mb-5 bg-secondary text-center text-white"><i class="tertiary fas fa-exclamation-triangle"></i>
+                Attention, tu ne peux jouer que dans <span class="tertiary">UNE</span> league à la fois, choisis bien !</h2>
             <div class="row justify-content-center">
 
                 <div class="row">

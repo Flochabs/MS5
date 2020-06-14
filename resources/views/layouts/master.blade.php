@@ -14,23 +14,23 @@
 @yield('scripts-header')
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <a class="navbar-brand" href="{{ route('dashboard.index') }}">
         <img class="img-fluid" width="10%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('nba.index')}}">NBA</a>
+                <a class="text-white nav-link" href="{{ route('nba.index')}}">NBA</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('leagues.index')}}">Leagues</a>
+                <a class="text-white nav-link" href="{{ route('leagues.index')}}">Leagues</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">Tableau de bord</a>
+                <a class="text-white nav-link" href="{{ route('dashboard.index') }}">Tableau de bord</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('logout') }}"
+                <a class="text-white nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
                     {{ __('Se déconnecter') }}
