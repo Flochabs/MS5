@@ -19,6 +19,7 @@ class LeagueController extends Controller
      */
     public function index()
     {
+        $leagues = League::all();
         return view('leagues.index');
     }
 
@@ -65,6 +66,8 @@ class LeagueController extends Controller
             $newLeague->token        = $token;
         }
         $newLeague->save();
+        // On associe le joueur à la league dans la table pivot
+        $newLeague->users()->sync(Auth::user()->id);
 
         // On ajoute le role créateur de league
         Auth::user()->roles()->attach([3]);
@@ -83,7 +86,9 @@ class LeagueController extends Controller
 
             Mail::to($email)->send(new Register($title, $content));
 
-        return redirect('dashboard.index')->with('success', 'La league a été enregistrée.');
+            $id = $newLeague->id;
+
+        return redirect()->route('leagues.show', $id);
     }
 
     /**
@@ -92,10 +97,10 @@ class LeagueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(League $league)
     {
         // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
-        return view('leagues/show');
+        return view('leagues.show', compact('league'));
     }
 
     /**
@@ -146,7 +151,8 @@ class LeagueController extends Controller
             $user = Auth::user();
             $league = League::where('token', '=', $request->token)->first();
             $user->leagues()->sync([$league->id]);
-            return redirect('dashboard.index')->with('success', 'La league a été enregistrée.');
+            $id = $league->id;
+            return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
         } else {
             return redirect('leagues')->withErrors('Cette league n\'existe pas');
         }

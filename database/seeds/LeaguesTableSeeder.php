@@ -15,7 +15,7 @@ class LeaguesTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 0; $i < 10; $i++) {
+
             $data = [
                 ['user_id' => $faker->numberBetween($min = 1, $max = 5),
                     'name' => $faker->company,
@@ -25,6 +25,6 @@ class LeaguesTableSeeder extends Seeder
                 ]
             ];
             League::insert($data);
-        }
+
     }
 }
