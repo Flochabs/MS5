@@ -313,7 +313,8 @@
                                     <td>ma dernière enchere: {{$auction->auction}}</td>
                                     @foreach($auctionsOnPlayers as $auctionsOnPlayer)
                                         @if($auctionsOnPlayer->player_id === $auction->player_id)
-                                            <td class="align-middle">enchère en cours : {{$auctionsOnPlayer->auction}}</td>
+                                            <td class="align-middle">enchère en cours
+                                                : {{$auctionsOnPlayer->auction}}</td>
                                         @endif
                                     @endforeach
                                     <td>
