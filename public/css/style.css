@@ -91,7 +91,7 @@ hr {
 }
 
 .card {
-  background: #6541df;
+  background: #3a2e49;
   border: solid 1px #fff;
   border-radius: 2px;
   min-height: auto;
@@ -126,5 +126,10 @@ label {
 .logo-footer {
   max-height: 75%;
   max-width: 75%;
+}
+
+.logo-header {
+  max-height: 25%;
+  max-width: 25%;
 }
 

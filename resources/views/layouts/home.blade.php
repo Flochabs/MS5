@@ -26,45 +26,44 @@
 <body>
 
 <div id="app">
-    @if(Request::is('/'))
-        <header class="container-fluid p-0">
-            <div class="row no-gutters">
-                <div class="col-md-12">
-                    <div class="banner justify-content-center">
-                        <div class="container">
-                            <div class="row no-gutters justify-content-end pt-5">
-                                <i class="fab fa-instagram fa-2x icon text-center pt-1 m-2"></i>
-                                <i class="fab fa-facebook fa-2x icon text-center pt-1 m-2"></i>
-                                <i class="fab fa-twitter fa-2x icon text-center pt-1 m-2"></i>
-                            </div>
-                            <div class="row no-gutters justify-content-center pt-4">
-                                <div class="col-md-12">
-                                    <img class="img-fluid mt-5" src="{{asset('storage/images/Logo.png')}}" alt="logo">
-                                </div>
-                            </div>
 
-                            @guest
-                                <div class="row no-gutters justify-content-center p-5">
-                                    <li class="nav-item">
-                                        <a class="bouton-connexion"
-                                           href="{{ route('login') }}">{{ __('Connexion') }}</a>
-                                    </li>
-                                    @if (Route::has('register'))
-                                        <li class="nav-item">
-                                            <a class="bouton-inscription"
-                                               href="{{ route('register') }}">{{ __('Inscription') }}</a>
-                                        </li>
-                                    @endif
-
-                                    @endguest
-                                </div>
+    <header class="container-fluid p-0">
+        <div class="row no-gutters">
+            <div class="col-md-12">
+                <div class="banner justify-content-center">
+                    <div class="container">
+                        <div class="row no-gutters justify-content-end pt-5">
+                            <i class="fab fa-instagram fa-2x icon text-center pt-1 m-2"></i>
+                            <i class="fab fa-facebook fa-2x icon text-center pt-1 m-2"></i>
+                            <i class="fab fa-twitter fa-2x icon text-center pt-1 m-2"></i>
                         </div>
+                        <div class="row no-gutters justify-content-center pt-4">
+                            <div class="col-md-12">
+                                <img class="img-fluid mt-5" src="{{asset('storage/images/Logo.png')}}" alt="logo">
+                            </div>
+                        </div>
+
+                        @guest
+                            <div class="row no-gutters justify-content-center p-5">
+                                <li class="nav-item">
+                                    <a class="bouton-connexion"
+                                       href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="bouton-inscription"
+                                           href="{{ route('register') }}">{{ __('Inscription') }}</a>
+                                    </li>
+                                @endif
+
+                                @endguest
+                            </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </header>
-    @endif
+    </header>
 
     <main class="">
         @yield('content')
