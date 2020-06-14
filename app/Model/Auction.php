@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Auction extends Model
 {
-    public function getPlayerName(){
+    public function getPlayerData(){
         return $this->belongsTo(Player::class, 'player_id');
     }
 }

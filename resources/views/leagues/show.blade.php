@@ -1,7 +1,9 @@
+
 @extends('layouts.master')
 
 @section('content')
     <div class="container">
+        <div class="uper">
             <h1 class="my-5 text-white">Bienvenue sur le portail des Leagues publiques</h1>
             <h2 class="mb-5 text-white">Ici, pas de fairplay, que de l'humour !</h2>
             <div class="row">
@@ -22,9 +24,9 @@
                                 <td>{{$league->user->pseudo}}</td>
                                 <td>{{$league->number_teams - $league->users->count()}}</td>
                                 @if($league->number_teams <= $league->users->count())
-                                <td>Complet</td>
+                                    <td>Complet</td>
                                 @else
-                                <td><a href="#" class="btn btn-secondary">Rejoindre</a></td>
+                                    <td><a href="#" class="btn btn-secondary">Rejoindre</a></td>
                                 @endif
                             </tr>
                         @endforeach
@@ -33,7 +35,7 @@
                     {{ $leagues->links() }}
                 </div>
             </div>
-    </div>
+        </div>
 @endsection
 
 

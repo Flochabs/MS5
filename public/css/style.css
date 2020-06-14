@@ -7,6 +7,14 @@ body {
   background: #2b2236;
 }
 
+footer {
+  background: #6541df;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 p {
   font-family: Poppins, Arial, sans-serif;
   text-align: left;
@@ -37,8 +45,24 @@ h6 {
   font-family: Mudhead-Serif, sans-serif;
 }
 
+.bg-primary {
+  background: #2b2236;
+}
+
+.tertiary {
+  color: #ff8500;
+}
+
+hr {
+  background: #fff;
+}
+
+.pb-connexion {
+  padding-bottom: 7.7rem;
+}
+
 .bouton-inscription {
-  background: #7c38bf;
+  background: #6541df;
   border: solid 1px transparent;
   border-radius: 5px;
   color: #fff;
@@ -46,8 +70,10 @@ h6 {
 }
 
 .bouton-inscription:hover {
-  background: #8947c9;
+  background: #7757e3;
   font-weight: bold;
+  text-decoration: none;
+  color: #fff;
 }
 
 .bouton-connexion {
@@ -64,12 +90,18 @@ h6 {
   font-weight: bold;
 }
 
+<<<<<<< HEAD
 .card {
   background: #3a2e49;
   border: solid 1px #fff;
   border-radius: 2px;
   min-height: auto;
   max-width: 300px;
+=======
+.MS5card {
+  background: #3a2e49;
+  border: solid 1px #fff;
+>>>>>>> aace33cab50931ff77c1414f88a4dab09c4e3f16
   color: #fff;
 }
 
@@ -101,8 +133,8 @@ label {
   border: 1px solid #fff;
 }
 
-.tertiary {
-  color: #ff8500;
+.quaternary {
+  color: #eb671b;
 }
 
 .bg-crown {
@@ -110,11 +142,37 @@ label {
   background-size: cover;
 }
 
+<<<<<<< HEAD
 /***** SCSS JEREMY **********/
 
 .banner-league-publique {
   background: url(/../storage/images/league_publique.jpg) no-repeat;
   background-size: 100% auto;
   height: 30vh;
+=======
+.logo-footer {
+  max-height: 75%;
+  max-width: 75%;
+}
+
+.logo-header {
+  max-height: 25%;
+  max-width: 25%;
+}
+
+#card_create_league {
+  background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+  background-size: contain;
+}
+
+#card_private_league {
+  background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+  background-size: contain;
+}
+
+#card_public_league {
+  background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+  background-size: contain;
+>>>>>>> aace33cab50931ff77c1414f88a4dab09c4e3f16
 }
 

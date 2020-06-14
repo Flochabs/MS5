@@ -11,6 +11,13 @@
 body {
     background: $primary;
 }
+footer{
+    background: $secondary;
+}
+
+a:hover{
+    text-decoration: none;
+}
 
 p {
     font-family: $p-font-family-sans-serif;
@@ -25,6 +32,22 @@ p {
     }
 }
 
+.bg-primary{
+    background: $primary;
+}
+
+.tertiary {
+    color: $tertiary;
+}
+
+hr{
+    background: $white;
+}
+
+.pb-connexion{
+    padding-bottom: 7.7rem;
+}
+
 // Bouton
 .bouton-inscription {
     background: $secondary;
@@ -36,6 +59,8 @@ p {
     &:hover {
         background: lighten($secondary, 5);
         font-weight: bold;
+        text-decoration: none;
+        color: $white;
     }
 }
 
@@ -54,8 +79,8 @@ p {
 }
 
 // Card
-.card {
-    @include card
+.MS5card {
+    @include MS5card
 }
 
 // Card-dashboard
@@ -84,8 +109,9 @@ label {
     border: 1px solid #fff;
 }
 
-.tertiary {
-    color: $tertiary;
+
+.quaternary {
+    color: $quaternary;
 }
 
 .bg-crown{
@@ -94,35 +120,27 @@ label {
 }
 
 
+.logo-footer{
+    max-height: 75%;
+    max-width: 75%;
+}
 
+.logo-header {
+    max-height: 25%;
+    max-width: 25%;
+}
+//-------------------------------------------------------- LEAGUES --------------------------------------------------//
+#card_create_league {
+    background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+    background-size: contain;
+}
 
+#card_private_league {
+    background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+    background-size: contain;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***** SCSS JEREMY **********/
-
-.banner-league-publique{
-    background: url(/../storage/images/league_publique.jpg) no-repeat;
-    background-size: 100% auto;
-    height: 30vh;
+#card_public_league {
+    background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+    background-size: contain;
 }
