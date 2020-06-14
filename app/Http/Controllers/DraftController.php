@@ -37,7 +37,7 @@ class DraftController extends Controller
         // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
 
-        $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->simplePaginate(20);
+        $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->Paginate(20);
 
         //equipes présentent dans la ligue de l'utilisateur
         $leagueTeams = Team::where('league_id', $userLeagueId)->get();
