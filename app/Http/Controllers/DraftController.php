@@ -13,6 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class DraftController extends Controller
 {
@@ -41,11 +42,18 @@ class DraftController extends Controller
         //equipes présentent dans la ligue de l'utilisateur
         $leagueTeams = Team::where('league_id', $userLeagueId)->get();
 
+        // met toutes les équipes présente dans la ligue de l'utilisateur dans un tableau pour récupérer ensuite toutes leurs enchrèes
+        $teamsInLeagueId = [];
+        foreach ($leagueTeams as $team) {
+            $teamsInLeagueId[] = $team->id;
+        }
+
 
         // récupère les enchères en cours dans la ligue
         $auctionsOnPlayers = DB::table('auctions')
             ->leftjoin('players', 'players.id', '=', 'auctions.player_id')
-            ->whereIn('team_id', $leagueTeams)
+            ->whereIn('team_id', $teamsInLeagueId)
+            ->orderBy('auction', 'desc')
             ->get();
 
 
@@ -254,15 +262,36 @@ class DraftController extends Controller
      * Met à jour l'enchère de l'utilisateur sur le joueur sélectionné
      *
      * @param int $id
+     * @param Request $request
      * @return Response
      */
 
-    public function updateAuction($id){
-        $user = Auth::user();
-        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
-        $team = Team::where('user_id', $user->id)->first();
-        $team = $team->id;
-        Auction::where([['player_id',$id], ['team_id', $team]])->update(['auction' => 45]);
+    public function updateAuction(Request $request, $id){
+        $updateValue = $request->all();
+        //verification du champs entré
+        $auctionValue = $updateValue["auctionValue"];
+
+        if($auctionValue > 50) {
+            $rules = ['auctionValue'     => 'integer|required'];
+            // Vérification de la validité des informations transmises par l'utilisateur
+            $validator = Validator::make($updateValue, $rules, [
+                'auctionValue.integer' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
+                'auctionValue.required' => 'Veuillez entrer une valeur.',
+                'auctionValue.required' => 'Veuillez entrer une valeur.',
+            ]);
+
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $user = Auth::user();
+            //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
+            $team = Team::where('user_id', $user->id)->first();
+            $team = $team->id;
+            Auction::where([['player_id',$id], ['team_id', $team]])->update(['auction' => $auctionValue]);
+            return back();
+        }
         return back();
     }
 

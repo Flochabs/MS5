@@ -310,7 +310,12 @@
                                             class="rounded-circle w-50">
                                     </td>
                                     <td>{{$playerData->pl->fn}} {{$playerData->pl->ln}}</td>
-                                    <td>{{$auction->auction}}</td>
+                                    <td>ma dernière enchere: {{$auction->auction}}</td>
+                                    @foreach($auctionsOnPlayers as $auctionsOnPlayer)
+                                        @if($auctionsOnPlayer->player_id === $auction->player_id)
+                                            <td class="align-middle">enchère en cours : {{$auctionsOnPlayer->auction}}</td>
+                                        @endif
+                                    @endforeach
                                     <td>
                                         <form
                                             action="{{ route('draft.auction.updateValue', ['id' => $auction->player_id])}}"
@@ -318,6 +323,7 @@
                                             <input class="form-control" type="number" name="auctionValue"
                                                    id="auctionValue" value="{{$auction->auction}}" step="5"
                                                    min="{{$auction->auction}}">
+                                            @method('POST')
                                             @csrf
                                             <button type="submit" class="btn btn-primary">enchérir</button>
                                         </form>
