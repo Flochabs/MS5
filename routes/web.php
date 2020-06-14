@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+// Routes redirection sur dashboard après inscription
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get( '/', function () {
@@ -43,6 +44,27 @@ Route::prefix( 'leagues' )
     } );
 
 
+// Routes concernant l'affichage de la draft
+Route::prefix( 'draft' )
+    ->middleware( 'auth' )
+    ->name( 'draft.' )
+    ->group( function () {
+        Route::post('confirmDraft/{forwards}{guards}{centers}', 'DraftController@confirmDraft')->name('confirm');
+        Route::post('auction/{id}', 'DraftController@auction')->name('auction');
+        Route::post('updateAuction/{id}', 'DraftController@updateAuction')->name('auction.updateValue');
+        Route::delete('deleteAuction/{id}', 'DraftController@deleteAuction')->name('delete.auction');
+        Route::resource( '/', 'DraftController' );
+    } );
+
+// Routes concernant l'affichage du dashboard
+Route::prefix( 'dashboard' )
+    ->middleware( 'auth' )
+    ->name( 'dashboard.' )
+    ->group( function () {
+        Route::resource( '/', 'DashboardController' );
+        Route::get('profile', 'DashboardController@profile')->name('profile');
+        Route::get('match_result', 'DashboardController@match_result')->name('match_result');
+    } );
 
 
 

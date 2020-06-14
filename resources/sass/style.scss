@@ -1,5 +1,11 @@
+// Import
 @import "variables";
 @import "mixins";
+@import "header";
+@import "footer";
+@import "homepage";
+@import "bouton";
+@import "leagues";
 
 // Font
 @font-face {
@@ -7,9 +13,15 @@
     src: url("/../storage/fonts/Mudhead-Serif.otf") format('truetype');
 }
 
+
 // Content
 body {
     background: $primary;
+}
+
+
+a:hover{
+    text-decoration: none;
 }
 
 p {
@@ -25,65 +37,34 @@ p {
     }
 }
 
-// Bouton
-.bouton-inscription {
-    background: $secondary;
-    border: solid 1px transparent;
-    border-radius: 5px;
-    color: #fff;
-    padding: 10px 35px;
-
-    &:hover {
-        background: lighten($secondary, 5);
-        font-weight: bold;
-    }
+hr{
+    background: $white;
 }
 
-.bouton-connexion {
-    background: transparent;
-    border: solid 1px;
-    border-radius: 5px;
-    padding: 10px 20px;
-    color: #fff;
-
-    &:hover {
-        background: $white;
-        color: #000;
-        font-weight: bold;
-    }
-}
-
-// Card
-.card {
-    @include card
-}
-
-// Input
 label {
     font-family: $p-font-family-sans-serif;
     color: #fff;
 }
 
-// Bannière
-.banner {
-    background: url(/../storage/images/Fond_header.jpg) no-repeat;
-    background-size: cover;
-    height: 100vh;
-}
-
-.icon{
-    background: white;
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    border: 1px solid #fff;
+//Couleur
+.bg-primary{
+    background: $primary;
 }
 
 .tertiary {
     color: $tertiary;
 }
 
-.bg-crown{
-    background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
-    background-size: cover;
+.quaternary {
+    color: $quaternary;
 }
+
+// Card
+.MS5card {
+    @include MS5card
+}
+
+.card-dashboard {
+    @include card-dashboard
+}
+

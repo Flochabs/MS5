@@ -1,3 +1,84 @@
+.logo-header {
+  max-height: 25%;
+  max-width: 25%;
+}
+
+footer {
+  background: #6541df;
+}
+
+.logo-footer {
+  max-height: 75%;
+  max-width: 75%;
+}
+
+.pb-connexion {
+  padding-bottom: 7.7rem;
+}
+
+.banner {
+  background: url(/../storage/images/Fond_header.jpg) no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.icon {
+  background: #fff;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  border: 1px solid #fff;
+}
+
+.bg-crown {
+  background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
+  background-size: cover;
+}
+
+.bouton-inscription {
+  background: #6541df;
+  border: solid 1px transparent;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px 35px;
+}
+
+.bouton-inscription:hover {
+  background: #7757e3;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+}
+
+.bouton-connexion {
+  background: transparent;
+  border: solid 1px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.bouton-connexion:hover {
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+}
+
+#card_create_league {
+  background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+  background-size: contain;
+}
+
+#card_private_league {
+  background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+  background-size: contain;
+}
+
+#card_public_league {
+  background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+  background-size: contain;
+}
+
 @font-face {
   font-family: "Mudhead-Serif";
   src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
@@ -5,6 +86,10 @@
 
 body {
   background: #2b2236;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 p {
@@ -37,39 +122,8 @@ h6 {
   font-family: Mudhead-Serif, sans-serif;
 }
 
-.bouton-inscription {
-  background: #7c38bf;
-  border: solid 1px transparent;
-  border-radius: 5px;
-  color: #fff;
-  padding: 10px 35px;
-}
-
-.bouton-inscription:hover {
-  background: #8947c9;
-  font-weight: bold;
-}
-
-.bouton-connexion {
-  background: transparent;
-  border: solid 1px;
-  border-radius: 5px;
-  padding: 10px 20px;
-  color: #fff;
-}
-
-.bouton-connexion:hover {
+hr {
   background: #fff;
-  color: #000;
-  font-weight: bold;
-}
-
-.card {
-  background: #7c38bf;
-  border: solid 1px transparent;
-  min-height: auto;
-  max-width: 300px;
-  color: #fff;
 }
 
 label {
@@ -77,26 +131,30 @@ label {
   color: #fff;
 }
 
-.banner {
-  background: url(/../storage/images/Fond_header.jpg) no-repeat;
-  background-size: cover;
-  height: 100vh;
-}
-
-.icon {
-  background: white;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  border: 1px solid #fff;
+.bg-primary {
+  background: #2b2236;
 }
 
 .tertiary {
   color: #ff8500;
 }
 
-.bg-crown {
-  background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
-  background-size: cover;
+.quaternary {
+  color: #eb671b;
+}
+
+.MS5card {
+  background: #3a2e49;
+  border: solid 1px #fff;
+  color: #fff;
+}
+
+.card-dashboard {
+  background: #3a2e49;
+  border: solid 1px #fff;
+  border-radius: 2px;
+  min-height: auto;
+  max-width: 400px;
+  color: #fff;
 }
 

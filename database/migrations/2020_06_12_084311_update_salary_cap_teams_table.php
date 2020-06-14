@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateLeaguesTable extends Migration
+class UpdateSalaryCapTeamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class UpdateLeaguesTable extends Migration
      */
     public function up()
     {
-        Schema::table('leagues', function (Blueprint $table) {
-            $table->addColumn('boolean', 'isActive')->default(0);
+        Schema::table('teams', function (Blueprint $table) {
+            $table->dropColumn('salary_cap');
+        });
+        Schema::table('teams', function (Blueprint $table) {
+            $table->addColumn('integer', 'salary_cap')->default(110);
         });
     }
 

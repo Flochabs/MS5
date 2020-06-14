@@ -19,7 +19,7 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        return view('leagues/index');
+        return view('leagues.index');
     }
 
     /**
@@ -37,7 +37,7 @@ class LeagueController extends Controller
         $values = $request->all();
         $publicLeague = (int)$values['public'];
         $rules = [
-            'name'             => 'string|required',
+            'name'             => 'string|required|unique:leagues',
             'number_teams'     => 'integer|required',
             'public'           => 'integer|required',
         ];
@@ -45,8 +45,9 @@ class LeagueController extends Controller
         $validator = Validator::make($values, $rules, [
             'name.string' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
             'name.required' => 'Il faut choisir un nom de league !',
+            'name.unique' => 'Il faut choisir un autre nom de league!',
             'number_teams.required' => 'Il faut choisir un nombre de teams !',
-            'public.required' => 'Privé ou public ???',
+            'public.required' => 'Privée ou publique ???',
 
         ]);
         if ($validator->fails()) {
@@ -61,7 +62,7 @@ class LeagueController extends Controller
         $newLeague->number_teams    = $values['number_teams'];
         $newLeague->public          = $publicLeague;
         if ($publicLeague === 1) {
-            $newLeague->token           = $token;
+            $newLeague->token        = $token;
         }
         $newLeague->save();
 
@@ -71,7 +72,7 @@ class LeagueController extends Controller
         // Envoi d'un mail de confirmation
         $title = 'Confirmation de création league !';
         $content = 'Salut, ta league ' . $newLeague['name'] .
-            'a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
+            ' a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
 
             if ($publicLeague === 0) {
                 $content .=  "Il s'agit d'une league publique, que tout le monde peut rejoindre";
@@ -82,7 +83,7 @@ class LeagueController extends Controller
 
             Mail::to($email)->send(new Register($title, $content));
 
-//        return redirect('/companies')->with('success', 'L\'entreprise a été enregistrée.');
+        return redirect('dashboard.index')->with('success', 'La league a été enregistrée.');
     }
 
     /**
@@ -93,7 +94,8 @@ class LeagueController extends Controller
      */
     public function show($id)
     {
-        //
+        // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
+        return view('leagues/show');
     }
 
     /**
@@ -134,14 +136,20 @@ class LeagueController extends Controller
     {
         $leagues = League::where('public', 0)->paginate(15);
 
-//        dd($leagues);
         return view('leagues.public')->with('leagues', $leagues);
     }
 
     public function joinPrivateLeague(Request $request)
     {
-        $league = League::where('name', $request);
-        dd($league);
-//        return view('leagues.public');
+        if (League::where('token', '=', $request->token)->exists()) {
+            // insère les id dans la table pivot
+            $user = Auth::user();
+            $league = League::where('token', '=', $request->token)->first();
+            $user->leagues()->sync([$league->id]);
+            return redirect('dashboard.index')->with('success', 'La league a été enregistrée.');
+        } else {
+            return redirect('leagues')->withErrors('Cette league n\'existe pas');
+        }
     }
+
 }
