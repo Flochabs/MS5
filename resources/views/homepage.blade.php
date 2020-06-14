@@ -58,7 +58,7 @@
                         définir !</p>
                 </div>
                 <div class="col-md-3 text-center p-3">
-                    <img src="{{asset('storage/images/picto_joueur.png')}}" alt="terrain">
+                    <img style="height: 75px; width: 75px" src="{{asset('storage/images/terrain.jpeg')}}" alt="terrain">
                     <h5 class="py-2"><b><span class="tertiary">10 000</span> matchs joués</b></h5>
                     <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
                         définir !

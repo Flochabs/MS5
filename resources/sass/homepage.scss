@@ -1,0 +1,18 @@
+.banner {
+    background: url(/../storage/images/Fond_header.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.icon{
+    background: $white;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+}
+
+.bg-crown{
+    background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
+    background-size: cover;
+}

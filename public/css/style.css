@@ -1,3 +1,69 @@
+.logo-header {
+  max-height: 25%;
+  max-width: 25%;
+}
+
+footer {
+  background: #6541df;
+}
+
+.logo-footer {
+  max-height: 75%;
+  max-width: 75%;
+}
+
+.pb-connexion {
+  padding-bottom: 7.7rem;
+}
+
+.banner {
+  background: url(/../storage/images/Fond_header.jpg) no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.icon {
+  background: #fff;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  border: 1px solid #fff;
+}
+
+.bg-crown {
+  background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
+  background-size: cover;
+}
+
+.bouton-inscription {
+  background: #6541df;
+  border: solid 1px transparent;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px 35px;
+}
+
+.bouton-inscription:hover {
+  background: #7757e3;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+}
+
+.bouton-connexion {
+  background: transparent;
+  border: solid 1px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.bouton-connexion:hover {
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+}
+
 @font-face {
   font-family: "Mudhead-Serif";
   src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
@@ -5,10 +71,6 @@
 
 body {
   background: #2b2236;
-}
-
-footer {
-  background: #6541df;
 }
 
 a:hover {
@@ -53,41 +115,12 @@ h6 {
   color: #ff8500;
 }
 
+.quaternary {
+  color: #eb671b;
+}
+
 hr {
   background: #fff;
-}
-
-.pb-connexion {
-  padding-bottom: 7.7rem;
-}
-
-.bouton-inscription {
-  background: #6541df;
-  border: solid 1px transparent;
-  border-radius: 5px;
-  color: #fff;
-  padding: 10px 35px;
-}
-
-.bouton-inscription:hover {
-  background: #7757e3;
-  font-weight: bold;
-  text-decoration: none;
-  color: #fff;
-}
-
-.bouton-connexion {
-  background: transparent;
-  border: solid 1px;
-  border-radius: 5px;
-  padding: 10px 20px;
-  color: #fff;
-}
-
-.bouton-connexion:hover {
-  background: #fff;
-  color: #000;
-  font-weight: bold;
 }
 
 .MS5card {
@@ -108,39 +141,6 @@ hr {
 label {
   font-family: Poppins, Arial, sans-serif;
   color: #fff;
-}
-
-.banner {
-  background: url(/../storage/images/Fond_header.jpg) no-repeat;
-  background-size: cover;
-  height: 100vh;
-}
-
-.icon {
-  background: white;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  border: 1px solid #fff;
-}
-
-.quaternary {
-  color: #eb671b;
-}
-
-.bg-crown {
-  background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
-  background-size: cover;
-}
-
-.logo-footer {
-  max-height: 75%;
-  max-width: 75%;
-}
-
-.logo-header {
-  max-height: 25%;
-  max-width: 25%;
 }
 
 #card_create_league {
