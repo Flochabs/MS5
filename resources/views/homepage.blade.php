@@ -13,7 +13,6 @@
                 <h4 class="tertiary p-2">° Découvrez les règles en 5 minutes chrono</h4>
                 <p class="pl-2 text-white">Explication de l'application, texte à définir.</p>
                 <p class="tertiary p-2">Lire la suite</p>
-
             </div>
         </div>
     </div>

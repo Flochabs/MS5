@@ -11,6 +11,13 @@
 body {
     background: $primary;
 }
+footer{
+    background: $secondary;
+}
+
+a:hover{
+    text-decoration: none;
+}
 
 p {
     font-family: $p-font-family-sans-serif;
@@ -25,6 +32,22 @@ p {
     }
 }
 
+.bg-primary{
+    background: $primary;
+}
+
+.tertiary {
+    color: $tertiary;
+}
+
+hr{
+    background: $white;
+}
+
+.pb-connexion{
+    padding-bottom: 7.7rem;
+}
+
 // Bouton
 .bouton-inscription {
     background: $secondary;
@@ -36,6 +59,8 @@ p {
     &:hover {
         background: lighten($secondary, 5);
         font-weight: bold;
+        text-decoration: none;
+        color: $white;
     }
 }
 
@@ -79,11 +104,18 @@ label {
     border: 1px solid #fff;
 }
 
-.tertiary {
-    color: $tertiary;
-}
 
 .bg-crown{
     background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
     background-size: cover;
+}
+
+.logo-footer{
+    max-height: 75%;
+    max-width: 75%;
+}
+
+.logo-header{
+    max-height: 25%;
+    max-width: 25%;
 }
