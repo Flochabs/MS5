@@ -1,57 +1,140 @@
 @extends('layouts.master')
 @section('content')
-    <div class="container-fluid">
+    @php @endphp
+    <div class="container text-white">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-12">
+                <h1 class="text-center">DRAFT</h1>
+            </div>
+            {{-----------------------VALIDER DRAFT ---------------------}}
+        </div>
+        {{-----------------------INFOS SUR EQUIPE---------------------}}
+        <div class="row my-5">
+            <div class="col-lg-5 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-around align-items-center bg-dark">
+                    <div class="h-100 col-3">
+                        <img
+                            src="https://nba-players.herokuapp.com/players/curry/stephen"
+                            class="h-auto w-100 rounded-circle">
+                    </div>
+                    <div class="d-flex col-9 align-items-center justify-content-between">
+                        <p class="text-center">{{$team->name}}</p>
+                        <p class="text-center">{{$team->stadium_name}}</p>
+                        <p class="text-center">{{$team->getLeague->name}}</p>
+                        <div class="text-center">
+                            <p class="text-center">{{count($team->getPlayers)}}</p>
+                            <p class="text-center">joueurs draftés</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center bg-dark w-100 py-4 d-flex">
+                    <div class="col-md-6">
+                        <p class="text-center">Fin de Draft dans 12h</p>
+                    </div>
+                    <div class="col-md-6 justify-content-center">
+                        <button class="btn btn-secondary w-100">Terminer la draft</button>
+                    </div>
+                </div>
+            </div>
+            {{-----------------------DONNEES SUR SALARY CAP ---------------------}}
+            <div class="col-lg-7 bg-secondary px-0">
+                <div class="bg-secondary text-center">
+                    <h2 class="text-center">Mon Salary Cap</h2>
+                </div>
                 <div class="row">
+                    <div class="col-12">
+                        <table class="table table-sm table-dark w-100 mb-0">
+                            <tbody>
+                            <tr>
+                                <th scope="row">Salary Cap Initial</th>
+                                <td>110 millions</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Salary Cap Restant</th>
+                                <td>{{$team->salary_cap}} millions</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total des Joueurs Draftés</th>
+                                <td>a calculer</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total des Enchères en cour</th>
+                                <td>{{$auctions->sum("auction")}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total des Enchères en cours + Drafté</th>
+                                <td>Total des Enchères en cours + Drafté</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                {{-----------------------FILTRES TABLEAU JOUEURS NBA ---------------------}}
+                <div class="row bg-dark mx-3">
                     <div class="col-md-3 text-white my-2">
-                        <p>Par Ordre</p>
-                        <a href="/draft?order=asc" class="btn-secondary">ordre croissant</a>
-                        <a href="/draft?order=desc" class="btn-secondary">ordre decroissant</a>
+                        <p>Prix</p>
+                        <div class="d-flex">
+                            <a href="/draft?order=asc" class="btn btn-secondary p-1">croissant</a>
+                            <a href="/draft?order=desc" class="btn btn-secondary p-1">decroissant</a>
+                        </div>
                     </div>
                     <div class="col-md-3 text-white my-2">
                         <p>position</p>
-                        <a href="/draft" class="btn-secondary">tous les joueurs</a>
-                        <a href="/draft?position=G" class="btn-secondary">arrieres</a>
-                        <a href="/draft?position=F" class="btn-secondary">ailiers</a>
-                        <a href="/draft?position=C" class="btn-secondary">Pivot</a>
+                        <a href="/draft" class="btn btn-secondary p-1 w-100">tous les joueurs</a>
+                        <div class="d-flex">
+                            <a href="/draft?position=G" class="btn btn-secondary p-1">arrieres</a>
+                            <a href="/draft?position=F" class="btn btn-secondary p-1">ailiers</a>
+                            <a href="/draft?position=C" class="btn btn-secondary p-1">Pivot</a>
+                        </div>
                     </div>
                     <div class="col-md-3 text-white my-2">
                         <p>cacher joueurs drafter</p>
-                        <a href="/draft" class="btn-secondary">montrer</a>
-                        <a href="/draft?hide" class="btn-secondary">cacher</a>
+                        <a href="/draft" class="btn btn-secondary p-1">montrer</a>
+                        <a href="/draft?hide" class="btn btn-secondary p-1">cacher</a>
+                    </div>
+                    <div class="col-md-3 text-white my-2">
+                        <p>ordre alphabétique</p>
+                        <a href="/draft" class="btn btn-secondary p-1">croissant</a>
+                        <a href="/draft?hide" class="btn btn-secondary p-1">décroissant</a>
                     </div>
 
-                    <div class="col-md-3 text-white my-2">
+                    <div class="text-white my-2">
                         <form action="" class="form-group">
-                        <input type="search">
-                        <submit>Rechercher</submit>
+
+                            <input type="search" class="form-control">
+
+                            <button class="btn btn-primary">Rechercher</button>
                         </form>
                     </div>
                 </div>
+                {{-----------------------TABLEAU JOUEURS NBA ---------------------}}
                 <div class="row">
-                    <div class="col-md-12 text-white">
-
-                        {{--                table des joueurs a drafter--}}
-                        <table class="table text-white">
-                            <thead class="thead-dark">
+                    <div class="col-md-12 text-white mt-3">
+                        <table class="table table-striped table-dark table-sm text-white w-100"
+                               style="font-size: 0.8rem;">
+                            <thead class="thead-light">
                             <tr>
-                                <th scope="col">Joueur</th>
-                                <th scope="col">Equipe</th>
+                                <th scope="col" width="35%">Joueur</th>
                                 <th scope="col">Poste</th>
-                                <th scope="col">Minutes</th>
-                                <th scope="col">Points</th>
-                                <th scope="col">Passes Décisives</th>
-                                <th scope="col">Rebonds</th>
-                                <th scope="col">Blocks</th>
-                                <th scope="col">Interceptions</th>
-                                <th scope="col">Pertes de Balles</th>
-                                <th scope="col">Prix</th>
-                                <th scope="col">Pick</th>
+                                <th scope="col">Min</th>
+                                <th scope="col">Pts</th>
+                                <th scope="col">Pass</th>
+                                <th scope="col">Reb</th>
+                                <th scope="col">Blk</th>
+                                <th scope="col">Int</th>
+                                <th scope="col">PdB</th>
+                                <th scope="col">Prix initial</th>
+                                <th scope="col">Prix Actuel</th>
+                                <th scope="col"></th>
 
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="table-hover">
                             @foreach($players as $player)
                                 @php
                                     $playerStats = json_decode($player->data)->pl;
@@ -61,116 +144,190 @@
 
                                     $position  = substr($playerStats->pos, 0,1);
                                     if($position === "G") {
-                                        $position = 'Guard';
+                                        $position = 'Arrière';
                                     } else if ($position === "F") {
                                         $position = 'Ailier';
                                     } else {
-                                        $position = 'Centre';
+                                        $position = 'Pivot';
                                     }
-
-
                                 @endphp
-
                                 <tr>
-                                    <td scope="row">
+                                    <th scope="row" class="align-middle pr-0">
                                         <a href="/draft/{{$player->id}}" class="text-white">
-                                            <img
-                                                src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
-                                                class="w-25 rounded-circle">{{$playerStats->fn}} {{$playerStats->ln}}
+                                            {{$playerStats->fn}} {{$playerStats->ln}}
                                         </a>
-                                    </td>
-                                    <td>{{$playerStats->tn}}</td>
-                                    <td>{{$position}}</td>
-                                    <td>{{$currentSeasonStats->min}}</td>
-                                    <td>{{$currentSeasonStats->pts}}</td>
-                                    <td>{{$currentSeasonStats->ast}}</td>
-                                    <td>{{$currentSeasonStats->reb}}</td>
-                                    <td>{{$currentSeasonStats->stl}}</td>
-                                    <td>{{$currentSeasonStats->blk}}</td>
-                                    <td>{{$currentSeasonStats->tov}}</td>
-                                    <td>{{$player->price}}</td>
-                                    <td><a href="/draft/auction/{{$player->id}}" class="btn-secondary rounded-pill">Faire une offre</td>
+                                    </th>
+                                    <td class="align-middle">{{$position}}</td>
+                                    <td class="align-middle">{{$currentSeasonStats->min}}</td>
+                                    <td class="align-middle">{{$currentSeasonStats->pts}}</td>
+                                    <td class="align-middle">{{$currentSeasonStats->ast}}</td>
+                                    <td class="align-middle">{{$currentSeasonStats->reb}}</td>
+                                    <td class="align-middle">{{$currentSeasonStats->stl}}</td>
+                                    <td class="align-middle">{{$currentSeasonStats->blk}}</td>
+                                    <td class="align-middle">{{$currentSeasonStats->tov}}</td>
+                                    <td class="align-middle">{{$player->price}}</td>
+                                    @foreach($auctionsOnPlayers as $auctionsOnPlayer)
+                                        @if($auctionsOnPlayer->player_id === $player->id)
+                                            <td class="align-middle">{{$auctionsOnPlayer->auction}}</td>
+                                        @endif
+                                    @endforeach
+                                    @if(!in_array($player->id, $auctionPlayersId))
+                                        <td colspan="2" class="align-middle">
+                                            <form action="{{ route('draft.auction', ['id' => $player->id])}}"
+                                                  method="POST" class="mb-0">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-light p-0 px-1">enchérir
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @else
+                                        <td colspan="2" class="align-middle">
+                                            Enchère en cours
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        {{--                {{$players->links()}}--}}
+                        {{$players->links()}}
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
 
+            <div class="col-md-5">
+                {{-----------------------JOUEURS DRAFTES ---------------------}}
                 <div class="row">
-                    <div class="col-md-12 text-white">
-                        <p>Mon Salary Cap</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>Salary Cap Initial</p>
-                            </div>
-                            <div class="col-md-6">
-                               <p>110 millions</p>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="bg-secondary">
+                            <h2 class="">Joueurs Draftés</h2>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>Salary Cap Restant</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{$team->salary_cap}} millions</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>Coût Total des Joueurs Draftés</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>faire le calcul du tarif des joueurs draftés</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>Coût Total des Enchères en cours</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{$auctions->sum("auction")}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>Coût Total des Enchères en cours + Draftés</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Coût Total des Enchères en cours + Drafté</p>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 text-white">
-                        <h2>Mes Enchères En cours</h2>
-                        <table class="text-white">
-                            @foreach($auctions as $auction)
-                            <tr>
-                                <td>{{$auction->player_id}}</td>
-                                <td>{{$auction->auction}}</td>
-                                <td>Annuler l'enchère</td>
-                                <td>Réenchérir</td>
-                            </tr>
-                            @endforeach
-                        </table>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 text-white">
-                        <h2>Mes Joueurs Draftés</h2>
-                        <table class="text-white">
-                            @foreach($drafted as $draftedPlayer)
+                        @if(isset($guards) && !empty($guards))
+                            <table class="table table-dark table-sm">
+                                <thead>
                                 <tr>
-                                    <td>{{$draftedPlayer->id}}</td>
+                                    <th scope="col">Arrières</th>
+                                    <th>{{count($guards)}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($guards as $guard)
+                                    <@php
+                                        $playerInfos = json_decode($player->data);
+                                        $position  = substr($playerInfos->pl->pos, 0,1)
+                                    @endphp
+                                    <tr>
+                                        <td>
+                                            <img
+                                                src="https://nba-players.herokuapp.com/players/{{$playerInfos->pl->ln}}/{{$playerInfos->pl->fn}}"
+                                                class="w-25 rounded-circle pr-1">
+                                        </td>
+                                        <td>{{$position}}</td>
+                                        <td>{{$playerInfos->pl->fn}}</td>
+                                        <td>{{$playerInfos->pl->fn}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                        @if(isset($forwards) && !empty($forwards))
+                            <table class="table text-white">
+                                <table class="table table-dark table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Ailiers</th>
+                                        <th>{{count($forwards)}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($forwards as $player)
+                                        @php
+                                            $playerInfos = json_decode($player->data);
+                                            $position  = substr($playerInfos->pl->pos, 0,1)
+                                        @endphp
+                                        <tr>
+                                            <td>
+                                                <img
+                                                    src="https://nba-players.herokuapp.com/players/{{$playerInfos->pl->ln}}/{{$playerInfos->pl->fn}}"
+                                                    class="w-25 rounded-circle pr-1">
+                                            </td>
+                                            <td>{{$position}}</td>
+                                            <td>{{$playerInfos->pl->fn}}</td>
+                                            <td>{{$playerInfos->pl->ln}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                @endif
+                                @if(isset($centers) && !empty($centers))
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Pivots</th>
+                                            <th>{{count($centers)}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($centers as $player)
+                                            @php
+                                                $playerInfos = json_decode($player->data);
+                                                $position  = substr($playerInfos->pl->pos, 0,1)
+                                            @endphp
+                                            <tr>
+                                                <td>
+                                                    <img
+                                                        src="https://nba-players.herokuapp.com/players/{{$playerInfos->pl->ln}}/{{$playerInfos->pl->fn}}"
+                                                        class="w-25 rounded-circle pr-1">
+                                                </td>
+                                                <td>{{$position}}</td>
+                                                <td>{{$playerInfos->pl->fn}}</td>
+                                                <td>{{$playerInfos->pl->ln}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                        @endif
+                    </div>
+                </div>
+                {{-----------------------ENCHERES EN COURS ---------------------}}
+                <div class="row mt-5">
+                    <div class="col-md-12 text-white">
+                        <h2>Enchères En cours</h2>
+                        <table class="table text-white">
+                            @foreach($auctions as $auction)
+                                @php $playerData = json_decode($auction->getPlayerData->data, false) @endphp
+                                <tr>
+                                    <td>
+                                        <form action="{{ route('draft.delete.auction', ['id' => $auction->player_id])}}"
+                                              method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-secondary rounded-circle">X</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="https://nba-players.herokuapp.com/players/{{$playerData->pl->ln}}/{{$playerData->pl->fn}}"
+                                            class="rounded-circle w-50">
+                                    </td>
+                                    <td>{{$playerData->pl->fn}} {{$playerData->pl->ln}}</td>
+                                    <td>ma dernière enchere: {{$auction->auction}}</td>
+                                    @foreach($auctionsOnPlayers as $auctionsOnPlayer)
+                                        @if($auctionsOnPlayer->player_id === $auction->player_id)
+                                            <td class="align-middle">enchère en cours : {{$auctionsOnPlayer->auction}}</td>
+                                        @endif
+                                    @endforeach
+                                    <td>
+                                        <form
+                                            action="{{ route('draft.auction.updateValue', ['id' => $auction->player_id])}}"
+                                            method="POST">
+                                            <input class="form-control" type="number" name="auctionValue"
+                                                   id="auctionValue" value="{{$auction->auction}}" step="5"
+                                                   min="{{$auction->auction}}">
+                                            @method('POST')
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">enchérir</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
@@ -180,8 +337,8 @@
             </div>
         </div>
     </div>
-        @endsection
-        <script type="text/javascript">
+@endsection
+<script type="text/javascript">
 
 
-        </script>
+</script>
