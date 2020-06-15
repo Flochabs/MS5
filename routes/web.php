@@ -25,7 +25,7 @@ Route::get( '/', function () {
 
 // Routes concernant l'affichage des joueurs NBA en liste (index) et individuels (show)
 Route::prefix( 'nba' )
-//    ->middleware( 'auth' )
+    ->middleware( 'auth' )
     ->name( 'nba.' )
     ->group( function () {
         Route::resource( '/', 'PlayerController' );
@@ -34,14 +34,11 @@ Route::prefix( 'nba' )
 
 
 // Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
-Route::prefix( 'leagues' )
-    ->middleware( 'auth' )
-    ->name( 'leagues.' )
-    ->group( function () {
-        Route::resource( '/', 'LeagueController' );
-        Route::get('public', 'LeagueController@publicLeagues')->name('public');
-        Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('joinPrivateLeague');
-    } );
+        Route::resource( 'leagues', 'LeagueController' )->middleware( 'auth' );
+        Route::get('public', 'LeagueController@publicLeagues')->name('leagues.public')->middleware( 'auth' );
+        Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('leagues.joinPrivateLeague')->middleware( 'auth' );
+        Route::get('joinPublicLeague/{id}', 'LeagueController@joinPublicLeague')->name('leagues.joinPublicLeague')->middleware( 'auth' );
+        Route::post('setActive/{id}', 'LeagueController@setActive')->name('leagues.setActive')->middleware( 'auth' );
 
 
 // Routes concernant l'affichage de la draft

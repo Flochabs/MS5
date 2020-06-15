@@ -9,10 +9,10 @@
                     <table class="table table-striped text-white">
                         <thead class="font-weight-bold">
                         <tr>
-                            <td class="tertiary">Nom de la league</td>
-                            <td class="tertiary">Créateur de la league</td>
-                            <td class="tertiary">Places restantes</td>
-                            <td class="tertiary">Rejoindre</td>
+                            <th class="tertiary">Nom de la league</th>
+                            <th class="tertiary">Créateur de la league</th>
+                            <th class="tertiary">Places restantes</th>
+                            <th class="tertiary">Rejoindre</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -24,7 +24,7 @@
                                 @if($league->number_teams <= $league->users->count())
                                 <td>Complet</td>
                                 @else
-                                <td><a href="#" class="btn btn-secondary">Rejoindre</a></td>
+                                <td><a href="{{ route('leagues.joinPublicLeague', $league->id) }}" class="btn btn-secondary" >Rejoindre</a></td>
                                 @endif
                             </tr>
                         @endforeach

@@ -13,6 +13,24 @@
 }
 
 .bg-crown{
-    background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
+    background: url("/../storage/images/logo_hall_of_fame.png") center no-repeat;
+}
+
+.bg-jersey{
+    background: url("/../storage/images/Fond_tutos.jpg");
     background-size: cover;
+    height: 100%;
+}
+
+.tutoimg{
+    height: 758px;
+}
+
+.imageHOF{
+    border-radius: 50px;
+}
+
+.twitter-homepage{
+    height: 200px;
+    width: 200px;
 }

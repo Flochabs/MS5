@@ -30,19 +30,19 @@
     <header class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-md-12">
-                <div class="banner justify-content-center">
+                <div class="banner justify-content-center h-100 w-100">
                     <div class="container">
-                        <div class="row no-gutters justify-content-end pt-5">
+                        <div class="row no-gutters justify-content-end py-5">
                             <i class="fab fa-instagram fa-2x icon text-center pt-1 m-2"></i>
                             <i class="fab fa-facebook fa-2x icon text-center pt-1 m-2"></i>
                             <i class="fab fa-twitter fa-2x icon text-center pt-1 m-2"></i>
                         </div>
-                        <div class="row no-gutters justify-content-center pt-4">
+                        <div class="row no-gutters justify-content-center py-4">
                             <div class="col-md-12">
                                 <img class="img-fluid mt-5" src="{{asset('storage/images/Logo.png')}}" alt="logo">
                             </div>
                         </div>
-                        <div class="row no-gutters justify-content-center p-5">
+                        <div class="row no-gutters justify-content-center py-5">
                             <li class="nav-item">
                                 <a class="bouton-connexion"
                                    href="{{ route('login') }}">{{ __('Connexion') }}</a>
@@ -60,40 +60,40 @@
         </div>
     </header>
 
-<main class="">
-    @yield('content')
-</main>
-<footer>
-    <div class="container pt-5">
-        <div class="row">
-            <div class="col-md-4 p-1">
-                <p class="tertiary">LE SITE</p>
-                <p><a class="text-white" href="#">A propos de nous</a></p>
-                <p><a class="text-white" href="#">Contact</a></p>
-                <p><a class="text-white" href="#">Mention Légale</a></p>
-                <p><a class="text-white" href="#"></a></p>
+    <main class="">
+        @yield('content')
+    </main>
+    <footer>
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-md-4 p-1">
+                    <p class="tertiary">LE SITE</p>
+                    <p><a class="text-white" href="#">A propos de nous</a></p>
+                    <p><a class="text-white" href="#">Contact</a></p>
+                    <p><a class="text-white" href="#">Mention Légale</a></p>
+                    <p><a class="text-white" href="#"></a></p>
+                </div>
+
+                <div class="col-md-4 p-1">
+                    <p class="tertiary">RESSOURCES</p>
+                    <p><a class="text-white" href="#">Centre d'aide</a></p>
+                    <p><a class="text-white" href="#">Notre blog</a></p>
+                    <p><a class="text-white" href="#">Histoire de clients</a></p>
+                    <p><a class="text-white" href="#">Notre PayPal</a></p>
+                </div>
+
+                <div class="col-md-4 p-1">
+                    <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
+                </div>
+            </div>
+            <div class="container-fluid py-4">
+                <hr class="white">
             </div>
 
-            <div class="col-md-4 p-1">
-                <p class="tertiary">RESSOURCES</p>
-                <p><a class="text-white" href="#">Centre d'aide</a></p>
-                <p><a class="text-white" href="#">Notre blog</a></p>
-                <p><a class="text-white" href="#">Histoire de clients</a></p>
-                <p><a class="text-white" href="#">Notre PayPal</a></p>
-            </div>
-
-            <div class="col-md-4 p-1">
-                <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
-            </div>
         </div>
-        <div class="container-fluid py-4">
-            <hr class="white">
-        </div>
 
-    </div>
-
-</footer>
-
+    </footer>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 </body>
 </html>

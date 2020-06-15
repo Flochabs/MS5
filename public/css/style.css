@@ -31,8 +31,26 @@ footer {
 }
 
 .bg-crown {
-  background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
+  background: url("/../storage/images/logo_hall_of_fame.png") center no-repeat;
+}
+
+.bg-jersey {
+  background: url("/../storage/images/Fond_tutos.jpg");
   background-size: cover;
+  height: 100%;
+}
+
+.tutoimg {
+  height: 758px;
+}
+
+.imageHOF {
+  border-radius: 50px;
+}
+
+.twitter-homepage {
+  height: 200px;
+  width: 200px;
 }
 
 .bouton-inscription {
@@ -92,6 +110,7 @@ body {
 
 a:hover {
   text-decoration: none;
+  color: #eb671b;
 }
 
 p {
@@ -102,26 +121,32 @@ p {
 
 h1 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h2 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h3 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h4 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h5 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h6 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 hr {
