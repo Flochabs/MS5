@@ -45,6 +45,30 @@ class MatchController extends Controller
 
 
 
+        //-------------  RECUPERATION DONNES  MATCH --------------//
+
+        // $allMatchs récupère tout les matchs présent dans match
+        $allMatchs = Match::all();
+        //dd($allMatchs);
+
+
+        // $userMatchs récupère tout les matchs jouer par l'utilisateur dans match
+        $userMatchs  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
+        //dd($userMatchs);
+
+        // $userNextMatchs récupère le prochain matchs jouer par l'utilisateur dans match
+        $userNextMatchs = Match::whereNull('home_team_score')->where('league_id', $userLeagueId)->orderBy('start_at','asc')->first();
+        //dd( $userNextMatchs );
+
+        // $userLastMatchs récupère le dernière matchs jouer par l'utilisateur dans match
+        $userLastMatchs  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
+            ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
+            ->whereNotNull('home_team_score')
+            ->orderBy('start_at','desc')
+            ->get()
+            ->first();
+        dd($userLastMatchs );
+
 
         return view('match.index');
     }
