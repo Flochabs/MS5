@@ -79,7 +79,7 @@
                                     <div class="row justify-content-center">
                                         @if (Route::has('password.request'))
                                             <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                <p>Mot de passe oublié ?</p>
+                                                <p class="text-white">Mot de passe oublié ?</p>
                                             </a>
                                         @endif
 

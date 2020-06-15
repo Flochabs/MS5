@@ -41,6 +41,7 @@ footer {
   border-radius: 5px;
   color: #fff;
   padding: 10px 35px;
+  font-weight: bold;
 }
 
 .bouton-inscription:hover {
@@ -54,8 +55,9 @@ footer {
   background: transparent;
   border: solid 1px;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 35px;
   color: #fff;
+  font-weight: bold;
 }
 
 .bouton-connexion:hover {
@@ -156,5 +158,13 @@ label {
   min-height: auto;
   max-width: 400px;
   color: #fff;
+}
+
+.pb-reset {
+  padding-bottom: 186px;
+}
+
+.pb-email {
+  padding-bottom: 293px;
 }
 
