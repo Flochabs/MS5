@@ -24,8 +24,10 @@
             <div class="col-md-6 text-right">
                 <div class="row">
                     @if($league->isActive === 0)
-                    <form action="{{ route('leagues.setActive', $league->id)}}" method="post">
+                    <form action="{{ route('leagues.update', $league->id)}}" method="post">
                         @csrf
+                        @method('PATCH')
+                        <input type="text" class="form-control" name="isActive" value="1"/>
                         <button class="bouton-inscription" type="submit">Lancer la league</button>
                     </form>
                     @endif

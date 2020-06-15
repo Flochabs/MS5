@@ -123,7 +123,11 @@ class LeagueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = League::find($id);
+        $data->isActive = $request->isActive;
+        $data->save();
+
+        return redirect('teams.create')->with('success', 'La leaque est bien activée.');
     }
 
     /**
@@ -172,14 +176,4 @@ class LeagueController extends Controller
             return redirect('leagues')->withErrors('Cette league n\'existe pas');
         }
     }
-
-    public function setActive($id)
-    {
-        $setActive = 1;
-        $data = League::find($id);
-        dd($data);
-        $data->isActive = $setActive->isActive;
-        $data->save();
-    }
-
 }
