@@ -14,7 +14,7 @@ class UpdateLeagueUserTableDeleteOncascade extends Migration
     public function up()
     {
         Schema::table('league_user', function (Blueprint $table) {
-            $table->foreignId('league_id')
+            $table->primary(['league_id', 'user_id'])
                 ->constrained()
                 ->onDelete('cascade');
         });

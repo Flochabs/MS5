@@ -33,7 +33,7 @@ Route::prefix( 'nba' )
 
 
 
-// Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
+// Routes concernant l'affichage des ligues en portail (index), en liste (public) et individuelles (show)
         Route::resource( 'leagues', 'LeagueController' )->middleware( 'auth' );
         Route::get('public', 'LeagueController@publicLeagues')->name('leagues.public')->middleware( 'auth' );
         Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('leagues.joinPrivateLeague')->middleware( 'auth' );
@@ -61,6 +61,9 @@ Route::prefix( 'dashboard' )
         Route::get('profile', 'DashboardController@profile')->name('profile');
         Route::get('match_result', 'DashboardController@match_result')->name('match_result');
     } );
+
+// Routes concernant les équipes
+Route::resource( 'teams', 'TeamController' )->middleware( 'auth' );
 
 
 

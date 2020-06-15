@@ -14,4 +14,9 @@ class Team extends Model
     public function getLeague() {
         return $this->belongsTo(League::class, 'league_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User');
+    }
 }

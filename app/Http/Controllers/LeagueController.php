@@ -146,6 +146,7 @@ class LeagueController extends Controller
 
     public function publicLeagues()
     {
+        //permet d'afficher les leagues publiques
         $leagues = League::where('public', 0)->paginate(15);
 
         return view('leagues.public')->with('leagues', $leagues);
@@ -153,6 +154,7 @@ class LeagueController extends Controller
 
     public function joinPublicLeague($id)
     {
+        //permet de rejoindre une league publique
         $league_id = (int)$id;
 
             // insère les id dans la table pivot
@@ -165,6 +167,7 @@ class LeagueController extends Controller
 
     public function joinPrivateLeague(Request $request)
     {
+        //permet de rejoindre une league privée
         if (League::where('token', '=', $request->token)->exists()) {
             // insère les id dans la table pivot
             $user = Auth::user();
