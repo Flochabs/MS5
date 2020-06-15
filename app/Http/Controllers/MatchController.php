@@ -35,6 +35,16 @@ class MatchController extends Controller
         //dd($userPlayersTeam);
 
 
+        //------------- CALCUL DU SCORE D'UNE TEAM ---------------//
+
+        $scoreTeam = 0;
+        foreach ($userPlayersTeam as $playersTeam){
+            $scoreTeam += $playersTeam->score;
+        }
+        //dd($scoreTeam);
+
+
+
 
         return view('match.index');
     }
