@@ -21,13 +21,13 @@ class DashboardController extends Controller
         //-------------  RECUPERATION DONNES UTILISATEUR ---------------//
 
         //récupération des données users
-        $user = Auth::user();
+        //$user = Auth::user();
 
         //league à laquelle appartient l'utilisateur qui fait sa draft
-        $userLeagueId = $user->team->league_id;
+        //$userLeagueId = $user->team->league_id;
 
         // $userTeam récupère l'équipe de l'utilisateur
-        $userTeam = Team::where('user_id', $user->id)->first();
+        //$userTeam = Team::where('user_id', $user->id)->first();
         //dd($userTeam);
 
 
@@ -36,24 +36,19 @@ class DashboardController extends Controller
 
 
         //equipes présentent dans la ligue de l'utilisateur
-        $leagueTeams = Team::where('league_id', $userLeagueId)->get();
+        //$leagueTeams = Team::where('league_id', $userLeagueId)->get();
         // dd($leagueTeams);
 
 
         // match récupère tout les matchs présent dans match
         //$match = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])->get();
-        $match = Match::where([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
-        dd($match);
+        //$match = Match::where([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
 
 
 
 
 
-        return view('dashboard.index')
-            ->with('user', $user)
-            ->with('leagueTeams', $leagueTeams)
-            ->with('userTeam', $userTeam);
-
+        return view('dashboard.index');
     }
 
 
