@@ -13,7 +13,7 @@
                                 <img src="https://via.placeholder.com/90" alt="">
                             </div>
                             <div>
-                                <h3 class="card-subtitle mb-2 text-white">{{$user_pseudo}}</h3>
+                                <h3 class="card-subtitle mb-2 text-white">{{ $user->pseudo}}</h3>
                             </div>
                             <div class="card-header col-md-12 d-flex justify-content-center pb-2">
                                 <a class="btn btn-primary text-white" href="{{ route('dashboard.profile') }}">
@@ -165,14 +165,14 @@
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
                             <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
                                 <img src="https://via.placeholder.com/90" alt="">
-                                <p class="text-center pt-3">Equipe</p>
+                                <p class="text-center pt-3">{{$leagueTeams[0]->name}}</p>
                             </div>
                             <div class="col-md-4 d-flex justify-content-center">
                                 <h4>VS</h4>
                             </div>
                             <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
                                 <img src="https://via.placeholder.com/90" alt="">
-                                <p class="text-center pt-3">Equipe</p>
+                                <p class="text-center pt-3">{{$leagueTeams[1]->name}}</p>
                             </div>
                         </div>
                     </div>
