@@ -22,19 +22,15 @@
     <div class="container-fluid bg-light pt-3">
 
         <div class="row no-gutters">
-
             <div class="col-md-12 text-center pt-5">
                 <h2>Créez votre ligue, invitez vos potes <b>et marchez leur dessus !</b></h2>
             </div>
-
         </div>
 
+        <hr>
+
         <div class="container">
-
-            <hr>
-
             <div class="row no-gutters">
-
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_joueur.png')}}" alt="joueur">
                     <h5 class="py-2"><b>+ de 5000 joueurs MS5</b></h5>

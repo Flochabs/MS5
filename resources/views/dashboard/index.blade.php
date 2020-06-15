@@ -13,10 +13,10 @@
                                 <img src="https://via.placeholder.com/90" alt="">
                             </div>
                             <div>
-                                <h3 class="card-subtitle mb-2 text-white">{{$user_pseudo}}</h3>
+                                <h3 class="card-subtitle mb-2 text-white">{{Auth::user()->pseudo}}</h3>
                             </div>
                             <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                                <a class="btn btn-primary text-white" href="{{ route('dashboard.profile') }}">
+                                <a class="btn btn-primary text-white" href="{{ route('dashboard.profile', $user_id) }}">
                                     Profil
                                 </a>
                             </div>

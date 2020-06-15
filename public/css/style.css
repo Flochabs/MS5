@@ -108,9 +108,13 @@ body {
   background: #2b2236;
 }
 
+a {
+  color: #fff;
+}
+
 a:hover {
   text-decoration: none;
-  color: #eb671b;
+  color: #000;
 }
 
 p {

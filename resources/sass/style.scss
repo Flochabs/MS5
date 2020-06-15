@@ -19,10 +19,13 @@ body {
     background: $primary;
 }
 
+a {
+    color: $white;
+}
 
 a:hover{
     text-decoration: none;
-    color: $quaternary;
+    color: #000;
 }
 
 p {
