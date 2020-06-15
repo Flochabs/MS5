@@ -6,7 +6,7 @@
         <div class="row">
                 <!-- CARD Profil -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="card-dashboard" style="width: 18rem; height: 15rem">
+                    <div class="MS5card card" style="width: 18rem; height: 15rem">
                         <div class="card-body">
                             <h5 class="card-title text-center">Profil</h5>
                             <div>
@@ -26,13 +26,13 @@
 
                 <!-- CARD League -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="card-dashboard">
+                    <div class="MS5card card">
                         <div class="banner-league-publique">
                             <h5 class="card-title text-center">League</h5>
                         </div>
                         <div class="card-body">
                             <table class="table">
-                                <thead class="thead-dark">
+                                <thead class="text-white">
                                 <tr>
                                     <th class="text-center" scope="col">Classement</th>
                                     <th class="text-center" scope="col">Équipe</th>
@@ -68,12 +68,11 @@
 
                  <!-- CARD Equipe -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="card-dashboard" >
+                    <div class="MS5card card" >
                         <div class="card-body">
                             <h5 class="card-title text-center">Equipe</h5>
-                            <hr class="bg-white">
                             <table class="table">
-                                <thead class="thead-dark">
+                                <thead class="text-white">
                                     <tr>
                                         <th class="text-center" scope="col">Joueur</th>
                                         <th class="text-center" scope="col">Position</th>
@@ -97,28 +96,31 @@
 
                 <!-- CARD Resultat du dernier match -->
                 <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="card-dashboard">
-                        <div class="banner-match-result">
-                            <h5 class="card-title text-center">Résultat du dernier match</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="col-md-12 p-2">
-                                <h5 class="text-center">Nom de la league</h5>
+                    <div class="MS5card card">
+                        <div class="row">
+                            <div class="banner-match-result">
+                                <h5 class="card-title text-center">Résultat du dernier match</h5>
                             </div>
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
-                                    <img src="https://via.placeholder.com/90" alt="">
-                                    <p class="text-center pt-3">Equipe</p>
+                            <div class="card-body">
+                                <div class="col-md-12 p-2">
+                                    <h5 class="text-center">Nom de la league</h5>
                                 </div>
-                                <div class="col-md-4 d-flex justify-content-center">
-                                    <h4>86 - 130</h4>
-                                </div>
-                                <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
-                                    <img src="https://via.placeholder.com/90" alt="">
-                                    <p class="text-center pt-3">Equipe</p>
+                                <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                    <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
+                                        <img src="https://via.placeholder.com/90" alt="">
+                                        <p class="text-center pt-3">Equipe</p>
+                                    </div>
+                                    <div class="col-md-4 d-flex justify-content-center">
+                                        <h4>86 - 130</h4>
+                                    </div>
+                                    <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
+                                        <img src="https://via.placeholder.com/90" alt="">
+                                        <p class="text-center pt-3">Equipe</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-header">
                             <h5 class="text-center">Statistiques du match</h5>
                         </div>
@@ -143,7 +145,7 @@
                             </div>
                         </div>
                         <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                            <a href="{{ route('dashboard.match_result') }}" class="btn btn-primary">Feuille de match</a>
+                            <a href="{{ route('dashboard.match_result') }}" class="btn btn-secondary">Feuille de match</a>
                         </div>
                     </div>
                 </div>
@@ -198,7 +200,7 @@
 
             <!-- Card Draft -->
             <div class="col-md-6 d-flex justify-content-center pt-3">
-                <div class="card-dashboard">
+                <div class="MS5card card">
                     <div class="card-body">
                         <div class="col-md-12">
                             <h5 class="card-title text-center">Draft</h5>

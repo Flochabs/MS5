@@ -134,7 +134,10 @@ class LeagueController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $league = League::findOrFail($id);
+        $league->delete();
+
+        return redirect('leagues.index')->with('success', 'La league a bien été supprimée.');
     }
 
     public function publicLeagues()
@@ -168,6 +171,15 @@ class LeagueController extends Controller
         } else {
             return redirect('leagues')->withErrors('Cette league n\'existe pas');
         }
+    }
+
+    public function setActive($id)
+    {
+        $setActive = 1;
+        $data = League::find($id);
+        dd($data);
+        $data->isActive = $setActive->isActive;
+        $data->save();
     }
 
 }

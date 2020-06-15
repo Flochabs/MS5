@@ -38,6 +38,7 @@ Route::prefix( 'nba' )
         Route::get('public', 'LeagueController@publicLeagues')->name('leagues.public')->middleware( 'auth' );
         Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('leagues.joinPrivateLeague')->middleware( 'auth' );
         Route::get('joinPublicLeague/{id}', 'LeagueController@joinPublicLeague')->name('leagues.joinPublicLeague')->middleware( 'auth' );
+        Route::post('setActive/{id}', 'LeagueController@setActive')->name('leagues.setActive')->middleware( 'auth' );
 
 
 // Routes concernant l'affichage de la draft
