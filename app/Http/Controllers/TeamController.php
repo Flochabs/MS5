@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Model\Nbateam;
 use App\Model\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
 {
@@ -37,12 +39,15 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
         // Récupération des données du formulaire et association de l'id de l'utilisateur
+        $user = Auth::user();
         $user_id = Auth::user()->id;
+        $league_id =$user->league->id;
         $values = $request->all();
         $rules = [
-            'name'             => 'string|required|unique:leagues',
-            'stadium_name'     => 'string|required|unique:leagues',
+            'name'             => 'string|required|max:30|unique:teams',
+            'stadium_name'     => 'string|required|max:30|unique:teams',
 //            'public'           => 'integer|required',
         ];
         // Vérification de la validité des informations transmises par l'utilisateur
@@ -64,17 +69,12 @@ class TeamController extends Controller
         // Création de la nouvelle league avec les informations transmises
         $newTeam = new Team();
         $newTeam->user_id         = $user_id;
+        $newTeam->league_id       = $league_id;
         $newTeam->name            = $values['name'];
         $newTeam->stadium_name    = $values['stadium_name'];
 //        $newTeam->public          = $publicLeague;
 
         $newTeam->save();
-        // On associe le joueur à la team dans la table pivot
-        $newTeam->user()->sync(Auth::user()->id);
-
-        // On ajoute le role créateur de league
-        Auth::user()->roles()->attach([3]);
-
 
         $id = $newTeam->id;
 

@@ -2,6 +2,21 @@
 
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <br/>
+        @endif
+        @if(session()->get('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div><br/>
+        @endif
         <h1 class="my-5 text-white">Crée ta team :</h1>
         <div class="row justify-content-center">
             <form id="form_create_team" class="MS5card p-4 w-50" method="post" role="form" action="{{ route('teams.store') }}">
@@ -17,7 +32,7 @@
                         <div class="form-group">
                             <div class="row my-5">
                                 <div class="col-md-4"><label class="tertiary" for="name">Nom de ton stade :</label></div>
-                                <div class="col-md-8"><input type="text" class="form-control" name="name" required/></div>
+                                <div class="col-md-8"><input type="text" class="form-control" name="stadium_name" required/></div>
                             </div>
                         </div>
                         <div class="form-group">
