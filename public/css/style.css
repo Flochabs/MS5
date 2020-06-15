@@ -64,6 +64,21 @@ footer {
   font-weight: bold;
 }
 
+#card_create_league {
+  background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
+  background-size: contain;
+}
+
+#card_private_league {
+  background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
+  background-size: contain;
+}
+
+#card_public_league {
+  background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
+  background-size: contain;
+}
+
 @font-face {
   font-family: "Mudhead-Serif";
   src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
@@ -107,6 +122,15 @@ h6 {
   font-family: Mudhead-Serif, sans-serif;
 }
 
+hr {
+  background: #fff;
+}
+
+label {
+  font-family: Poppins, Arial, sans-serif;
+  color: #fff;
+}
+
 .bg-primary {
   background: #2b2236;
 }
@@ -117,10 +141,6 @@ h6 {
 
 .quaternary {
   color: #eb671b;
-}
-
-hr {
-  background: #fff;
 }
 
 .MS5card {
@@ -136,25 +156,5 @@ hr {
   min-height: auto;
   max-width: 400px;
   color: #fff;
-}
-
-label {
-  font-family: Poppins, Arial, sans-serif;
-  color: #fff;
-}
-
-#card_create_league {
-  background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
-  background-size: contain;
-}
-
-#card_private_league {
-  background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
-  background-size: contain;
-}
-
-#card_public_league {
-  background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
-  background-size: contain;
 }
 
