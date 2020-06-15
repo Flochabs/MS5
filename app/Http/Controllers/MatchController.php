@@ -19,7 +19,13 @@ class MatchController extends Controller
         $user = Auth::user();
         //dd($user);
 
+        //league à laquelle appartient l'utilisateur qui fait sa draft
+        $userLeagueId = $user->team->league_id;
+        //dd($userLeagueId);
 
+        // $team récupère l'équipe de l'utilisateur
+        $userTeam = Team::where('user_id', $user->id)->first();
+        //dd($userTeam);
 
 
         return view('match.index');
