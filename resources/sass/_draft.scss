@@ -3,6 +3,9 @@
     background: lighten($primary, 15%);
 }
 #draft-container{
+    #nb-players {
+        font-size: 2rem !important;
+    }
     .table-dark{
         background-color : $bg-card !important;
         th {

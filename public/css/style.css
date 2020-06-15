@@ -2,6 +2,10 @@
   background: #504065;
 }
 
+#draft-container #nb-players {
+  font-size: 2rem !important;
+}
+
 #draft-container .table-dark {
   background-color: #3a2e49 !important;
 }
