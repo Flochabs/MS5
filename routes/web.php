@@ -63,7 +63,13 @@ Route::prefix( 'dashboard' )
         Route::get('match_result', 'DashboardController@match_result')->name('match_result');
     } );
 
-
+// Routes concernant l'affichage du match
+Route::prefix( 'match' )
+    ->middleware( 'auth' )
+    ->name( 'match.' )
+    ->group( function () {
+        Route::resource( '/', 'MatchController' );
+    } );
 
 
 
