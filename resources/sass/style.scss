@@ -22,6 +22,7 @@ body {
 
 a:hover{
     text-decoration: none;
+    color: $quaternary;
 }
 
 p {
@@ -34,6 +35,7 @@ p {
 @for $i from 1 through 6 {
     h#{$i} {
      font-family: Mudhead-Serif, sans-serif;
+        color: $quaternary;
     }
 }
 

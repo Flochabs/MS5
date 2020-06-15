@@ -2,21 +2,23 @@
 
 @section('content')
 
+    {{--Règles--}}
     <div class="container-fluid p-0">
         <div class="row no-gutters">
-            <div class="col-md-6 text-right">
-                <img src="{{asset('storage/images/image_tutos.jpg')}}" alt="photo">
+            <div class="col-md-6">
+                <img class="w-100" src="{{asset('storage/images/image_tutos.jpg')}}" alt="photo">
             </div>
-            <div class="col-md-6 pl-5 pt-5">
+            <div class="col-md-6 d-flex flex-column  pl-5 pt-5">
                 <h4 class="tertiary p-2">Les tutos de M. MVP</h4>
                 <h1 class="pl-2 text-white">D'ACCORD, <br> MAIS ÇA FONCTIONNE COMMENT ?</h1>
                 <h4 class="tertiary p-2">° Découvrez les règles en 5 minutes chrono</h4>
                 <p class="pl-2 text-white">Explication de l'application, texte à définir.</p>
-                <p class="tertiary p-2">Lire la suite</p>
+                <p><a class="tertiary p-2" href="#">Lire la suite</a></p>
             </div>
         </div>
     </div>
 
+    {{--Infos--}}
     <div class="container-fluid bg-light pt-3">
 
         <div class="row no-gutters">
@@ -76,7 +78,9 @@
 
     </div>
 
-    <div class="container bg-crown">
+    {{--Hall Of Fame--}}
+    {{--
+   <div class="container bg-crown">
 
         <div class="row no-gutters text-center">
             <div class="col-12 p-5 text-center">
@@ -86,21 +90,21 @@
 
         <div class="row no-gutters justify-content-center">
 
-            <div class="col-md-4">
-                <div class="row justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="row flex-column">
                     <div class="pr-2">
                         <img class="imageHOF" src="https://placehold.it/100/100" alt="">
                     </div>
                     <div>
                         <h4 class="text-white">KillerChouquette23</h4>
                         <h6 class="text-white">Les viennoiseries vener</h6>
-                        <p class="tertiary">Meilleur Ratio victoire/défaite</p>
+                        <p class="tertiary">Meilleur Ratio V/D</p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="row justify-content-center">
+            <div class="col-md-4  d-flex justify-content-center">
+                <div class="row flex-column">
                     <div class="pr-2 ">
                         <img class="imageHOF" src="https://placehold.it/100/100" alt="">
                     </div>
@@ -112,8 +116,8 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="row justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="row flex-column">
                     <div class="pr-2">
                         <img class="imageHOF" src="https://placehold.it/100/100" alt="">
                     </div>
@@ -127,23 +131,23 @@
 
         </div>
 
-        <div class="row no-gutters py-4 justify-content-center">
+        <div class="row no-gutters py-4">
 
-            <div class="col-md-6">
-                <div class="row justify-content-center">
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="row flex-column">
                     <div class="pr-2">
                         <img class="imageHOF" src="https://placehold.it/100/100" alt="">
                     </div>
                     <div>
                         <h4 class="text-white">Charlote l'abeille</h4>
                         <h6 class="text-white">Flylikelebron</h6>
-                        <p class="tertiary">Nombre de rebonds gagnés</p>
+                        <p class="tertiary">+ de rebonds gagnés</p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="row justify-content-center">
+            <div class="col-md-6  d-flex justify-content-center">
+                <div class="row flex-column">
                     <div class="pr-2">
                         <img class="imageHOF" src="https://placehold.it/100/100" alt="">
                     </div>
@@ -164,7 +168,9 @@
 
         </div>
     </div>
+--}}
 
+    {{--Tuto--}}
     <div class="container-fluid bg-jersey tutoimg ">
         <div class="row h-100 align-items-md-center">
             <div class="col-md-6 offset-md-6">
@@ -181,14 +187,77 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    {{--Twitter--}}
+    <div class="container-fluid my-3">
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 <a class="twitter-timeline" data-width="500" data-height="700" data-theme="dark"
-                   href="https://twitter.com/home?ref_src=twsrc%5Etfw">Tweets by home</a>
+                   href="https://twitter.com/NBAFRANCE?ref_src=twsrc%5Etfw">Tweets by NBAFRANCE</a>
             </div>
         </div>
     </div>
 
+    <hr class="bg-white">
+    {{--Dev Teams--}}
+    <div class="container">
+        {{--Titre--}}
+        <div class="row pt-2">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-white">Rencontrez l'équipe !</h1>
+            </div>
+        </div>
+        <div class="row pt-2">
+
+            <div class="col-md-6 d-flex justify-content-around">
+                <div class="p-5">
+                    <div>
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">Mrs Invisible</h4>
+                        <p class="tertiary">Anaïs Mourat</p>
+                        <p class="text-white">Dev Backend</p>
+                    </div>
+                </div>
+
+                <div class="p-5">
+                    <div>
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">The Torch</h4>
+                        <p class="tertiary">Florian Chabreyrou</p>
+                        <p class="text-white">Dev Frontend</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex justify-content-around">
+                <div class="p-5">
+                    <div>
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">The Thing</h4>
+                        <p class="tertiary">Jérémy Roy</p>
+                        <p class="text-white">Dev Backend</p>
+                    </div>
+                </div>
+
+                <div class="p-5">
+                    <div>
+                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
+                    </div>
+                    <div>
+                        <h4 class="text-white">Mr Fantastic</h4>
+                        <p class="tertiary">Armel Bouvier</p>
+                        <p class="text-white">Chargé de projet</p>
+                        <p class="text-white">Dev Front/Backend</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 @endsection

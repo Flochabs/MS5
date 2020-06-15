@@ -110,6 +110,7 @@ body {
 
 a:hover {
   text-decoration: none;
+  color: #eb671b;
 }
 
 p {
@@ -120,26 +121,32 @@ p {
 
 h1 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h2 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h3 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h4 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h5 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 h6 {
   font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
 }
 
 hr {
