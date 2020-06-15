@@ -27,6 +27,14 @@ class MatchController extends Controller
         $userTeam = Team::where('user_id', $user->id)->first();
         //dd($userTeam);
 
+        //-------------  RECUPERATION  DONNES JOEURS DE LA TEAM DE L'UTILISATEUR --------------//
+
+
+        // $userPlayersTeam récupère tout joueurs de l'utilisateur dans ça team
+        $userPlayersTeam = $userTeam->getPlayers;
+        //dd($userPlayersTeam);
+
+
 
         return view('match.index');
     }
