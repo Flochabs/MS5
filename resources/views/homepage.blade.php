@@ -37,7 +37,7 @@
 
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_joueur.png')}}" alt="joueur">
-                    <h5 class="py-2"><b>+ de <span class="tertiary">5000</span> joueurs MS5</b></h5>
+                    <h5 class="py-2"><b>+ de 5000 joueurs MS5</b></h5>
                     <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
                         définir !
                         Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_league.png')}}" alt="panier">
-                    <h5 class="py-2"><b><span class="tertiary">125</span> ligues crées</b></h5>
+                    <h5 class="py-2"><b>125 ligues crées</b></h5>
                     <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
                         définir !
                         Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_teams.png')}}" alt="maillot">
-                    <h5 class="py-2"><b><span class="tertiary">800</span> équipes crées</b></h5>
+                    <h5 class="py-2"><b>800 équipes crées</b></h5>
                     <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
                         définir !
                         Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
@@ -62,7 +62,7 @@
                 <div class="col-md-3 text-center p-3">
                     <img style="height: 75px; width: 75px;" src="{{asset('storage/images/terrain.jpeg')}}"
                          alt="terrain">
-                    <h5 class="py-2"><b><span class="tertiary">10 000</span> matchs joués</b></h5>
+                    <h5 class="py-2"><b>10 000 matchs joués</b></h5>
                     <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
                         définir !
                         Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
