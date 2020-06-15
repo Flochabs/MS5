@@ -1,5 +1,11 @@
+// Import
 @import "variables";
 @import "mixins";
+@import "header";
+@import "footer";
+@import "homepage";
+@import "bouton";
+@import "leagues";
 
 // Font
 @font-face {
@@ -7,16 +13,16 @@
     src: url("/../storage/fonts/Mudhead-Serif.otf") format('truetype');
 }
 
+
 // Content
 body {
     background: $primary;
 }
-footer{
-    background: $secondary;
-}
+
 
 a:hover{
     text-decoration: none;
+    color: $quaternary;
 }
 
 p {
@@ -29,9 +35,20 @@ p {
 @for $i from 1 through 6 {
     h#{$i} {
      font-family: Mudhead-Serif, sans-serif;
+        color: $quaternary;
     }
 }
 
+hr{
+    background: $white;
+}
+
+label {
+    font-family: $p-font-family-sans-serif;
+    color: #fff;
+}
+
+//Couleur
 .bg-primary{
     background: $primary;
 }
@@ -40,42 +57,8 @@ p {
     color: $tertiary;
 }
 
-hr{
-    background: $white;
-}
-
-.pb-connexion{
-    padding-bottom: 7.7rem;
-}
-
-// Bouton
-.bouton-inscription {
-    background: $secondary;
-    border: solid 1px transparent;
-    border-radius: 5px;
-    color: #fff;
-    padding: 10px 35px;
-
-    &:hover {
-        background: lighten($secondary, 5);
-        font-weight: bold;
-        text-decoration: none;
-        color: $white;
-    }
-}
-
-.bouton-connexion {
-    background: transparent;
-    border: solid 1px;
-    border-radius: 5px;
-    padding: 10px 20px;
-    color: #fff;
-
-    &:hover {
-        background: $white;
-        color: #000;
-        font-weight: bold;
-    }
+.quaternary {
+    color: $quaternary;
 }
 
 // Card
@@ -83,64 +66,7 @@ hr{
     @include MS5card
 }
 
-// Card-dashboard
 .card-dashboard {
     @include card-dashboard
 }
 
-// Input
-label {
-    font-family: $p-font-family-sans-serif;
-    color: #fff;
-}
-
-// Bannière
-.banner {
-    background: url(/../storage/images/Fond_header.jpg) no-repeat;
-    background-size: cover;
-    height: 100vh;
-}
-
-.icon{
-    background: white;
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    border: 1px solid #fff;
-}
-
-
-.quaternary {
-    color: $quaternary;
-}
-
-.bg-crown{
-    background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
-    background-size: cover;
-}
-
-
-.logo-footer{
-    max-height: 75%;
-    max-width: 75%;
-}
-
-.logo-header {
-    max-height: 25%;
-    max-width: 25%;
-}
-//-------------------------------------------------------- LEAGUES --------------------------------------------------//
-#card_create_league {
-    background: url("/../storage/images/leagues_portal/image_creer_league.jpg");
-    background-size: contain;
-}
-
-#card_private_league {
-    background: url("/../storage/images/leagues_portal/image_league_privee.jpg");
-    background-size: contain;
-}
-
-#card_public_league {
-    background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
-    background-size: contain;
-}

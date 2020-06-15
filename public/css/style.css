@@ -1,64 +1,56 @@
-@font-face {
-  font-family: "Mudhead-Serif";
-  src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
-}
-
-body {
-  background: #2b2236;
+.logo-header {
+  max-height: 25%;
+  max-width: 25%;
 }
 
 footer {
   background: #6541df;
 }
 
-a:hover {
-  text-decoration: none;
-}
-
-p {
-  font-family: Poppins, Arial, sans-serif;
-  text-align: left;
-  margin: 0px;
-}
-
-h1 {
-  font-family: Mudhead-Serif, sans-serif;
-}
-
-h2 {
-  font-family: Mudhead-Serif, sans-serif;
-}
-
-h3 {
-  font-family: Mudhead-Serif, sans-serif;
-}
-
-h4 {
-  font-family: Mudhead-Serif, sans-serif;
-}
-
-h5 {
-  font-family: Mudhead-Serif, sans-serif;
-}
-
-h6 {
-  font-family: Mudhead-Serif, sans-serif;
-}
-
-.bg-primary {
-  background: #2b2236;
-}
-
-.tertiary {
-  color: #ff8500;
-}
-
-hr {
-  background: #fff;
+.logo-footer {
+  max-height: 75%;
+  max-width: 75%;
 }
 
 .pb-connexion {
   padding-bottom: 7.7rem;
+}
+
+.banner {
+  background: url(/../storage/images/Fond_header.jpg) no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.icon {
+  background: #fff;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  border: 1px solid #fff;
+}
+
+.bg-crown {
+  background: url("/../storage/images/logo_hall_of_fame.png") center no-repeat;
+}
+
+.bg-jersey {
+  background: url("/../storage/images/Fond_tutos.jpg");
+  background-size: cover;
+  height: 100%;
+}
+
+.tutoimg {
+  height: 758px;
+}
+
+.imageHOF {
+  border-radius: 50px;
+}
+
+.twitter-homepage {
+  height: 200px;
+  width: 200px;
 }
 
 .bouton-inscription {
@@ -67,6 +59,7 @@ hr {
   border-radius: 5px;
   color: #fff;
   padding: 10px 35px;
+  font-weight: bold;
 }
 
 .bouton-inscription:hover {
@@ -80,67 +73,15 @@ hr {
   background: transparent;
   border: solid 1px;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 35px;
   color: #fff;
+  font-weight: bold;
 }
 
 .bouton-connexion:hover {
   background: #fff;
   color: #000;
   font-weight: bold;
-}
-
-.MS5card {
-  background: #3a2e49;
-  border: solid 1px #fff;
-  color: #fff;
-}
-
-.card-dashboard {
-  background: #3a2e49;
-  border: solid 1px #fff;
-  border-radius: 2px;
-  min-height: auto;
-  max-width: 400px;
-  color: #fff;
-}
-
-label {
-  font-family: Poppins, Arial, sans-serif;
-  color: #fff;
-}
-
-.banner {
-  background: url(/../storage/images/Fond_header.jpg) no-repeat;
-  background-size: cover;
-  height: 100vh;
-}
-
-.icon {
-  background: white;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  border: 1px solid #fff;
-}
-
-.quaternary {
-  color: #eb671b;
-}
-
-.bg-crown {
-  background: url("/../storage/images/logo_hall_of_fame.png") no-repeat;
-  background-size: cover;
-}
-
-.logo-footer {
-  max-height: 75%;
-  max-width: 75%;
-}
-
-.logo-header {
-  max-height: 25%;
-  max-width: 25%;
 }
 
 #card_create_league {
@@ -156,5 +97,91 @@ label {
 #card_public_league {
   background: url("/../storage/images/leagues_portal/image_league_publique.jpg");
   background-size: contain;
+}
+
+@font-face {
+  font-family: "Mudhead-Serif";
+  src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
+}
+
+body {
+  background: #2b2236;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #eb671b;
+}
+
+p {
+  font-family: Poppins, Arial, sans-serif;
+  text-align: left;
+  margin: 0px;
+}
+
+h1 {
+  font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
+}
+
+h2 {
+  font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
+}
+
+h3 {
+  font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
+}
+
+h4 {
+  font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
+}
+
+h5 {
+  font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
+}
+
+h6 {
+  font-family: Mudhead-Serif, sans-serif;
+  color: #eb671b;
+}
+
+hr {
+  background: #fff;
+}
+
+label {
+  font-family: Poppins, Arial, sans-serif;
+  color: #fff;
+}
+
+.bg-primary {
+  background: #2b2236;
+}
+
+.tertiary {
+  color: #ff8500;
+}
+
+.quaternary {
+  color: #eb671b;
+}
+
+.MS5card {
+  background: #3a2e49;
+  border: solid 1px #fff;
+  color: #fff;
+}
+
+.card-dashboard {
+  background: #3a2e49;
+  border: solid 1px #fff;
+  border-radius: 2px;
+  min-height: auto;
+  max-width: 400px;
+  color: #fff;
 }
 

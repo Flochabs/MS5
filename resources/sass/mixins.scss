@@ -6,6 +6,8 @@
     color: $white;
 }
 
+
+
 @mixin card-dashboard(){
     background: $bg-card;
     border: solid 1px $white;
@@ -14,3 +16,5 @@
     max-width: 400px;
     color: $white;
 }
+
+
