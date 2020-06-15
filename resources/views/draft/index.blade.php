@@ -375,8 +375,22 @@
                                             <button type="submit" class="btn btn-primary">enchérir</button>
                                         </form>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-2">
                                         <p> {{$auction->auction}}</p>
+                                    </div>
+                                    <div class="col-2">
+                                        @php
+                                            $limitTime = new DateTime($auction->auction_time_limit);
+                                            $limitTimeMin = $limitTime->format('i');
+                                            $limitTimeSec= $limitTime->format('s');
+                                            $now = new DateTime();
+                                            $nowMin = $now->format('i');
+                                            $nowSec = $now->format('s');
+
+                                            $differenceMin = $nowMin - $limitTimeMin;
+                                            $differenceSec= $nowSec - $limitTimeSec;
+                                        @endphp
+                                        <p>Fin de l'enchère dans {{ $differenceMin}} min {{$differenceSec}}</p>
                                     </div>
                                 </div>
                             </div>

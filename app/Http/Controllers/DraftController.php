@@ -8,6 +8,7 @@ use App\Model\League;
 use App\Model\Player;
 use App\Model\Team;
 use App\Model\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,6 @@ use Illuminate\Support\Facades\Validator;
 
 class DraftController extends Controller
 {
-//$user = App\User::find(1);
-//
-//$user->roles()->updateExistingPivot($roleId, $attributes);
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +26,7 @@ class DraftController extends Controller
     public function index()
     {
 //-------------  RECUPERATION DONNES GENERALES  ---------------//
+
         //récupération des données users
         $user = Auth::user();
 
@@ -37,6 +36,8 @@ class DraftController extends Controller
         // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
 
+
+        // tous les joueurs
         $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->Paginate(20);
 
         //equipes présentent dans la ligue de l'utilisateur
@@ -44,8 +45,8 @@ class DraftController extends Controller
 
         // met toutes les équipes présente dans la ligue de l'utilisateur dans un tableau pour récupérer ensuite toutes leurs enchrèes
         $teamsInLeagueId = [];
-        foreach ($leagueTeams as $team) {
-            $teamsInLeagueId[] = $team->id;
+        foreach ($leagueTeams as $teams) {
+            $teamsInLeagueId[] = $teams->id;
         }
 
 
@@ -232,12 +233,15 @@ class DraftController extends Controller
         $team = Team::where('user_id', $user->id)->first();
         $team = $team->id;
         $player = Player::where('id', $id)->get()->first();
+        $auctionTimeLimit = Carbon::parse(now())->addMinutes(2)->format('Y-m-d H:i:s');
         $data = [[
             'team_id' => $team,
             'player_id' => $id,
             'auction' => $player->price,
+            'created_at' => now(),
+            'updated_at' => now(),
+            'auction_time_limit' => $auctionTimeLimit,
         ]];
-
         Auction::insert($data);
         return redirect()->back();
     }
@@ -267,11 +271,25 @@ class DraftController extends Controller
      */
 
     public function updateAuction(Request $request, $id){
+        //donnes de l'utilisateur connecté
+        $user = Auth::user();
+        $userLeagueId = $user->team->league_id;
+
         $updateValue = $request->all();
         //verification du champs entré
         $auctionValue = $updateValue["auctionValue"];
+        //equipes présentent dans la ligue de l'utilisateur
+        $leagueTeams = Team::where('league_id', $userLeagueId)->get();
+        // met toutes les équipes présente dans la ligue de l'utilisateur dans un tableau pour récupérer ensuite toutes leurs enchrèes
+        $teamsInLeagueId = [];
+        foreach ($leagueTeams as $team) {
+            $teamsInLeagueId[] = $team->id;
+        }
+        $PlayerCurrentPrice = Auction::whereIn('team_id', $teamsInLeagueId)->where('player_id', $id)->orderby('auction', 'desc')->get()->first();
+        $PlayerCurrentPrice = $PlayerCurrentPrice->auction;
 
-        if($auctionValue > 50) {
+        //l'enchere doit être supérieur à la dernière valeur proposée par un joueur de la ligue
+        if($auctionValue > $PlayerCurrentPrice) {
             $rules = ['auctionValue'     => 'integer|required'];
             // Vérification de la validité des informations transmises par l'utilisateur
             $validator = Validator::make($updateValue, $rules, [
@@ -285,11 +303,12 @@ class DraftController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             }
-            $user = Auth::user();
+
             //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
             $team = Team::where('user_id', $user->id)->first();
             $team = $team->id;
-            Auction::where([['player_id',$id], ['team_id', $team]])->update(['auction' => $auctionValue]);
+            $auctionTimeLimit = Carbon::parse(now())->addMinutes(1)->format('Y-m-d H:i:s');
+            Auction::where([['player_id',$id], ['team_id', $team]])->update(['auction' => $auctionValue,'auction_time_limit' => $auctionTimeLimit ]);
             return back();
         }
         return back();
