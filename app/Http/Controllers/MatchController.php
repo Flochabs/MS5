@@ -40,15 +40,13 @@ class MatchController extends Controller
         //dd($userPlayersTeam);
 
 
+
         //------------------------------------- CALCUL DU SCORE D'UNE TEAM -------------------------------------------//
 
         // $playersHomeTeamMatchs récupère les joeurs de la home_team du matchs en cours
 
-        $playersHomeTeamMatchs = Match::where([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
+       // $playersHomeTeamMatchs = Match::where([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
         //dd( $playersHomeTeamMatchs);
-
-
-
 
         // Calcule du score de la team de l'utilisateur
         $scoreTeam = 0;
@@ -63,7 +61,6 @@ class MatchController extends Controller
         // $allMatchs récupère tout les matchs présent dans match
         $allMatchs = Match::all();
         //dd($allMatchs);
-
 
         //  $AllHomeTeamsNames récupère tout les noms des équipes qui sont à domicile dans les matchs
         // $AllTeamsNames permet d'avoir un tableau avec tout les noms de tout les équipes.
@@ -84,11 +81,11 @@ class MatchController extends Controller
         //dd($AllTeamsNames);
 
 
-
         // $userMatchs récupère tout les matchs jouer par l'utilisateur dans match
         $userMatchs  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
         //dd($userMatchs);
 
+        //----------------------------------  RECUPERATION DONNES DU  PROCHAIN  MATCH --------------------------------//
 
         // $userNextMatchs récupère le prochain matchs jouer par l'utilisateur dans match
         $userNextMatchs = Match::whereNull('home_team_score')->where('league_id', $userLeagueId)->orderBy('start_at','asc')->first();
@@ -107,6 +104,8 @@ class MatchController extends Controller
         dd($awayteamNextMatch);
 
 
+        //----------------------------------  RECUPERATION DONNES DU DERNIER  MATCH --------------------------------//
+
         // $userLastMatch récupère le dernière matchs jouer par l'utilisateur dans match
         $userLastMatch  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
             ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
@@ -121,7 +120,7 @@ class MatchController extends Controller
         $hometeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
             ->get()
             ->first();
-        //dd($hometeamLastMatch);
+        dd($hometeamLastMatch);
 
 
         // $awayteamLastMatch récupère le nom de l'équipe away qui à jouer dans le dernier matchs
@@ -131,6 +130,11 @@ class MatchController extends Controller
         //dd($awayteamLastMatch);
 
 
+
+        $playersHomeTeamMatchs = Team::where('id', $userNextMatchs->home_team_id)
+            ->get()
+            ->first();
+        dd($playersHomeTeamMatchs);
 
 
         return view('match.index');
