@@ -144,14 +144,11 @@ footer {
   font-size: 1.2rem;
 }
 
-<<<<<<< HEAD
-=======
 #form_create_team {
   background: url("/../storage/images/team_create/fond_card.jpg") no-repeat;
   background-size: contain;
 }
 
->>>>>>> 69f18ced49704c791b2061bb68e188215e7599f4
 @font-face {
   font-family: "Mudhead-Serif";
   src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
