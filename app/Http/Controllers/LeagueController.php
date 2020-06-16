@@ -26,7 +26,7 @@ class LeagueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -35,7 +35,7 @@ class LeagueController extends Controller
 
         //Vérification du nombre de leagues associées à l'utilisateur
         $user_id = Auth::user()->id;
-        if (League::where('user_id', '=', $user_id)->exists()){
+        if (League::where('user_id', '=', $user_id)->exists()) {
             return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une league !');
         } else {
             $token = md5(uniqid($user_id, true));
@@ -43,9 +43,9 @@ class LeagueController extends Controller
             $values = $request->all();
             $publicLeague = (int)$values['public'];
             $rules = [
-                'name'             => 'string|required|unique:leagues',
-                'number_teams'     => 'integer|required',
-                'public'           => 'integer|required',
+                'name' => 'string|required|unique:leagues',
+                'number_teams' => 'integer|required',
+                'public' => 'integer|required',
             ];
             // Vérification de la validité des informations transmises par l'utilisateur
             $validator = Validator::make($values, $rules, [
@@ -63,12 +63,12 @@ class LeagueController extends Controller
             }
             // Création de la nouvelle league avec les informations transmises
             $newLeague = new League();
-            $newLeague->user_id         = $user_id;
-            $newLeague->name            = $values['name'];
-            $newLeague->number_teams    = $values['number_teams'];
-            $newLeague->public          = $publicLeague;
+            $newLeague->user_id = $user_id;
+            $newLeague->name = $values['name'];
+            $newLeague->number_teams = $values['number_teams'];
+            $newLeague->public = $publicLeague;
             if ($publicLeague === 1) {
-                $newLeague->token        = $token;
+                $newLeague->token = $token;
             }
             $newLeague->save();
             // On associe le joueur à la league dans la table pivot
@@ -83,8 +83,8 @@ class LeagueController extends Controller
                 ' a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
 
             if ($publicLeague === 0) {
-                $content .=  "Il s'agit d'une league publique, que tout le monde peut rejoindre";
-            } else{
+                $content .= "Il s'agit d'une league publique, que tout le monde peut rejoindre";
+            } else {
                 $content .= "Pour inviter tes potes, donne leur le mot de passe :<br><br> $token";
             }
             $content .= "<br><br>Bonne route vers la gloire !";
@@ -100,7 +100,7 @@ class LeagueController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(League $league)
@@ -112,7 +112,7 @@ class LeagueController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -123,8 +123,8 @@ class LeagueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -139,7 +139,7 @@ class LeagueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -162,7 +162,7 @@ class LeagueController extends Controller
     {
         //Vérification du nombre de leagues associées à l'utilisateur
         $user_id = Auth::user()->id;
-        if (League::where('user_id', '=', $user_id)->exists()){
+        if (League::where('user_id', '=', $user_id)->exists()) {
             return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une league !');
         } else {
             //permet de rejoindre une league publique
@@ -171,10 +171,15 @@ class LeagueController extends Controller
             // insère les id dans la table pivot
             $user = Auth::user();
             $league = League::where('id', '=', $league_id)->first();
-            $user->leagues()->sync([$league->id]);
-            $id = $league->id;
-            return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
+            if ($league->users->count() >= $league->number_teams) { // Vérifie les places dispo avant de sauvegarder
+                return redirect()->route('leagues.index')->withErrors('Désolé cette league est complète !');
+            } else {
+                $user->leagues()->sync([$league->id]);
+                $id = $league->id;
+                return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
+            }
         }
+
     }
 
     public function joinPrivateLeague(Request $request)
@@ -190,9 +195,14 @@ class LeagueController extends Controller
                 // insère les id dans la table pivot
                 $user = Auth::user();
                 $league = League::where('token', '=', $request->token)->first();
-                $user->leagues()->sync([$league->id]);
-                $id = $league->id;
-                return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
+                if ($league->users->count() >= $league->number_teams) { // Vérifie les places dispo avant de sauvegarder
+                    return redirect()->route('leagues.index')->withErrors('Désolé cette league est complète !');
+                } else {
+                    $user->leagues()->sync([$league->id]);
+                    $id = $league->id;
+                    return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
+
+                }
             } else {
                 return redirect('leagues')->withErrors('Cette league n\'existe pas');
             }
