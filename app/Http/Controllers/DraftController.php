@@ -8,6 +8,7 @@ use App\Model\League;
 use App\Model\Player;
 use App\Model\Team;
 use App\Model\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,6 @@ use Illuminate\Support\Facades\Validator;
 
 class DraftController extends Controller
 {
-//$user = App\User::find(1);
-//
-//$user->roles()->updateExistingPivot($roleId, $attributes);
     /**
      * Display a listing of the resource.
      *
@@ -28,24 +26,39 @@ class DraftController extends Controller
     public function index()
     {
 //-------------  RECUPERATION DONNES GENERALES  ---------------//
+
         //récupération des données users
         $user = Auth::user();
 
         //league à laquelle appartient l'utilisateur qui fait sa draft
         $userLeagueId = $user->team->league_id;
 
+
         // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
 
-        $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->simplePaginate(20);
+        // tous les joueurs
+        $players = Player::where('price', '>', 1)->orderBy('price', 'desc')->Paginate(20);
+
+        // id de tous les joueurs draftés
+        $draftedPlayers = Player::all();
+        //si le joueur est déjà drafté, donc présentt dans la table pivot player_team
+        $notDisplayedPlayers = [];
+        foreach ($draftedPlayers as $draftedPlayer) {
+            if (!empty($draftedPlayer->teams[0])) {
+                if ($draftedPlayer->teams[0]->league_id === $userLeagueId) {
+                    $notDisplayedPlayers[] = $draftedPlayer->id;
+                }
+            }
+        }
 
         //equipes présentent dans la ligue de l'utilisateur
         $leagueTeams = Team::where('league_id', $userLeagueId)->get();
 
         // met toutes les équipes présente dans la ligue de l'utilisateur dans un tableau pour récupérer ensuite toutes leurs enchrèes
         $teamsInLeagueId = [];
-        foreach ($leagueTeams as $team) {
-            $teamsInLeagueId[] = $team->id;
+        foreach ($leagueTeams as $teams) {
+            $teamsInLeagueId[] = $teams->id;
         }
 
 
@@ -53,6 +66,7 @@ class DraftController extends Controller
         $auctionsOnPlayers = DB::table('auctions')
             ->leftjoin('players', 'players.id', '=', 'auctions.player_id')
             ->whereIn('team_id', $teamsInLeagueId)
+            ->where('bought', '=',0)
             ->orderBy('auction', 'desc')
             ->get();
 
@@ -60,16 +74,6 @@ class DraftController extends Controller
 //------------- FILTRES AFFICHAGES JOUEURS NBA ---------------//
         //Montrer/cacher les joueurs draftés
         if (request()->has('hide')) {
-            $draftedPlayers = Player::all();
-            //si le joueur est déjà drafté, donc présenttt dans la table pivot player_team
-            $notDisplayedPlayers = [];
-            foreach ($draftedPlayers as $draftedPlayer) {
-                if (!empty($draftedPlayer->teams[0])) {
-                    if ($draftedPlayer->teams[0]->league_id === $userLeagueId) {
-                        $notDisplayedPlayers[] = $draftedPlayer->id;
-                    }
-                }
-            }
             // retourne les joueurs qui ne sont pas présents dans le tableau des joueurs draftés dans la ligue
             $players = Player::whereNotIn('id', $notDisplayedPlayers)
                 ->where('price', '>', 1)
@@ -108,7 +112,7 @@ class DraftController extends Controller
 //----------- retourne toutes données relatives enchères en cours de l'utilisateur -------------------- //
 
         //retourne toutes les enchères en cours de l'utilisateur
-        $auctions = Auction::where('team_id', $user->team->id)->get();
+        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get();
 
         // stocker les id des joueurs sur lesquels l'utilisateur a mis une enchère pour ne plus afficher le bouton enchérir dans la view
         $auctionPlayersId = [];
@@ -147,7 +151,8 @@ class DraftController extends Controller
             ->with('guards', $guards)
             ->with('centers', $centers)
             ->with('auctionPlayersId', $auctionPlayersId)
-            ->with('auctionsOnPlayers', $auctionsOnPlayers);
+            ->with('auctionsOnPlayers', $auctionsOnPlayers)
+            ->with('notDisplayedPlayers', $notDisplayedPlayers);
 
     }
 
@@ -226,20 +231,108 @@ class DraftController extends Controller
 
     public function auction($id)
     {
-        $auctions = Auction::all();
         $user = Auth::user();
-        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
-        $team = Team::where('user_id', $user->id)->first();
-        $team = $team->id;
-        $player = Player::where('id', $id)->get()->first();
-        $data = [[
-            'team_id' => $team,
-            'player_id' => $id,
-            'auction' => $player->price,
-        ]];
+        $userLeagueId = $user->team->league_id;
+        $leagueTeams = Team::where('league_id', $userLeagueId)->get();
+        $teamsInLeagueId = [];
+        foreach ($leagueTeams as $teams) {
+            $teamsInLeagueId[] = $teams->id;
+        }
 
-        Auction::insert($data);
-        return redirect()->back();
+
+        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
+        $team = Team::where('user_id', $user->id)->get()->first();;
+        $player = Player::where('id', $id)->get()->first();
+
+        //si le joueur (id) a déjà été drafté par une autre équipe de la ligue l'ajout n'est pas possible
+        $isAlreadyDrafted = $player->teams()->whereIn('team_id', $teamsInLeagueId)->get()->first();
+
+        //enchères en cours de l'utilisateur et salary cap actuel
+        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get();
+
+        if($auctions) {
+            $auctions = $auctions->sum("auction");
+        } else {
+            $auctions = 0;
+        }
+
+        //salary cap actuel de l'utilisateur
+        $currentSalaryCap = $team->salary_cap;
+        //salary_cap - la somme des enchères qu'il a en cours
+        $moneyAvailable = $currentSalaryCap - $auctions;
+
+        //prix actuel du joueur selon la dernière enchère faite dans la ligue
+        // récupère les enchères en cours dans la ligue
+        $auctionsOnPlayers = DB::table('auctions')
+            ->leftjoin('players', 'players.id', '=', 'auctions.player_id')
+            ->whereIn('team_id', $teamsInLeagueId)
+            ->where('bought', '=',0)
+            ->orderBy('auction', 'desc')
+            ->get();
+
+        //tableau pour stocker les ids de tous les joueurs qui ont des enchères en cours sur celle ligue
+        $playerLatestAuction = 0;
+        foreach ($auctionsOnPlayers as $auctionsOnPlayer){
+            if($auctionsOnPlayer->player_id === $id ){
+                $playerLatestAuction = $auctionsOnPlayer->auction;
+            }
+        }
+
+// ------   VERIFIER QUE LE NOMBRE MAX DE JOUEUR A DRAFTER NE SOIT PAS DEPASSER ---------//
+        //retourne les joueurs draftés par l'utilisateur
+        $drafted = $team->getPlayers;
+        $nbDraftedPlayers = count($drafted);
+
+        //tableaux pour stocker les données des joueurs selon leurs positions pour
+        // verifier que le nombre limite pour chaque poste ne soit pas atteint
+        //enregistrer chaque joueur drafté dans le tableau qui correspond à son poste
+        $forwards = [];
+        $guards = [];
+        $centers = [];
+        foreach($drafted as $draftedPlayer) {
+            $position = '';
+            $draftedInfos = json_decode($draftedPlayer->data);
+            $position  = substr($draftedInfos->pl->pos, 0,1);
+            if($position === "F") {
+                $forwards[] =  $draftedPlayer;
+            } elseif($position === "C") {
+                $centers[] = $draftedPlayer;
+            } else {
+                $guards[] = $draftedPlayer;
+            }
+        }
+        //récupération du poste du joueur sur lequel l'utilisateur veut faire une enchère
+        $playerPosition = json_decode($player->data);
+        $playerPosition = $playerPosition->pl->pos;
+        if($playerPosition === "F") {
+            $nbPosition = count($forwards);
+            $limit = 5;
+        } elseif($playerPosition === "C") {
+            $nbPosition = count($centers);
+            $limit = 2;
+        } else {
+            $nbPosition = count($guards);
+            $limit = 5;
+        }
+
+        if(empty($isAlreadyDrafted) && $moneyAvailable >= $player->price
+            && $moneyAvailable >= $playerLatestAuction && $nbDraftedPlayers < 15 && $nbPosition < $limit) {
+            $auctionTimeLimit = Carbon::parse(now())->addMinutes(2)->format('Y-m-d H:i:s');
+
+            $data = [[
+                'team_id' => $team->id,
+                'player_id' => $id,
+                'auction' => $player->price,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'auction_time_limit' => $auctionTimeLimit,
+            ]];
+
+            Auction::insert($data);
+            return redirect()->back();
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -267,29 +360,128 @@ class DraftController extends Controller
      */
 
     public function updateAuction(Request $request, $id){
+        $user = Auth::user();
+        $userLeagueId = $user->team->league_id;
+        $leagueTeams = Team::where('league_id', $userLeagueId)->get();
+        $teamsInLeagueId = [];
+        foreach ($leagueTeams as $teams) {
+            $teamsInLeagueId[] = $teams->id;
+        }
+
+
+        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
+        $team = Team::where('user_id', $user->id)->get()->first();;
+        $player = Player::where('id', $id)->get()->first();
+
+        //si le joueur (id) a déjà été drafté par une autre équipe de la ligue l'ajout n'est pas possible
+        $isAlreadyDrafted = $player->teams()->whereIn('team_id', $teamsInLeagueId)->get()->first();
+
+        //enchères en cours de l'utilisateur et salary cap actuel
+        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get();
+        if($auctions) {
+            $auctions = $auctions->sum("auction");
+        } else {
+            $auctions = 0;
+        }
+
+        //salary cap actuel de l'utilisateur
+        $currentSalaryCap = $team->salary_cap;
+        //salary_cap - la somme des enchères qu'il a en cours
+        $moneyAvailable = $currentSalaryCap - $auctions;
+
+        //prix actuel du joueur selon la dernière enchère faite dans la ligue
+        // récupère les enchères en cours dans la ligue
+        $auctionsOnPlayers = DB::table('auctions')
+            ->leftjoin('players', 'players.id', '=', 'auctions.player_id')
+            ->whereIn('team_id', $teamsInLeagueId)
+            ->where('bought', '=',0)
+            ->orderBy('auction', 'desc')
+            ->get();
+
+        //tableau pour stocker les ids de tous les joueurs qui ont des enchères en cours sur celle ligue
+        $playerLatestAuction = 0;
+        foreach ($auctionsOnPlayers as $auctionsOnPlayer){
+            if($auctionsOnPlayer->player_id === $id ){
+                $playerLatestAuction = $auctionsOnPlayer->auction;
+            }
+        }
+
+// ------   VERIFIER QUE LE NOMBRE MAX DE JOUEUR A DRAFTER NE SOIT PAS DEPASSER ---------//
+        //retourne les joueurs draftés par l'utilisateur
+        $drafted = $team->getPlayers;
+        $nbDraftedPlayers = count($drafted);
+
+        //tableaux pour stocker les données des joueurs selon leurs positions pour
+        // verifier que le nombre limite pour chaque poste ne soit pas atteint
+        //enregistrer chaque joueur drafté dans le tableau qui correspond à son poste
+        $forwards = [];
+        $guards = [];
+        $centers = [];
+        foreach($drafted as $draftedPlayer) {
+            $position = '';
+            $draftedInfos = json_decode($draftedPlayer->data);
+            $position  = substr($draftedInfos->pl->pos, 0,1);
+            if($position === "F") {
+                $forwards[] =  $draftedPlayer;
+            } elseif($position === "C") {
+                $centers[] = $draftedPlayer;
+            } else {
+                $guards[] = $draftedPlayer;
+            }
+        }
+        //récupération du poste du joueur sur lequel l'utilisateur veut faire une enchère
+        $playerPosition = json_decode($player->data);
+        $playerPosition = $playerPosition->pl->pos;
+        if($playerPosition === "F") {
+            $nbPosition = count($forwards);
+            $limit = 5;
+        } elseif($playerPosition === "C") {
+            $nbPosition = count($centers);
+            $limit = 2;
+        } else {
+            $nbPosition = count($guards);
+            $limit = 5;
+        }
+
         $updateValue = $request->all();
         //verification du champs entré
         $auctionValue = $updateValue["auctionValue"];
 
-        if($auctionValue > 50) {
-            $rules = ['auctionValue'     => 'integer|required'];
-            // Vérification de la validité des informations transmises par l'utilisateur
-            $validator = Validator::make($updateValue, $rules, [
-                'auctionValue.integer' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
-                'auctionValue.required' => 'Veuillez entrer une valeur.',
-                'auctionValue.required' => 'Veuillez entrer une valeur.',
-            ]);
 
-            if ($validator->fails()) {
-                return back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-            $user = Auth::user();
-            //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
-            $team = Team::where('user_id', $user->id)->first();
-            $team = $team->id;
-            Auction::where([['player_id',$id], ['team_id', $team]])->update(['auction' => $auctionValue]);
+        $rules = ['auctionValue'     => 'integer|required'];
+        // Vérification de la validité des informations transmises par l'utilisateur
+        $validator = Validator::make($updateValue, $rules, [
+            'auctionValue.integer' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
+            'auctionValue.required' => 'Veuillez entrer une valeur.',
+            'auctionValue.required' => 'Veuillez entrer une valeur.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        //typage de auctionValue en integer pour pouvoir faire les vérifications avant l'enregistrement
+        $auctionValue = (int) $auctionValue;
+
+        //equipes présentent dans la ligue de l'utilisateur
+        $leagueTeams = Team::where('league_id', $userLeagueId)->get();
+        // met toutes les équipes présente dans la ligue de l'utilisateur dans un tableau pour récupérer ensuite toutes leurs enchrèes
+        $teamsInLeagueId = [];
+        foreach ($leagueTeams as $teamInLeague) {
+            $teamsInLeagueId[] = $teamInLeague->id;
+        }
+        $PlayerCurrentPrice = Auction::whereIn('team_id', $teamsInLeagueId)->where('player_id', $id)->orderby('auction', 'desc')->get()->first();
+        $PlayerCurrentPrice = $PlayerCurrentPrice->auction;
+
+        //calcul difference entre valeur de l'update de l'enchère et argent restant
+        $auctionUpdateDelta = $auctionValue - $PlayerCurrentPrice;
+
+        //l'enchere doit être supérieur à la dernière valeur proposée par un joueur de la ligue
+        if(empty($isAlreadyDrafted) && $auctionUpdateDelta <= $moneyAvailable && $nbDraftedPlayers < 15 && $nbPosition < $limit && $auctionValue > $player->price) {
+            $auctionTimeLimit = Carbon::parse(now())->addMinutes(1)->format('Y-m-d H:i:s');
+            Auction::where([['player_id',$id], ['team_id', $team->id]])->update(['auction' => $auctionValue,'auction_time_limit' => $auctionTimeLimit ]);
             return back();
         }
         return back();

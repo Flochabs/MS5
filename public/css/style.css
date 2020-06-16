@@ -1,6 +1,61 @@
+<<<<<<< HEAD
 .logo-header {
   max-height: 25%;
   max-width: 25%;
+=======
+.bg-card-title {
+  background: #504065;
+}
+
+#draft-container #nb-players {
+  font-size: 2rem !important;
+}
+
+#draft-container .table-dark {
+  background-color: #3a2e49 !important;
+}
+
+#draft-container .table-dark thead th {
+  border: none !important;
+}
+
+#draft-container .table-dark th {
+  border-top: none !important;
+}
+
+#draft-container .table-dark td {
+  border-top: none !important;
+}
+
+#draft-container #auctionValue {
+  max-width: 70px !important;
+}
+
+#draft-container .MS5card {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+#draft-container .btn-quaternary {
+  background-color: #c25211;
+  color: white;
+}
+
+#draft-container .btn-quaternary:hover {
+  background-color: #eb671b;
+}
+
+#draft-container .auction-price {
+  font-size: 1.2rem;
+}
+
+@font-face {
+  font-family: "Mudhead-Serif";
+  src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
+}
+
+body {
+  background: #2b2236;
+>>>>>>> draft
 }
 
 footer {
