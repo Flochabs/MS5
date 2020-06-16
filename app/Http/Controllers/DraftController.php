@@ -248,7 +248,8 @@ class DraftController extends Controller
         $isAlreadyDrafted = $player->teams()->whereIn('team_id', $teamsInLeagueId)->get()->first();
 
         //enchères en cours de l'utilisateur et salary cap actuel
-        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get()->first();
+        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get();
+
         if($auctions) {
             $auctions = $auctions->sum("auction");
         } else {
@@ -314,10 +315,10 @@ class DraftController extends Controller
             $limit = 5;
         }
 
-
-        if(empty($isAlreadyDrafted) && $moneyAvailable > $player->price
-            && $moneyAvailable > $playerLatestAuction && $nbDraftedPlayers < 15 && $nbPosition < $limit) {
+        if(empty($isAlreadyDrafted) && $moneyAvailable >= $player->price
+            && $moneyAvailable >= $playerLatestAuction && $nbDraftedPlayers < 15 && $nbPosition < $limit) {
             $auctionTimeLimit = Carbon::parse(now())->addMinutes(2)->format('Y-m-d H:i:s');
+
             $data = [[
                 'team_id' => $team->id,
                 'player_id' => $id,
@@ -326,6 +327,7 @@ class DraftController extends Controller
                 'updated_at' => now(),
                 'auction_time_limit' => $auctionTimeLimit,
             ]];
+
             Auction::insert($data);
             return redirect()->back();
         } else {
@@ -375,7 +377,7 @@ class DraftController extends Controller
         $isAlreadyDrafted = $player->teams()->whereIn('team_id', $teamsInLeagueId)->get()->first();
 
         //enchères en cours de l'utilisateur et salary cap actuel
-        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get()->first();
+        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get();
         if($auctions) {
             $auctions = $auctions->sum("auction");
         } else {
@@ -441,40 +443,43 @@ class DraftController extends Controller
             $limit = 5;
         }
 
-
-
-
         $updateValue = $request->all();
         //verification du champs entré
         $auctionValue = $updateValue["auctionValue"];
+
+
+        $rules = ['auctionValue'     => 'integer|required'];
+        // Vérification de la validité des informations transmises par l'utilisateur
+        $validator = Validator::make($updateValue, $rules, [
+            'auctionValue.integer' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
+            'auctionValue.required' => 'Veuillez entrer une valeur.',
+            'auctionValue.required' => 'Veuillez entrer une valeur.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        //typage de auctionValue en integer pour pouvoir faire les vérifications avant l'enregistrement
+        $auctionValue = (int) $auctionValue;
+
         //equipes présentent dans la ligue de l'utilisateur
         $leagueTeams = Team::where('league_id', $userLeagueId)->get();
         // met toutes les équipes présente dans la ligue de l'utilisateur dans un tableau pour récupérer ensuite toutes leurs enchrèes
         $teamsInLeagueId = [];
-        foreach ($leagueTeams as $team) {
-            $teamsInLeagueId[] = $team->id;
+        foreach ($leagueTeams as $teamInLeague) {
+            $teamsInLeagueId[] = $teamInLeague->id;
         }
         $PlayerCurrentPrice = Auction::whereIn('team_id', $teamsInLeagueId)->where('player_id', $id)->orderby('auction', 'desc')->get()->first();
         $PlayerCurrentPrice = $PlayerCurrentPrice->auction;
 
+        //calcul difference entre valeur de l'update de l'enchère et argent restant
+        $auctionUpdateDelta = $auctionValue - $PlayerCurrentPrice;
 
         //l'enchere doit être supérieur à la dernière valeur proposée par un joueur de la ligue
-        if(empty($isAlreadyDrafted) && $moneyAvailable > $player->price
-            && $moneyAvailable > $playerLatestAuction && $nbDraftedPlayers < 15 && $nbPosition < $limit && $auctionValue > $player->price) {
-            $rules = ['auctionValue'     => 'integer|required'];
-            // Vérification de la validité des informations transmises par l'utilisateur
-            $validator = Validator::make($updateValue, $rules, [
-                'auctionValue.integer' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
-                'auctionValue.required' => 'Veuillez entrer une valeur.',
-                'auctionValue.required' => 'Veuillez entrer une valeur.',
-            ]);
-
-            if ($validator->fails()) {
-                return back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-
+        if(empty($isAlreadyDrafted) && $auctionUpdateDelta <= $moneyAvailable && $nbDraftedPlayers < 15 && $nbPosition < $limit && $auctionValue > $player->price) {
             $auctionTimeLimit = Carbon::parse(now())->addMinutes(1)->format('Y-m-d H:i:s');
             Auction::where([['player_id',$id], ['team_id', $team->id]])->update(['auction' => $auctionValue,'auction_time_limit' => $auctionTimeLimit ]);
             return back();

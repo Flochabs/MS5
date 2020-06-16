@@ -8,6 +8,20 @@
             </div>
             {{-----------------------VALIDER DRAFT ---------------------}}
         </div>
+        <div class="row">
+            @if(session()->get('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div><br/>
+            @endif
+        </div>
+        <div class="row">
+            @if(session()->get('errors'))
+                <div class="alert alert-success">
+                    {{ session()->get('errors') }}
+                </div><br/>
+            @endif
+        </div>
         {{-----------------------INFOS SUR EQUIPE---------------------}}
         <div class="row my-5">
             <div class="col-lg-3">
@@ -41,6 +55,10 @@
                                     <tr>
                                         <th scope="row">Salary Cap Restant</th>
                                         <td>{{$team->salary_cap}} M$</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Salary Cap après enchère</th>
+                                        <td>{{$team->salary_cap - $auctions->sum("auction")}} M$</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Total des Enchères en cours</th>
@@ -320,6 +338,16 @@
                         </div>
                     </div>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <br/>
+                @endif
                 @foreach($auctions as $auction)
                     <div class="row my-1">
                         <div class="col-12 MS5card">
