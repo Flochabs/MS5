@@ -40,46 +40,52 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request);
-        // Récupération des données du formulaire et association de l'id de l'utilisateur
+        //Vérification du nombre d'équipes associées à l'utilisateur
         $user = Auth::user();
-        $user_id = Auth::user()->id;
-        $league_id =$user->league->id;
-        $values = $request->all();
-        $rules = [
-            'name'             => 'string|required|max:30|unique:teams',
-            'stadium_name'     => 'string|required|max:30|unique:teams',
+
+        if ($hasTeam = $user->team()->exists()) {
+            return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une équipe !');
+        } else {
+            // Récupération des données du formulaire et association de l'id de l'utilisateur
+            $user = Auth::user();
+            $user_id = Auth::user()->id;
+            $league_id =$user->league->id;
+            $values = $request->all();
+            $rules = [
+                'name'             => 'string|required|max:30|unique:teams',
+                'stadium_name'     => 'string|required|max:30|unique:teams',
 //            'public'           => 'integer|required',
-        ];
-        // Vérification de la validité des informations transmises par l'utilisateur
-        $validator = Validator::make($values, $rules, [
-            'name.string' => 'Le nom de la team ne doit pas contenir de caractères spéciaux.',
-            'name.required' => 'Il faut choisir un nom de team !',
-            'name.unique' => 'Il faut choisir un autre nom de team!',
-            'stadium_name.string' => 'Le nom du stade ne doit pas contenir de caractères spéciaux.',
-            'stadium_name.required' => 'Il faut choisir un nom de stade !',
-            'stadium_name.unique' => 'Il faut choisir un autre nom de stade!',
+            ];
+            // Vérification de la validité des informations transmises par l'utilisateur
+            $validator = Validator::make($values, $rules, [
+                'name.string' => 'Le nom de la team ne doit pas contenir de caractères spéciaux.',
+                'name.required' => 'Il faut choisir un nom de team !',
+                'name.unique' => 'Il faut choisir un autre nom de team!',
+                'stadium_name.string' => 'Le nom du stade ne doit pas contenir de caractères spéciaux.',
+                'stadium_name.required' => 'Il faut choisir un nom de stade !',
+                'stadium_name.unique' => 'Il faut choisir un autre nom de stade!',
 //            'public.required' => 'Privée ou publique ???',
 
-        ]);
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        // Création de la nouvelle league avec les informations transmises
-        $newTeam = new Team();
-        $newTeam->user_id         = $user_id;
-        $newTeam->league_id       = $league_id;
-        $newTeam->name            = $values['name'];
-        $newTeam->stadium_name    = $values['stadium_name'];
+            ]);
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            // Création de la nouvelle league avec les informations transmises
+            $newTeam = new Team();
+            $newTeam->user_id         = $user_id;
+            $newTeam->league_id       = $league_id;
+            $newTeam->name            = $values['name'];
+            $newTeam->stadium_name    = $values['stadium_name'];
 //        $newTeam->public          = $publicLeague;
 
-        $newTeam->save();
+            $newTeam->save();
 
-        $id = $newTeam->id;
+            $id = $newTeam->id;
 
-        return redirect()->route('draft.index', $id)->with('success', 'L\'équipe a bien été créée.');
+            return redirect()->route('draft.index', $id)->with('success', 'L\'équipe a bien été créée.');
+        }
     }
 
     /**

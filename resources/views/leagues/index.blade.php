@@ -17,7 +17,7 @@
                 Attention, tu ne peux jouer que dans <span class="tertiary">UNE</span> league à la fois, choisis bien !</h2>
             <div class="row justify-content-center">
 
-                <div class="row">
+                <div class="row mb-5">
 
 {{--                    Créer une league--}}
 
