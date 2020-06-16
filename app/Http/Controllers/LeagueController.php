@@ -32,50 +32,56 @@ class LeagueController extends Controller
     public function store(Request $request)
     {
         // Récupération des données du formulaire et association de l'id de l'utilisateur
+
+        //Vérification du nombre de leagues associées à l'utilisateur
+
         $user_id = Auth::user()->id;
-        $token = md5(uniqid($user_id, true));
-        $email = Auth::user()->email;
-        $values = $request->all();
-        $publicLeague = (int)$values['public'];
-        $rules = [
-            'name'             => 'string|required|unique:leagues',
-            'number_teams'     => 'integer|required',
-            'public'           => 'integer|required',
-        ];
-        // Vérification de la validité des informations transmises par l'utilisateur
-        $validator = Validator::make($values, $rules, [
-            'name.string' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
-            'name.required' => 'Il faut choisir un nom de league !',
-            'name.unique' => 'Il faut choisir un autre nom de league!',
-            'number_teams.required' => 'Il faut choisir un nombre de teams !',
-            'public.required' => 'Privée ou publique ???',
+        if (League::where('user_id', '=', $user_id)->exists()){
+            return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une league !');
+        } else {
+            $token = md5(uniqid($user_id, true));
+            $email = Auth::user()->email;
+            $values = $request->all();
+            $publicLeague = (int)$values['public'];
+            $rules = [
+                'name'             => 'string|required|unique:leagues',
+                'number_teams'     => 'integer|required',
+                'public'           => 'integer|required',
+            ];
+            // Vérification de la validité des informations transmises par l'utilisateur
+            $validator = Validator::make($values, $rules, [
+                'name.string' => 'Le nom de la league ne doit pas contenir de caractères spéciaux.',
+                'name.required' => 'Il faut choisir un nom de league !',
+                'name.unique' => 'Il faut choisir un autre nom de league!',
+                'number_teams.required' => 'Il faut choisir un nombre de teams !',
+                'public.required' => 'Privée ou publique ???',
 
-        ]);
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        // Création de la nouvelle league avec les informations transmises
-        $newLeague = new League();
-        $newLeague->user_id         = $user_id;
-        $newLeague->name            = $values['name'];
-        $newLeague->number_teams    = $values['number_teams'];
-        $newLeague->public          = $publicLeague;
-        if ($publicLeague === 1) {
-            $newLeague->token        = $token;
-        }
-        $newLeague->save();
-        // On associe le joueur à la league dans la table pivot
-        $newLeague->users()->sync(Auth::user()->id);
+            ]);
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            // Création de la nouvelle league avec les informations transmises
+            $newLeague = new League();
+            $newLeague->user_id         = $user_id;
+            $newLeague->name            = $values['name'];
+            $newLeague->number_teams    = $values['number_teams'];
+            $newLeague->public          = $publicLeague;
+            if ($publicLeague === 1) {
+                $newLeague->token        = $token;
+            }
+            $newLeague->save();
+            // On associe le joueur à la league dans la table pivot
+            $newLeague->users()->sync(Auth::user()->id);
 
-        // On ajoute le role créateur de league
-        Auth::user()->roles()->attach([3]);
+            // On ajoute le role créateur de league
+            Auth::user()->roles()->attach([3]);
 
-        // Envoi d'un mail de confirmation
-        $title = 'Confirmation de création league !';
-        $content = 'Salut, ta league ' . $newLeague['name'] .
-            ' a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
+            // Envoi d'un mail de confirmation
+            $title = 'Confirmation de création league !';
+            $content = 'Salut, ta league ' . $newLeague['name'] .
+                ' a bien été créée et comporte ' . $newLeague['number_teams'] . ' équipes.<br>';
 
             if ($publicLeague === 0) {
                 $content .=  "Il s'agit d'une league publique, que tout le monde peut rejoindre";
@@ -88,7 +94,8 @@ class LeagueController extends Controller
 
             $id = $newLeague->id;
 
-        return redirect()->route('leagues.show', $id)->with('success', 'La league a bien été créée.');
+            return redirect()->route('leagues.show', $id)->with('success', 'La league a bien été créée.');
+        }
     }
 
     /**
@@ -154,8 +161,12 @@ class LeagueController extends Controller
 
     public function joinPublicLeague($id)
     {
-        //permet de rejoindre une league publique
-        $league_id = (int)$id;
+        $user_id = Auth::user()->id;
+        if (League::where('user_id', '=', $user_id)->exists()){
+            return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une league !');
+        } else {
+            //permet de rejoindre une league publique
+            $league_id = (int)$id;
 
             // insère les id dans la table pivot
             $user = Auth::user();
@@ -163,20 +174,26 @@ class LeagueController extends Controller
             $user->leagues()->sync([$league->id]);
             $id = $league->id;
             return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
+        }
     }
 
     public function joinPrivateLeague(Request $request)
     {
         //permet de rejoindre une league privée
-        if (League::where('token', '=', $request->token)->exists()) {
-            // insère les id dans la table pivot
-            $user = Auth::user();
-            $league = League::where('token', '=', $request->token)->first();
-            $user->leagues()->sync([$league->id]);
-            $id = $league->id;
-            return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
+        $user_id = Auth::user()->id;
+        if (League::where('user_id', '=', $user_id)->exists()) {
+            return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une league !');
         } else {
-            return redirect('leagues')->withErrors('Cette league n\'existe pas');
+            if (League::where('token', '=', $request->token)->exists()) {
+                // insère les id dans la table pivot
+                $user = Auth::user();
+                $league = League::where('token', '=', $request->token)->first();
+                $user->leagues()->sync([$league->id]);
+                $id = $league->id;
+                return redirect()->route('leagues.show', $id)->with('success', 'Rattachement à la league pris en compte.');
+            } else {
+                return redirect('leagues')->withErrors('Cette league n\'existe pas');
+            }
         }
     }
 }

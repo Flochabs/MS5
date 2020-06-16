@@ -79,7 +79,7 @@ class TeamController extends Controller
 
         $id = $newTeam->id;
 
-        return redirect()->route('draft.index', $id)->with('success', 'La league a bien été créée.');
+        return redirect()->route('draft.index', $id)->with('success', 'L\'équipe a bien été créée.');
     }
 
     /**
