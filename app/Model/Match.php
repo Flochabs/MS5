@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
 {
-    //
+
     protected $table = 'matchs';
 
     // Récupére le nom des équipes présent dans le match grâce à la clé étranger home_team_id dans la table match
@@ -19,4 +19,11 @@ class Match extends Model
     public function awayTeamName() {
         return $this->belongsTo(Team::class, 'away_team_id');
     }
+
+
+    public function matchPlayers()
+    {
+        return $this->belongsToMany('App\Model\Player');
+    }
 }
+

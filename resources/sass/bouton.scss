@@ -1,0 +1,31 @@
+.bouton-inscription {
+    background: $secondary;
+    border: solid 1px transparent;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 35px;
+    font-weight: bold;
+
+    &:hover {
+        background: lighten($secondary, 5);
+        font-weight: bold;
+        text-decoration: none;
+        color: $white;
+    }
+}
+
+.bouton-connexion {
+    background: transparent;
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 10px 35px;
+    color: #fff;
+    font-weight: bold;
+
+    &:hover {
+        background: $white;
+        color: #000;
+        font-weight: bold;
+    }
+}
+

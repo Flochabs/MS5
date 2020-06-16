@@ -7,6 +7,7 @@ use App\Model\Player;
 use App\Model\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Model\User;
 
 class DashboardController extends Controller
 {
@@ -18,46 +19,15 @@ class DashboardController extends Controller
     public function index()
     {
 
-        //-------------  RECUPERATION DONNES UTILISATEUR ---------------//
-
-        //récupération des données users
-        //$user = Auth::user();
-
-        //league à laquelle appartient l'utilisateur qui fait sa draft
-        //$userLeagueId = $user->team->league_id;
-
-        // $userTeam récupère l'équipe de l'utilisateur
-        //$userTeam = Team::where('user_id', $user->id)->first();
-        //dd($userTeam);
-
-
-
-        //-------------  RECUPERATION DONNES GENERALES  ---------------//
-
-
-        //equipes présentent dans la ligue de l'utilisateur
-        //$leagueTeams = Team::where('league_id', $userLeagueId)->get();
-        // dd($leagueTeams);
-
-
-        // match récupère tout les matchs présent dans match
-        //$match = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])->get();
-        //$match = Match::where([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
-
-
-
-
-
-        return view('dashboard.index');
+        //Récupere le pseudo de l'utilisateur
+        $user_id = Auth::user()->id;
+        return view('dashboard.index')->with('user_id', $user_id);
     }
 
-
-
-
-
-    public function profile()
+    public function profile($id)
     {
-        return view('dashboard.profile');
+        $user = User::where('id', '=', $id)->first();
+        return view('dashboard.profile', compact('user'));
     }
 
     public function  match_result()

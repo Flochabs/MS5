@@ -5,88 +5,89 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="container">
-                    <div class="row justify-content-center">
 
+                    {{--Titre--}}
+                    <div class="row justify-content-center">
                         <div class="col-md-12 pt-3">
                             <h2 class="text-center text-white">Connexion</h2>
                         </div>
                     </div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <form class="w-50" method="POST" action="{{ route('login') }}">
-                                @csrf
 
-                                {{--Email--}}
-                                <div class="form-group">
+                    {{--Formulaire--}}
+                    <div class="row justify-content-center">
+                        <form class="w-50" method="POST" action="{{ route('login') }}">
+                            @csrf
 
-                                    <label for="email"
-                                           class="col-form-label">{{ __('E-Mail') }}</label>
+                            {{--Email--}}
+                            <div class="form-group">
 
-                                    <input id="email" type="email"
-                                           class="form-control input @error('email') is-invalid @enderror"
-                                           name="email"
-                                           value="{{ old('email') }}" required autocomplete="email">
+                                <label for="email"
+                                       class="col-form-label">{{ __('E-Mail') }}</label>
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                <input id="email" type="email"
+                                       class="form-control input @error('email') is-invalid @enderror"
+                                       name="email"
+                                       value="{{ old('email') }}" required autocomplete="email">
+
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
 
-                                </div>
+                            </div>
 
-                                {{--Password--}}
-                                <div class="form-group">
+                            {{--Password--}}
+                            <div class="form-group">
 
-                                    <label for="password"
-                                           class="col-form-label">{{ __('Mot de passe') }}</label>
+                                <label for="password"
+                                       class="col-form-label">{{ __('Mot de passe') }}</label>
 
-                                    <input id="password" type="password"
-                                           class="form-control input @error('password') is-invalid @enderror"
-                                           name="password" required autocomplete="password">
+                                <input id="password" type="password"
+                                       class="form-control input @error('password') is-invalid @enderror"
+                                       name="password" required autocomplete="password">
 
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
 
-                                </div>
+                            </div>
 
-                                {{--Remember--}}
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                   name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            {{--Remember--}}
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                            <label class="form-check-label" for="remember">
-                                                {{ __('Se souvenir de moi') }}
-                                            </label>
-                                        </div>
+                                        <label class="form-check-label" for="remember">
+                                            {{ __('Se souvenir de moi') }}
+                                        </label>
                                     </div>
                                 </div>
+                            </div>
 
-                                {{--Boutton et MDP oublié--}}
-                                <div class="form-group pb-connexion">
-                                    <div class="row justify-content-center">
+                            {{--Boutton et MDP oublié--}}
+                            <div class="form-group pb-connexion">
+                                <div class="row justify-content-center">
 
-                                        <button type="submit" class="bouton-connexion m-2 w-50">
-                                            {{ __('Connexion') }}
-                                        </button>
+                                    <button type="submit" class="bouton-connexion m-2 w-50">
+                                        {{ __('Connexion') }}
+                                    </button>
 
-                                    </div>
-                                    <div class="row justify-content-center">
-                                        @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                <p>Mot de passe oublié ?</p>
-                                            </a>
-                                        @endif
-
-                                    </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="row justify-content-center">
+                                    @if (Route::has('password.request'))
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            <p class="text-white">Mot de passe oublié ?</p>
+                                        </a>
+                                    @endif
+
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

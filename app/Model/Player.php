@@ -22,7 +22,7 @@ class Player extends Model
     }
 
     // Récupére tout les joeurs des matchs
-    public function matchPlayers()
+    public function playersMatchs()
     {
         return $this->belongsToMany('App\Model\Match');
     }

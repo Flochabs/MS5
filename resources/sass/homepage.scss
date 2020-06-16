@@ -1,0 +1,36 @@
+.banner {
+    background: url(/../storage/images/Fond_header.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.icon{
+    background: $white;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+}
+
+.bg-crown{
+    background: url("/../storage/images/logo_hall_of_fame.png") center no-repeat;
+}
+
+.bg-jersey{
+    background: url("/../storage/images/Fond_tutos.jpg");
+    background-size: cover;
+    height: 100%;
+}
+
+.tutoimg{
+    height: 758px;
+}
+
+.imageHOF{
+    border-radius: 50px;
+}
+
+.twitter-homepage{
+    height: 200px;
+    width: 200px;
+}
