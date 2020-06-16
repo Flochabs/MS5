@@ -94,7 +94,17 @@ class MatchController extends Controller
         $userNextMatchs = Match::whereNull('home_team_score')->where('league_id', $userLeagueId)->orderBy('start_at','asc')->first();
         //dd( $userNextMatchs );
 
+        // $hometeamNextMatch récupère le nom de l'équipe home qui joue dans prochain matchs
+        $hometeamNextMatch = Team::where('id', $userNextMatchs->home_team_id)
+        ->get()
+        ->first();
+        dd($hometeamNextMatch);
 
+        //  $awayteamNextMatch récupère le nom de l'équipe away qui joue dans prochain matchs
+        $awayteamNextMatch = Team::where('id', $userNextMatchs->away_team_id)
+            ->get()
+            ->first();
+        dd($awayteamNextMatch);
 
 
         // $userLastMatch récupère le dernière matchs jouer par l'utilisateur dans match
@@ -106,15 +116,19 @@ class MatchController extends Controller
             ->first();
         //dd($userLastMatch);
 
+
+        //  $hometeamLastMatch récupère le nom de l'équipe home qui à jouer dans le dernier matchs
         $hometeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
             ->get()
             ->first();
         //dd($hometeamLastMatch);
 
+
+        // $awayteamLastMatch récupère le nom de l'équipe away qui à jouer dans le dernier matchs
         $awayteamLastMatch = Team::where('id', $userLastMatch->away_team_id)
             ->get()
             ->first();
-        dd($awayteamLastMatch);
+        //dd($awayteamLastMatch);
 
 
 
