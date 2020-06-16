@@ -60,7 +60,7 @@
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                <bouton class="btn btn-outline-secondary">Créér une équipe</bouton>
+                                <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une équipe</a>
                             @endif
                         </td>
                         <td>

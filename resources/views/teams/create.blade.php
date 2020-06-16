@@ -18,7 +18,7 @@
             </div><br/>
         @endif
         <h1 class="my-5 text-white">Crée ta team :</h1>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-5">
             <form id="form_create_team" class="MS5card p-4 w-50" method="post" role="form" action="{{ route('teams.store') }}">
                 @csrf
                 <div class="row">
