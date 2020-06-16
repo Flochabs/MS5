@@ -58,7 +58,7 @@ class User extends Authenticatable
      */
     public function leagues()
     {
-        return $this->hasOne('App\Model\League');
+        return $this->belongsToMany('App\Model\League');
     }
 
     //methode pour lier utilisateur à sa league
