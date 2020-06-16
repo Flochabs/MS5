@@ -6,17 +6,15 @@
             <div class="col-md-12">
 
                 {{--Titre formuliare--}}
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <h1 class="text-white text-center">Créez votre compte</h1>
-                        </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <h1 class="text-white text-center">Créez votre compte</h1>
                     </div>
                 </div>
 
+                {{--Formulaire--}}
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
-                        {{--Formulaire--}}
                         <form class="w-50" method="POST" action="{{ route('register') }}">
                             @csrf
 

@@ -53,14 +53,10 @@ Route::prefix( 'draft' )
     } );
 
 // Routes concernant l'affichage du dashboard
-Route::prefix( 'dashboard' )
-    ->middleware( 'auth' )
-    ->name( 'dashboard.' )
-    ->group( function () {
-        Route::resource( '/', 'DashboardController' );
-        Route::get('profile', 'DashboardController@profile')->name('profile');
-        Route::get('match_result', 'DashboardController@match_result')->name('match_result');
-    } );
+
+        Route::resource( 'dashboard', 'DashboardController' )->Middleware('auth');
+        Route::get('profile/{id}', 'DashboardController@profile')->name('dashboard.profile')->Middleware('auth');
+        Route::get('match_result', 'DashboardController@match_result')->name('dashboard.match_result')->Middleware('auth');
 
 
 
