@@ -127,7 +127,7 @@ class LeagueController extends Controller
         $data->isActive = $request->isActive;
         $data->save();
 
-        return redirect('teams.create')->with('success', 'La leaque est bien activée.');
+        return redirect(route('teams.create'))->with('success', 'La leaque est bien activée.');
     }
 
     /**
@@ -141,7 +141,7 @@ class LeagueController extends Controller
         $league = League::findOrFail($id);
         $league->delete();
 
-        return redirect('leagues.index')->with('success', 'La league a bien été supprimée.');
+        return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
     }
 
     public function publicLeagues()

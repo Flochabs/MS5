@@ -19,7 +19,11 @@ class CreateLeagueUserTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('league_id')->references('id')->on('leagues');
+            $table->foreign('league_id')
+                ->references('id')
+                ->on('leagues')
+                ->constrained()
+                ->onDelete('cascade');
 
         });
     }

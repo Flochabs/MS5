@@ -87,9 +87,12 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Team $team)
     {
-        //
+
+
+        //connecté au dashboard et renvoie les infos concernant son équipe à l'utilisateur sur une vue
+        return view('teams.show', compact('team'));
     }
 
     /**

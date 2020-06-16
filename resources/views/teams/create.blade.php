@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <div class="row my-5">
                                 <div class="col-md-4">
-                                    <label for="nbateam_id" class="tertiary col-form-label">{{ __('Equipe Favorite') }}</label>
+                                    <label for="nbateam_id" class="tertiary col-form-label">Logo de ta team</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control input"
