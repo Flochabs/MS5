@@ -106,6 +106,16 @@ class MatchController extends Controller
             ->first();
         //dd($userLastMatch);
 
+        $hometeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
+            ->get()
+            ->first();
+        //dd($hometeamLastMatch);
+
+        $awayteamLastMatch = Team::where('id', $userLastMatch->away_team_id)
+            ->get()
+            ->first();
+        dd($awayteamLastMatch);
+
 
 
 
