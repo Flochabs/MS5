@@ -33,7 +33,7 @@
 
                         @endphp
                         <p class="card-text"><span class="tertiary">
-                                {{dd($player->playersMatchs)}}
+{{--                                {{dd($player->playersMatchs)}}--}}
                                 : </span>Arrière</p>
                     @endforeach
                     </div>
