@@ -59,15 +59,6 @@ Route::prefix( 'draft' )
         Route::get('profile/{id}', 'DashboardController@profile')->name('dashboard.profile')->Middleware('auth');
         Route::get('match_result', 'DashboardController@match_result')->name('dashboard.match_result')->Middleware('auth');
 
-
-
-
-
-
-
-
-//Route de développement du SASS (à supprimer)
-Route::get( '/devsass', function () {
-    return view( 'devsass' );
-} );
+// Route concernant le footer
+Route::get('/contact', 'ContactController@index')->name('contact');
 

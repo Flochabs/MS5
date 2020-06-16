@@ -42,7 +42,7 @@
                        document.getElementById('logout-form').submit();">
                         {{ __('Déconnexion') }}
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf
                     </form>
                 </div>
@@ -61,7 +61,7 @@
             <div class="col-md-4 p-1">
                 <p class="tertiary">LE SITE</p>
                 <p><a class="text-white" href="#">A propos de nous</a></p>
-                <p><a class="text-white" href="#">Contact</a></p>
+                <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
                 <p><a class="text-white" href="#">Mention Légale</a></p>
                 <p><a class="text-white" href="#"></a></p>
             </div>
