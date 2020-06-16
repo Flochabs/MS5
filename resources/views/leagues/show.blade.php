@@ -27,7 +27,7 @@
                     <form action="{{ route('leagues.update', $league->id)}}" method="post">
                         @csrf
                         @method('PATCH')
-                        <input type="text" class="form-control" name="isActive" value="1"/>
+                        <input type="text" class="d-none form-control" name="isActive" value="1"/>
                         <button class="bouton-inscription" type="submit">Lancer la league</button>
                     </form>
                     @endif
