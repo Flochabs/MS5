@@ -123,7 +123,11 @@ class LeagueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = League::find($id);
+        $data->isActive = $request->isActive;
+        $data->save();
+
+        return redirect(route('teams.create'))->with('success', 'La leaque est bien activée.');
     }
 
     /**
@@ -137,11 +141,12 @@ class LeagueController extends Controller
         $league = League::findOrFail($id);
         $league->delete();
 
-        return redirect('leagues.index')->with('success', 'La league a bien été supprimée.');
+        return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
     }
 
     public function publicLeagues()
     {
+        //permet d'afficher les leagues publiques
         $leagues = League::where('public', 0)->paginate(15);
 
         return view('leagues.public')->with('leagues', $leagues);
@@ -149,6 +154,7 @@ class LeagueController extends Controller
 
     public function joinPublicLeague($id)
     {
+        //permet de rejoindre une league publique
         $league_id = (int)$id;
 
             // insère les id dans la table pivot
@@ -161,6 +167,7 @@ class LeagueController extends Controller
 
     public function joinPrivateLeague(Request $request)
     {
+        //permet de rejoindre une league privée
         if (League::where('token', '=', $request->token)->exists()) {
             // insère les id dans la table pivot
             $user = Auth::user();
@@ -172,14 +179,4 @@ class LeagueController extends Controller
             return redirect('leagues')->withErrors('Cette league n\'existe pas');
         }
     }
-
-    public function setActive($id)
-    {
-        $setActive = 1;
-        $data = League::find($id);
-        dd($data);
-        $data->isActive = $setActive->isActive;
-        $data->save();
-    }
-
 }

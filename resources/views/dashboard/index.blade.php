@@ -56,7 +56,7 @@
                                 </tbody>
                             </table>
                             <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                                <a href="#" class="btn btn-primary">League</a>
+                                <a href="#" class="btn btn-secondary">League</a>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                                 </tbody>
                             </table>
                             <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                                <a href="#" class="btn btn-primary">Equipe</a>
+                                <a href="#" class="btn btn-secondary">Equipe</a>
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,10 @@
                             </div>
                         </div>
                         <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                            <a href="{{ route('dashboard.match_result') }}" class="btn btn-secondary">Feuille de match</a>
+                            <span>
+                                <a href="{{ route('dashboard.match_result') }}" class="btn btn-secondary">Feuille de match</a>
+                            </span>
+
                         </div>
                     </div>
                 </div>
@@ -191,7 +194,7 @@
                         </div>
                     </div>
                     <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <a class="btn btn-primary text-white" href="#">
+                        <a class="btn btn-secondary text-white" href="#">
                             Préparation de l'équipe
                         </a>
                     </div>
@@ -210,7 +213,7 @@
                         <h5>Draft en cours</h5>
                     </div>
                     <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <a href="{{ route('draft.index') }}" class="btn btn-primary">Début du draft</a>
+                        <a href="{{ route('draft.index') }}" class="btn btn-secondary">Début du draft</a>
                     </div>
                 </div>
             </div>
