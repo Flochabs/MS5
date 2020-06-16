@@ -27,3 +27,4 @@ class Player extends Model
         return $this->belongsToMany('App\Model\Match');
     }
 
+}
