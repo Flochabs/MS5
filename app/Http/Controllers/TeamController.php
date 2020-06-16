@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Match;
 use App\Model\Nbateam;
 use App\Model\Team;
 use Illuminate\Http\Request;
@@ -89,10 +90,31 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
+        // récupération des données user
+        $user = Auth::user();
 
+        // league à laquelle appartient l'utilisateur
+        $userLeagueId = $user->team->league_id;
 
+        // $userTeam récupère l'équipe de l'utilisateur
+        $userTeam = Team::where('user_id', $user->id)->first();
+
+        // $userLastMatch récupère le dernière matchs jouer par l'utilisateur dans match
+        $userLastMatch  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
+            ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
+            ->whereNotNull('home_team_score')
+            ->orderBy('start_at','desc')
+            ->get()
+            ->first();
+
+        // Récupère tous les joeurs du dernier du matchs
+        $allPlayers = $userLastMatch->matchPlayers;
+//        dd($allPlayers);
         //connecté au dashboard et renvoie les infos concernant son équipe à l'utilisateur sur une vue
-        return view('teams.show', compact('team'));
+
+        return view('teams.show')
+            ->with('team', $team)
+            ->with('allPLayers', $allPlayers);
     }
 
     /**

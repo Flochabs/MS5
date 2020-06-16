@@ -27,14 +27,23 @@
                     <h2 class="text-white">dernier 5</h2>
                 </div>
                 <div class="card-body d-flex flex-column justify-content-between">
-                    @foreach($team->getPlayers as $player)
+                    @foreach($allPLayers as $player)
                         @php
                             $playerStats = json_decode($player->data)->pl;
 
+                            $position  = substr($playerStats->pos, 0,1);
+                                        if($position === "G") {
+                                            $position = 'Arrière';
+                                        } else if ($position === "F") {
+                                            $position = 'Ailier';
+                                        } else {
+                                            $position = 'Pivot';
+                                        }
+
                         @endphp
                         <p class="card-text"><span class="tertiary">
-{{--                                {{dd($player->playersMatchs)}}--}}
-                                : </span>Arrière</p>
+                                {{$playerStats->fn}} {{$playerStats->ln}}
+                                : </span>{{$position}}</p>
                     @endforeach
                     </div>
                 </div>

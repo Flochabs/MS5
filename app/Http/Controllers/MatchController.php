@@ -15,10 +15,8 @@ class MatchController extends Controller
     public function index()
     {
         //-------------------------------------  RECUPERATION DONNES UTILISATEUR -------------------------------------//
-        // récupération des données users
+        // récupération des données user
         $user = Auth::user();
-        //dd($user);
-
 
         // league à laquelle appartient l'utilisateur
         $userLeagueId = $user->team->league_id;
@@ -28,7 +26,7 @@ class MatchController extends Controller
         $userNameLeague = $user->team->getLeague->name;
         //dd($userNameLeague);
 
-        // $team récupère l'équipe de l'utilisateur
+        // $userTeam récupère l'équipe de l'utilisateur
         $userTeam = Team::where('user_id', $user->id)->first();
         //dd($userTeam);
 
