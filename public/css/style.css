@@ -10,6 +10,10 @@
   background-color: #3a2e49 !important;
 }
 
+#draft-container .table-dark thead th {
+  border: none !important;
+}
+
 #draft-container .table-dark th {
   border-top: none !important;
 }

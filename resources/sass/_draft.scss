@@ -8,6 +8,9 @@
     }
     .table-dark{
         background-color : $bg-card !important;
+        thead th {
+            border: none !important;
+        }
         th {
             border-top: none !important;
         }

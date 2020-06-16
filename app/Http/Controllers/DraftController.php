@@ -33,6 +33,7 @@ class DraftController extends Controller
         //league à laquelle appartient l'utilisateur qui fait sa draft
         $userLeagueId = $user->team->league_id;
 
+
         // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
 
@@ -230,7 +231,6 @@ class DraftController extends Controller
 
     public function auction($id)
     {
-
         $user = Auth::user();
         $userLeagueId = $user->team->league_id;
         $leagueTeams = Team::where('league_id', $userLeagueId)->get();
@@ -317,7 +317,6 @@ class DraftController extends Controller
 
         if(empty($isAlreadyDrafted) && $moneyAvailable > $player->price
             && $moneyAvailable > $playerLatestAuction && $nbDraftedPlayers < 15 && $nbPosition < $limit) {
-
             $auctionTimeLimit = Carbon::parse(now())->addMinutes(2)->format('Y-m-d H:i:s');
             $data = [[
                 'team_id' => $team->id,
@@ -359,9 +358,91 @@ class DraftController extends Controller
      */
 
     public function updateAuction(Request $request, $id){
-        //donnes de l'utilisateur connecté
         $user = Auth::user();
         $userLeagueId = $user->team->league_id;
+        $leagueTeams = Team::where('league_id', $userLeagueId)->get();
+        $teamsInLeagueId = [];
+        foreach ($leagueTeams as $teams) {
+            $teamsInLeagueId[] = $teams->id;
+        }
+
+
+        //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
+        $team = Team::where('user_id', $user->id)->get()->first();;
+        $player = Player::where('id', $id)->get()->first();
+
+        //si le joueur (id) a déjà été drafté par une autre équipe de la ligue l'ajout n'est pas possible
+        $isAlreadyDrafted = $player->teams()->whereIn('team_id', $teamsInLeagueId)->get()->first();
+
+        //enchères en cours de l'utilisateur et salary cap actuel
+        $auctions = Auction::where([['team_id', $user->team->id],['bought', 0]])->get()->first();
+        if($auctions) {
+            $auctions = $auctions->sum("auction");
+        } else {
+            $auctions = 0;
+        }
+
+        //salary cap actuel de l'utilisateur
+        $currentSalaryCap = $team->salary_cap;
+        //salary_cap - la somme des enchères qu'il a en cours
+        $moneyAvailable = $currentSalaryCap - $auctions;
+
+        //prix actuel du joueur selon la dernière enchère faite dans la ligue
+        // récupère les enchères en cours dans la ligue
+        $auctionsOnPlayers = DB::table('auctions')
+            ->leftjoin('players', 'players.id', '=', 'auctions.player_id')
+            ->whereIn('team_id', $teamsInLeagueId)
+            ->where('bought', '=',0)
+            ->orderBy('auction', 'desc')
+            ->get();
+
+        //tableau pour stocker les ids de tous les joueurs qui ont des enchères en cours sur celle ligue
+        $playerLatestAuction = 0;
+        foreach ($auctionsOnPlayers as $auctionsOnPlayer){
+            if($auctionsOnPlayer->player_id === $id ){
+                $playerLatestAuction = $auctionsOnPlayer->auction;
+            }
+        }
+
+// ------   VERIFIER QUE LE NOMBRE MAX DE JOUEUR A DRAFTER NE SOIT PAS DEPASSER ---------//
+        //retourne les joueurs draftés par l'utilisateur
+        $drafted = $team->getPlayers;
+        $nbDraftedPlayers = count($drafted);
+
+        //tableaux pour stocker les données des joueurs selon leurs positions pour
+        // verifier que le nombre limite pour chaque poste ne soit pas atteint
+        //enregistrer chaque joueur drafté dans le tableau qui correspond à son poste
+        $forwards = [];
+        $guards = [];
+        $centers = [];
+        foreach($drafted as $draftedPlayer) {
+            $position = '';
+            $draftedInfos = json_decode($draftedPlayer->data);
+            $position  = substr($draftedInfos->pl->pos, 0,1);
+            if($position === "F") {
+                $forwards[] =  $draftedPlayer;
+            } elseif($position === "C") {
+                $centers[] = $draftedPlayer;
+            } else {
+                $guards[] = $draftedPlayer;
+            }
+        }
+        //récupération du poste du joueur sur lequel l'utilisateur veut faire une enchère
+        $playerPosition = json_decode($player->data);
+        $playerPosition = $playerPosition->pl->pos;
+        if($playerPosition === "F") {
+            $nbPosition = count($forwards);
+            $limit = 5;
+        } elseif($playerPosition === "C") {
+            $nbPosition = count($centers);
+            $limit = 2;
+        } else {
+            $nbPosition = count($guards);
+            $limit = 5;
+        }
+
+
+
 
         $updateValue = $request->all();
         //verification du champs entré
@@ -378,7 +459,8 @@ class DraftController extends Controller
 
 
         //l'enchere doit être supérieur à la dernière valeur proposée par un joueur de la ligue
-        if($auctionValue > $PlayerCurrentPrice) {
+        if(empty($isAlreadyDrafted) && $moneyAvailable > $player->price
+            && $moneyAvailable > $playerLatestAuction && $nbDraftedPlayers < 15 && $nbPosition < $limit && $auctionValue > $player->price) {
             $rules = ['auctionValue'     => 'integer|required'];
             // Vérification de la validité des informations transmises par l'utilisateur
             $validator = Validator::make($updateValue, $rules, [
@@ -393,11 +475,8 @@ class DraftController extends Controller
                     ->withInput();
             }
 
-            //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
-            $team = Team::where('user_id', $user->id)->first();
-            $team = $team->id;
             $auctionTimeLimit = Carbon::parse(now())->addMinutes(1)->format('Y-m-d H:i:s');
-            Auction::where([['player_id',$id], ['team_id', $team]])->update(['auction' => $auctionValue,'auction_time_limit' => $auctionTimeLimit ]);
+            Auction::where([['player_id',$id], ['team_id', $team->id]])->update(['auction' => $auctionValue,'auction_time_limit' => $auctionTimeLimit ]);
             return back();
         }
         return back();

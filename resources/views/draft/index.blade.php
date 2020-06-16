@@ -78,6 +78,7 @@
         <div class="row">
             <div class="col-md-8">
                 {{-----------------------FILTRES TABLEAU JOUEURS NBA ---------------------}}
+
                 <div class="row mx-3">
                     <div class="col-12 d-flex py-1 justify-content-around MS5card">
                         <div class="dropdown">
@@ -414,3 +415,7 @@
         </div>
     </div>
 @endsection
+
+
+
+
