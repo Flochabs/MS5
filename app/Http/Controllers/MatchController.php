@@ -24,6 +24,10 @@ class MatchController extends Controller
         $userLeagueId = $user->team->league_id;
         //dd($userLeagueId);
 
+        // Le nom de la league à laquelle appartient l'utilisateur
+        $userNameLeague = $user->team->getLeague->name;
+        //dd($userNameLeague);
+
         // $team récupère l'équipe de l'utilisateur
         $userTeam = Team::where('user_id', $user->id)->first();
         //dd($userTeam);
