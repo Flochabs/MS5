@@ -19,6 +19,4 @@ class Match extends Model
     public function awayTeamName() {
         return $this->belongsTo(Team::class, 'away_team_id');
     }
-
-
 }
