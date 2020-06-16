@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Draft extends Model
 {
     protected $fillable = ['is_over'];
+    protected $dates = ['ends_at'];
 }
