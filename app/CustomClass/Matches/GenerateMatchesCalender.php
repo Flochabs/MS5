@@ -40,7 +40,8 @@ class GenerateMatchesCalender extends Command
                     $allTeamsIDs[] = $teamid->id;
                 }
 
-                $scheduleBuilder = new ScheduleBuilder($allTeamsIDs);
+                $rounds = (($count = count($allTeamsIDs)) % 2 === 0 ? $count - 1 : $count) * 2;
+                $scheduleBuilder = new ScheduleBuilder($allTeamsIDs, $rounds);
                 $scheduleGames = $scheduleBuilder->build();
 
                 $i = 0;

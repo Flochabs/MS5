@@ -5,6 +5,7 @@ namespace App\Console;
 
 
 
+
 use App\CustomClass\UpdateNbaPlayersScores;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -27,6 +28,7 @@ class Kernel extends ConsoleKernel
         \App\CustomClass\UpdateNbaPlayersScores::class,
         \App\CustomClass\SaveDraftPick::class,
         \App\CustomClass\Matches\GenerateMatchesCalender::class,
+        \App\CustomClass\Matches\PlayWeeklyMatches::class
     ];
 
     /**
