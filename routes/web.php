@@ -61,7 +61,13 @@ Route::prefix( 'draft' )
 // Routes concernant les équipes
 Route::resource( 'teams', 'TeamController' )->middleware( 'auth' );
 
-
+// Routes concernant l'affichage du match
+Route::prefix( 'match' )
+    ->middleware( 'auth' )
+    ->name( 'match.' )
+    ->group( function () {
+        Route::resource( '/', 'MatchController' );
+    } );
 
 
 

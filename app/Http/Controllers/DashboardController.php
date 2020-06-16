@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Match;
+use App\Model\Player;
 use App\Model\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,15 +18,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
         //Récupere le pseudo de l'utilisateur
         $user_id = Auth::user()->id;
-
-        //Récupere la team de l'utilisateur
-        $user_team = Team::all();
-       // dd($user_team);
-
         return view('dashboard.index')->with('user_id', $user_id);
-
     }
 
     public function profile($id)
@@ -38,4 +34,5 @@ class DashboardController extends Controller
     {
         return view('dashboard.match_result');
     }
+
 }

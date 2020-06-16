@@ -168,14 +168,14 @@
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
                             <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
                                 <img src="https://via.placeholder.com/90" alt="">
-                                <p class="text-center pt-3">Equipe</p>
+                                <p class="text-center pt-3"></p>
                             </div>
                             <div class="col-md-4 d-flex justify-content-center">
                                 <h4>VS</h4>
                             </div>
                             <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
                                 <img src="https://via.placeholder.com/90" alt="">
-                                <p class="text-center pt-3">Equipe</p>
+                                <p class="text-center pt-3"></p>
                             </div>
                         </div>
                     </div>
