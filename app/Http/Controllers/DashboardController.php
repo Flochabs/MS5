@@ -108,7 +108,7 @@ class DashboardController extends Controller
 
         //----------------------------------  RECUPERATION DONNES DU DERNIER  MATCH --------------------------------//
 
-        // $userLastMatch récupère le dernière matchs jouer par l'utilisateur dans match
+        // $userLastMatch récupère le dernier match jouer par l'utilisateur dans match
         $userLastMatch  = Match::where(function ($query) use($userLeagueId,$userTeam) {
             $query->where(['league_id' => $userLeagueId , 'away_team_id' => $userTeam->id])
                 ->orwhere(['league_id' => $userLeagueId, 'home_team_id' => $userTeam->id]);
