@@ -20,7 +20,7 @@ class Match extends Model
         return $this->belongsTo(Team::class, 'away_team_id');
     }
 
-    // Récupére tous les joeurs du matchs
+    // Récupére tous les joueurs du matchs
     public function matchPlayers()
     {
         return $this->belongsToMany('App\Model\Player');
