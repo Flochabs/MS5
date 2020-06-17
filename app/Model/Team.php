@@ -22,7 +22,7 @@ class Team extends Model
 
     public function userTeam()
     {
-        return $this->belongsTo('App\Model\User');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }
