@@ -144,6 +144,47 @@ footer {
   font-size: 1.2rem;
 }
 
+.bg-card-title {
+  background: #504065;
+}
+
+#next-game-coaching #nb-players {
+  font-size: 2rem !important;
+}
+
+#next-game-coaching .table-dark {
+  background-color: #3a2e49 !important;
+}
+
+#next-game-coaching .table-dark thead th {
+  border: none !important;
+}
+
+#next-game-coaching .table-dark th {
+  border-top: none !important;
+}
+
+#next-game-coaching .table-dark td {
+  border-top: none !important;
+}
+
+#next-game-coaching #auctionValue {
+  max-width: 70px !important;
+}
+
+#next-game-coaching .MS5card {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+#next-game-coaching .btn-quaternary {
+  background-color: #c25211;
+  color: white;
+}
+
+#next-game-coaching .btn-quaternary:hover {
+  background-color: #eb671b;
+}
+
 @font-face {
   font-family: "Mudhead-Serif";
   src: url("/../storage/fonts/Mudhead-Serif.otf") format("truetype");
