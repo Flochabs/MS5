@@ -58,6 +58,7 @@ Route::prefix( 'draft' )
         Route::get('profile/{id}', 'DashboardController@profile')->name('dashboard.profile')->Middleware('auth');
         Route::get('match_result', 'DashboardController@match_result')->name('dashboard.match_result')->Middleware('auth');
 
+
 // Routes concernant les équipes
 Route::resource( 'teams', 'TeamController' )->middleware( 'auth' );
 
@@ -72,10 +73,7 @@ Route::prefix( 'match' )
 
 
 
+// Route concernant le footer
+Route::get('/contact', 'ContactController@index')->name('contact');
 
-
-//Route de développement du SASS (à supprimer)
-Route::get( '/devsass', function () {
-    return view( 'devsass' );
-} );
 
