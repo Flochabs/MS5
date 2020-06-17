@@ -9,6 +9,7 @@ use App\Model\Team;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
@@ -44,15 +45,19 @@ class TeamController extends Controller
     {
         //Vérification du nombre d'équipes associées à l'utilisateur
         $user = Auth::user();
+        $userId = $user->id;
 
         if ($hasTeam = $user->team()->exists()) {
             return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une équipe !');
         } else {
             // Récupération des données du formulaire et association de l'id de l'utilisateur
             $user = Auth::user();
-            $user_id = Auth::user()->id;
-            $league_id = $user->league->id;
-            dd($league_id );
+            $userLeague = DB::table('league_user')
+                ->leftjoin('leagues', 'leagues.id', '=', 'league_user.league_id')
+                ->where('league_user.user_id', $userId)
+                ->first();
+            $userLeagueId = $userLeague->id;
+
 
             $values = $request->all();
             $rules = [
@@ -78,8 +83,8 @@ class TeamController extends Controller
             }
             // Création de la nouvelle league avec les informations transmises
             $newTeam = new Team();
-            $newTeam->user_id         = $user_id;
-            $newTeam->league_id       = $league_id;
+            $newTeam->user_id         = $user->id;
+            $newTeam->league_id       = $userLeagueId;
             $newTeam->name            = $values['name'];
             $newTeam->stadium_name    = $values['stadium_name'];
 //        $newTeam->public          = $publicLeague;
@@ -118,13 +123,13 @@ class TeamController extends Controller
             ->first();
 
         // Récupère tous les joeurs du dernier du matchs
-        $allPlayers = $userLastMatch->matchPlayers;
-//        dd($allPlayers);
+        $allPlayersMatch = $userLastMatch->matchPlayers;
+//        dd($allPlayersMatch);
         //connecté au dashboard et renvoie les infos concernant son équipe à l'utilisateur sur une vue
 
         return view('teams.show')
             ->with('team', $team)
-            ->with('allPLayers', $allPlayers);
+            ->with('allPLayers', $allPlayersMatch);
     }
 
     /**

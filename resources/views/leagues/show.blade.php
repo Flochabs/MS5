@@ -54,30 +54,39 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($league->users as $team)
+                @foreach($league->users as $user)
                     <tr>
-                        <td>{{$team->pseudo}}</td>
+                        <td>{{$user->pseudo}}</td>
                         <td>
                             @if($league->isActive === 1)
-                            @else
-                                @if(Auth::user()->id === $team->id)
+                                @if(Auth::user()->id === $user->id && $user->team === null)
                                     <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une équipe</a>
                                 @else
-                                    nom de la team
+                                    @if($user->team !== null)
+                                        {{$user->team->name}}
+                                    @else
+                                        Création de l'équipe en cours !
+                                    @endif
                                 @endif
-
+                            @else
+                                En attente de la création de la league
                             @endif
                         </td>
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                En attente de la fin de la draft
+                                draft en cours
                             @endif
                         </td>
                         <td>
                             @if($league->isActive === 1)
+                                @if($user->team !== null)
+                                    {{$teamVictoryRatio[$user->team->id]}}
+                                @else
+                                    L'équipe doit être créée !
+                                @endif
                             @else
-                                En attente de la fin de la draft
+                                En attente du lancement de la league !
                             @endif
                         </td>
                     </tr>

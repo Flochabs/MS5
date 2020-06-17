@@ -27,6 +27,6 @@ class League extends Model
 
     // Associe les teams à leur league
     public function teams() {
-        return $this->belongsTo('App\Model\Team');
+        return $this->hasMany('App\Model\Team');
     }
 }

@@ -17,6 +17,7 @@
                         </thead>
                         <tbody>
                         @foreach($leagues as $league)
+{{--                            {{dd($league->users)}}--}}
                             <tr>
                                 <td>{{$league->name}}</td>
                                 <td>{{$league->user->pseudo}}</td>
