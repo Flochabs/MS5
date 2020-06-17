@@ -33,12 +33,11 @@ Route::prefix( 'nba' )
 
 
 
-// Routes concernant l'affichage des ligues en liste (index) et individuelles (show)
+// Routes concernant l'affichage des ligues en portail (index), en liste (public) et individuelles (show)
         Route::resource( 'leagues', 'LeagueController' )->middleware( 'auth' );
         Route::get('public', 'LeagueController@publicLeagues')->name('leagues.public')->middleware( 'auth' );
         Route::post('joinPrivateLeague', 'LeagueController@joinPrivateLeague')->name('leagues.joinPrivateLeague')->middleware( 'auth' );
         Route::get('joinPublicLeague/{id}', 'LeagueController@joinPublicLeague')->name('leagues.joinPublicLeague')->middleware( 'auth' );
-        Route::post('setActive/{id}', 'LeagueController@setActive')->name('leagues.setActive')->middleware( 'auth' );
 
 
 // Routes concernant l'affichage de la draft
@@ -54,24 +53,27 @@ Route::prefix( 'draft' )
     } );
 
 // Routes concernant l'affichage du dashboard
-Route::prefix( 'dashboard' )
+
+        Route::resource( 'dashboard', 'DashboardController' )->Middleware('auth');
+        Route::get('profile/{id}', 'DashboardController@profile')->name('dashboard.profile')->Middleware('auth');
+        Route::get('match_result', 'DashboardController@match_result')->name('dashboard.match_result')->Middleware('auth');
+
+
+// Routes concernant les équipes
+Route::resource( 'teams', 'TeamController' )->middleware( 'auth' );
+
+// Routes concernant l'affichage du match
+Route::prefix( 'match' )
     ->middleware( 'auth' )
-    ->name( 'dashboard.' )
+    ->name( 'match.' )
     ->group( function () {
-        Route::resource( '/', 'DashboardController' );
-        Route::get('profile', 'DashboardController@profile')->name('profile');
-        Route::get('match_result', 'DashboardController@match_result')->name('match_result');
+        Route::resource( '/', 'MatchController' );
     } );
 
 
 
 
+// Route concernant le footer
+Route::get('/contact', 'ContactController@index')->name('contact');
 
-
-
-
-//Route de développement du SASS (à supprimer)
-Route::get( '/devsass', function () {
-    return view( 'devsass' );
-} );
 

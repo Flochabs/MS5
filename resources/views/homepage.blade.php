@@ -22,19 +22,15 @@
     <div class="container-fluid bg-light pt-3">
 
         <div class="row no-gutters">
-
             <div class="col-md-12 text-center pt-5">
                 <h2>Créez votre ligue, invitez vos potes <b>et marchez leur dessus !</b></h2>
             </div>
-
         </div>
 
+        <hr>
+
         <div class="container">
-
-            <hr>
-
             <div class="row no-gutters">
-
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_joueur.png')}}" alt="joueur">
                     <h5 class="py-2"><b>+ de 5000 joueurs MS5</b></h5>
@@ -77,98 +73,6 @@
         </div>
 
     </div>
-
-    {{--Hall Of Fame--}}
-    {{--
-   <div class="container bg-crown">
-
-        <div class="row no-gutters text-center">
-            <div class="col-12 p-5 text-center">
-                <h1 class="text-white">Hall Of Fame</h1>
-            </div>
-        </div>
-
-        <div class="row no-gutters justify-content-center">
-
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="row flex-column">
-                    <div class="pr-2">
-                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
-                    </div>
-                    <div>
-                        <h4 class="text-white">KillerChouquette23</h4>
-                        <h6 class="text-white">Les viennoiseries vener</h6>
-                        <p class="tertiary">Meilleur Ratio V/D</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4  d-flex justify-content-center">
-                <div class="row flex-column">
-                    <div class="pr-2 ">
-                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
-                    </div>
-                    <div>
-                        <h4 class="text-white">Michel Jourdan</h4>
-                        <h6 class="text-white">Chicago Moulles</h6>
-                        <p class="tertiary">Meilleure attaque</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="row flex-column">
-                    <div class="pr-2">
-                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
-                    </div>
-                    <div>
-                        <h4 class="text-white">Larry Beurk</h4>
-                        <h6 class="text-white">Les Poireaux Muttants</h6>
-                        <p class="tertiary">Meilleure défense</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row no-gutters py-4">
-
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="row flex-column">
-                    <div class="pr-2">
-                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
-                    </div>
-                    <div>
-                        <h4 class="text-white">Charlote l'abeille</h4>
-                        <h6 class="text-white">Flylikelebron</h6>
-                        <p class="tertiary">+ de rebonds gagnés</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6  d-flex justify-content-center">
-                <div class="row flex-column">
-                    <div class="pr-2">
-                        <img class="imageHOF" src="https://placehold.it/100/100" alt="">
-                    </div>
-                    <div>
-                        <h4 class="text-white">Naheu</h4>
-                        <h6 class="text-white">TeamToShop</h6>
-                        <p class="tertiary">Médaille en chocolat</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row no-gutters justify-content-center pb-4">
-            <span>
-                <button class="bouton-connexion">Voir le Hall Of Fame</button>
-            </span>
-
-        </div>
-    </div>
---}}
 
     {{--Tuto--}}
     <div class="container-fluid bg-jersey tutoimg ">

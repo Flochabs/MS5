@@ -6,6 +6,9 @@
 @import "homepage";
 @import "bouton";
 @import "leagues";
+@import "draft";
+@import "teams_create";
+@import "dashboard";
 
 // Font
 @font-face {
@@ -19,10 +22,13 @@ body {
     background: $primary;
 }
 
+a {
+    color: $white;
+}
 
 a:hover{
     text-decoration: none;
-    color: $quaternary;
+    color: #000;
 }
 
 p {
@@ -64,6 +70,11 @@ label {
 // Card
 .MS5card {
     @include MS5card
+}
+
+.bg-card{
+    background: $bg-card;
+    color: $white;
 }
 
 .card-dashboard {

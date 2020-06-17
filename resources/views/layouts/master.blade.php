@@ -6,54 +6,88 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-@yield('css')
-<title>MS5</title>
+    @yield('css')
+    <title>MS5</title>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-@yield('scripts-header')
+    @yield('scripts-header')
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-    <a class="navbar-brand" href="{{ route('dashboard.index') }}">
-        <img class="img-fluid" width="10%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
-    </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="text-white nav-link" href="{{ route('nba.index')}}">NBA</a>
-            </li>
-            <li class="nav-item active">
-                <a class="text-white nav-link" href="{{ route('leagues.index')}}">Leagues</a>
-            </li>
-            <li class="nav-item active">
-                <a class="text-white nav-link" href="{{ route('dashboard.index') }}">Tableau de bord</a>
-            </li>
-            <li class="nav-item active">
-                <a class="text-white nav-link" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                   document.getElementById('logout-form').submit();">
-                    {{ __('Se déconnecter') }}
-                    </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
-                </form>
-            </li>
-        </ul>
+
+    <div id="app">
+        <nav class="navbar navbar-expand-md bg-primary shadow-sm">
+            <div class="container">
+            <span>
+                <a href="{{ route('dashboard.index') }}">
+                <img class="img-fluid" width="30%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
+            </a>
+            </span>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        <a class="" href="#">
+                        <li class="nav-item bouton-header">
+                            <p>Profil</p>
+                        </li>
+                        </a>
+
+                        <a class="bouton-header ml-2" href="{{ route('leagues.index')}}">
+                        <li class="nav-item">
+                            <p>Leagues</p>
+                        </li>
+                        </a>
+
+                        <a class="bouton-header ml-2" href="{{ route('dashboard.index') }}">
+                        <li class="nav-item">
+                            <p>Tableau de bord</p>
+                        </li>
+                        </a>
+
+                        <a class="bouton-header ml-2" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">
+                        <li class="nav-item">
+                            <p>Déconnexion</p>
+                            <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
+                        </li>
+                        </a>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
-</nav>
+
 
 
 <div id="id">
     @yield('content')
 </div>
+
 <footer>
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-4 p-1">
                 <p class="tertiary">LE SITE</p>
                 <p><a class="text-white" href="#">A propos de nous</a></p>
-                <p><a class="text-white" href="#">Contact</a></p>
+                <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
                 <p><a class="text-white" href="#">Mention Légale</a></p>
                 <p><a class="text-white" href="#"></a></p>
             </div>
@@ -78,5 +112,6 @@
 
 </footer>
 <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+@yield('script-footer')
 </body>
 </html>

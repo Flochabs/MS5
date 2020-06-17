@@ -28,3 +28,20 @@
         font-weight: bold;
     }
 }
+
+.bouton-header {
+    background: transparent;
+    border-top: solid 1px $tertiary;
+    padding: 10px 35px;
+    color: $white;
+    font-weight: bold;
+
+    &:hover {
+        background: transparent;
+        border-top: solid 1px $tertiary;
+        color: $white;
+        font-weight: bold;
+        box-shadow: inset 0 0.4em .5em $tertiary;
+    }
+}
+

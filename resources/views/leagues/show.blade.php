@@ -24,8 +24,10 @@
             <div class="col-md-6 text-right">
                 <div class="row">
                     @if($league->isActive === 0)
-                    <form action="{{ route('leagues.setActive', $league->id)}}" method="post">
+                    <form action="{{ route('leagues.update', $league->id)}}" method="post">
                         @csrf
+                        @method('PATCH')
+                        <input type="text" class="d-none form-control" name="isActive" value="1"/>
                         <button class="bouton-inscription" type="submit">Lancer la league</button>
                     </form>
                     @endif
@@ -41,7 +43,7 @@
         </div>
 
 
-        <div class="row">
+        <div class="row my-5">
             <table class="table table-striped text-white">
                 <thead class="font-weight-bold">
                 <tr>
@@ -58,19 +60,24 @@
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                <bouton class="btn btn-outline-secondary">Créér une équipe</bouton>
+                                @if(Auth::user()->id === $team->id)
+                                    <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une équipe</a>
+                                @else
+                                    nom de la team
+                                @endif
+
                             @endif
                         </td>
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                En attente de la draft
+                                En attente de la fin de la draft
                             @endif
                         </td>
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                En attente de la draft
+                                En attente de la fin de la draft
                             @endif
                         </td>
                     </tr>
