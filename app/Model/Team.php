@@ -20,9 +20,15 @@ class Team extends Model
         return $this->belongsTo(League::class, 'league_id');
     }
 
+    // Associe un utilisateur à sa team
     public function userTeam()
     {
         return $this->belongsTo('App\Model\User');
+    }
+
+    public function getMatches()
+    {
+        return $this->hasMany('App\Model\Match');
     }
 
 }

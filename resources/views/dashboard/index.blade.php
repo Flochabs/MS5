@@ -1,240 +1,345 @@
 @extends('layouts.master')
 
 @section('content')
+
     <div class="container">
-        @if(session()->get('success'))
-            <div class="alert alert-success">
-                {{ session()->get('success') }}
-            </div><br/>
-        @endif
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            <br/>
-        @endif
-        <!-- Première sections -->
+        {{--Titre de la pge--}}
         <div class="row">
-                <!-- CARD Profil -->
-                <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="MS5card card" style="width: 18rem; height: 15rem">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Profil</h5>
-                            <div>
-                                <img src="https://via.placeholder.com/90" alt="">
-                            </div>
-                            <div>
-                                <h3 class="card-subtitle mb-2 text-white">{{Auth::user()->pseudo}}</h3>
-                            </div>
-                            <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                                <a class="btn btn-primary text-white" href="{{ route('dashboard.profile', $user_id) }}">
-                                    Profil
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CARD League -->
-                <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="MS5card card">
-                        <div class="banner-league-publique">
-                            <h5 class="card-title text-center">League</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table">
-                                <thead class="text-white">
-                                <tr>
-                                    <th class="text-center" scope="col">Classement</th>
-                                    <th class="text-center" scope="col">Équipe</th>
-                                    <th class="text-center" scope="col">Stade</th>
-                                    <th class="text-center" scope="col">Score</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th class="text-center text-white" scope="row">1</th>
-                                    <th class="text-center text-white" scope="row">TheBoss</th>
-                                    <td class="text-center text-white">New Orleans Arena</td>
-                                    <td class="text-center text-white">10</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-center text-white" scope="row">2</th>
-                                    <th class="text-center text-white" scope="row">Puma</th>
-                                    <td class="text-center text-white">United Center</td>
-                                    <td class="text-center text-white">6</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                                <a href="#" class="btn btn-secondary">League</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-white">Tableau de bord</h1>
+            </div>
         </div>
 
-        <!-- Deuxième sections -->
-        <div class="row">
+        <div class="row no-gutters justify-content-center my-4">
 
-                 <!-- CARD Equipe -->
-                <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="MS5card card" >
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Equipe</h5>
-                            <table class="table">
-                                <thead class="text-white">
+            <div class="col-md-5 MS5card p-0">
+
+                <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                        <h2 class="text-white py-5">Prochain Match</h2>
+                        <span class="d-flex" id="countdown"></span>
+                        <div class="col-12 d-flex">
+                                <p class="pl-5"><b>Jours</b></p>
+                                <p class="pl-5"><b>Heures</b></p>
+                                <p class="pl-5"><b>Minutes</b></p>
+                                <p class="pl-5"><b>Secondes</b></p>
+                        </div>
+                </div>
+
+                <div class="row justify-content-center no-gutters my-5">
+
+                    <div class="col-md-4 d-flex justify-content-between">
+                        <div class="text-right">
+                            <img class="radius25" src="http://placehold.it/50/50" alt="logo">
+                        </div>
+
+                        <div class="text-right">
+                            <h4 class="text-white">Michoco</h4>
+                            <p class="tertiary">KillerChouquette23</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <img style="height: 50px; width: 50px;"  src="{{asset('storage/images/vs_dashboard.png')}}" alt="">
+                    </div>
+
+                    <div class="col-md-4 d-flex justify-content-between">
+                        <div class="text-left">
+                            <h4 class="text-white">Ragnard</h4>
+                            <p class="tertiary">Vivalavida</p>
+                        </div>
+                        <div>
+                            <img class="radius25" src="http://placehold.it/50/50" alt="logo">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row no-gutters justify-content-center mt-5">
+                    <a href="" class="text-white bouton-inscription">Préparation de l'équipe</a>
+                </div>
+            </div>
+
+            <div class="col-md-5 p-0 ml-4">
+                <div class="row no-gutters">
+                    <div class="col-12">
+                        <div class="row no-gutters MS5card text-center">
+                            <div class="col-12">
+                                <h2 class="text-white">League</h2>
+                            </div>
+
+
+                            <div class="col-12">
+                                <table class="table table-bordered bg-card m-0">
+                                    <thead>
                                     <tr>
-                                        <th class="text-center" scope="col">Joueur</th>
-                                        <th class="text-center" scope="col">Position</th>
-                                        <th class="text-center" scope="col">Score</th>
+                                        <th scope="col">Pos</th>
+                                        <th scope="col">Équipe</th>
+                                        <th scope="col">Stade</th>
+                                        <th scope="col">%</th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                    </thead>
+                                    <tbody>
                                     <tr>
-                                        <th class="text-center text-white" scope="row">Steven Adams</th>
-                                        <td class="text-center text-white">ailier</td>
-                                        <td class="text-center text-white">11</td>
+                                        <th scope="row">1</th>
+                                        <td>TheBoss</td>
+                                        <td>New Orleans Arena</td>
+                                        <td>0.889</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                            <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                                <a href="#" class="btn btn-secondary">Equipe</a>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Puma</td>
+                                        <td>United Center</td>
+                                        <td>0.760</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Elchikitopouet</td>
+                                        <td>Madisson Square Garden</td>
+                                        <td>0.512</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- CARD Resultat du dernier match -->
-                <div class="col-md-6 d-flex justify-content-center pt-3">
-                    <div class="MS5card card">
-                        <div class="row">
-                            <div class="banner-match-result">
-                                <h5 class="card-title text-center">Résultat du dernier match</h5>
+                        <div class="row no-gutters MS5card text-center mt-4">
+                            <div class="col-12">
+                                <h2 class="text-white">Équipe</h2>
                             </div>
-                            <div class="card-body">
-                                <div class="col-md-12 p-2">
-                                    <h5 class="text-center">Nom de la league</h5>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                    <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
-                                        <img src="https://via.placeholder.com/90" alt="">
-                                        <p class="text-center pt-3">Equipe</p>
-                                    </div>
-                                    <div class="col-md-4 d-flex justify-content-center">
-                                        <h4>86 - 130</h4>
-                                    </div>
-                                    <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
-                                        <img src="https://via.placeholder.com/90" alt="">
-                                        <p class="text-center pt-3">Equipe</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="text-center">Statistiques du match</h5>
-                        </div>
-                        <div class="card-body col-md-12 d-flex justify-content-center">
-                            <div class="col-md-4">
-                                <p class="text-center">24</p>
-                                <p class="text-center">30</p>
-                                <p class="text-center">68</p>
-                                <p class="text-center">86</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p class="text-center">1</p>
-                                <p class="text-center">2</p>
-                                <p class="text-center">3</p>
-                                <p class="text-center">4</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p class="text-center">37</p>
-                                <p class="text-center">50</p>
-                                <p class="text-center">98</p>
-                                <p class="text-center">130</p>
+                            <div class="col-12">
+                                <table class="table table-bordered bg-card w-100 m-0">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Position</th>
+                                        <th scope="col">Joueur</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>MJ</td>
+                                        <td>Chris Paul</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A</td>
+                                        <td>James Harden</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AI</td>
+                                        <td>Lebron James</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AF</td>
+                                        <td class="">Giannis Antetokounmpo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>P</td>
+                                        <td>Demarcus Cousins</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                            <span>
-                                <a href="{{ route('dashboard.match_result') }}" class="btn btn-secondary">Feuille de match</a>
-                            </span>
-
-                        </div>
-                    </div>
-                </div>
-
-
-        </div>
-
-        <!-- Troisième sections -->
-        <div class="row">
-            <!-- Card Prochain match -->
-            <div class="col-md-6 d-flex justify-content-center pt-3">
-                <div class="card-dashboard">
-                    <div class="banner-next-match">
-                        <h5 class="card-title text-center">Prochain match</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="col-md-12 d-flex justify-content-between align-items-center">
-                            <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
-                                <img src="https://via.placeholder.com/90" alt="">
-                                <p class="text-center pt-3"></p>
-                            </div>
-                            <div class="col-md-4 d-flex justify-content-center">
-                                <h4>VS</h4>
-                            </div>
-                            <div class="col-md-4 d-flex flex-column justify-content-center pt-2">
-                                <img src="https://via.placeholder.com/90" alt="">
-                                <p class="text-center pt-3"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <h5>Début du math</h5>
-                    </div>
-                    <div class="card-body col-md-12 d-flex flex-column justify-content-center">
-                        <div class="col-md-12 text-center">
-                            <h4>14 : 00 : 59 : 27</h4>
-                        </div>
-                        <div class="col-md-12 d-flex">
-                            <p class="m-3">Jours</p>
-                            <p class="m-3">Heures</p>
-                            <p class="m-3">mins</p>
-                            <p class="m-3">Secs</p>
-                        </div>
-                    </div>
-                    <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <a class="btn btn-secondary text-white" href="#">
-                            Préparation de l'équipe
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card Draft -->
-            <div class="col-md-6 d-flex justify-content-center pt-3">
-                <div class="MS5card card">
-                    <div class="card-body">
-                        <div class="col-md-12">
-                            <h5 class="card-title text-center">Draft</h5>
-                        </div>
-                    </div>
-                    <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <h5>Draft en cours</h5>
-                    </div>
-                    <div class="card-header col-md-12 d-flex justify-content-center pb-2">
-                        <a href="{{ route('draft.index') }}" class="btn btn-secondary">Début du draft</a>
                     </div>
                 </div>
             </div>
 
         </div>
-
-
     </div>
+
+    <div class="container">
+
+            <div class="row no-gutters justify-content-center my-4">
+
+                <div class="col-md-5 MS5card p-0">
+                    <div class="row no-gutters">
+                        <div class="col-12 text-center my-2">
+                            <h2 class="text-white">Dernier Match</h2>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center no-gutters my-4">
+
+                        <div class="col-md-4 d-flex justify-content-between">
+                            <div class="text-right">
+                                <img class="radius25" src="http://placehold.it/50/50" alt="logo">
+                            </div>
+
+                            <div class="text-right">
+                                <h4 class="text-white">Michoco</h4>
+                                <p class="tertiary">KillerChouquette23</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 text-center">
+                            <h1 class="tertiary">VS</h1>
+                        </div>
+
+                        <div class="col-md-4 d-flex justify-content-between">
+                            <div class="text-left">
+                                <h4 class="text-white">Ragnard</h4>
+                                <p class="tertiary">Vivalavida</p>
+                            </div>
+                            <div>
+                                <img class="radius25" src="http://placehold.it/50/50" alt="logo">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <table class="table table-bordered bg-card m-0">
+                            <thead>
+                            <tr class="text-center w-100">
+                                <th class="w-50">Domicile</th>
+                                <th class="w-50">Extérieur</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-center w-100">
+                                <td class="w-50">Chris Paul</td>
+                                <td class="w-50">Kyrie Irving</td>
+                            </tr>
+                            <tr class="text-center w-100">
+                                <td class="w-50">James Harden</td>
+                                <td class="w-50">Jimmy Butler</td>
+                            </tr>
+                            <tr class="text-center w-100">
+                                <td class="w-50">Lebron James</td>
+                                <td class="w-50">Kawhi Leonard</td>
+                            </tr>
+                            <tr class="text-center w-100">
+                                <td class="w-50">Giannis Antetokounmpo</td>
+                                <td class="w-50">Lamarcus Aldridge</td>
+                            </tr>
+                            <tr class="text-center w-100">
+                                <td class="w-50">Demarcus Cousins</td>
+                                <td class="w-50">DeAndre Jordan</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-5 ml-4 MS5card">
+                    <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark"
+                       href="https://twitter.com/ATLHawksFR?ref_src=twsrc%5Etfw">Tweets by ATLHawksFR</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+
+            </div>
+        </div>
+
+@endsection
+@section('script-footer')
+    <script>
+
+
+        function CountdownTracker(label, value) {
+
+            var el = document.createElement('span');
+
+            el.className = 'flip-clock__piece';
+            el.innerHTML = '<b class="flip-clock__card cardcountdown"><b class="card__top"></b><b class="card__bottom"></b>' +
+                '<b class="card__back"><b class="card__bottom"></b></b></b>';
+
+            this.el = el;
+
+            var top = el.querySelector('.card__top'),
+                bottom = el.querySelector('.card__bottom'),
+                back = el.querySelector('.card__back'),
+                backBottom = el.querySelector('.card__back .card__bottom');
+
+            this.update = function (val) {
+                val = ('0' + val).slice(-2);
+                if (val !== this.currentValue) {
+
+                    if (this.currentValue >= 0) {
+                        back.setAttribute('data-value', this.currentValue);
+                        bottom.setAttribute('data-value', this.currentValue);
+                    }
+                    this.currentValue = val;
+                    top.innerText = this.currentValue;
+                    backBottom.setAttribute('data-value', this.currentValue);
+
+                    this.el.classList.remove('flip');
+                    void this.el.offsetWidth;
+                    this.el.classList.add('flip');
+                }
+            }
+
+            this.update(value);
+        }
+
+        // Calculation adapted from https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            return {
+                'Total': t,
+                'Days': Math.floor(t / (1000 * 60 * 60 * 24)),
+                'Hours': Math.floor((t / (1000 * 60 * 60)) % 24),
+                'Minutes': Math.floor((t / 1000 / 60) % 60),
+                'Seconds': Math.floor((t / 1000) % 60)
+            };
+        }
+
+
+        function Clock(countdown, callback) {
+
+            countdown = countdown ? new Date(Date.parse(countdown)) : false;
+            callback = callback || function () {
+            };
+
+            var updateFn = countdown ? getTimeRemaining : getTime;
+
+            this.el = document.createElement('div');
+            this.el.className = 'flip-clock';
+
+            var trackers = {},
+                t = updateFn(countdown),
+                key, timeinterval;
+
+            for (key in t) {
+                if (key === 'Total') {
+                    continue;
+                }
+                trackers[key] = new CountdownTracker(key, t[key]);
+                this.el.appendChild(trackers[key].el);
+            }
+
+            var i = 0;
+
+            function updateClock() {
+                timeinterval = requestAnimationFrame(updateClock);
+
+                // throttle so it's not constantly updating the time.
+                if (i++ % 10) {
+                    return;
+                }
+
+                var t = updateFn(countdown);
+                if (t.Total < 0) {
+                    cancelAnimationFrame(timeinterval);
+                    for (key in trackers) {
+                        trackers[key].update(0);
+                    }
+                    callback();
+                    return;
+                }
+
+                for (key in trackers) {
+                    trackers[key].update(t[key]);
+                }
+            }
+
+            setTimeout(updateClock, 500);
+        }
+
+        var deadline = new Date(Date.parse(new Date()) + 12 * 24 * 60 * 60 * 1000);
+        var c = new Clock(deadline, function () {
+            alert('countdown complete')
+        });
+        document.getElementById('countdown').appendChild(c.el);
+
+        var clock = new Clock();
+        document.body.appendChild(clock.el);
+
+    </script>
 @endsection

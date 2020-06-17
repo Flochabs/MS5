@@ -14,54 +14,80 @@
     @yield('scripts-header')
 </head>
 <body>
-<header class="container pt-3">
-    <div class="row">
-        <div class="col-md-4">
-            <a href="{{ route('dashboard.index') }}">
-                <img class="img-fluid" width="50%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
+
+    <div id="app">
+        <nav class="navbar navbar-expand-md bg-primary shadow-sm">
+            <div class="container">
+            <span>
+                <a href="{{ route('dashboard.index') }}">
+                <img class="img-fluid" width="30%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
             </a>
-        </div>
+            </span>
 
-        <div class="col-md-8">
-            <div class="row align-items-center">
-                <div class="bouton-connexion">
-                    <a href="{{ route('nba.index')}}"><p>NBA</p></a>
-                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <div class="bouton-connexion ml-2">
-                    <a href="{{ route('leagues.index')}}"><p>Leagues</p></a>
-                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
 
-                <div class="bouton-connexion ml-2">
-                    <a href="{{ route('dashboard.index') }}"><p>Tableau de bord</p></a>
-                </div>
+                    </ul>
 
-                <div class="bouton-connexion ml-2">
-                    <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        <a class="" href="#">
+                        <li class="nav-item bouton-header">
+                            <p>Profil</p>
+                        </li>
+                        </a>
+
+                        <a class="bouton-header ml-2" href="{{ route('leagues.index')}}">
+                        <li class="nav-item">
+                            <p>Leagues</p>
+                        </li>
+                        </a>
+
+                        <a class="bouton-header ml-2" href="{{ route('dashboard.index') }}">
+                        <li class="nav-item">
+                            <p>Tableau de bord</p>
+                        </li>
+                        </a>
+
+                        <a class="bouton-header ml-2" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
                        document.getElementById('logout-form').submit();">
-                        {{ __('Déconnexion') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                    </form>
+                        <li class="nav-item">
+                            <p>Déconnexion</p>
+                            <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
+                        </li>
+                        </a>
+
+                    </ul>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
-</header>
+
 
 
 <div id="id">
     @yield('content')
 </div>
+
 <footer>
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-4 p-1">
                 <p class="tertiary">LE SITE</p>
                 <p><a class="text-white" href="#">A propos de nous</a></p>
-                <p><a class="text-white" href="#">Contact</a></p>
+                <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
                 <p><a class="text-white" href="#">Mention Légale</a></p>
                 <p><a class="text-white" href="#"></a></p>
             </div>
@@ -86,5 +112,6 @@
 
 </footer>
 <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+@yield('script-footer')
 </body>
 </html>
