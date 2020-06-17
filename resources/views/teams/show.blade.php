@@ -27,7 +27,7 @@
                     <h2 class="text-white">dernier 5</h2>
                 </div>
                 <div class="card-body d-flex flex-column justify-content-between">
-                    @foreach($allPLayers as $player)
+                    @foreach($allPlayersMatch as $player)
                         @php
                             $playerStats = json_decode($player->data)->pl;
 
