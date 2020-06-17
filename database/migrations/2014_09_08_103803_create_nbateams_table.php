@@ -18,6 +18,7 @@ class CreateNbateamsTable extends Migration
             $table->integer('team_external_id');
             $table->string('name');
             $table->string('city');
+            $table->string('twitter_feed');
             $table->string('stadium');
             $table->timestamps();
         });
