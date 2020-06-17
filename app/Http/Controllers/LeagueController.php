@@ -105,6 +105,11 @@ class LeagueController extends Controller
      */
     public function show(League $league)
     {
+        // Le nom de la league à laquelle appartient l'utilisateur
+//        $userNameLeague = $user->team->getLeague->name;
+
+        $leagueUsersTeamNames = $league->users()->team();
+        dd($leagueUsersTeamNames);
         // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
         return view('leagues.show', compact('league'));
     }

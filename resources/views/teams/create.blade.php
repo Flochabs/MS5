@@ -19,7 +19,7 @@
         @endif
         <h1 class="my-5 text-white">Crée ta team :</h1>
         <div class="row justify-content-center mb-5">
-            <form id="form_create_team" class="MS5card p-4 w-50" method="post" role="form" action="{{ route('teams.store') }}">
+            <form id="form_create_team" class="MS5card mb-5 p-4 w-75" method="post" role="form" action="{{ route('teams.store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-12">
@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <div class="row my-5">
                                 <div class="col-md-4">
-                                    <label for="nbateam_id" class="tertiary col-form-label">Logo de ta team</label>
+                                    <label for="nbateam_id" class="tertiary col-form-label">Logo de ta team :</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control input"
@@ -61,9 +61,8 @@
                             @enderror
                         </div>
                         <div class="row justify-content-center">
-                            <button type="submit" class="mt-3 btn btn-secondary">Créer la team</button>
+                            <button type="submit" class="btn btn-outline-secondary">Créer la team</button>
                         </div>
-
                     </div>
                 </div>
 

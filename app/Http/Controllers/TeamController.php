@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\League;
 use App\Model\Match;
 use App\Model\Nbateam;
 use App\Model\Team;
+use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -49,7 +51,9 @@ class TeamController extends Controller
             // Récupération des données du formulaire et association de l'id de l'utilisateur
             $user = Auth::user();
             $user_id = Auth::user()->id;
-            $league_id =$user->league->id;
+            $league_id = $user->league->id;
+            dd($league_id );
+
             $values = $request->all();
             $rules = [
                 'name'             => 'string|required|max:30|unique:teams',
