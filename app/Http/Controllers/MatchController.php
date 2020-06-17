@@ -127,6 +127,19 @@ class MatchController extends Controller
 
         //------------------------------------- CALCUL DU SCORE D'UNE TEAM -------------------------------------------//
 
-        return view('match.index');
+
+
+
+
+
+        //------------------------------------- SELECTION DES JOEURS POUR UNE D'UNE TEAM -------------------------------------------//
+
+
+
+
+
+        return view('match.index')
+            ->with('userTeam', $userTeam)
+            ->with('userPlayersTeam', $userPlayersTeam);
     }
 }
