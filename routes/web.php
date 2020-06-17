@@ -69,6 +69,11 @@ Route::prefix( 'match' )
         Route::resource( '/', 'MatchController' );
     } );
 
+//Route pour la page tuto
+Route::get( '/tuto', function () {
+    return view( 'tuto' );
+} );
+
 
 
 
