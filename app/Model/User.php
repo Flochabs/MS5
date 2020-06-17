@@ -66,11 +66,4 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Model\League');
     }
-
-    //methode pour lier utilisateur à son équipe
-    public function team()
-    {
-        return $this->hasOne('App\Model\Team');
-    }
-
 }
