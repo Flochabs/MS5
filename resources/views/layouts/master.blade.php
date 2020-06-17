@@ -14,67 +14,94 @@
     @yield('scripts-header')
 </head>
 <body>
+<div class="container">
+{{--    <div id="app">--}}
+{{--        <nav class="navbar navbar-expand-md bg-primary shadow-sm">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-md-4">--}}
+{{--                    <a href="{{ route('dashboard.index') }}">--}}
+{{--                        <img class="img-fluid" width="30%" src="{{asset('storage/images/Logo.png')}}" alt="logo">--}}
+{{--                    </a>--}}
+{{--                </div>--}}
 
-    <div id="app">
-        <nav class="navbar navbar-expand-md bg-primary shadow-sm">
-            <div class="container">
-            <span>
-                <a href="{{ route('dashboard.index') }}">
-                <img class="img-fluid" width="30%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
-            </a>
-            </span>
+{{--                <button class="navbar-toggler" type="button" data-toggle="collapse"--}}
+{{--                        data-target="#navbarSupportedContent"--}}
+{{--                        aria-controls="navbarSupportedContent" aria-expanded="false"--}}
+{{--                        aria-label="{{ __('Toggle navigation') }}">--}}
+{{--                    <span class="navbar-toggler-icon"></span>--}}
+{{--                </button>--}}
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+{{--                <div class="col-md-8 collapse navbar-collapse" id="navbarSupportedContent">--}}
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+{{--                    <!-- Right Side Of Navbar -->--}}
+{{--                    <ul class="navbar-nav ml-auto">--}}
+{{--                        <!-- Authentication Links -->--}}
 
-                    </ul>
+{{--                        <li class="nav-item ">--}}
+{{--                            <a class="bouton-header" href="#">Profil</a>--}}
+{{--                        </li>--}}
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        <a class="" href="#">
-                        <li class="nav-item bouton-header">
-                            <p>Profil</p>
-                        </li>
-                        </a>
 
-                        <a class="bouton-header ml-2" href="{{ route('leagues.index')}}">
-                        <li class="nav-item">
-                            <p>Leagues</p>
-                        </li>
-                        </a>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="bouton-header ml-2" href="{{ route('leagues.index')}}">Leagues</a>--}}
+{{--                        </li>--}}
 
-                        <a class="bouton-header ml-2" href="{{ route('dashboard.index') }}">
-                        <li class="nav-item">
-                            <p>Tableau de bord</p>
-                        </li>
-                        </a>
 
-                        <a class="bouton-header ml-2" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                       document.getElementById('logout-form').submit();">
-                        <li class="nav-item">
-                            <p>Déconnexion</p>
-                            <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">
-                                @csrf
-                            </form>
-                        </li>
-                        </a>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="bouton-header ml-2" href="{{ route('dashboard.index') }}">Tableau de bord</a>--}}
+{{--                        </li>--}}
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
 
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="bouton-header ml-2" href="{{ route('logout') }}"--}}
+{{--                               onclick="event.preventDefault();--}}
+{{--                       document.getElementById('logout-form').submit();">Déconnexion</a>--}}
+{{--                            <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">--}}
+{{--                                @csrf--}}
+{{--                            </form>--}}
+{{--                        </li>--}}
+
+
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+
+{{--        </nav>--}}
+{{--    </div>--}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand w-50" href="{{ route('dashboard.index') }}">
+            <img class="img-fluid" width="40%" src="{{asset('storage/images/Logo.png')}}" alt="logo"></a>
+        <button class="navbar-toggler dropdown" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link bouton-header active" href="{{ route('dashboard.profile', Auth::user()->id)}}">Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bouton-header active" href="{{ route('leagues.index')}}">Leagues</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bouton-header active" href="{{ route('dashboard.index') }}">Tableau de bord</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bouton-header active" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">Déconnexion</a>
+                    <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 
 <div id="id">
@@ -111,7 +138,9 @@
     </div>
 
 </footer>
+<script src="{{ asset('js/bootstrap.js') }}" type="text/js"></script>
 <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+
 @yield('script-footer')
 </body>
 </html>
