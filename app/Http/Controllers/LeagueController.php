@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\Register;
 use App\Model\League;
+use App\Model\Match;
+use App\Model\Team;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,7 +108,37 @@ class LeagueController extends Controller
     public function show(League $league)
     {
         // traite les infos d'une league en cours et renvoie les infos à l'utilisateur sur une vue
-        return view('leagues.show', compact('league'));
+        $leagueId = $league->id;
+        //Récupération des matchs associés à chaque team de la league
+        $allLeagueMatches = Match::where('league_id', $leagueId)->get();
+
+        //recupération des équipes de la league
+        $allLeagueTeams = Team::where('league_id', $leagueId)->get();
+        $teamsID = [];
+        //stocakge des ID de chaque équipe depuis Team dans un tableau
+        foreach ($allLeagueTeams as $leagueTeam) {
+            $teamsID[]= $leagueTeam->id;
+        }
+
+        // Calcul du pourcentage de victoire de chaque équipe de la league
+        $teamVictoryRatio = [];
+        foreach ($teamsID as $team){
+            $teamWiningCount2 = Match::where('team_wining', '=', $team)->count();
+            $teamHomeCount = Match::where('home_team_id', $team)->count();
+            $teamAwayCount = Match::where('away_team_id', $team)->count();
+            $teamCountSum = $teamHomeCount + $teamAwayCount;
+            if ($teamCountSum !== 0) {
+                $teamVictoryRatio[$team] = number_format((($teamWiningCount2 /  $teamCountSum) * 100), 2, '.', '');
+            } else {
+                $teamVictoryRatio[$team] = 'l\équipe n\'a pas joué de match';
+            }
+
+        }
+//        dd($teamVictoryRatio);
+
+        return view('leagues.show')
+            ->with('league', $league)
+            ->with('teamVictoryRatio', $teamVictoryRatio);
     }
 
     /**

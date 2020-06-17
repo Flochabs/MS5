@@ -59,6 +59,11 @@
                         <td>{{$user->pseudo}}</td>
                         <td>
                             @if($league->isActive === 1)
+                                @if($user->team !== null)
+                                    {{$user->team->name}}
+                                @else
+                                    création équipe en cours
+                                @endif
                             @else
                                 @if(Auth::user()->id === $user->id)
                                     <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une équipe</a>
@@ -69,19 +74,23 @@
                                         création équipe en cours
                                     @endif
                                 @endif
-
                             @endif
                         </td>
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                {{dd($league->team)}}
+                                draft en cours
                             @endif
                         </td>
                         <td>
                             @if($league->isActive === 1)
+                                @if($user->team !== null)
+                                    {{$teamVictoryRatio[$user->team->id]}}
+                                @else
+                                    En attente du lancement de la league
+                                @endif
                             @else
-                                En attente de la fin de la draft
+                                En attente du lancement de la league
                             @endif
                         </td>
                     </tr>
