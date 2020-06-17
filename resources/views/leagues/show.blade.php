@@ -54,16 +54,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($league->users as $team)
+                @foreach($league->users as $user)
                     <tr>
-                        <td>{{$team->pseudo}}</td>
+                        <td>{{$user->pseudo}}</td>
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                @if(Auth::user()->id === $team->id)
+                                @if(Auth::user()->id === $user->id)
                                     <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une équipe</a>
                                 @else
-                                    nom de la team
+                                    @if($user->team !== null)
+                                        {{$user->team->name}}
+                                    @else
+                                        création équipe en cours
+                                    @endif
                                 @endif
 
                             @endif
@@ -71,7 +75,7 @@
                         <td>
                             @if($league->isActive === 1)
                             @else
-                                En attente de la fin de la draft
+                                {{dd($league->team)}}
                             @endif
                         </td>
                         <td>
