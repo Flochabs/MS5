@@ -130,7 +130,7 @@ class LeagueController extends Controller
             if ($teamCountSum !== 0) {
                 $teamVictoryRatio[$team] = number_format((($teamWiningCount2 /  $teamCountSum) * 100), 2, '.', '');
             } else {
-                $teamVictoryRatio[$team] = 'l\équipe n\'a pas joué de match';
+                $teamVictoryRatio[$team] = 'l\'équipe n\'a pas joué de match';
             }
 
         }

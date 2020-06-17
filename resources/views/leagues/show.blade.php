@@ -59,21 +59,17 @@
                         <td>{{$user->pseudo}}</td>
                         <td>
                             @if($league->isActive === 1)
-                                @if($user->team !== null)
-                                    {{$user->team->name}}
-                                @else
-                                    création équipe en cours
-                                @endif
-                            @else
-                                @if(Auth::user()->id === $user->id)
+                                @if(Auth::user()->id === $user->id && $user->team === null)
                                     <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une équipe</a>
                                 @else
                                     @if($user->team !== null)
                                         {{$user->team->name}}
                                     @else
-                                        création équipe en cours
+                                        Création de l'équipe en cours !
                                     @endif
                                 @endif
+                            @else
+                                En attente de la création de la league
                             @endif
                         </td>
                         <td>
@@ -87,10 +83,10 @@
                                 @if($user->team !== null)
                                     {{$teamVictoryRatio[$user->team->id]}}
                                 @else
-                                    En attente du lancement de la league
+                                    L'équipe doit être créée !
                                 @endif
                             @else
-                                En attente du lancement de la league
+                                En attente du lancement de la league !
                             @endif
                         </td>
                     </tr>
