@@ -34,12 +34,14 @@ class DashboardController extends Controller
         $userTeam = Team::where('user_id', $user->id)->first();
         //dd($userTeam);
 
+        $userPlayersTeam = $userTeam->getPlayers;
+        //dd($userPlayersTeam);
+
         //-------------------------  RECUPERATION  DONNES JOEURS DE LA TEAM DE L'UTILISATEUR -------------------------//
 
 
         // $userPlayersTeam récupère tout joueurs de l'utilisateur dans ça team
         $userPlayersTeam = $userTeam->getPlayers;
-
 
         //------------------------------------------  RECUPERATION DONNES  MATCH --------------------------------------//
 
@@ -68,13 +70,12 @@ class DashboardController extends Controller
         // $userMatchs récupère tout les matchs jouer par l'utilisateur dans match
         $userMatchs  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
 
-
+        $homeTeamNextMatch = 0;
 
         //----------------------------------  RECUPERATION DONNES DU  PROCHAIN  MATCH --------------------------------//
 
         // $userNextMatchs récupère le prochain matchs jouer par l'utilisateur dans match
         $userNextMatchs = Match::whereNull('home_team_score')->where('league_id', $userLeagueId)->orderBy('start_at','asc')->first();
-
 
         if($userNextMatchs != null)
         {
@@ -96,9 +97,11 @@ class DashboardController extends Controller
 
         }else
         {
-
             $homeTeamNextMatch = 'Match fini';
             $awayTeamNextMatch = 'Match fini';
+            $userHomeNextMatch =  'Pas d\'utilisateur';
+            $userAwayNextMatch =  'Pas d\'utilisateur';
+
         }
 
 
@@ -106,11 +109,13 @@ class DashboardController extends Controller
         //----------------------------------  RECUPERATION DONNES DU DERNIER  MATCH --------------------------------//
 
         // $userLastMatch récupère le dernière matchs jouer par l'utilisateur dans match
-        $userLastMatch  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
-            ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
+        $userLastMatch  = Match::where(function ($query) use($userLeagueId,$userTeam) {
+            $query->where(['league_id' => $userLeagueId , 'away_team_id' => $userTeam->id])
+                ->orwhere(['league_id' => $userLeagueId, 'home_team_id' => $userTeam->id]);
+        })
             ->whereNotNull('home_team_score')
+            ->whereNotNull('away_team_id')
             ->orderBy('start_at','desc')
-            ->get()
             ->first();
 
         // $homeTeamLastMatch récupère le nom de l'équipe home qui à jouer dans le dernier matchs
@@ -133,6 +138,7 @@ class DashboardController extends Controller
 
         return view('dashboard.index')
             ->with('user', $user)
+            ->with('userPlayersTeam',  $userPlayersTeam)
             ->with('homeTeamNextMatch', $homeTeamNextMatch)
             ->with('userHomeNextMatch', $userHomeNextMatch)
             ->with('awayTeamNextMatch', $awayTeamNextMatch)
