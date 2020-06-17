@@ -115,7 +115,7 @@
                         <tr>
                             <td width="30%">
                                 <img
-                                    src="https://nba-players.herokuapp.com/players/{{$playerDatas->ln}git }/{{$playerDatas->fn}}"
+                                    src="https://nba-players.herokuapp.com/players/{{$playerDatas->ln}}/{{$playerDatas->fn}}"
                                     class="w-50 rounded-circle pr-1">
                             </td>
                             <td>{{$position}}</td>
