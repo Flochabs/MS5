@@ -4,6 +4,8 @@ namespace App\Console;
 
 
 
+
+
 use App\CustomClass\UpdateNbaPlayersScores;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -25,6 +27,8 @@ class Kernel extends ConsoleKernel
         \App\CustomClass\UpdateNbaPlayersPrices::class,
         \App\CustomClass\UpdateNbaPlayersScores::class,
         \App\CustomClass\SaveDraftPick::class,
+        \App\CustomClass\Matches\GenerateMatchesCalender::class,
+        \App\CustomClass\Matches\PlayWeeklyMatches::class
     ];
 
     /**
@@ -41,7 +45,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('StoreAllNbaPlayersInjuryData')->weeklyOn(1, '8:00');
         $schedule->command('StoreNbaPlayerInjuryData')->weeklyOn(1, '8:00');
         $schedule->command('UpdateNbaPlayersPrices')->weeklyOn(1, '8:00');
-        $schedule->command('sSaveDraftPick')->everyMinute();
+        $schedule->command('SaveDraftPick')->everyMinute();
 
 
     }

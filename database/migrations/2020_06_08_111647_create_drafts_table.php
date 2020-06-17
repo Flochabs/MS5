@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateDraftsTable extends Migration
@@ -15,14 +16,14 @@ class CreateDraftsTable extends Migration
     {
         Schema::create('drafts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('player_id');
-            $table->unsignedBigInteger('team_id');
-            $table->boolean('bought');
+            $table->unsignedBigInteger('league_id');
+            $table->timestamp('ends_at')->default(DB::raw('CURRENT_TIMESTAMP'));;
+            $table->boolean('is_over')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('player_id')->references('id')->on('players');
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('league_id')->references('id')->on('leagues');
+
 
         });
     }
