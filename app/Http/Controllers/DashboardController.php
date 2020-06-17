@@ -18,16 +18,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
-        //Récupere le pseudo de l'utilisateur
-        $user_id = Auth::user()->id;
-
-
         //-------------------------------------  RECUPERATION DONNES UTILISATEUR -------------------------------------//
         // récupération des données users
         $user = Auth::user();
-        //dd($user);
-
 
         // league à laquelle appartient l'utilisateur
         $userLeagueId = $user->team->league_id;
@@ -41,12 +34,14 @@ class DashboardController extends Controller
         $userTeam = Team::where('user_id', $user->id)->first();
         //dd($userTeam);
 
+        $userPlayersTeam = $userTeam->getPlayers;
+        //dd($userPlayersTeam);
+
         //-------------------------  RECUPERATION  DONNES JOEURS DE LA TEAM DE L'UTILISATEUR -------------------------//
 
 
         // $userPlayersTeam récupère tout joueurs de l'utilisateur dans ça team
         $userPlayersTeam = $userTeam->getPlayers;
-        //dd($userPlayersTeam);
 
         //------------------------------------------  RECUPERATION DONNES  MATCH --------------------------------------//
 
@@ -57,112 +52,103 @@ class DashboardController extends Controller
         //  $AllHomeTeamsNames récupère tout les noms des équipes qui sont à domicile dans les matchs
         // $AllTeamsNames permet d'avoir un tableau avec tout les noms de tout les équipes.
 
-        $AllHomeTeamsNames = [];
-        $AllTeamsNames =  [];
-        foreach ( $allMatchs as $match) {
-            $AllHomeTeamsNames[] = $match->homeTeamName;
-            $AllTeamsNames[] =  $AllHomeTeamsNames;
-        }
+        //$AllHomeTeamsNames = [];
+        //$AllTeamsNames =  [];
+        //foreach ( $allMatchs as $match) {
+          //  $AllHomeTeamsNames[] = $match->homeTeamName;
+            //$AllTeamsNames[] =  $AllHomeTeamsNames;
+        //}
 
         //  $AllAwayTeamsNames  récupère tout les noms des équipes qui sont en tant que visiteur dans les matchs
-        $AllAwayTeamsNames = [];
-        foreach ( $allMatchs as $match) {
-            $AllAwayTeamsNames[] = $match->awayTeamName;
-            $AllTeamsNames[] =   $AllAwayTeamsNames;
-        }
+        //$AllAwayTeamsNames = [];
+        //foreach ( $allMatchs as $match) {
+          //  $AllAwayTeamsNames[] = $match->awayTeamName;
+            //$AllTeamsNames[] =   $AllAwayTeamsNames;
+        //}
         //dd($AllTeamsNames);
-
 
         // $userMatchs récupère tout les matchs jouer par l'utilisateur dans match
         $userMatchs  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
-        //dd($userMatchs);
+
+        $homeTeamNextMatch = 0;
 
         //----------------------------------  RECUPERATION DONNES DU  PROCHAIN  MATCH --------------------------------//
 
         // $userNextMatchs récupère le prochain matchs jouer par l'utilisateur dans match
         $userNextMatchs = Match::whereNull('home_team_score')->where('league_id', $userLeagueId)->orderBy('start_at','asc')->first();
-        //dd( $userNextMatchs );
 
-        // $hometeamNextMatch récupère le nom de l'équipe home qui joue dans prochain matchs
-        $hometeamNextMatch = Team::where('id', $userNextMatchs->home_team_id)
-            ->get()
-            ->first();
-        //dd($hometeamNextMatch);
+        if($userNextMatchs != null)
+        {
+            // $homeTeamNextMatch récupère le nom de l'équipe home qui joue dans prochain matchs
+            $homeTeamNextMatch = Team::where('id', $userNextMatchs->home_team_id)
+                ->get()
+                ->first();
 
-        //  $awayteamNextMatch récupère le nom de l'équipe away qui joue dans prochain matchs
-        $awayteamNextMatch = Team::where('id', $userNextMatchs->away_team_id)
-            ->get()
-            ->first();
-        //dd($awayteamNextMatch);
+            //  $awayTeamNextMatch récupère le nom de l'équipe away qui joue dans prochain matchs
+            $awayTeamNextMatch = Team::where('id', $userNextMatchs->away_team_id)
+                ->get()
+                ->first();
+
+            // $userHomeNextMatch récupère l'utilisateur de l'équipe home qui à joue dans prochain matchs
+            $userHomeNextMatch =  $homeTeamNextMatch->userTeam;
+
+            // $userAwayNextMatch récupère l'utilisateur de l'équipe away qui à joue dans prochain matchs
+            $userAwayNextMatch  =  $awayTeamNextMatch->userTeam;
+
+        }else
+        {
+            $homeTeamNextMatch = 'Match fini';
+            $awayTeamNextMatch = 'Match fini';
+            $userHomeNextMatch =  'Pas d\'utilisateur';
+            $userAwayNextMatch =  'Pas d\'utilisateur';
+
+        }
+
 
 
         //----------------------------------  RECUPERATION DONNES DU DERNIER  MATCH --------------------------------//
 
-        // $userLastMatch récupère le dernière matchs jouer par l'utilisateur dans match
-        $userLastMatch  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
-            ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
+        // $userLastMatch récupère le dernier match jouer par l'utilisateur dans match
+        $userLastMatch  = Match::where(function ($query) use($userLeagueId,$userTeam) {
+            $query->where(['league_id' => $userLeagueId , 'away_team_id' => $userTeam->id])
+                ->orwhere(['league_id' => $userLeagueId, 'home_team_id' => $userTeam->id]);
+        })
             ->whereNotNull('home_team_score')
+            ->whereNotNull('away_team_id')
             ->orderBy('start_at','desc')
+            ->first();
+
+        // $homeTeamLastMatch récupère le nom de l'équipe home qui à jouer dans le dernier matchs
+        $homeTeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
             ->get()
             ->first();
-        //dd($userLastMatch);
 
-
-        //  $hometeamLastMatch récupère le nom de l'équipe home qui à jouer dans le dernier matchs
-        $hometeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
+        // $awayTeamLastMatch récupère le nom de l'équipe away qui à jouer dans le dernier matchs
+        $awayTeamLastMatch = Team::where('id', $userLastMatch->away_team_id)
             ->get()
             ->first();
-        //dd($hometeamLastMatch);
 
+        // $userHomeLastMatch récupère l'utilisateur de l'équipe home qui à jouer dans le dernier matchs
+        $userHomeLastMatch = $homeTeamLastMatch->userTeam;
 
-        // $awayteamLastMatch récupère le nom de l'équipe away qui à jouer dans le dernier matchs
-        $awayteamLastMatch = Team::where('id', $userLastMatch->away_team_id)
-            ->get()
-            ->first();
-        //dd($awayteamLastMatch);
-
-
-
-        $playersHomeTeamMatchs = Team::where('id', $userNextMatchs->home_team_id)
-            ->get()
-            ->first();
-        //dd($playersHomeTeamMatchs);
-
-
-        // Récupére tous les joeurs du dernier du matchs
-        $allPlayers = $userLastMatch->matchPlayers;
-        //dd($allPlayers);
-
-
-        //------------------------------------- CALCUL DU SCORE D'UNE TEAM -------------------------------------------//
+        // $userAwayLastMatch récupère l'utilisateur de l'équipe away qui à jouer dans le dernier matchs
+        $userAwayLastMatch = $awayTeamLastMatch->userTeam;
 
 
 
+        return view('dashboard.index')
+            ->with('user', $user)
+            ->with('userPlayersTeam',  $userPlayersTeam)
+            ->with('homeTeamNextMatch', $homeTeamNextMatch)
+            ->with('userHomeNextMatch', $userHomeNextMatch)
+            ->with('awayTeamNextMatch', $awayTeamNextMatch)
+            ->with('userAwayNextMatch', $userAwayNextMatch)
+            ->with('homeTeamLastMatch', $homeTeamLastMatch)
+            ->with('userHomeLastMatch', $userHomeLastMatch)
+            ->with('awayTeamLastMatch', $awayTeamLastMatch)
+            ->with('userAwayLastMatch', $userAwayLastMatch)
+            ->with('userLastMatch', $userLastMatch);
 
-
-
-        //------------------------------------- SELECTION DES JOEURS POUR UNE D'UNE TEAM -------------------------------------------//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return view('dashboard.index')->with('user_id', $user_id);
     }
 
     public function profile($id)

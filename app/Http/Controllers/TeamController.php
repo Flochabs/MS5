@@ -114,12 +114,14 @@ class TeamController extends Controller
         // $userTeam récupère l'équipe de l'utilisateur
         $userTeam = Team::where('user_id', $user->id)->first();
 
-        // $userLastMatch récupère le dernière matchs jouer par l'utilisateur dans match
-        $userLastMatch  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
-            ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
+        // $userLastMatch récupère le dernier match jouer par l'utilisateur dans match
+        $userLastMatch  = Match::where(function ($query) use($userLeagueId,$userTeam) {
+            $query->where(['league_id' => $userLeagueId , 'away_team_id' => $userTeam->id])
+                ->orwhere(['league_id' => $userLeagueId, 'home_team_id' => $userTeam->id]);
+        })
             ->whereNotNull('home_team_score')
+            ->whereNotNull('away_team_id')
             ->orderBy('start_at','desc')
-            ->get()
             ->first();
 
         // Récupère tous les joeurs du dernier du matchs
@@ -130,6 +132,7 @@ class TeamController extends Controller
         return view('teams.show')
             ->with('team', $team)
             ->with('allPLayers', $allPlayersMatch);
+
     }
 
     /**

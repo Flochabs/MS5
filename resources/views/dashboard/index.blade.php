@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+<<<<<<< HEAD
 
     <div class="container">
         {{--Titre de la pge--}}
@@ -28,13 +29,16 @@
                 <div class="row justify-content-center no-gutters my-5">
 
                     <div class="col-md-4 d-flex justify-content-between">
+                        @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
                         <div class="text-right">
                             <img class="radius25" src="http://placehold.it/50/50" alt="logo">
                         </div>
-
                         <div class="text-right">
-                            <h4 class="text-white">Michoco</h4>
-                            <p class="tertiary">KillerChouquette23</p>
+                            <h4 class="text-white">{{$homeTeamNextMatch->name}}</h4>
+                            @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
+                            <p class="tertiary">{{$userHomeNextMatch->pseudo}}</p>
+                            @else
+                            @endif
                         </div>
                     </div>
 
@@ -44,13 +48,18 @@
 
                     <div class="col-md-4 d-flex justify-content-between">
                         <div class="text-left">
-                            <h4 class="text-white">Ragnard</h4>
-                            <p class="tertiary">Vivalavida</p>
+                            <h4 class="text-white">{{$awayTeamNextMatch->name}}</h4>
+                            @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
+                            <p class="tertiary">{{$userAwayNextMatch->pseudo}}</p>
+                            @else
+                            @endif
                         </div>
                         <div>
                             <img class="radius25" src="http://placehold.it/50/50" alt="logo">
                         </div>
-
+                        @else
+                            <h1>Match fini</h1>
+                        @endif
                     </div>
                 </div>
                 <div class="row no-gutters justify-content-center mt-5">
@@ -155,26 +164,24 @@
                         </div>
                     </div>
                     <div class="row justify-content-center no-gutters my-4">
-
-                        <div class="col-md-4 d-flex justify-content-between">
+                        <div class="col-md-4 d-flex justify-content-around">
                             <div class="text-right">
                                 <img class="radius25" src="http://placehold.it/50/50" alt="logo">
                             </div>
-
                             <div class="text-right">
-                                <h4 class="text-white">Michoco</h4>
-                                <p class="tertiary">KillerChouquette23</p>
+                                <h4 class="text-white">{{$homeTeamLastMatch->name}}</h4>
+                                <p class="tertiary">{{$userHomeLastMatch->pseudo}}</p>
                             </div>
                         </div>
 
-                        <div class="col-md-3 text-center">
-                            <h1 class="tertiary">VS</h1>
+                        <div class="col-md-4 text-center">
+                            <h1 class="tertiary">{{ $userLastMatch->home_team_score }} - {{$userLastMatch->away_team_score}}</h1>
                         </div>
 
-                        <div class="col-md-4 d-flex justify-content-between">
+                        <div class="col-md-4 d-flex justify-content-around">
                             <div class="text-left">
-                                <h4 class="text-white">Ragnard</h4>
-                                <p class="tertiary">Vivalavida</p>
+                                <h4 class="text-white">{{$awayTeamLastMatch->name}}</h4>
+                                <p class="tertiary">{{$userAwayLastMatch->pseudo}}</p>
                             </div>
                             <div>
                                 <img class="radius25" src="http://placehold.it/50/50" alt="logo">
@@ -218,11 +225,10 @@
                 </div>
 
                 <div class="col-md-5 ml-4 MS5card">
-                    <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark"
-                       href="https://twitter.com/ATLHawksFR?ref_src=twsrc%5Etfw">Tweets by ATLHawksFR</a>
+                    <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="https://twitter.com/WizardsFrance?ref_src=twsrc%5Etfw">
+                        Tweets by WizardsFrance</a>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
-
             </div>
         </div>
 
@@ -342,4 +348,3 @@
         document.body.appendChild(clock.el);
 
     </script>
-@endsection

@@ -23,8 +23,9 @@ class Team extends Model
     // Associe un utilisateur à sa team
     public function userTeam()
     {
-        return $this->belongsTo('App\Model\User');
+        return $this->belongsTo(User::class, 'user_id');
     }
+
 
     public function getMatches()
     {
