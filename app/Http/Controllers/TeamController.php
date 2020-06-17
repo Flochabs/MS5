@@ -120,13 +120,13 @@ class TeamController extends Controller
             ->first();
 
         // Récupère tous les joeurs du dernier du matchs
-        $allPlayers = $userLastMatch->matchPlayers;
-//        dd($allPlayers);
+        $allPlayersMatch= $userLastMatch->matchPlayers;
+         //dd($allPlayersMatch);
         //connecté au dashboard et renvoie les infos concernant son équipe à l'utilisateur sur une vue
 
         return view('teams.show')
             ->with('team', $team)
-            ->with('allPLayers', $allPlayers);
+            ->with('allPlayersMatch', $allPlayersMatch);
     }
 
     /**
