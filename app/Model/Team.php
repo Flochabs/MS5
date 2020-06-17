@@ -20,6 +20,7 @@ class Team extends Model
         return $this->belongsTo(League::class, 'league_id');
     }
 
+    // Recupérer l'utilisateur qui appartient à une team
     public function userTeam()
     {
         return $this->belongsTo(User::class, 'user_id');
