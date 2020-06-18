@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .logo-header {
   max-height: 25%;
   max-width: 25%;
@@ -160,7 +162,8 @@ footer {
   font-size: 1.2rem;
 }
 
-<<<<<<< HEAD
+
+body,
 html {
   height: 100%;
 }
@@ -340,7 +343,7 @@ html {
 }
 
 .bg-countdown {
-  background: url("/../storage/images/bg-countdown.jpg") center no-repeat;
+  background: url("/../storage/images/dashboard/bg-countdown.jpg") center no-repeat;
   width: 100%;
   background-size: cover;
 }
@@ -352,8 +355,9 @@ html {
 }
 
 .radius25 {
-  border-radius: 25px;
-=======
+    border-radius: 25px;
+}
+
 .bg-card-title {
   background: #504065;
 }
@@ -392,8 +396,73 @@ html {
 }
 
 #next-game-coaching .btn-quaternary:hover {
-  background-color: #eb671b;
->>>>>>> coaching
+    background-color: #eb671b;
+}
+/***********************************************Première section du tuto***********************************************/
+
+#first-banner {
+  /* L'image utilsiée */
+  background-image: url(/../storage/images/Fond_header.jpg);
+  /* Hauteur max */
+  height: 100%;
+  /* Création de l'effet de parallax lors du scrolling */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Désactive les effets de parallax pour les supports mobiles */
+
+@media only screen and (max-device-width: 1366px) {
+  #first-banner {
+    background-attachment: scroll;
+  }
+}
+
+#first-step {
+  background-image: url(/../storage/images/tuto/portail_leagues_tuto.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/***********************************************Deuxième section du tuto***********************************************/
+
+#second-step {
+  background-image: url(/../storage/images/tuto/team_create.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/***********************************************Troisième section du tuto***********************************************/
+
+#second-banner {
+  /* L'image utilisée */
+  background-image: url(/../storage/images/Fond_tutos.jpg);
+  /* Hauteur max */
+  height: 100vh;
+  /* Création de l'effet de parallax lors du scrolling */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Désactive les effets de parallax pour les supports mobiles */
+
+@media only screen and (max-device-width: 1366px) {
+  #second-banner {
+    background-attachment: scroll;
+  }
+}
+
+#third-step {
+  background-image: url(/../storage/images/tuto/draft.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 @font-face {

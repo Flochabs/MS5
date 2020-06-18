@@ -69,8 +69,11 @@
                 <div class="col-md-4 p-1">
                     <p class="tertiary">LE SITE</p>
                     <p><a class="text-white" href="#">A propos de nous</a></p>
+
                     <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
-                    <p><a class="text-white" href="#">Mention Légale</a></p>
+
+                    <p><a class="text-white" href="{{'mentions_legales'}}">Mentions Légales</a></p>
+
                     <p><a class="text-white" href="#"></a></p>
                 </div>
 
