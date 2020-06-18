@@ -28,7 +28,7 @@
                 <div class="col-md-12 MS5card d-flex flex-column align-items-center h-100">
                     <div class="col-6">
                         <img
-                            src="https://nba-players.herokuapp.com/players/curry/stephen"
+                            src="{{$userLogo}}"
                             class="h-auto w-100 rounded-circle">
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-between">

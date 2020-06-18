@@ -32,7 +32,12 @@ class DraftController extends Controller
 
         //league à laquelle appartient l'utilisateur qui fait sa draft
         $userLeagueId = $user->team->league_id;
-        
+
+        //récupérer l'équipe favorite du joueur pour lui afficher le logo correspondant
+        $userLogo ='storage/images/logos/' . $user->nbaTeams->name . '.png';
+        if(!$userLogo) {
+            $userLogo ='storage/images/logos/' . $user->nbaTeams->name . '.png';
+        }
 
         // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
@@ -152,7 +157,8 @@ class DraftController extends Controller
             ->with('centers', $centers)
             ->with('auctionPlayersId', $auctionPlayersId)
             ->with('auctionsOnPlayers', $auctionsOnPlayers)
-            ->with('notDisplayedPlayers', $notDisplayedPlayers);
+            ->with('notDisplayedPlayers', $notDisplayedPlayers)
+            ->with('userLogo', $userLogo);
 
     }
 
