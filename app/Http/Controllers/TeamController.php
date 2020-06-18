@@ -46,17 +46,18 @@ class TeamController extends Controller
         //Vérification du nombre d'équipes associées à l'utilisateur
         $user = Auth::user();
         $userId = $user->id;
+        $userLeague = DB::table('league_user')
+            ->leftjoin('leagues', 'leagues.id', '=', 'league_user.league_id')
+            ->where('league_user.user_id', $userId)
+            ->first();
+        $userLeagueId = $userLeague->id;
 
         if ($hasTeam = $user->team()->exists()) {
-            return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une équipe !');
+            return redirect()->route('leagues.show', $userLeagueId)->withErrors('Tu as déjà une team !');
         } else {
             // Récupération des données du formulaire et association de l'id de l'utilisateur
             $user = Auth::user();
-            $userLeague = DB::table('league_user')
-                ->leftjoin('leagues', 'leagues.id', '=', 'league_user.league_id')
-                ->where('league_user.user_id', $userId)
-                ->first();
-            $userLeagueId = $userLeague->id;
+
 
 
             $values = $request->all();
@@ -92,8 +93,12 @@ class TeamController extends Controller
             $newTeam->save();
 
             $id = $newTeam->id;
-
-            return redirect()->route('draft.index', $id)->with('success', 'L\'équipe a bien été créée.');
+            if($userLeague->isActive === 1){
+                return redirect()->route('draft.index')->with('success', 'La team a bien été créée.');
+            }else{
+                return redirect()->route('leagues.show', $userLeagueId)->with('success', 'L\'équipe a bien été créée.');
+                return redirect()->route('leagues.show', $userLeagueId)->with('success', 'L\'équipe a bien été créée.');
+            }
         }
     }
 

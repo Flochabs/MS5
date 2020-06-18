@@ -71,8 +71,8 @@ Route::prefix( 'match' )
     } );
 
 //Route pour la page tuto
-Route::get( '/tutoMS5', function () {
-    return view( 'tutoMS5' );
+Route::get( '/tuto', function () {
+    return view( 'tuto' );
 } );
 
 //Route pour la page mentions légales

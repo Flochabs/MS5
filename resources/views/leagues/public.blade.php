@@ -22,11 +22,16 @@
                                 <td>{{$league->name}}</td>
                                 <td>{{$league->user->pseudo}}</td>
                                 <td>{{$league->number_teams - $league->users->count()}}</td>
-                                @if($league->number_teams <= $league->users->count())
-                                <td>Complet</td>
+                                @if($league->isActive == 1) )
+                                    <td>League en cours</td>
                                 @else
-                                <td><a href="{{ route('leagues.joinPublicLeague', $league->id) }}" class="btn btn-secondary" >Rejoindre</a></td>
+                                    @if($league->number_teams <= $league->users->count())
+                                        <td>Complet</td>
+                                    @else
+                                        <td><a href="{{ route('leagues.joinPublicLeague', $league->id) }}" class="btn btn-secondary" >Rejoindre</a></td>
+                                    @endif
                                 @endif
+
                             </tr>
                         @endforeach
                         </tbody>
