@@ -34,7 +34,7 @@ class SaveDraftPick extends Command
                 //met à jour le nouveau salary cap
                 $team = Team::where('id', $auction->team_id)->get()->first();
                 $newSalaryCap = $team->salary_cap - $auction->auction;
-                //dd($newSalaryCap);
+
                 Team::where('id', $auction->team_id)->update(['salary_cap'=> $newSalaryCap]);
             }
         }
