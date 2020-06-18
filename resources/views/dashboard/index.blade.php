@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-<<<<<<< HEAD
 
     <div class="container">
         {{--Titre de la pge--}}
@@ -149,7 +148,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -225,126 +223,133 @@
                 </div>
 
                 <div class="col-md-5 ml-4 MS5card">
-                    <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="https://twitter.com/WizardsFrance?ref_src=twsrc%5Etfw">
-                        Tweets by WizardsFrance</a>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    @if($userTwitterFeed !== null)
+                        <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
+                            Tweets</a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        @else
+                        <a class="twitter-timeline" data-width="500" data-height="600" data-theme="dark" href="https://twitter.com/NBAFRANCE?ref_src=twsrc%5Etfw">Tweets
+                        </a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    @endif
                 </div>
             </div>
-        </div>
+    </div>
+
 
 @endsection
 @section('script-footer')
-    <script>
+<script>
 
 
-        function CountdownTracker(label, value) {
+function CountdownTracker(label, value) {
 
-            var el = document.createElement('span');
+var el = document.createElement('span');
 
-            el.className = 'flip-clock__piece';
-            el.innerHTML = '<b class="flip-clock__card cardcountdown"><b class="card__top"></b><b class="card__bottom"></b>' +
-                '<b class="card__back"><b class="card__bottom"></b></b></b>';
+el.className = 'flip-clock__piece';
+el.innerHTML = '<b class="flip-clock__card cardcountdown"><b class="card__top"></b><b class="card__bottom"></b>' +
+'<b class="card__back"><b class="card__bottom"></b></b></b>';
 
-            this.el = el;
+this.el = el;
 
-            var top = el.querySelector('.card__top'),
-                bottom = el.querySelector('.card__bottom'),
-                back = el.querySelector('.card__back'),
-                backBottom = el.querySelector('.card__back .card__bottom');
+var top = el.querySelector('.card__top'),
+bottom = el.querySelector('.card__bottom'),
+back = el.querySelector('.card__back'),
+backBottom = el.querySelector('.card__back .card__bottom');
 
-            this.update = function (val) {
-                val = ('0' + val).slice(-2);
-                if (val !== this.currentValue) {
+this.update = function (val) {
+val = ('0' + val).slice(-2);
+if (val !== this.currentValue) {
 
-                    if (this.currentValue >= 0) {
-                        back.setAttribute('data-value', this.currentValue);
-                        bottom.setAttribute('data-value', this.currentValue);
-                    }
-                    this.currentValue = val;
-                    top.innerText = this.currentValue;
-                    backBottom.setAttribute('data-value', this.currentValue);
+if (this.currentValue >= 0) {
+   back.setAttribute('data-value', this.currentValue);
+   bottom.setAttribute('data-value', this.currentValue);
+}
+this.currentValue = val;
+top.innerText = this.currentValue;
+backBottom.setAttribute('data-value', this.currentValue);
 
-                    this.el.classList.remove('flip');
-                    void this.el.offsetWidth;
-                    this.el.classList.add('flip');
-                }
-            }
+this.el.classList.remove('flip');
+void this.el.offsetWidth;
+this.el.classList.add('flip');
+}
+}
 
-            this.update(value);
-        }
+this.update(value);
+}
 
-        // Calculation adapted from https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+// Calculation adapted from https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
 
-        function getTimeRemaining(endtime) {
-            var t = Date.parse(endtime) - Date.parse(new Date());
-            return {
-                'Total': t,
-                'Days': Math.floor(t / (1000 * 60 * 60 * 24)),
-                'Hours': Math.floor((t / (1000 * 60 * 60)) % 24),
-                'Minutes': Math.floor((t / 1000 / 60) % 60),
-                'Seconds': Math.floor((t / 1000) % 60)
-            };
-        }
+function getTimeRemaining(endtime) {
+var t = Date.parse(endtime) - Date.parse(new Date());
+return {
+'Total': t,
+'Days': Math.floor(t / (1000 * 60 * 60 * 24)),
+'Hours': Math.floor((t / (1000 * 60 * 60)) % 24),
+'Minutes': Math.floor((t / 1000 / 60) % 60),
+'Seconds': Math.floor((t / 1000) % 60)
+};
+}
 
 
-        function Clock(countdown, callback) {
+function Clock(countdown, callback) {
 
-            countdown = countdown ? new Date(Date.parse(countdown)) : false;
-            callback = callback || function () {
-            };
+countdown = countdown ? new Date(Date.parse(countdown)) : false;
+callback = callback || function () {
+};
 
-            var updateFn = countdown ? getTimeRemaining : getTime;
+var updateFn = countdown ? getTimeRemaining : getTime;
 
-            this.el = document.createElement('div');
-            this.el.className = 'flip-clock';
+this.el = document.createElement('div');
+this.el.className = 'flip-clock';
 
-            var trackers = {},
-                t = updateFn(countdown),
-                key, timeinterval;
+var trackers = {},
+t = updateFn(countdown),
+key, timeinterval;
 
-            for (key in t) {
-                if (key === 'Total') {
-                    continue;
-                }
-                trackers[key] = new CountdownTracker(key, t[key]);
-                this.el.appendChild(trackers[key].el);
-            }
+for (key in t) {
+if (key === 'Total') {
+continue;
+}
+trackers[key] = new CountdownTracker(key, t[key]);
+this.el.appendChild(trackers[key].el);
+}
 
-            var i = 0;
+var i = 0;
 
-            function updateClock() {
-                timeinterval = requestAnimationFrame(updateClock);
+function updateClock() {
+timeinterval = requestAnimationFrame(updateClock);
 
-                // throttle so it's not constantly updating the time.
-                if (i++ % 10) {
-                    return;
-                }
+// throttle so it's not constantly updating the time.
+if (i++ % 10) {
+return;
+}
 
-                var t = updateFn(countdown);
-                if (t.Total < 0) {
-                    cancelAnimationFrame(timeinterval);
-                    for (key in trackers) {
-                        trackers[key].update(0);
-                    }
-                    callback();
-                    return;
-                }
+var t = updateFn(countdown);
+if (t.Total < 0) {
+cancelAnimationFrame(timeinterval);
+for (key in trackers) {
+   trackers[key].update(0);
+}
+callback();
+return;
+}
 
-                for (key in trackers) {
-                    trackers[key].update(t[key]);
-                }
-            }
+for (key in trackers) {
+trackers[key].update(t[key]);
+}
+}
 
-            setTimeout(updateClock, 500);
-        }
+setTimeout(updateClock, 500);
+}
 
-        var deadline = new Date(Date.parse(new Date()) + 12 * 24 * 60 * 60 * 1000);
-        var c = new Clock(deadline, function () {
-            alert('countdown complete')
-        });
-        document.getElementById('countdown').appendChild(c.el);
+var deadline = new Date(Date.parse(new Date()) + 12 * 24 * 60 * 60 * 1000);
+var c = new Clock(deadline, function () {
+alert('countdown complete')
+});
+document.getElementById('countdown').appendChild(c.el);
 
-        var clock = new Clock();
-        document.body.appendChild(clock.el);
+var clock = new Clock();
+document.body.appendChild(clock.el);
 
-    </script>
+</script>
+@endsection

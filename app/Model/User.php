@@ -72,4 +72,12 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Model\Team');
     }
+
+    ////methode pour lier utilisateur à son équipe favorite
+    public function nbaTeams()
+    {
+        return $this->belongsTo(Nbateam::class, 'nbateam_id');
+    }
+
+
 }
