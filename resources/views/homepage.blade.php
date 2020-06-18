@@ -56,7 +56,7 @@
                         définir !</p>
                 </div>
                 <div class="col-md-3 text-center p-3">
-                    <img style="height: 75px; width: 75px;" src="{{asset('storage/images/terrain.jpeg')}}"
+                    <img style="height: 75px; width: 75px;" src="{{asset('storage/images/picto_matchs.png')}}"
                          alt="terrain">
                     <h5 class="py-2"><b>10 000 matchs joués</b></h5>
                     <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
@@ -67,7 +67,7 @@
 
             </div>
             <div class="row no-gutters justify-content-center p-5">
-                <button class="bouton-inscription">Rejoins-nous</button>
+                <a class="nav-link bouton-inscription" href="{{ route('register') }}">{{ __('Rejoins-nous !') }}</a>
             </div>
 
         </div>
