@@ -1,10 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
-    {{--Titre de la pge--}}
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <h1 class="text-white">Tableau de bord</h1>
+    {{--Titre de la page--}}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-white">Tableau de bord</h1>
+            </div>
         </div>
     </div>
 
