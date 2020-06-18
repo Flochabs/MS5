@@ -19,26 +19,28 @@
         @endif
         <h1 class="my-5 text-white">Récapitulatif de la league {{ $league->name }}</h1>
         <div class="row mb-3">
-            <div class="col-md-6 text-left"><h2 class="mb-3 text-white">{{$league->number_teams - $league->users->count()}} place(s) restante(s) sur {{$league->number_teams}}</h2></div>
+            <div class="col-md-6 text-left"><h2
+                    class="mb-3 text-white">{{$league->number_teams - $league->users->count()}} place(s) restante(s)
+                    sur {{$league->number_teams}}</h2></div>
             @if(Auth::user()->id === $league->user->id)
-            <div class="col-md-6 text-right">
-                <div class="row">
-                    @if($league->isActive === 0)
-                    <form action="{{ route('leagues.update', $league->id)}}" method="post">
-                        @csrf
-                        @method('PATCH')
-                        <input type="text" class="d-none form-control" name="isActive" value="1"/>
-                        <button class="bouton-inscription" type="submit">Lancer la league</button>
-                    </form>
-                    @endif
-                    <form action="{{ route('leagues.destroy', $league->id)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="bouton-connexion" type="submit">Supprimer la league</button>
-                    </form>
-                </div>
+                <div class="col-md-6 text-right">
+                    <div class="row">
+                        @if($league->isActive === 0)
+                            <form action="{{ route('leagues.update', $league->id)}}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <input type="text" class="d-none form-control" name="isActive" value="1"/>
+                                <button class="bouton-inscription" type="submit">Lancer la league</button>
+                            </form>
+                        @endif
+                        <form action="{{ route('leagues.destroy', $league->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="bouton-connexion" type="submit">Supprimer la league</button>
+                        </form>
+                    </div>
 
-            </div>
+                </div>
             @endif
         </div>
 
@@ -58,18 +60,16 @@
                     <tr>
                         <td>{{$user->pseudo}}</td>
                         <td>
-                            @if($league->isActive === 1)
-                                @if(Auth::user()->id === $user->id && $user->team === null)
-                                    <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une équipe</a>
-                                @else
-                                    @if($user->team !== null)
-                                        {{$user->team->name}}
-                                    @else
-                                        Création de l'équipe en cours !
-                                    @endif
-                                @endif
+
+                            @if(Auth::user()->id === $user->id && $user->team === null)
+                                <a href="{{ route('teams.create')}}" class="btn btn-outline-secondary">Créér une
+                                    équipe</a>
                             @else
-                                En attente de la création de la league
+                                @if($user->team !== null)
+                                    {{$user->team->name}}
+                                @else
+                                    Création de l'équipe en cours !
+                                @endif
                             @endif
                         </td>
                         <td>
