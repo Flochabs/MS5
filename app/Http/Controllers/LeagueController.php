@@ -38,13 +38,14 @@ class LeagueController extends Controller
 
         //Vérification du nombre de leagues associées à l'utilisateur
         $user_id = Auth::user()->id;
-        $userLeagueId = DB::table('league_user')
-            ->where('league_user.user_id', $user_id)
-            ->first()->league_id;
+
         $usersInleagues = DB::table('league_user')
             ->where('league_user.user_id', $user_id)
             ->exists();
         if ($usersInleagues === true) {
+            $userLeagueId = DB::table('league_user')
+                ->where('league_user.user_id', $user_id)
+                ->first()->league_id;
             return redirect()->route('leagues.show', $userLeagueId)->withErrors('Tu as déjà une league !');
         } else {
             $token = md5(uniqid($user_id, true));
@@ -141,7 +142,6 @@ class LeagueController extends Controller
             }
 
         }
-//        dd($teamVictoryRatio);
 
         return view('leagues.show')
             ->with('league', $league)
@@ -174,6 +174,25 @@ class LeagueController extends Controller
 
                 $data->isActive = $request->isActive;
                 $data->save();
+
+                //Récupération des emails des membres de la league
+                $userEmails = [];
+                $users = DB::table('league_user')
+                    ->leftjoin('users', 'id', '=', 'league_user.user_id')
+                    ->where('league_user.league_id', (int)$id)
+                    ->get();
+                foreach ($users as $user) {
+                    $userEmails[]= $user->email;
+                }
+
+                // Envoi d'un mail de lancement de la draft
+                $title = 'Lancement de la draft !';
+                $content = 'Salut, ta league ' . $data->name .
+                    ' viens d\'entamer sa draft ! Connecte toi vite pour y participer';
+
+
+
+                Mail::to($userEmails)->send(new Register($title, $content));
 
                 return redirect(route('draft.index'))->with('success', 'La draft commence !');
             } else{
