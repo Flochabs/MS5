@@ -32,12 +32,16 @@
                                 <input type="text" class="d-none form-control" name="isActive" value="1"/>
                                 <button class="bouton-inscription" type="submit">Lancer la league</button>
                             </form>
+                            <form action="{{ route('leagues.destroy', $league->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="bouton-connexion" type="submit">Supprimer la league</button>
+                            </form>
                         @endif
-                        <form action="{{ route('leagues.destroy', $league->id)}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="bouton-connexion" type="submit">Supprimer la league</button>
-                        </form>
+                        @if($league->isActive === 1)
+                                <a href="{{'draft'}}" class="btn btn-outline-secondary">Rejoindre la draft</a>
+                        @endif
+
                     </div>
 
                 </div>
