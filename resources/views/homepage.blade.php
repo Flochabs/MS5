@@ -13,7 +13,7 @@
                 <h1 class="pl-2 text-white">D'ACCORD, <br> MAIS ÇA FONCTIONNE COMMENT ?</h1>
                 <h4 class="tertiary p-2">° Découvrez les règles en 5 minutes chrono</h4>
                 <p class="pl-2 text-white">Explication de l'application, texte à définir.</p>
-                <p><a class="tertiary p-2" href="#">Lire la suite</a></p>
+                <p><a class="tertiary p-2" href="{{'tuto'}}">Lire la suite</a></p>
             </div>
         </div>
     </div>

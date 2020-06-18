@@ -25,7 +25,7 @@
         <div class="col-md-8">
             <div class="row align-items-center">
                 <div class="bouton-connexion">
-                    <a href="{{ route('nba.index')}}"><p>NBA</p></a>
+                    <a href="{{ route('tuto')}}"><p>Tuto</p></a>
                 </div>
 
                 <div class="bouton-connexion ml-2">
