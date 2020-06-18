@@ -39,7 +39,7 @@
                             </form>
                         @endif
                         @if($league->isActive === 1)
-                                <a href="{{'draft'}}" class="btn btn-outline-secondary">Rejoindre la draft</a>
+                                <a href="{{route('draft.index')}}" class="btn btn-outline-secondary">Rejoindre la draft</a>
                         @endif
 
                     </div>

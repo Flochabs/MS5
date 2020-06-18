@@ -9,6 +9,7 @@ use App\Model\Team;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,9 +38,14 @@ class LeagueController extends Controller
 
         //Vérification du nombre de leagues associées à l'utilisateur
         $user_id = Auth::user()->id;
-        $userLeagueID = League::where('user_id', '=', $user_id)->first();
-        if (League::where('user_id', '=', $user_id)->exists()) {
-            return redirect()->route('leagues.show', $userLeagueID)->withErrors('Tu as déjà une league !');
+        $userLeagueId = DB::table('league_user')
+            ->where('league_user.user_id', $user_id)
+            ->first()->league_id;
+        $usersInleagues = DB::table('league_user')
+            ->where('league_user.user_id', $user_id)
+            ->exists();
+        if ($usersInleagues === true) {
+            return redirect()->route('leagues.show', $userLeagueId)->withErrors('Tu as déjà une league !');
         } else {
             $token = md5(uniqid($user_id, true));
             $email = Auth::user()->email;
@@ -205,7 +211,10 @@ class LeagueController extends Controller
     {
         //Vérification du nombre de leagues associées à l'utilisateur
         $user_id = Auth::user()->id;
-        if (League::where('user_id', '=', $user_id)->exists()) {
+        $usersInleagues = DB::table('league_user')
+            ->where('league_user.user_id', $user_id)
+            ->exists();
+        if ($usersInleagues === true) {
             return redirect()->route('leagues.show', (int)$id)->withErrors('Tu as déjà une league !');
         } else {
             //permet de rejoindre une league publique
@@ -230,8 +239,10 @@ class LeagueController extends Controller
         //permet de rejoindre une league privée
 
         //Vérification du nombre de leagues associées à l'utilisateur
-        $user_id = Auth::user()->id;
-        if (League::where('user_id', '=', $user_id)->exists()) {
+        $user_id = Auth::user()->id;$usersInleagues = DB::table('league_user')
+        ->where('league_user.user_id', $user_id)
+        ->exists();
+        if ($usersInleagues === true) {
             return redirect()->route('dashboard.index', Auth::user()->id)->withErrors('Tu as déjà une league !');
         } else {
             if (League::where('token', '=', $request->token)->exists()) {
