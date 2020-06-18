@@ -1,6 +1,9 @@
 .bg-card-title {
     background: lighten($primary, 15%);
 }
+h1, h2, h3 {
+    color: white !important;
+}
 #next-game-coaching {
     #nb-players {
         font-size: 2rem !important;

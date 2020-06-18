@@ -119,6 +119,12 @@ footer {
   background: #504065;
 }
 
+h1,
+h2,
+h3 {
+  color: white !important;
+}
+
 #draft-container #nb-players {
   font-size: 2rem !important;
 }
@@ -358,6 +364,12 @@ html {
   background: #504065;
 }
 
+h1,
+h2,
+h3 {
+  color: white !important;
+}
+
 #next-game-coaching #nb-players {
   font-size: 2rem !important;
 }
@@ -393,6 +405,7 @@ html {
 
 #next-game-coaching .btn-quaternary:hover {
   background-color: #eb671b;
+<<<<<<< HEAD
 }
 
 body,
@@ -465,6 +478,8 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+=======
+>>>>>>> coaching
 }
 
 @font-face {

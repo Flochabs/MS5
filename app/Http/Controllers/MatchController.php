@@ -61,6 +61,7 @@ class MatchController extends Controller
         }
 
 
+
         return view('match.index')->with('userNextMatch',$userNextMatch)
                 ->with('userPlayersTeam', $userPlayersTeam)
                 ->with('playersSelected', $playersSelected);
@@ -141,13 +142,18 @@ class MatchController extends Controller
         $playerInfos = json_decode($playerInMatch->data);
         $positionPlayer = $playerInfos->pl->pos;
         $positionPlayer  = substr($positionPlayer, 0,1);
-
+        $maxPlayersFromPosition = 0;
+        if($positionPlayer === "G") {
+            $maxPlayersFromPosition = 2;
+        } else if ($positionPlayer === "F") {
+            $maxPlayersFromPosition = 2;
+        } else {
+            $maxPlayersFromPosition = 1;
+        }
 
          //vérifier que le joueur n'est pas déjà associé et qu'il n'y a pas déjà un joueur choisi pour sa position
-        if( ( (!isset($nbPlayersFromPositions["F"]) || ($positionPlayer === "F" && $nbPlayersFromPositions["F"] < 2)) ||
-              (!isset($nbPlayersFromPositions["C"]) || ($positionPlayer === "C" && $nbPlayersFromPositions["C"] < 1)) ||
-              (!isset($nbPlayersFromPositions["C"]) || ($positionPlayer === "G" && $nbPlayersFromPositions["G"] < 2)) )
-            &&  !in_array($playerInMatch->id, $playersSelectedIds) ){
+        if( ( (!isset($nbPlayersFromPositions[$positionPlayer]) || $nbPlayersFromPositions[$positionPlayer] < $maxPlayersFromPosition) )
+            &&  !in_array($playerInMatch->id, $playersSelectedIds) ) {
 
             //créer le lie entre le joueur et l'équpe dans la table pivot
             $userNextMatch->matchPlayers()->attach($playerInMatch->id);
@@ -161,25 +167,21 @@ class MatchController extends Controller
                 'position' => $positionPlayer,
             ];
             return $json;
+
+        } elseif(in_array($playerInMatch->id, $playersSelectedIds)) {
+            $json = ['Errors' , 'Tu as déjà choisi ce joueur !'];
+            return $json;
+        } else {
+            $json = ['Errors' , 'ce poste est déjà rempli !'];
+            return $json;
         }
-        $json = [ 'test'];
-        return $json;
     }
 
-
-
-    /**
-     * Supprime l'enchère de l'utilisateur sur le joueur sélectionné
-     *
-     * @param int $id
-     * @return array
-     */
     public function deletePlayer($id) {
         // récupération des données user
         $user = Auth::user();
         // league à laquelle appartient l'utilisateur
         $userLeagueId = $user->team->league_id;
-
 
         // Le nom de la league à laquelle appartient l'utilisateur
         $userNameLeague = $user->team->getLeague->name;
@@ -200,7 +202,11 @@ class MatchController extends Controller
             ->get()
             ->first();
 
-
+        //supprime le lien entre joueur et le match
+        $DeletePlayerFromMatch = DB::table('match_player')
+            ->where('match_id', '=',$userNextMatch->id)
+            ->where('player_id', '=',$id)
+            ->delete();
         $json = [
             // Je récupère l'id qui vient d'être entré
             'id' => ($id),
