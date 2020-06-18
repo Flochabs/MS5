@@ -66,20 +66,10 @@
     <footer>
         <div class="container pt-5">
             <div class="row">
-                <div class="col-md-4 p-1">
+                <div class="col-md-4. p-1">
                     <p class="tertiary">LE SITE</p>
-                    <p><a class="text-white" href="#">A propos de nous</a></p>
                     <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
-                    <p><a class="text-white" href="#">Mention Légale</a></p>
-                    <p><a class="text-white" href="#"></a></p>
-                </div>
-
-                <div class="col-md-4 p-1">
-                    <p class="tertiary">RESSOURCES</p>
-                    <p><a class="text-white" href="#">Centre d'aide</a></p>
-                    <p><a class="text-white" href="#">Notre blog</a></p>
-                    <p><a class="text-white" href="#">Histoire de clients</a></p>
-                    <p><a class="text-white" href="#">Notre PayPal</a></p>
+                    <p><a class="text-white" href="#">Mentions Légales</a></p>
                 </div>
 
                 <div class="col-md-4 p-1">

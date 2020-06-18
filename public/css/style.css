@@ -160,7 +160,6 @@ footer {
   font-size: 1.2rem;
 }
 
-<<<<<<< HEAD
 html {
   height: 100%;
 }
@@ -353,7 +352,8 @@ html {
 
 .radius25 {
   border-radius: 25px;
-=======
+}
+
 .bg-card-title {
   background: #504065;
 }
@@ -393,7 +393,6 @@ html {
 
 #next-game-coaching .btn-quaternary:hover {
   background-color: #eb671b;
->>>>>>> coaching
 }
 
 @font-face {
