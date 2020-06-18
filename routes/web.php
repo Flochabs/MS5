@@ -74,6 +74,11 @@ Route::get( '/tuto', function () {
     return view( 'tuto' );
 } );
 
+//Route pour la page mentions légales
+Route::get( '/mentions_legales', function () {
+    return view( 'mentions_legales' );
+} );
+
 
 
 
