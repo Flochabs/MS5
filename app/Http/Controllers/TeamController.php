@@ -92,8 +92,11 @@ class TeamController extends Controller
             $newTeam->save();
 
             $id = $newTeam->id;
-
-            return redirect()->route('draft.index', $id)->with('success', 'L\'équipe a bien été créée.');
+            if($userLeague->isActive === 1){
+                return redirect()->route('draft.index', $id)->with('success', 'L\'équipe a bien été créée.');
+            }else{
+                return redirect()->route('leagues.show', $userLeagueId)->with('success', 'L\'équipe a bien été créée.');
+            }
         }
     }
 
