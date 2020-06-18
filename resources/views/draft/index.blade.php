@@ -39,31 +39,32 @@
                 </div>
             </div>
             {{-----------------------DONNEES SUR SALARY CAP ---------------------}}
-            <div class="col-lg-4 px-0">
+            <div class="col-md-4 px-0">
                 <div class="col-md-12 MS5card px-0 h-100">
                     <div class="bg-card-title text-center mb-0 py-1">
                         <h2 class="mb-0">SALARY CAP</h2>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <table class="table text-white table-borderless table-sm w-100 mb-0" style="font-size: 0.9rem;">
+                            <table class="table text-white table-borderless table-sm w-100 mb-0"
+                                   style="font-size: 0.9rem;">
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">Salary Cap Initial</th>
-                                        <td>200 M$</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Salary Cap Restant</th>
-                                        <td>{{$team->salary_cap}} M$</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Salary Cap après enchère</th>
-                                        <td>{{$team->salary_cap - $auctions->sum("auction")}} M$</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Total des Enchères en cours</th>
-                                        <td>{{$auctions->sum("auction")}} M$</td>
-                                    </tr>
+                                <tr>
+                                    <th scope="row">Salary Cap Initial</th>
+                                    <td>200 M$</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Salary Cap Restant</th>
+                                    <td>{{$team->salary_cap}} M$</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Salary Cap après enchère</th>
+                                    <td>{{$team->salary_cap - $auctions->sum("auction")}} M$</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total des Enchères en cours</th>
+                                    <td>{{$auctions->sum("auction")}} M$</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -71,7 +72,7 @@
                 </div>
             </div>
             {{----------------------- NOMBRE JOUEURS DRAFTES ---------------------}}
-            <div class="col-lg-2">
+            <div class="col-md-2">
                 <div class="col-md-12 MS5card h-100 d-flex justify-content-center align-items-center flex-column">
                     <p id="nb-players">{{count($team->getPlayers)}}</p>
                     <p>Joueurs</p>
@@ -79,16 +80,10 @@
                 </div>
             </div>
             {{-----------------------DONNEES SUR LA FIN DE DRAFT ---------------------}}
-            <div class="col-lg-3">
+            <div class="col-md-3">
                 <div class="col-md-12 MS5card h-100">
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <div class="h-100 col-3">
-                       décompte fin de draft
-                        </div>
-                        <div class="d-flex col-9 align-items-center justify-content-between">
-                            <button class="btn btn-quaternary">Terminer la draft</button>
-                        </div>
-                    </div>
+                    <h4 class="text-center">Fin de la draft dans :</h4>
+
                 </div>
             </div>
         </div>
@@ -151,7 +146,7 @@
                     <div class="col-md-12 text-white mt-3">
                         <table class="table table-striped table-dark table-sm text-white w-100"
                                style="font-size: 0.8rem;">
-                            <thead class="">
+                            <thead>
                             <tr>
                                 <th scope="col" width="35%">Joueur</th>
                                 <th scope="col">Poste</th>
@@ -225,14 +220,14 @@
                                         </td>
                                     @else
                                         <td colspan="2" class="align-middle">
-                                           Trop tard !
+                                            Trop tard !
                                         </td>
                                     @endif
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                       <div class="m-auto d-flex justify-content-center">{{$players->links()}}</div>
+                        <div class="m-auto d-flex justify-content-center">{{$players->links()}}</div>
                     </div>
                 </div>
             </div>
@@ -349,9 +344,7 @@
                     <br/>
                 @endif
                 @foreach($auctions as $auction)
-                    <div class="row my-1">
-                        <div class="col-12 MS5card">
-                            @php $playerData = json_decode($auction->getPlayerData->data, false);
+                    @php $playerData = json_decode($auction->getPlayerData->data, false);
                                         $position  = substr($playerData->pl->pos, 0,1);
                                     if($position === "G") {
                                         $position = 'Arrière';
@@ -360,9 +353,34 @@
                                     } else {
                                         $position = 'Pivot';
                                     }
-                            @endphp
-                            <div class="row d-flex">
-                                <div class="col-2 p-1">
+                    @endphp
+                    <div class="row my-1">
+                        <div class="col-12 MS5card">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img
+                                        src="https://nba-players.herokuapp.com/players/{{$playerData->pl->ln}}/{{$playerData->pl->fn}}"
+                                        class="rounded-circle w-100">
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{$position}}</p>
+                                    <p>{{strtoupper($playerData->pl->fn)}} {{strtoupper($playerData->pl->ln)}}</p>
+                                </div>
+                                <div class="col-md-2">
+                                    @php $indicator = true @endphp
+                                    @foreach($auctionsOnPlayers as $auctionsOnPlayer)
+
+                                        @if($auctionsOnPlayer->player_id === $auction->player_id && $indicator)
+                                            <p class="align-middle font-weight-bold tertiary auction-price text-center">
+                                                {{$auctionsOnPlayer->auction}}M$
+                                            </p>
+                                            @php $indicator = false @endphp
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <form
                                         action="{{ route('draft.delete.auction', ['id' => $auction->player_id])}}"
                                         method="POST" class="col-12">
@@ -371,69 +389,45 @@
                                         <button type="submit" class="btn btn-primary rounded-circle">X
                                         </button>
                                     </form>
-                                    <div class="col-12">
-                                        <img
-                                            src="https://nba-players.herokuapp.com/players/{{$playerData->pl->ln}}/{{$playerData->pl->fn}}"
-                                            class="rounded-circle w-100">
-                                    </div>
                                 </div>
-                                <div class="col-10">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <p>{{$position}}</p>
-                                            <p>{{strtoupper($playerData->pl->fn)}} {{strtoupper($playerData->pl->ln)}}</p>
-                                        </div>
-                                        <div class="col-3 d-flex justify-content-center align-items-center">
-                                            @php $indicator = true @endphp
-                                            @foreach($auctionsOnPlayers as $auctionsOnPlayer)
+                                <div class="col-md-6">
+                                    <form
+                                        action="{{ route('draft.auction.updateValue', ['id' => $auction->player_id])}}"
+                                        method="POST" class="form-group w-100 d-flex justify-content-center">
+                                        @php $indicator = true @endphp
+                                        @foreach($auctionsOnPlayers as $auctionsOnPlayer)
+                                            @if($auctionsOnPlayer->player_id === $auction->player_id && $indicator)
+                                                <input class="form-control" type="number" name="auctionValue"
+                                                       id="auctionValue" value="{{$auctionsOnPlayer->auction}}" step="5"
+                                                       min="{{$auctionsOnPlayer->auction}}">
+                                                @php $indicator = false @endphp
+                                            @endif
+                                        @endforeach
+                                        @method('POST')
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">enchérir</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>Ma dernière enchère: {{$auction->auction}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    @php
+                                        $limitTime = new DateTime($auction->auction_time_limit);
+                                        $limitTimeMin = $limitTime->format('i');
+                                        $limitTimeSec= $limitTime->format('s');
+                                        $now = new DateTime();
+                                        $nowMin = $now->format('i');
+                                        $nowSec = $now->format('s');
 
-                                                @if($auctionsOnPlayer->player_id === $auction->player_id && $indicator)
-                                                    <p class="align-middle font-weight-bold tertiary auction-price text-center">
-                                                        {{$auctionsOnPlayer->auction}}M$
-                                                    </p>
-                                                    @php $indicator = false @endphp
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <form
-                                                action="{{ route('draft.auction.updateValue', ['id' => $auction->player_id])}}"
-                                                method="POST" class="form-group w-100 d-flex flew-row">
-                                                @php $indicator = true @endphp
-                                                @foreach($auctionsOnPlayers as $auctionsOnPlayer)
-                                                    @if($auctionsOnPlayer->player_id === $auction->player_id && $indicator)
-                                                        <input class="form-control" type="number" name="auctionValue"
-                                                               id="auctionValue" value="{{$auctionsOnPlayer->auction}}" step="5"
-                                                               min="{{$auctionsOnPlayer->auction}}">
-                                                        @php $indicator = false @endphp
-                                                    @endif
-                                                @endforeach
-                                                @method('POST')
-                                                @csrf
-                                                <button type="submit" class="btn btn-primary">enchérir</button>
-                                            </form>
-                                        </div>
-                                        <div class="col-2">
-                                            <p>Ma dernière enchère: {{$auction->auction}}</p>
-                                        </div>
-                                        <div class="col-2">
-                                            @php
-                                                $limitTime = new DateTime($auction->auction_time_limit);
-                                                $limitTimeMin = $limitTime->format('i');
-                                                $limitTimeSec= $limitTime->format('s');
-                                                $now = new DateTime();
-                                                $nowMin = $now->format('i');
-                                                $nowSec = $now->format('s');
-
-                                                $differenceMin = $nowMin - $limitTimeMin;
-                                                $differenceSec= $nowSec - $limitTimeSec
-                                            @endphp
-                                            <p>Fin de l'enchère dans {{ $differenceMin}} min {{$differenceSec}}</p>
-                                        </div>
-                                    </div>
+                                        $differenceMin = $nowMin - $limitTimeMin;
+                                        $differenceSec= $nowSec - $limitTimeSec
+                                    @endphp
+                                    <p>Fin de l'enchère dans {{ $differenceMin}} min {{$differenceSec}}</p>
                                 </div>
                             </div>
                         </div>
