@@ -27,12 +27,12 @@ class DashboardController extends Controller
         // Twitterfeed de l'équipe favorite de l'utilisateur
         $userTwitterFeed = $user->nbaTeams;
 
-            if(!$user->team)
-            {
-                return view('dashboard.index')
-                    ->with('user', $user)
-                    ->with('userTwitterFeed', $userTwitterFeed);
-            }else{
+        if(!$user->team)
+        {
+            return view('dashboard.index')
+                ->with('user', $user)
+                ->with('userTwitterFeed', $userTwitterFeed);
+        }else{
 
 
             // league à laquelle appartient l'utilisateur
@@ -133,21 +133,21 @@ class DashboardController extends Controller
 
             if( $userLastMatch != null)
             {
-            // $homeTeamLastMatch récupère le nom de l'équipe home qui à jouer dans le dernier matchs
-            $homeTeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
-                ->get()
-                ->first();
+                // $homeTeamLastMatch récupère le nom de l'équipe home qui à jouer dans le dernier matchs
+                $homeTeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
+                    ->get()
+                    ->first();
 
-            // $awayTeamLastMatch récupère le nom de l'équipe away qui à jouer dans le dernier matchs
-            $awayTeamLastMatch = Team::where('id', $userLastMatch->away_team_id)
-                ->get()
-                ->first();
+                // $awayTeamLastMatch récupère le nom de l'équipe away qui à jouer dans le dernier matchs
+                $awayTeamLastMatch = Team::where('id', $userLastMatch->away_team_id)
+                    ->get()
+                    ->first();
 
-            // $userHomeLastMatch récupère l'utilisateur de l'équipe home qui à jouer dans le dernier matchs
-            $userHomeLastMatch = $homeTeamLastMatch->userTeam;
+                // $userHomeLastMatch récupère l'utilisateur de l'équipe home qui à jouer dans le dernier matchs
+                $userHomeLastMatch = $homeTeamLastMatch->userTeam;
 
-            // $userAwayLastMatch récupère l'utilisateur de l'équipe away qui à jouer dans le dernier matchs
-            $userAwayLastMatch = $awayTeamLastMatch->userTeam;
+                // $userAwayLastMatch récupère l'utilisateur de l'équipe away qui à jouer dans le dernier matchs
+                $userAwayLastMatch = $awayTeamLastMatch->userTeam;
             }else
             {
                 $homeTeamLastMatch  = 'Match pas fini';
@@ -158,21 +158,21 @@ class DashboardController extends Controller
             }
 
 
-        return view('dashboard.index')
-            ->with('user', $user)
-            ->with('userTwitterFeed', $userTwitterFeed)
-            ->with('userPlayersTeam',  $userPlayersTeam)
-            ->with('homeTeamNextMatch', $homeTeamNextMatch)
-            ->with('userHomeNextMatch', $userHomeNextMatch)
-            ->with('awayTeamNextMatch', $awayTeamNextMatch)
-            ->with('userAwayNextMatch', $userAwayNextMatch)
-            ->with('homeTeamLastMatch', $homeTeamLastMatch)
-            ->with('userHomeLastMatch', $userHomeLastMatch)
-            ->with('awayTeamLastMatch', $awayTeamLastMatch)
-            ->with('userAwayLastMatch', $userAwayLastMatch)
-            ->with('userLastMatch', $userLastMatch);
+            return view('dashboard.index')
+                ->with('user', $user)
+                ->with('userTwitterFeed', $userTwitterFeed)
+                ->with('userPlayersTeam',  $userPlayersTeam)
+                ->with('homeTeamNextMatch', $homeTeamNextMatch)
+                ->with('userHomeNextMatch', $userHomeNextMatch)
+                ->with('awayTeamNextMatch', $awayTeamNextMatch)
+                ->with('userAwayNextMatch', $userAwayNextMatch)
+                ->with('homeTeamLastMatch', $homeTeamLastMatch)
+                ->with('userHomeLastMatch', $userHomeLastMatch)
+                ->with('awayTeamLastMatch', $awayTeamLastMatch)
+                ->with('userAwayLastMatch', $userAwayLastMatch)
+                ->with('userLastMatch', $userLastMatch);
 
-            };
+        };
 
     }
 
