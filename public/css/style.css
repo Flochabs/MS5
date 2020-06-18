@@ -119,6 +119,12 @@ footer {
   background: #504065;
 }
 
+h1,
+h2,
+h3 {
+  color: white !important;
+}
+
 #draft-container #nb-players {
   font-size: 2rem !important;
 }
@@ -160,7 +166,6 @@ footer {
   font-size: 1.2rem;
 }
 
-<<<<<<< HEAD
 html {
   height: 100%;
 }
@@ -353,9 +358,16 @@ html {
 
 .radius25 {
   border-radius: 25px;
-=======
+}
+
 .bg-card-title {
   background: #504065;
+}
+
+h1,
+h2,
+h3 {
+  color: white !important;
 }
 
 #next-game-coaching #nb-players {
@@ -393,7 +405,6 @@ html {
 
 #next-game-coaching .btn-quaternary:hover {
   background-color: #eb671b;
->>>>>>> coaching
 }
 
 @font-face {
