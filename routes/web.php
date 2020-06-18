@@ -71,6 +71,16 @@ Route::prefix( 'match' )
         Route::Get('deletePlayer/{id}', 'MatchController@deletePlayer')->name('delete.player');
     } );
 
+//Route pour la page tuto
+Route::get( '/tutoMS5', function () {
+    return view( 'tutoMS5' );
+} );
+
+//Route pour la page mentions légales
+Route::get( '/mentions_legales', function () {
+    return view( 'mentions_legales' );
+} );
+
 
 
 

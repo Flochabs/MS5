@@ -26,13 +26,18 @@
                 <img class="img-fluid" width="30%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
             </a>
             </span>
-
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+        <div class="col-md-8">
+            <div class="row align-items-center">
+                <div class="bouton-connexion">
+                    <a href="{{'tutoMS5')}}"><p>Tuto</p></a>
+                </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -90,8 +95,11 @@
             <div class="col-md-4 p-1">
                 <p class="tertiary">LE SITE</p>
                 <p><a class="text-white" href="#">A propos de nous</a></p>
+
                 <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
-                <p><a class="text-white" href="#">Mention Légale</a></p>
+
+                <p><a class="text-white" href="{{'mentions_legales'}}">Mentions Légales</a></p>
+
                 <p><a class="text-white" href="#"></a></p>
             </div>
 
