@@ -68,6 +68,7 @@ Route::prefix( 'match' )
     ->name( 'match.' )
     ->group( function () {
         Route::resource( '/', 'MatchController' );
+        Route::Get('deletePlayer/{id}', 'MatchController@deletePlayer')->name('delete.player');
     } );
 
 
