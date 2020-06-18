@@ -72,4 +72,11 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Model\Team');
     }
+
+    public function nbaTeams()
+    {
+        return $this->belongsTo(Nbateam::class, 'nbateam_id');
+    }
+
+
 }
