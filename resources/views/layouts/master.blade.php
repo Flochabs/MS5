@@ -36,7 +36,7 @@
         <div class="col-md-8">
             <div class="row align-items-center">
                 <div class="bouton-connexion">
-                    <a href="{{'tutoMS5')}}"><p>Tuto</p></a>
+                    <a href="{{'tuto'}}"><p>Tuto</p></a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
