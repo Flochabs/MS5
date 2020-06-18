@@ -1,7 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
-    @php //dd($playersSelected); @endphp
+    @php
+        //fonction pour vérifier que la réponse retournée par l'api image soit bien une photo
+        function check_304($url) {
+            $headers=get_headers($url, 1);
+            if ($headers[0]!='HTTP/1.1 200 OK') return false; else return true;
+        }
+    @endphp
 
     <div class="container text-white" id="next-game-coaching">
         <div class="row flex-column text-center bg-countdown no-gutters pb-5 mb-3">
@@ -54,9 +60,12 @@
                         @endphp
                         <tr>
                             <th scope="row" class="align-middle pr-0">
+
                                 <img
                                     src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
                                     class="w-25 rounded-circle pr-1">
+
+
                                 {{$playerStats->fn}} {{$playerStats->ln}}
                             </th>
                             <td class="align-middle">{{$position}}</td>
@@ -140,11 +149,11 @@
         @section('script-footer')
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
             <script>
-                // $.ajaxSetup({
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     }
-                // });
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 // setInterval('someFunc()', 5000);
                 //
                 // function someFunc()
@@ -154,7 +163,7 @@
                 //         async: true,
                 //         type: "get",
                 //         url: "",
-                //         data: data,
+                //         //data: data,
                 //         success: function (html) {
                 //             $('body').html(html);
                 //         }
@@ -163,7 +172,8 @@
                 // setInterval('someFunc()', 5000);
                 // function someFunc()
                 //  {
-                //      $('#compo-table').load(document.URL +  '#compo-table');
+                //      $('body').load(document.URL);
+                //      console.log('test');
                 //  }
 
                 // On attend le chargement du document
@@ -446,11 +456,10 @@
                                 table.insertAdjacentHTML('beforeend',
                                     '<tr class="MS5card w-100">' + '<td>' + '</td>' +
                                     '<td width="50%">' + '<img src="https://nba-players.herokuapp.com/players/' + data.lastname + "/" + data.name + '"' + ' class="w-100 rounded-circle pr-1">' + '</td>' +
-                                    //'<td>' +  "<a href='" +  deleteRoute +"'" + " type='submit' class='btn btn-primary rounded-circle delete-btn'>" + "X" + "</a>" + '</td>' + '</td>' +
                                     '<td>' +
+                                    '<td>' + position + '</td>' +
                                     '<td>' + data.name + '</td>' +
                                     '<td>' + data.lastname + '</td>' +
-                                    '<td>' + position + '</td>' +
                                     '</tr>');
                             };
                             let newError = function (errors) {
@@ -466,6 +475,8 @@
 
                         })); // Fin de l'écouteur
                     })(); // Fin de mon script
+
+                    // RECUPERATION DES ENCHERES EN COURS
                 });
             </script>
 @endsection

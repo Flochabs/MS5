@@ -17,7 +17,7 @@
                 <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                         <h2 class="text-white py-5">Prochain Match</h2>
                         <span class="d-flex" id="countdown"></span>
-{{--                    <div class="d-none" id="MatchDateTime">{{$userNextMatch->start_at}}</div>--}}
+                    <div class="d-none" id="MatchDateTime">{{$userNextMatchs->start_at}}</div>
                 </div>
 
                 <div class="row justify-content-center no-gutters my-5">

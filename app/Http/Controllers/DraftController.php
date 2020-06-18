@@ -32,7 +32,7 @@ class DraftController extends Controller
 
         //league à laquelle appartient l'utilisateur qui fait sa draft
         $userLeagueId = $user->team->league_id;
-
+        
 
         // $team récupère l'équipe de l'utilisateur
         $team = Team::where('user_id', $user->id)->first();
@@ -238,7 +238,6 @@ class DraftController extends Controller
         foreach ($leagueTeams as $teams) {
             $teamsInLeagueId[] = $teams->id;
         }
-
 
         //recuperer l'équipe de l'utilisateur qui enregistre l'enchère
         $team = Team::where('user_id', $user->id)->get()->first();;

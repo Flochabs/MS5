@@ -88,7 +88,11 @@ class DashboardController extends Controller
             //----------------------------------  RECUPERATION DONNES DU  PROCHAIN  MATCH --------------------------------//
 
             // $userNextMatchs récupère le prochain matchs jouer par l'utilisateur dans match
-            $userNextMatchs = Match::whereNull('home_team_score')->where('league_id', $userLeagueId)->orderBy('start_at','asc')->first();
+                $userNextMatchs  = Match::whereNull('home_team_score')->where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
+                    ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
+                    ->orderBy('start_at','asc')
+                    ->get()
+                    ->first();
 
             if($userNextMatchs != null)
             {
@@ -170,7 +174,8 @@ class DashboardController extends Controller
             ->with('userHomeLastMatch', $userHomeLastMatch)
             ->with('awayTeamLastMatch', $awayTeamLastMatch)
             ->with('userAwayLastMatch', $userAwayLastMatch)
-            ->with('userLastMatch', $userLastMatch);
+            ->with('userLastMatch', $userLastMatch)
+            ->with('userNextMatchs', $userNextMatchs);
 
             };
 
