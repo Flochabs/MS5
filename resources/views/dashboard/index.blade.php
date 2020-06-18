@@ -17,12 +17,7 @@
                 <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                         <h2 class="text-white py-5">Prochain Match</h2>
                         <span class="d-flex" id="countdown"></span>
-                        <div class="col-12 d-flex">
-                                <p class="pl-5"><b>Jours</b></p>
-                                <p class="pl-5"><b>Heures</b></p>
-                                <p class="pl-5"><b>Minutes</b></p>
-                                <p class="pl-5"><b>Secondes</b></p>
-                        </div>
+                    {{--<div class="d-none" id="MatchDateTime">{{$userNextMatch->start_at}}</div>--}}
                 </div>
 
                 <div class="row justify-content-center no-gutters my-5">
@@ -237,7 +232,7 @@
 
             el.className = 'flip-clock__piece';
             el.innerHTML = '<b class="flip-clock__card cardcountdown"><b class="card__top"></b><b class="card__bottom"></b>' +
-                '<b class="card__back"><b class="card__bottom"></b></b></b>';
+                '<b class="card__back"><b class="card__bottom"></b></b></b>' + '<span class="flip-clock__slot">' + label + '</span>';
 
             this.el = el;
 
@@ -273,10 +268,10 @@
             var t = Date.parse(endtime) - Date.parse(new Date());
             return {
                 'Total': t,
-                'Days': Math.floor(t / (1000 * 60 * 60 * 24)),
-                'Hours': Math.floor((t / (1000 * 60 * 60)) % 24),
+                'Jours': Math.floor(t / (1000 * 60 * 60 * 24)),
+                'Heures': Math.floor((t / (1000 * 60 * 60)) % 24),
                 'Minutes': Math.floor((t / 1000 / 60) % 60),
-                'Seconds': Math.floor((t / 1000) % 60)
+                'Secondes': Math.floor((t / 1000) % 60)
             };
         }
 
@@ -332,7 +327,8 @@
             setTimeout(updateClock, 500);
         }
 
-        var deadline = new Date(Date.parse(new Date()) + 12 * 24 * 60 * 60 * 1000);
+        var matchDate = document.querySelector('#MatchDateTime').textContent;
+        var deadline = new Date(matchDate);
         var c = new Clock(deadline, function () {
             alert('countdown complete')
         });
