@@ -23,7 +23,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
+    <nav class="navbar navbar-expand-md bg-primary shadow-sm">
         <div class="container">
             <span>
                 <a href="{{ url('/') }}">
@@ -32,7 +32,7 @@
             </span>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-expanded="false" aria-controls="navbarSupportedContent"
                     aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,12 +47,12 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                        <li class="nav-item bouton-connexion">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                        <li class="nav-item">
+                            <a class="nav-link bouton-connexion" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                         </li>
                         @if (Route::has('register'))
-                            <li class="nav-item bouton-connexion ml-2">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
+                            <li class="nav-item ml-2">
+                                <a class="nav-link bouton-inscription" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                             </li>
                         @endif
                     @else
@@ -86,29 +86,20 @@
     </main>
 
     <footer>
-        <div class="container pt-5">
+        <div class="container">
             <div class="row">
-                <div class="col-md-4 p-1">
-                    <p class="tertiary">LE SITE</p>
-                    <p><a class="text-white" href="#">A propos de nous</a></p>
-                    <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
-                    <p><a class="text-white" href="#">Mention Légale</a></p>
-                    <p><a class="text-white" href="#"></a></p>
-                </div>
-
-                <div class="col-md-4 p-1">
-                    <p class="tertiary">RESSOURCES</p>
-                    <p><a class="text-white" href="#">Centre d'aide</a></p>
-                    <p><a class="text-white" href="#">Notre blog</a></p>
-                    <p><a class="text-white" href="#">Histoire de clients</a></p>
-                    <p><a class="text-white" href="#">Notre PayPal</a></p>
-                </div>
-
-                <div class="col-md-4 p-1">
+                <div class="col-12 d-flex justify-content-center p-1">
                     <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
+
                 </div>
             </div>
             <div class="container-fluid py-4">
+                <div class="row">
+                    <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
+                    <p><a class="text-white ml-3" href="#">Mentions Légales</a></p>
+
+                </div>
+
                 <hr class="white">
             </div>
 

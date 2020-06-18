@@ -8,12 +8,17 @@
             <div class="col-md-6">
                 <img class="w-100" src="{{asset('storage/images/image_tutos.jpg')}}" alt="photo">
             </div>
-            <div class="col-md-6 d-flex flex-column  pl-5 pt-5">
-                <h4 class="tertiary p-2">Les tutos de M. MVP</h4>
+            <div class="col-md-6 d-flex justify-content-center flex-column  pl-5">
+                <h4 class="quaternary p-2">Les tutos de M. MVP</h4>
                 <h1 class="pl-2 text-white">D'ACCORD, <br> MAIS ÇA FONCTIONNE COMMENT ?</h1>
-                <h4 class="tertiary p-2">° Découvrez les règles en 5 minutes chrono</h4>
-                <p class="pl-2 text-white">Explication de l'application, texte à définir.</p>
-                <p><a class="tertiary p-2" href="#">Lire la suite</a></p>
+                <h4 class="quaternary p-2">° Découvres les règles en 5 minutes chrono</h4>
+                <p class="pl-2 text-white">MyStarting5 est une fantasy league basée sur la NBA. <br>
+                    Retrouves tous tes joueurs favoris, recrutes les pour former ta propre
+                    <b class="quaternary">DREAM TEAM</b>
+                    et défis/es la team de tes potes ! <br>
+                    Les stats réels des joueurs sont prisent en compte pour calculer le score des match alors fais
+                    les bons choix ! <br>
+                    Une lutte sans merci commence jusqu'au titre de champion de <b class="quaternary">MS5</b>.</p>
             </div>
         </div>
     </div>
@@ -23,7 +28,7 @@
 
         <div class="row no-gutters">
             <div class="col-md-12 text-center pt-5">
-                <h2>Créez votre ligue, invitez vos potes <b>et marchez leur dessus !</b></h2>
+                <h2>Crées ta ligue, invites tes potes <b class="quaternary">et marches leur dessus !</b></h2>
             </div>
         </div>
 
@@ -33,41 +38,38 @@
             <div class="row no-gutters">
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_joueur.png')}}" alt="joueur">
-                    <h5 class="py-2"><b>+ de 5000 joueurs MS5</b></h5>
-                    <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !
-                        Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !</p>
+                    <h5 class="py-2"><b>+ de <span class="quaternary">5000</span> joueurs MS5</b></h5>
+                    <p>Une communauté de plus en plus grande se forme, <b class="quaternary">rejoins-nous</b>
+                        pour défier tes amis/es et prouver que tu es le <b class="quaternary">meilleur coach</b>. <br>
+                        Plus on est de fou, plus on rit !</p>
                 </div>
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_league.png')}}" alt="panier">
-                    <h5 class="py-2"><b>125 ligues crées</b></h5>
-                    <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !
-                        Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !</p>
+                    <h5 class="py-2"><b><span class="quaternary">125</span> ligues crées</b></h5>
+                    <p>Deux systèmes s'offre à toi. Les <b class="quaternary">ligues publiques</b> pour jouer contre
+                        la communauté MS5, les <b class="quaternary">ligues privées</b> pour défier des joueurs
+                        aléatoires.</p>
                 </div>
                 <div class="col-md-3 text-center p-3">
                     <img src="{{asset('storage/images/picto_teams.png')}}" alt="maillot">
-                    <h5 class="py-2"><b>800 équipes crées</b></h5>
-                    <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !
-                        Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !</p>
+                    <h5 class="py-2"><b><span class="quaternary">800</span> équipes crées</b></h5>
+                    <p>Du rapide <b class="quaternary">meneur</b> en passant par les adroits
+                        <b class="quaternary">arrière</b>pour finir par les puissants
+                        <b class="quaternary">pivots</b> composes ton
+                        <b class="quaternary">roster de rêve</b> pour dominer ta ligue et écraser tout le monde !</p>
                 </div>
                 <div class="col-md-3 text-center p-3">
                     <img style="height: 75px; width: 75px;" src="{{asset('storage/images/terrain.jpeg')}}"
                          alt="terrain">
-                    <h5 class="py-2"><b>10 000 matchs joués</b></h5>
-                    <p>Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !
-                        Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à définir ! Du texte à
-                        définir !</p>
+                    <h5 class="py-2"><b><span class="quaternary">10 000</span> matchs joués</b></h5>
+                    <p>Tous les matchs de la <b class="quaternary">NBA</b> diputés sont récupérer, les
+                        <b class="quaternary">stats</b> de chaques match sont utilisées pour
+                        <b class="quaternary">calculer</b> le résultat des rencontres. </p>
                 </div>
 
             </div>
             <div class="row no-gutters justify-content-center p-5">
-                <button class="bouton-inscription">Rejoins-nous</button>
+                <a class="nav-link bouton-inscription" href="{{ route('register') }}">{{ __('Rejoins-nous !') }}</a>
             </div>
 
         </div>
@@ -78,14 +80,11 @@
     <div class="container-fluid bg-jersey tutoimg ">
         <div class="row h-100 align-items-md-center">
             <div class="col-md-6 offset-md-6">
-                <p class="quaternary py-2">Les Tuto de Mr.MVP</p>
+                <p class="quaternary py-2"><b>Les Tuto de Mr.MVP</b></p>
                 <h1 class="text-white py-2">Créer une équipe équilibrée</h1>
-                <p class="text-white py-2 overflow-auto w-50">Texte à définir ! Texte à définir !Texte à définir !
-                    Texte à définir !Texte à définir !Texte à définir ! Texte à définir ! Texte à définir ! Texte à
-                    définir !
-                    Texte à définir ! Texte à définir ! Texte à définir ! Texte à définir ! Texte à définir ! Texte à
-                    définir !
-                    Texte à définir ! Texte à définir !</p>
+                <p class="text-white py-2 overflow-auto w-50">Suis les conseils de <b class="quaternary">Mr.MVP</b>
+                    à la lettre pour être sur d'avoir toutes les cartes en main pour <b class="quaternary">écraser</b>
+                    tes adversaires et rouler jusqu'au titre de <b class="quaternary">champion</b>.</p>
                 <button class="bouton-inscription my-4">Lire l'article complet</button>
             </div>
         </div>

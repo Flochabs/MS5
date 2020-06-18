@@ -33,9 +33,9 @@
                 <div class="banner justify-content-center h-100 w-100">
                     <div class="container">
                         <div class="row no-gutters justify-content-end py-5">
-                            <i class="fab fa-instagram fa-2x icon text-center pt-1 m-2"></i>
-                            <i class="fab fa-facebook fa-2x icon text-center pt-1 m-2"></i>
-                            <i class="fab fa-twitter fa-2x icon text-center pt-1 m-2"></i>
+                            <a class="text-dark" href="https://www.instagram.com/nbafra/"><i class="fab fa-instagram fa-2x icon text-center pt-1 m-2"></i></a>
+                            <a class="text-dark" href="https://www.facebook.com/NBAFrance"><i class="fab fa-facebook fa-2x icon text-center pt-1 m-2"></i></a>
+                            <a class="text-dark" href="https://twitter.com/starting5fr"><i class="fab fa-twitter fa-2x icon text-center pt-1 m-2"></i></a>
                         </div>
                         <div class="row no-gutters justify-content-center py-4">
                             <div class="col-md-12">
@@ -66,27 +66,18 @@
     <footer>
         <div class="container pt-5">
             <div class="row">
-                <div class="col-md-4 p-1">
-                    <p class="tertiary">LE SITE</p>
-                    <p><a class="text-white" href="#">A propos de nous</a></p>
-                    <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
-                    <p><a class="text-white" href="#">Mention Légale</a></p>
-                    <p><a class="text-white" href="#"></a></p>
-                </div>
-
-                <div class="col-md-4 p-1">
-                    <p class="tertiary">RESSOURCES</p>
-                    <p><a class="text-white" href="#">Centre d'aide</a></p>
-                    <p><a class="text-white" href="#">Notre blog</a></p>
-                    <p><a class="text-white" href="#">Histoire de clients</a></p>
-                    <p><a class="text-white" href="#">Notre PayPal</a></p>
-                </div>
-
-                <div class="col-md-4 p-1">
+                <div class="col-12 d-flex justify-content-center p-1">
                     <img class="logo-footer" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
+
                 </div>
             </div>
             <div class="container-fluid py-4">
+                <div class="row">
+                    <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
+                    <p><a class="text-white ml-3" href="#">Mentions Légales</a></p>
+
+                </div>
+
                 <hr class="white">
             </div>
 

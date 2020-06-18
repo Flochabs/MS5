@@ -1,6 +1,5 @@
 .logo-header {
-  max-height: 25%;
-  max-width: 25%;
+  width: 50%;
 }
 
 footer {
@@ -8,12 +7,11 @@ footer {
 }
 
 .logo-footer {
-  max-height: 75%;
-  max-width: 75%;
+  width: 200px;
 }
 
 .pb-connexion {
-  padding-bottom: 7.7rem;
+  padding-bottom: 6.1rem;
 }
 
 .banner {
@@ -369,7 +367,6 @@ a {
 
 a:hover {
   text-decoration: none;
-  color: #000;
 }
 
 p {
@@ -380,32 +377,26 @@ p {
 
 h1 {
   font-family: Mudhead-Serif, sans-serif;
-  color: #eb671b;
 }
 
 h2 {
   font-family: Mudhead-Serif, sans-serif;
-  color: #eb671b;
 }
 
 h3 {
   font-family: Mudhead-Serif, sans-serif;
-  color: #eb671b;
 }
 
 h4 {
   font-family: Mudhead-Serif, sans-serif;
-  color: #eb671b;
 }
 
 h5 {
   font-family: Mudhead-Serif, sans-serif;
-  color: #eb671b;
 }
 
 h6 {
   font-family: Mudhead-Serif, sans-serif;
-  color: #eb671b;
 }
 
 hr {
