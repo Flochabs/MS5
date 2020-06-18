@@ -53,7 +53,6 @@ Route::prefix( 'draft' )
     } );
 
 // Routes concernant l'affichage du dashboard
-
         Route::resource( 'dashboard', 'DashboardController' )->Middleware('auth');
         Route::get('profile/{id}', 'DashboardController@profile')->name('dashboard.profile')->Middleware('auth');
         Route::get('match_result', 'DashboardController@match_result')->name('dashboard.match_result')->Middleware('auth');
