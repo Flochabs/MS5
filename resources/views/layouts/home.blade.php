@@ -66,7 +66,7 @@
     <footer>
         <div class="container pt-5">
             <div class="row">
-                <div class="col-md-4. p-1">
+                <div class="col-md-4 p-1">
                     <p class="tertiary">LE SITE</p>
                     <p><a class="text-white" href="{{ route('contact') }}">Contact</a></p>
                     <p><a class="text-white" href="#">Mentions Légales</a></p>
