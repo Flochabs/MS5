@@ -22,6 +22,9 @@ class DashboardController extends Controller
         // récupération des données users
         $user = Auth::user();
 
+        // Twitterfeed de l'équipe favorite de l'utilisateur
+        $userTwitterFeed = $user->nbaTeams;
+
         // league à laquelle appartient l'utilisateur
         $userLeagueId = $user->team->league_id;
         //dd($userLeagueId);
@@ -138,6 +141,7 @@ class DashboardController extends Controller
 
         return view('dashboard.index')
             ->with('user', $user)
+            ->with('userTwitterFeed', $userTwitterFeed)
             ->with('userPlayersTeam',  $userPlayersTeam)
             ->with('homeTeamNextMatch', $homeTeamNextMatch)
             ->with('userHomeNextMatch', $userHomeNextMatch)
