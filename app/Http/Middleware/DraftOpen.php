@@ -19,14 +19,15 @@ class DraftOpen
     {
         // récupération des infos sur la liguqe de l'utilisateur pour savoir quand la draft prend fin
         if($request->user()) {
-            if($request->user()->league->id){
 
+            if($request->user()->leagues[0]->id){
                 if($request->user()->team){
 
-                    $leagueId = $request->user()->league->id;
+                    $leagueId = $request->user()->leagues[0]->id;
+
                     $draft = Draft::where('league_id', $leagueId)->first();
                     $draftEnds = $draft->is_over;
-                    if($request->user()->league->isActive === 1 && $draftEnds === 0 ) {
+                    if($request->user()->leagues[0]->isActive === 1 && $draftEnds === 0 ) {
 
                         return $next($request);
                     }

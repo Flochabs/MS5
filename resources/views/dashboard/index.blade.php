@@ -351,7 +351,7 @@
         var matchDate = document.querySelector('#MatchDateTime').textContent;
         var deadline = new Date(matchDate);
         var c = new Clock(deadline, function () {
-            alert('countdown complete')
+            //alert('countdown complete')
         });
         document.getElementById('countdown').appendChild(c.el);
         var clock = new Clock();

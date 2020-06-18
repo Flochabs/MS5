@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Register;
+use App\Model\Draft;
 use App\Model\League;
 use App\Model\Match;
 use App\Model\Team;
@@ -169,11 +170,20 @@ class LeagueController extends Controller
     public function update(Request $request, $id)
     {
         $data = League::find($id);
-        if($data->number_teams === $data->users->count()){
+
+        //if($data->number_teams === $data->users->count()){
             if ($data->users->count()% 2 == 0){
 
                 $data->isActive = $request->isActive;
                 $data->save();
+
+                //enregistrement du début de la draft avec heure de fin
+                $draftStart = now()->addDay();
+                $draft = new Draft();
+                $draft->league_id = $data->id;
+                $draft->is_over = 0;
+                $draft->ends_at = $draftStart->format('Y-m-d 20:00:00');
+                $draft->save();
 
                 //Récupération des emails des membres de la league
                 $userEmails = [];
@@ -198,9 +208,9 @@ class LeagueController extends Controller
             } else{
 
             }
-        }else{
-            return redirect(route('leagues.show', $id))->withErrors('Tous les joueurs n\'ont pas créé leur équipe !');
-        }
+       // }else{
+        //    return redirect(route('leagues.show', $id))->withErrors('Tous les joueurs n\'ont pas créé leur équipe !');
+       // }
 
     }
 

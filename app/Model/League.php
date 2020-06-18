@@ -29,4 +29,9 @@ class League extends Model
     public function teams() {
         return $this->hasMany('App\Model\Team');
     }
+
+    public function draft()
+    {
+        return $this->hasOne(Draft::class);
+    }
 }

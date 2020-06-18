@@ -11,7 +11,6 @@ use App\Model\Player;
 use App\Model\Team;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use ScheduleBuilder;
 
 class GenerateMatchesCalender extends Command
 {
@@ -35,14 +34,33 @@ class GenerateMatchesCalender extends Command
                 $matches = [];
 
                 $allTeams = Team::where('league_id',$draft->league_id)->orderBy('id')->get();
-                $allTeamsIDs = [];
+                $teams = [];
                 foreach ($allTeams as $teamid) {
-                    $allTeamsIDs[] = $teamid->id;
+                    $teams[] = $teamid->id;
                 }
 
-                $rounds = (($count = count($allTeamsIDs)) % 2 === 0 ? $count - 1 : $count) * 2;
-                $scheduleBuilder = new ScheduleBuilder($allTeamsIDs, $rounds);
-                $scheduleGames = $scheduleBuilder->build();
+                $teamCount = count($teams);
+                $byeTeam = -1;
+                $rounds = ['guest' => [], 'visitor' => []];
+                if ($teamCount % 2 === 1) {
+                    $teams[] = $byeTeam;
+                    ++$teamCount;
+                }
+                for ($round = 0; $round < $teamCount - 1; ++$round) {
+                    $rounds['guest'][$round] = [];
+                    $rounds['visitor'][$round] = [];
+                    for ($i = 0; $i < $teamCount / 2; ++$i) {
+                        if ($teams[$i] !== $byeTeam && $teams[$teamCount - 1 - $i] !== $byeTeam) {
+                            $rounds['guest'][$round][] = [$teams[$i], $teams[$teamCount - 1 - $i]];
+                            $rounds['visitor'][$round][] = [$teams[$teamCount - 1 - $i], $teams[$i]];
+                        }
+                    }
+                    array_splice($teams, 1, 0, array_pop($teams));
+                }
+                $scheduleGames = $rounds['guest'];
+                array_push($scheduleGames, ...$rounds['visitor']);
+                shuffle($scheduleGames);
+
 
                 $i = 0;
                 foreach ($scheduleGames as $scheduleGame) {
@@ -68,55 +86,6 @@ class GenerateMatchesCalender extends Command
                     }
                     $i++;
                 }
-//                $allMatches = Match::where('league_id',$draft->league_id)->get();
-////                $matchUpdatedAway = [];
-////                $matchUpdatedHome = [];
-//                $matchTime = now()->addDay();
-//                $matchUpdated = [];
-//                $i = 0 ;
-//                $gamesPerWeek = $allTeams->count()/2;
-//
-//                foreach ($allMatches as $match) {
-//                    $match->start_at = $matchTime->format('Y-m-d 20:00:00');
-//                    $match->save();
-//                    $allMatches2 = Match::where('league_id',$draft->league_id)
-//                        ->where(function($query) use($match){
-//                            $query->where(function($subQuery) use($match){
-//                                $subQuery->where('home_team_id','!=', $match->home_team_id)
-//                                    ->where('away_team_id','!=', $match->home_team_id);
-//                            })
-//                            ->where(function($subQuery) use($match){
-//                                $subQuery->where('home_team_id','!=', $match->away_team_id)
-//                                    ->where('away_team_id','!=', $match->away_team_id);
-//                            });
-//                        })
-//                        ->whereNull('start_at')->get();
-//                    if($gamesPerWeek === 0){
-//                        //dd($matchUpdated);
-//                        $matchTime = $matchTime->addWeek();
-//                        $gamesPerWeek = $allTeams->count()/2;
-//                        $matchUpdated = [];
-//                    }
-//                    foreach ($allMatches2 as $match2) {
-//                        if(!$match2->start_at){
-//                            $match2->start_at = $matchTime->format('Y-m-d 20:00:00');
-//                            $match2->save();
-//                        }
-//
-//                        //$matchUpdatedHome[$match->home_team_id] = $match->away_team_id;
-//                        //$matchUpdatedAway[$match->away_team_id] = $match->home_team_id;
-//                        //if(!in_array($match->home_team_id, $matchUpdated, true)
-//                            //&& !in_array($match->away_team_id, $matchUpdated, true)){
-////                            $matchUpdated[] = $match->home_team_id;
-////                            $matchUpdated[] = $match->away_team_id;
-//
-//                        //}
-//
-//                    }
-//
-//                $i++;
-//                $gamesPerWeek--;
-//                }
             }
         }
     }
