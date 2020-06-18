@@ -67,7 +67,7 @@
 
             </div>
             <div class="row no-gutters justify-content-center p-5">
-                <button class="bouton-inscription">Rejoins-nous</button>
+                <a class="nav-link bouton-inscription" href="{{ route('register') }}">{{ __('Rejoins-nous !') }}</a>
             </div>
 
         </div>

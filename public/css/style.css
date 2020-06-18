@@ -162,8 +162,11 @@ footer {
   font-size: 1.2rem;
 }
 
+<<<<<<< HEAD
 
 body,
+=======
+>>>>>>> verification_site
 html {
   height: 100%;
 }
@@ -355,7 +358,11 @@ html {
 }
 
 .radius25 {
+<<<<<<< HEAD
     border-radius: 25px;
+=======
+  border-radius: 25px;
+>>>>>>> verification_site
 }
 
 .bg-card-title {
@@ -396,6 +403,7 @@ html {
 }
 
 #next-game-coaching .btn-quaternary:hover {
+<<<<<<< HEAD
     background-color: #eb671b;
 }
 /***********************************************Première section du tuto***********************************************/
@@ -463,6 +471,9 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+=======
+  background-color: #eb671b;
+>>>>>>> verification_site
 }
 
 @font-face {
