@@ -29,7 +29,7 @@ class GenerateMatchesCalender extends Command
             if($draft->is_over === 0 && $limitTime <= now()) {
 
                 // booléen bought pour enregistrer la draft comme terminée
-                //$draft->update(['is_over' => 1]);
+                $draft->update(['is_over' => 1]);
 
                 //récupérer tous les ID des équipes présentes dans la ligue
                 $matches = [];
