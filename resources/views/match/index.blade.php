@@ -88,11 +88,6 @@
                 <div class>
                     <table id="compo-table">
                         <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                        </tr>
                         </thead>
                         <tbody id="tableBody">
                         @foreach($playersSelected as $playerSelected)
@@ -113,6 +108,14 @@
                             @endphp
 
                         <tr>
+                            <td>
+                                <form method="GET" class="col-12">
+                                    @method('GET')
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary rounded-circle delete-btn" value="{{$playerSelected->id}}">X
+                                    </button>
+                                </form>
+                            <td>
                             <td width="30%">
                                 <img
                                     src="https://nba-players.herokuapp.com/players/{{$playerDatas->ln}}/{{$playerDatas->fn}}"
@@ -152,76 +155,119 @@
                     // on récupère les valeurs
                     let player = button.value;
 
-                    if (window.fetch) {
-                        // exécuter ma requête fetch ici
-                        // @link : https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch
-                        let myInit = {
-                            method: 'POST',
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json, text-plain, */*",
-                                "X-Requested-With": "XMLHttpRequest",
-                                // Ici je redonne le token ) mon en-tête
-                                // sinon j'aurai une erreur Laravel
-                                "X-CSRF-TOKEN": token,
-                            },
-                            // dans body je transmet mes données que j'encode en JSON
-                            body: JSON.stringify({
-                                player: player,
-                            })
+                        if (window.fetch) {
+                            // exécuter ma requête fetch ici
+                            // @link : https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch
+                            //si je clique sur le un bouton delete j'envoie une requête sinon j'envoie l'autre requete par défaut
+                            if(button.classList.contains('delete-btn')) {
+                                const url = '{{route('match.delete.player', ['id' => $playerSelected->id])}}';
+                                console.log(url);
+                                let myInit = {
+                                    method: 'GET',
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Accept": "application/json, text-plain, */*",
+                                        "X-Requested-With": "XMLHttpRequest",
+                                        // Ici je redonne le token ) mon en-tête
+                                        // sinon j'aurai une erreur Laravel
+                                        "X-CSRF-TOKEN": token,
+                                    },
+
+
+                                };
+                                fetch(url, myInit)
+                                    .then(function (response) {
+                                        // Je vérifie que j'ai bien un retour code : 200
+                                        if (response.ok) {
+                                            // Si c'est ok je capte la réponse
+                                            // je la transforme transform en json()
+                                            // puis je passe à la suite de mon script
+                                            // Il est obligatoire de passer en deux then() deux étapes
+                                            return response.json();
+                                        } else {
+                                            console.log('Mauvaise réponse du réseau');
+                                        }
+                                    })
+                                    .then(function (data) {
+                                        // Une fois que j'ai passé le test je récupère les informations
+                                        // Je vide toujours les erreurs au chargement
+
+                                    })
+                                    .catch(function (error) {
+                                        // Ici l'erreur si le fetch n'a pas pu fonctionner
+                                        console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+                                    });
+
+
+                            } else {
+                                let myInit = {
+                                    method: 'POST',
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Accept": "application/json, text-plain, */*",
+                                        "X-Requested-With": "XMLHttpRequest",
+                                        // Ici je redonne le token ) mon en-tête
+                                        // sinon j'aurai une erreur Laravel
+                                        "X-CSRF-TOKEN": token,
+                                    },
+                                    // dans body je transmet mes données que j'encode en JSON
+                                    body: JSON.stringify({
+                                        player: player,
+                                    })
+                                };
+
+                            fetch('', myInit)
+                                .then(function (response) {
+                                    // Je vérifie que j'ai bien un retour code : 200
+                                    if (response.ok) {
+                                        // Si c'est ok je capte la réponse
+                                        // je la transforme transform en json()
+                                        // puis je passe à la suite de mon script
+                                        // Il est obligatoire de passer en deux then() deux étapes
+                                        return response.json();
+                                    } else {
+                                        console.log('Mauvaise réponse du réseau');
+                                    }
+                                })
+                                .then(function (data) {
+                                    // Une fois que j'ai passé le test je récupère les informations
+                                    // Je vide toujours les erreurs au chargement
+                                    errorElement.textContent = '';
+                                    if (data[0] === 'Errors') {
+                                        newError(data);
+                                    } else {
+                                        // Si je n'ai pas d'erreur je lance ma fonction
+                                        newTab(data);
+
+                                    }
+                                })
+                                .catch(function (error) {
+                                    // Ici l'erreur si le fetch n'a pas pu fonctionner
+                                    console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+                                });
+                        } // Fin de Fetch
+
+                        let newTab = function(data) {
+
+                            errorElement.classList.add('d-none');
+                            table.insertAdjacentHTML('beforeend',
+                                '<tr>' +
+                                '<th scope="row">' +  '<img src="https://nba-players.herokuapp.com/players/' + data.lastname + "/" + data.name + '"' + ' class="w-25 rounded-circle pr-1">' + '</th>' +
+                                '<td>' + data.name + '</td>' +
+                                '<td>' + data.lastname + '</td>' +
+                                '<td>' + data.position + '</td>' +
+                                '</tr>');
                         };
-
-                        fetch('', myInit)
-                            .then(function (response) {
-                                // Je vérifie que j'ai bien un retour code : 200
-                                if (response.ok) {
-                                    // Si c'est ok je capte la réponse
-                                    // je la transforme transform en json()
-                                    // puis je passe à la suite de mon script
-                                    // Il est obligatoire de passer en deux then() deux étapes
-                                    return response.json();
-                                } else {
-                                    console.log('Mauvaise réponse du réseau');
-                                }
-                            })
-                            .then(function (data) {
-                                // Une fois que j'ai passé le test je récupère les informations
-                                // Je vide toujours les erreurs au chargement
-                                errorElement.textContent = '';
-                                if (data[0] === 'Errors') {
-                                    newError(data);
-                                } else {
-                                    // Si je n'ai pas d'erreur je lance ma fonction
-                                    newTab(data);
-
-                                }
-                            })
-                            .catch(function (error) {
-                                // Ici l'erreur si le fetch n'a pas pu fonctionner
-                                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-                            });
-                    } // Fin de Fetch
-
-                    let newTab = function(data) {
-
-                        errorElement.classList.add('d-none');
-                        table.insertAdjacentHTML('beforeend',
-                            '<tr>' +
-                            '<th scope="row">' +  '<img src="https://nba-players.herokuapp.com/players/' + data.lastname + "/" + data.name + '"' + ' class="w-25 rounded-circle pr-1">' + '</th>' +
-                            '<td>' + data.name + '</td>' +
-                            '<td>' + data.lastname + '</td>' +
-                            '<td>' + data.position + '</td>' +
-                            '</tr>');
-                    };
-                    let newError = function(errors) {
-                        errorElement.textContent = '';
-                        errorElement.classList.remove('d-none');
-                        // Je fais volontairement passer le compteur à 1
-                        // Pour ne pas afficher le Errors juste les messages
-                        for (let i = 1; i < errors.length; i++) {
-                            errorElement.insertAdjacentHTML('beforeend', errors[i] + '<br>');
+                        let newError = function(errors) {
+                            errorElement.textContent = '';
+                            errorElement.classList.remove('d-none');
+                            // Je fais volontairement passer le compteur à 1
+                            // Pour ne pas afficher le Errors juste les messages
+                            for (let i = 1; i < errors.length; i++) {
+                                errorElement.insertAdjacentHTML('beforeend', errors[i] + '<br>');
+                            }
                         }
-                    };
+                    }
                 })); // Fin de l'écouteur
         })(); // Fin de mon script
         });
