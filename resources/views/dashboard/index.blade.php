@@ -12,9 +12,9 @@
 
     @if(isset($userPlayersTeam))
     <div class="container">
-        <div class="row no-gutters justify-content-center my-4">
+        <div class="row no-gutters justify-content-around mb-4">
 
-            <div class="col-md-5 MS5card p-0">
+            <div class="col-md-5 mt-4 MS5card p-0">
 
                 <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                         <h2 class="text-white py-5">Prochain Match</h2>
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5 p-0 ml-4">
+            <div class="col-md-5 p-0 mt-4">
                 <div class="row no-gutters">
                     <div class="col-12">
                         <div class="row no-gutters MS5card text-center">
@@ -150,9 +150,9 @@
 
     <div class="container">
 
-            <div class="row no-gutters justify-content-center my-4">
+            <div class="row no-gutters justify-content-around mb-4">
 
-                <div class="col-md-5 MS5card p-0">
+                <div class="col-md-5 MS5card mt-4 p-0">
                     <div class="row no-gutters">
                         <div class="col-12 text-center my-2">
                             <h2 class="text-white">Dernier Match</h2>
@@ -197,7 +197,7 @@
                     </div>
 
                     <div class="col-12">
-                        <table class="table table-bordered bg-card m-0">
+                        <table class="table table-bordered bg-card my-2">
                             <thead>
                             <tr class="text-center w-100">
                                 <th class="w-50">Domicile</th>
@@ -230,7 +230,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-5 ml-4 MS5card">
+                <div class="col-md-5 mt-4 MS5card">
                     @if($userTwitterFeed !== null)
                         <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
                             Tweets</a>
