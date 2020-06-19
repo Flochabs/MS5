@@ -7,6 +7,7 @@
             $headers=get_headers($url, 1);
             if ($headers[0]!='HTTP/1.1 200 OK') return false; else return true;
         }
+
     @endphp
 
     <div class="container text-white" id="next-game-coaching">
@@ -44,10 +45,14 @@
                     <tbody class="table-hover">
                     @foreach($userPlayersTeam as $player)
                         @php
-                            $playerStats = json_decode($player->data)->pl;
 
-                                $currentSeasonStats = $playerStats->ca->sa;
-                                $currentSeasonStats = last($currentSeasonStats);
+                            $playerStats = json_decode($player->data)->pl;
+                                if(isset($playerStats->ca->sa)) {
+                                   $currentSeasonStats = $playerStats->ca->sa;
+                                   $currentSeasonStats = last($currentSeasonStats);
+                                } else {
+                                    $currentSeasonStats = $playerStats->ca;
+                                }
 
                             $position  = substr($playerStats->pos, 0,1);
                             if($position === "G") {

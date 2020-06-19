@@ -36,7 +36,7 @@ class DraftController extends Controller
         //récupérer l'équipe favorite du joueur pour lui afficher le logo correspondant
         $userLogo ='storage/images/logos/' . $user->nbaTeams->name . '.png';
         if(!$userLogo) {
-            $userLogo ='storage/images/logos/' . $user->nbaTeams->name . '.png';
+            $userLogo ='storage/images/leagues_portal/picto_league_publique.png';
         }
 
         // $team récupère l'équipe de l'utilisateur
