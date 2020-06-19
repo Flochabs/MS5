@@ -1,13 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-    @php
-        //fonction pour vérifier que la réponse retournée par l'api image soit bien une photo
-        function check_304($url) {
-            $headers=get_headers($url, 1);
-            if ($headers[0]!='HTTP/1.1 200 OK') return false; else return true;
-        }
-    @endphp
 
     <div class="container text-white" id="next-game-coaching">
         <div class="row flex-column text-center bg-countdown no-gutters pb-5 mb-3">
@@ -44,10 +37,14 @@
                     <tbody class="table-hover">
                     @foreach($userPlayersTeam as $player)
                         @php
-                            $playerStats = json_decode($player->data)->pl;
 
-                                $currentSeasonStats = $playerStats->ca->sa;
-                                $currentSeasonStats = last($currentSeasonStats);
+                            $playerStats = json_decode($player->data)->pl;
+                                if(isset($playerStats->ca->sa)) {
+                                   $currentSeasonStats = $playerStats->ca->sa;
+                                   $currentSeasonStats = last($currentSeasonStats);
+                                } else {
+                                    $currentSeasonStats = $playerStats->ca;
+                                }
 
                             $position  = substr($playerStats->pos, 0,1);
                             if($position === "G") {

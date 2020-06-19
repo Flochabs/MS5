@@ -4,11 +4,13 @@
 namespace App\Http\Controllers;
 
 use App\Model\Auction;
+use App\Model\Draft;
 use App\Model\League;
 use App\Model\Player;
 use App\Model\Team;
 use App\Model\User;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +38,7 @@ class DraftController extends Controller
         //récupérer l'équipe favorite du joueur pour lui afficher le logo correspondant
         $userLogo ='storage/images/logos/' . $user->nbaTeams->name . '.png';
         if(!$userLogo) {
-            $userLogo ='storage/images/logos/' . $user->nbaTeams->name . '.png';
+            $userLogo ='storage/images/leagues_portal/picto_league_publique.png';
         }
 
         // $team récupère l'équipe de l'utilisateur
@@ -77,18 +79,9 @@ class DraftController extends Controller
 
 
 //------------- FILTRES AFFICHAGES JOUEURS NBA ---------------//
-        //Montrer/cacher les joueurs draftés
-        if (request()->has('hide')) {
-            // retourne les joueurs qui ne sont pas présents dans le tableau des joueurs draftés dans la ligue
-            $players = Player::whereNotIn('id', $notDisplayedPlayers)
-                ->where('price', '>', 1)
-                ->orderBy('price', 'desc')
-                ->get();
-        }
-
         // trier par prix //
         if (request()->has('order')) {
-            $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->simplePaginate(20);
+            $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->Paginate(20);
         }
 
         // trier par position  //
@@ -107,11 +100,11 @@ class DraftController extends Controller
             $players = Player::whereIn('id', $allPlayersFromPosition)
                 ->where('price', '>', 1)
                 ->orderBy('price', 'desc')
-                ->simplePaginate(20);
+                ->Paginate(20);
 
         }
         if (request()->has('position&order')) {
-            dd('test');
+
         }
 
 //----------- retourne toutes données relatives enchères en cours de l'utilisateur -------------------- //
@@ -145,6 +138,9 @@ class DraftController extends Controller
                 $guards[] = $draftedPlayer;
             }
         }
+        //fin de la draft
+        $draftEnd = Draft::where('league_id', $user->leagues[0]->id)->first()->ends_at;
+
 
 //-------------------------- INFORMATIONS RETOURNEE DANS LA VUE ---------------------------------- //
         return view('draft.index')
@@ -158,7 +154,8 @@ class DraftController extends Controller
             ->with('auctionPlayersId', $auctionPlayersId)
             ->with('auctionsOnPlayers', $auctionsOnPlayers)
             ->with('notDisplayedPlayers', $notDisplayedPlayers)
-            ->with('userLogo', $userLogo);
+            ->with('userLogo', $userLogo)
+            ->with('draftEnd',$draftEnd);
 
     }
 
@@ -321,7 +318,7 @@ class DraftController extends Controller
         }
 
         if(empty($isAlreadyDrafted) && $moneyAvailable >= $player->price
-            && $moneyAvailable >= $playerLatestAuction && $nbDraftedPlayers < 15 && $nbPosition < $limit) {
+            && $moneyAvailable >= $playerLatestAuction && $nbDraftedPlayers < 12 && $nbPosition < $limit) {
             $auctionTimeLimit = Carbon::parse(now())->addMinutes(2)->format('Y-m-d H:i:s');
 
             $data = [[
@@ -334,9 +331,22 @@ class DraftController extends Controller
             ]];
 
             Auction::insert($data);
-            return redirect()->back();
+            return back()->with('success', 'Enchère Enregistrée !');
+
         } else {
-            return redirect()->back();
+            if(!empty($isAlreadyDrafted)){
+                $message = 'Tu as déjà  drafté ce joueur !';
+            } elseif($moneyAvailable < $player->price) {
+                $message = 'Ce joueur est trop cher pour toi !';
+            }  elseif ($moneyAvailable < $playerLatestAuction) {
+                $message = 'Tu n\'as plus assez d\'argent !';
+            } elseif($nbDraftedPlayers >= 12) {
+                $message = 'Tu as déjà drafté 12 joueurs !';
+            } elseif ($nbPosition < $limit) {
+                $message = 'Tu as atteint ton nombre limite de joueurs pour ce poste !';
+            }
+
+            return back()->with('errors','Tu n\'as pas assez d\'argent !');
         }
     }
 
@@ -354,7 +364,7 @@ class DraftController extends Controller
         $team = Team::where('user_id', $user->id)->first();
         $team = $team->id;
         Auction::where([['player_id',$id], ['team_id', $team]])->delete();
-        return back();
+        return back()->with('success', 'Enchère Supprimée !');
     }
     /**
      * Met à jour l'enchère de l'utilisateur sur le joueur sélectionné
@@ -487,9 +497,9 @@ class DraftController extends Controller
         if(empty($isAlreadyDrafted) && $auctionUpdateDelta <= $moneyAvailable && $nbDraftedPlayers < 15 && $nbPosition < $limit && $auctionValue > $player->price) {
             $auctionTimeLimit = Carbon::parse(now())->addMinutes(1)->format('Y-m-d H:i:s');
             Auction::where([['player_id',$id], ['team_id', $team->id]])->update(['auction' => $auctionValue,'auction_time_limit' => $auctionTimeLimit ]);
-            return back();
+            return back()->with('succes', 'Enchère Enregistrée !');
         }
-        return back();
+        return back()->with('errors','Tu n\'as pas assez d\'argent !');
     }
 
 
