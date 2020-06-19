@@ -60,6 +60,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{$i = 1}}
                 @foreach($league->users as $user)
                     <tr>
                         <td>{{$user->pseudo}}</td>
@@ -78,6 +79,7 @@
                         </td>
                         <td>
                             @if($league->isActive === 1)
+                                {{$i++}}
                             @else
                                 draft en cours
                             @endif

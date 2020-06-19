@@ -47,7 +47,7 @@
 
                     <li class="nav-item ">
                         <a class="nav-link bouton-header"
-                           href="{{ ('tutoMS5') }}">{{ __('Tuto') }}</a>
+                           href="{{ ('tuto') }}">{{ __('Tuto') }}</a>
                     </li>
 
 

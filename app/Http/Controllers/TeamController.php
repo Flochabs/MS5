@@ -31,14 +31,35 @@ class TeamController extends Controller
      */
     public function create()
     {
-        $nbaTeams = Nbateam::all();
-        return view('teams.create')->with('nbaTeams', $nbaTeams);
+        $user = Auth::user();
+        $userId = $user->id;
+        $userLeague = DB::table('league_user')
+            ->leftjoin('leagues', 'leagues.id', '=', 'league_user.league_id')
+            ->where('league_user.user_id', $userId)
+            ->exists();
+        //Vérification si l'utilisateur a une league
+        if($userLeague === true){
+            $userGetLeague = DB::table('league_user')
+                ->leftjoin('leagues', 'leagues.id', '=', 'league_user.league_id')
+                ->where('league_user.user_id', $userId)
+                ->first();
+            $userLeagueId = $userGetLeague->id;
+            //Vérification du nombre d'équipes associées à l'utilisateur
+            if ($hasTeam = $user->team()->exists()) {
+                return redirect()->route('leagues.show', $userLeagueId)->withErrors('Tu as déjà une team !');
+            } else {
+                $nbaTeams = Nbateam::all();
+                return view('teams.create')->with('nbaTeams', $nbaTeams);
+            }
+        }else{
+            return redirect()->route('leagues.index')->withErrors('Tu dois d\'abord rejoindre ou créer une league !');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -59,11 +80,10 @@ class TeamController extends Controller
             $user = Auth::user();
 
 
-
             $values = $request->all();
             $rules = [
-                'name'             => 'string|required|max:30|unique:teams',
-                'stadium_name'     => 'string|required|max:30|unique:teams',
+                'name' => 'string|required|max:30|unique:teams',
+                'stadium_name' => 'string|required|max:30|unique:teams',
 //            'public'           => 'integer|required',
             ];
             // Vérification de la validité des informations transmises par l'utilisateur
@@ -84,18 +104,18 @@ class TeamController extends Controller
             }
             // Création de la nouvelle league avec les informations transmises
             $newTeam = new Team();
-            $newTeam->user_id         = $user->id;
-            $newTeam->league_id       = $userLeagueId;
-            $newTeam->name            = $values['name'];
-            $newTeam->stadium_name    = $values['stadium_name'];
+            $newTeam->user_id = $user->id;
+            $newTeam->league_id = $userLeagueId;
+            $newTeam->name = $values['name'];
+            $newTeam->stadium_name = $values['stadium_name'];
 //        $newTeam->public          = $publicLeague;
 
             $newTeam->save();
 
             $id = $newTeam->id;
-            if($userLeague->isActive === 1){
+            if ($userLeague->isActive === 1) {
                 return redirect()->route('draft.index')->with('success', 'La team a bien été créée.');
-            }else{
+            } else {
                 return redirect()->route('leagues.show', $userLeagueId)->with('success', 'L\'équipe a bien été créée.');
                 return redirect()->route('leagues.show', $userLeagueId)->with('success', 'L\'équipe a bien été créée.');
             }
@@ -105,7 +125,7 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Team $team)
@@ -120,13 +140,13 @@ class TeamController extends Controller
         $userTeam = Team::where('user_id', $user->id)->first();
 
         // $userLastMatch récupère le dernier match jouer par l'utilisateur dans match
-        $userLastMatch  = Match::where(function ($query) use($userLeagueId,$userTeam) {
-            $query->where(['league_id' => $userLeagueId , 'away_team_id' => $userTeam->id])
+        $userLastMatch = Match::where(function ($query) use ($userLeagueId, $userTeam) {
+            $query->where(['league_id' => $userLeagueId, 'away_team_id' => $userTeam->id])
                 ->orwhere(['league_id' => $userLeagueId, 'home_team_id' => $userTeam->id]);
         })
             ->whereNotNull('home_team_score')
             ->whereNotNull('away_team_id')
-            ->orderBy('start_at','desc')
+            ->orderBy('start_at', 'desc')
             ->first();
 
         // Récupère tous les joeurs du dernier du matchs
@@ -143,7 +163,7 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -154,8 +174,8 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -166,7 +186,7 @@ class TeamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

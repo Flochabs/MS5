@@ -72,7 +72,7 @@ Route::prefix( 'match' )
     } );
 
 //Route pour la page tuto
-Route::get( '/tuto', function () {
+Route::get( '/tuto/', function () {
     return view( 'tuto' );
 } );
 
