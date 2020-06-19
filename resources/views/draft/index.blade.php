@@ -24,16 +24,16 @@
         {{-----------------------INFOS SUR EQUIPE---------------------}}
         <div class="row my-5">
             <div class="col-lg-3 px-0">
-                <div class="col-md-12 MS5card d-flex flex-column align-items-center h-100">
-                    <div class="col-6">
+                <div class="col-md-12 MS5card d-flex flex-row align-items-center h-100">
+                    <div class="col-6 px-0">
                         <img
                             src="{{$userLogo}}"
                             class="h-auto w-100 rounded-circle">
                     </div>
-                    <div class="d-flex flex-column align-items-center justify-content-between">
-                        <p class="text-center">{{$team->name}}</p>
-                        <p class="text-center">{{$team->stadium_name}}</p>
-                        <p class="text-center">{{$team->getLeague->name}}</p>
+                    <div class="px-0 col-6 d-flex flex-column align-items-center justify-content-between">
+                        <h2 class="text-center font-weight-bold">{{$team->name}}</h2>
+                        <p class="text-center">Stade {{$team->stadium_name}}</p>
+                        <p class="text-center tertiary">Ligue {{$team->getLeague->name}}</p>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
             {{----------------------- NOMBRE JOUEURS DRAFTES ---------------------}}
             <div class="col-md-2 px-0">
                 <div class="col-md-12 MS5card h-100 d-flex justify-content-center align-items-center flex-column">
-                    <p id="nb-players">{{count($team->getPlayers)}}</p>
+                    <p id="nb-players" class="tertiary">{{count($team->getPlayers)}}</p>
                     <p>Joueurs</p>
                     <p>Draftés</p>
                 </div>
@@ -93,39 +93,41 @@
                 {{-----------------------FILTRES TABLEAU JOUEURS NBA ---------------------}}
 
                 <div class="row mx-3">
-                    <div class="col-12 d-flex py-1 justify-content-around MS5card">
+                    <div class="col-12 d-flex py-1 flex-start">
+                        <div class="">
+                            <a href="/draft" class="btn MS5card" id="btn-allPlayers">tous les joueurs</a>
+                        </div>
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            <button class="btn MS5card dropdown-toggle" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Prix
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a href="/draft?order=asc" class="btn btn-secondary p-1 dropdown-item">croissant</a>
-                                <a href="/draft?order=desc" class="btn btn-secondary p-1 dropdown-item">decroissant</a>
+                                <a href="/draft?order=asc" class="btn p-1 dropdown-item">croissant</a>
+                                <a href="/draft?order=desc" class="btn p-1 dropdown-item">decroissant</a>
                             </div>
                         </div>
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button"
+                            <button class="btn MS5card dropdown-toggle" type="button"
                                     id="dropdownMenuButtonPosition" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
                                 position
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonPosition">
-                                <a href="/draft" class="btn btn-secondary p-1 w-100">tous les joueurs</a>
-                                <a href="/draft?position=G" class="btn btn-secondary p-1 dropdown-item">arrieres</a>
-                                <a href="/draft?position=F" class="btn btn-secondary p-1 dropdown-item">ailiers</a>
-                                <a href="/draft?position=C" class="btn btn-secondary p-1 dropdown-item">Pivot</a>
+                                <a href="/draft?position=G" class="bt p-1 dropdown-item">arrieres</a>
+                                <a href="/draft?position=F" class="bt p-1 dropdown-item">ailiers</a>
+                                <a href="/draft?position=C" class="bt p-1 dropdown-item">Pivot</a>
                             </div>
                         </div>
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button"
+                            <button class="btn MS5card dropdown-toggle" type="button"
                                     id="dropdownMenuButtonPosition" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
-                                De A à Z
+                                Ordre Alphabétique
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonPosition">
-                                <a href="/draft" class="btn btn-secondary p-1 dropdown-item">croissant</a>
-                                <a href="/draft?hide" class="btn btn-secondary p-1 dropdown-item">décroissant</a>
+                                <a href="/draft" class="btn p-1 dropdown-item">De A à Z</a>
+                                <a href="/draft?hide" class="btn p-1 dropdown-item">De Z à A</a>
                             </div>
                         </div>
                     </div>
@@ -224,6 +226,7 @@
 
             <div class="col-md-4">
                 {{-----------------------JOUEURS DRAFTES ---------------------}}
+                @if(!empty($team->getPlayers[0]))
                 <div class="row">
                     <div class="col-md-12">
                         <div class="bg-card-title text-center py-1 mb-3">
@@ -315,6 +318,7 @@
                         @endif
                     </div>
                 </div>
+                @endif
                 {{-----------------------ENCHERES EN COURS ---------------------}}
                 <div class="row mt-5">
                     <div class="col-md-12 text-white">
@@ -404,8 +408,8 @@
                                         $nowMin = $now->format('i');
                                         $nowSec = $now->format('s');
 
-                                        $differenceMin = $nowMin - $limitTimeMin;
-                                        $differenceSec= $nowSec - $limitTimeSec
+                                        $differenceMin = abs($nowMin - $limitTimeMin);
+                                        $differenceSec= abs($nowSec - $limitTimeSec);
                                     @endphp
                                     <p>Fin de l'enchère dans {{ $differenceMin}} min {{$differenceSec}}</p>
                                 </div>

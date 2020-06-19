@@ -13,6 +13,10 @@ h1, h2, h3 {
 #draft-container{
     $halfHeight: 0.72em;
     $borderRadius: 0.15em;
+    .dropdown-toggle:hover, #btn-allPlayers:hover  {
+        color: $quaternary !important;
+    }
+
     .cardcountdown {
         display: block;
         position: relative;

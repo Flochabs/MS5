@@ -131,6 +131,11 @@ h3 {
   background-size: cover;
 }
 
+#draft-container .dropdown-toggle:hover,
+#draft-container #btn-allPlayers:hover {
+  color: #eb671b !important;
+}
+
 #draft-container .cardcountdown {
   display: block;
   position: relative;
