@@ -1,14 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
+
     {{--Titre de la pge--}}
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <h1 class="text-white">Tableau de bord</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-white">Tableau de bord</h1>
+            </div>
         </div>
     </div>
 
-    @if(isset($userPlayersTeam))
+   @if(isset($draftIsOver) && $draftIsOver===1)
+
     <div class="container">
         <div class="row no-gutters justify-content-center my-4">
 
@@ -17,7 +21,9 @@
                 <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                         <h2 class="text-white py-5">Prochain Match</h2>
                         <span class="d-flex" id="countdown"></span>
+                    @if(isset($userNextMatchs))
                     <div class="d-none" id="MatchDateTime">{{$userNextMatchs->start_at}}</div>
+                    @endif
                 </div>
 
                 <div class="row justify-content-center no-gutters my-5">
@@ -240,18 +246,56 @@
                 </div>
             </div>
     </div>
-    @else
+    @elseif (!isset($draftIsOver) || $draftIsOver===0)
+
         <div class="container">
             <div class="row no-gutters justify-content-center my-4">
 
                 <div class="col-md-5 MS5card p-0">
+                    @if(isset($league))
+                        @if($team->exists()=== true)
+                            @if($team->getLeague->isActive === 1)
 
-                    <div class="row flex-column text-center bg-countdown no-gutters pb-5">
-                        <h2 class="text-white py-5">Rejoidre une league</h2>
-                    </div>
-                    <div class="row no-gutters justify-content-center mt-5">
-                        <a href="{{route('leagues.index')}}" class="text-white bouton-inscription">Rejoidre une league</a>
-                    </div>
+                                @if($draftIsOver === 0)
+                                    <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                        <h2 class="text-white py-5">Finis ta draft !</h2>
+                                    </div>
+                                    <div class="row no-gutters justify-content-center mt-5">
+                                        <a href="{{route('draft.index')}}" class="text-white bouton-inscription">Continuer ma draft</a>
+                                    </div>
+                                @else
+                                    <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                        <h2 class="text-white py-5">Rejoins la draft !</h2>
+                                    </div>
+                                    <div class="row no-gutters justify-content-center mt-5">
+                                        <a href="{{route('leagues.show', $league->league_id)}}" class="text-white bouton-inscription">Rejoindre la draft</a>
+                                    </div>
+                                @endif
+                            @else
+                            <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                <h2 class="text-white py-5">En attente du lancement de la league</h2>
+                            </div>
+                            <div class="row no-gutters justify-content-center mt-5">
+                                <a href="{{route('leagues.show', $league->league_id)}}" class="text-white bouton-inscription">Check ta league</a>
+                            </div>
+                            @endif
+                        @else
+                            <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                <h2 class="text-white py-5">Créer une team</h2>
+                            </div>
+                            <div class="row no-gutters justify-content-center mt-5">
+                                <a href="{{route('leagues.index')}}" class="text-white bouton-inscription">Créer une team</a>
+                            </div>
+                        @endif
+                    @else
+                        <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                            <h2 class="text-white py-5">Rejoindre une league</h2>
+                        </div>
+                        <div class="row no-gutters justify-content-center mt-5">
+                            <a href="{{route('leagues.index')}}" class="text-white bouton-inscription">Rejoindre une league</a>
+                        </div>
+                    @endif
+
                 </div>
 
                 <div class="col-md-5 ml-4 MS5card">
