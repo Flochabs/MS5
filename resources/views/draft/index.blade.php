@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="container text-white" id="draft-container">
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-12">
                 <h1 class="text-center">DRAFT</h1>
             </div>
@@ -95,7 +95,7 @@
                 <div class="row mx-3">
                     <div class="col-12 d-flex py-1 flex-start">
                         <div class="">
-                            <a href="/draft" class="btn MS5card" id="btn-allPlayers">tous les joueurs</a>
+                            <a href="/draft" class="btn MS5card" id="btn-allPlayers">Tous les joueurs</a>
                         </div>
                         <div class="dropdown">
                             <button class="btn MS5card dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -103,31 +103,20 @@
                                 Prix
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a href="/draft?order=asc" class="btn p-1 dropdown-item">croissant</a>
-                                <a href="/draft?order=desc" class="btn p-1 dropdown-item">decroissant</a>
+                                <a href="/draft?order=asc" class="btn p-1 dropdown-item text-left">croissant</a>
+                                <a href="/draft?order=desc" class="btn p-1 dropdown-item text-left">decroissant</a>
                             </div>
                         </div>
                         <div class="dropdown">
-                            <button class="btn MS5card dropdown-toggle" type="button"
+                            <button class="btn MS5card dropdown-toggle textleft" type="button"
                                     id="dropdownMenuButtonPosition" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
-                                position
+                                Position
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonPosition">
-                                <a href="/draft?position=G" class="bt p-1 dropdown-item">arrieres</a>
-                                <a href="/draft?position=F" class="bt p-1 dropdown-item">ailiers</a>
-                                <a href="/draft?position=C" class="bt p-1 dropdown-item">Pivot</a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn MS5card dropdown-toggle" type="button"
-                                    id="dropdownMenuButtonPosition" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                Ordre Alphabétique
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonPosition">
-                                <a href="/draft" class="btn p-1 dropdown-item">De A à Z</a>
-                                <a href="/draft?hide" class="btn p-1 dropdown-item">De Z à A</a>
+                                <a href="/draft?position=G" class="bt p-1 dropdown-item text-left">Arrieres</a>
+                                <a href="/draft?position=F" class="bt p-1 dropdown-item text-left">Ailiers</a>
+                                <a href="/draft?position=C" class="bt p-1 dropdown-item text-left">Pivot</a>
                             </div>
                         </div>
                     </div>

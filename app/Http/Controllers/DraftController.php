@@ -81,7 +81,7 @@ class DraftController extends Controller
 //------------- FILTRES AFFICHAGES JOUEURS NBA ---------------//
         // trier par prix //
         if (request()->has('order')) {
-            $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->simplePaginate(20);
+            $players = Player::where('price', '>', 1)->orderBy('price', request('order'))->Paginate(20);
         }
 
         // trier par position  //
@@ -100,11 +100,11 @@ class DraftController extends Controller
             $players = Player::whereIn('id', $allPlayersFromPosition)
                 ->where('price', '>', 1)
                 ->orderBy('price', 'desc')
-                ->simplePaginate(20);
+                ->Paginate(20);
 
         }
         if (request()->has('position&order')) {
-            dd('test');
+
         }
 
 //----------- retourne toutes données relatives enchères en cours de l'utilisateur -------------------- //
