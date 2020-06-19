@@ -23,8 +23,22 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        $leagues = League::all();
-        return view('leagues.index');
+        $userId = Auth::user()->id;
+        $usersInleagues = DB::table('league_user')
+            ->where('league_user.user_id', $userId)
+            ->exists();
+//dd($usersInleagues);
+        if($usersInleagues === true){
+            $userLeagueId = DB::table('league_user')
+                ->where('league_user.user_id', $userId)
+                ->first()->league_id;
+//            dd($userLeagueId);
+            return redirect()->route('leagues.show', $userLeagueId);
+        }else{
+            $leagues = League::all();
+            return view('leagues.index');
+        }
+
     }
 
     /**
