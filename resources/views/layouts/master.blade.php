@@ -17,6 +17,7 @@
     @yield('scripts-header')
 </head>
 <body>
+
 <nav class="container navbar navbar-expand-md bg-primary shadow-sm">
     <div class="row">
         <div class="col-md-4">
@@ -24,6 +25,7 @@
                 <img class="img-fluid" width="50%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
             </a>
         </div>
+
 
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent"
@@ -158,9 +160,7 @@
 </footer>
 
 
-<script src="{{ asset('js/jquerry3.5.1.js') }}" type="text/js"></script>
-<script src="{{ asset('js/bootstrap.js') }}" type="text/js"></script>
-<script src="{{ asset('js/app.js') }}" type="text/js"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 
 @yield('script-footer')
 
