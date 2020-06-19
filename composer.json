@@ -21,7 +21,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "mnito/round-robin": "^1.2",
-        "spatie/laravel-medialibrary": "^8.0.0"
+        "spatie/laravel-medialibrary": "^8.0.0",
+        "kyslik/column-sortable": "^6.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
