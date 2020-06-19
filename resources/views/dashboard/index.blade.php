@@ -253,10 +253,10 @@
 
                 <div class="col-md-5 MS5card p-0">
                     @if(isset($league))
-                        @if($team->exists()=== true)
+                        @if(isset($team) && $team->exists()=== true)
                             @if($team->getLeague->isActive === 1)
 
-                                @if($draftIsOver === 0)
+                                @if(isset($draftIsOver) && $draftIsOver === 0)
                                     <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                                         <h2 class="text-white py-5">Finis ta draft !</h2>
                                     </div>
