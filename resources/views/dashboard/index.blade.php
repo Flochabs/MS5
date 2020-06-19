@@ -76,7 +76,6 @@
                                 <table class="table table-bordered bg-card m-0">
                                     <thead>
                                     <tr>
-                                        <th scope="col">Pos</th>
                                         <th scope="col">Équipe</th>
                                         <th scope="col">Stade</th>
                                         <th scope="col">%</th>
@@ -84,19 +83,16 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
                                         <td>TheBoss</td>
                                         <td>New Orleans Arena</td>
                                         <td>0.889</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">2</th>
                                         <td>Puma</td>
                                         <td>United Center</td>
                                         <td>0.760</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">3</th>
                                         <td>Elchikitopouet</td>
                                         <td>Madisson Square Garden</td>
                                         <td>0.512</td>

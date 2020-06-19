@@ -12,8 +12,20 @@ footer {
   width: 200px;
 }
 
+.pb-reset {
+  padding-bottom: 186px;
+}
+
+.pb-email {
+  padding-bottom: 293px;
+}
+
 .pb-connexion {
   padding-bottom: 6.1rem;
+}
+
+.pb-league {
+  padding-bottom: 7.6rem;
 }
 
 .banner {
@@ -191,6 +203,12 @@ h3 {
 
 #draft-container .auction-price {
   font-size: 1.2rem;
+}
+
+@media only screen and (max-device-width: 1024px) {
+  #stat-none {
+    display: none;
+  }
 }
 
 html {
@@ -592,13 +610,5 @@ label {
   min-height: auto;
   max-width: 400px;
   color: #fff;
-}
-
-.pb-reset {
-  padding-bottom: 186px;
-}
-
-.pb-email {
-  padding-bottom: 293px;
 }
 
