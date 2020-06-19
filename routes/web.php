@@ -42,7 +42,8 @@ Route::prefix( 'nba' )
 
 // Routes concernant l'affichage de la draft
 Route::prefix( 'draft' )
-    ->middleware( 'auth' )
+    ->middleware( 'auth')
+    ->middleware( 'draft')
     ->name( 'draft.' )
     ->group( function () {
         Route::post('confirmDraft/{forwards}{guards}{centers}', 'DraftController@confirmDraft')->name('confirm');
@@ -71,7 +72,7 @@ Route::prefix( 'match' )
     } );
 
 //Route pour la page tuto
-Route::get( '/tuto', function () {
+Route::get( '/tuto/', function () {
     return view( 'tuto' );
 } );
 

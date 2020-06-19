@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class League extends Model
 {
+
     protected $table = 'leagues';
 
     protected $fillable = ['user_id', 'name', 'number_teams', 'public'];
@@ -28,5 +29,10 @@ class League extends Model
     // Associe les teams à leur league
     public function teams() {
         return $this->hasMany('App\Model\Team');
+    }
+
+    public function draft()
+    {
+        return $this->hasOne(Draft::class);
     }
 }

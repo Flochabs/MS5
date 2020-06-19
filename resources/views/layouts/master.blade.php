@@ -17,65 +17,64 @@
     @yield('scripts-header')
 </head>
 <body>
-<div id="app">
 
-    <nav class="container navbar navbar-expand-md bg-primary shadow-sm">
-        <div class="row">
-            <div class="col-md-4">
-                <a href="{{ route('dashboard.index') }}">
-                    <img class="img-fluid" width="50%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
-                </a>
-            </div>
+<nav class="container navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="col-md-8 collapse navbar-collapse" id="navbarSupportedContent">
-
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-
-                    <li class="nav-item ">
-                        <a class="nav-link bouton-header"
-                           href="{{ route('dashboard.profile', Auth::user()->id)}}">{{ __('Profil') }}</a>
-                    </li>
-
-                    <li class="nav-item ">
-                        <a class="nav-link bouton-header"
-                           href="{{ ('tutoMS5') }}">{{ __('Tuto') }}</a>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link bouton-header" href="{{ route('leagues.index')}}">Leagues</a>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link bouton-header" href="{{ route('dashboard.index') }}">Tableau de bord</a>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link bouton-header" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();">Déconnexion</a>
-                        <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                        </form>
-                    </li>
-
-                </ul>
-            </div>
+    <div class="row">
+        <div class="col-md-4 w-75">
+            <a href="{{ route('dashboard.index') }}">
+                <img class="img-fluid" width="50%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
+            </a>
         </div>
 
-    </nav>
-</div>
+
+        <button class="navbar-toggler h-50" type="button" data-toggle="collapse"
+
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="col-md-8 collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+
+                <li class="nav-item active">
+                    <a class="nav-link bouton-header"
+                       href="{{ route('dashboard.profile', Auth::user()->id)}}">{{ __('Profil') }}</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link bouton-header"
+                       href="{{ ('tuto') }}">{{ __('Tuto') }}</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link bouton-header" href="{{ route('leagues.index')}}">Leagues</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link bouton-header" href="{{ route('dashboard.index') }}">Tableau de bord</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link bouton-header" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();">Déconnexion</a>
+                    <form class="m-0" id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    </form>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
 
 {{--    <nav class="navbar navbar-default bg-primary">--}}
 {{--        <div class="container-fluid">--}}
@@ -160,10 +159,8 @@
 
 </footer>
 
+<script src="{{ asset('js/app.js') }}" defer></script>
 
-<script src="{{ asset('js/jquerry3.5.1.js') }}" type="text/js"></script>
-<script src="{{ asset('js/bootstrap.js') }}" type="text/js"></script>
-<script src="{{ asset('js/app.js') }}" type="text/js"></script>
 
 @yield('script-footer')
 

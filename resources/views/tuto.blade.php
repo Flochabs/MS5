@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.master')
 @section('content')
     <div class="container mb-5">
         <div class="row mt-5">
@@ -23,8 +22,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="container-fluid mt-5 py-5" id="first-banner">
         <div class="container my-5 bg-white rounded" style="height: 10rem">
             <div class="row">
@@ -52,7 +49,6 @@
                 </div>
             </div>
         </div>
-
         {{--Première section tuto : leagues--}}
         <div class="container my-5">
             <div class="row my-5">
@@ -79,8 +75,6 @@
                 </div>
             </div>
         </div>
-
-
         {{--        Deuxième section tuto : teams --}}
         <div class="container my-5">
             <div class="row my-5">
@@ -95,14 +89,13 @@
                         <p class="card-text mb-1">Dans un premier temp, tu peux choisir le nom d'équipe qui te plaît.</p>
                         <p class="card-text mb-1">  Ensuite tu peux nommer ton stade, qui verra ton ascension vers le sommet.</p>
                         <p class="card-text mb-1">  Enfin, il ne te reste plus qu'à choisir le logo de ta franchise favorite.
-                        A toi d'arborer leurs couleurs avec honneur !</p>
+                            A toi d'arborer leurs couleurs avec honneur !</p>
                     </div>
                 </div>
                 <div class="col-md-6" id="second-step"></div>
             </div>
         </div>
     </div>
-
     {{--        Troisième section tuto : draft --}}
     <div class="container-fluid mt-5 py-5" id="second-banner">
         <div class="container my-5">
@@ -122,18 +115,17 @@
                             millons de dollars à dépenser selon quelques règles.</p>
                         <p class="card-text mb-1">Tu choisis <span class="font-weight-bold tertiary">12</span>
                             joueurs pour ton roster, pas un de plus, pas un de moins !
-                        Il te faut 5 arrières, 5 ailiers, et 2 pivots.</p>
+                            Il te faut 5 arrières, 5 ailiers, et 2 pivots.</p>
                         <p class="card-text mb-1">Tu as <span class="font-weight-bold tertiary">48</span>
                             heures pour boucler ta draft, et <span class="font-weight-bold tertiary">6</span> heures
                             pour renchérir sur une enchère existante sur un joueur.</p>
                         <p class="card-text mb-1">Passé le délai de fin de draft, tu ne peux plus enchérir sur aucun joueur.
-                         Si tu n'as pas les 12 joueurs requis pour jouer, les joueurs manquant à ta team seront ajoutés
-                        aléatoirement à ta team parmi ceux qui ne coûtent rien.</p>
+                            Si tu n'as pas les 12 joueurs requis pour jouer, les joueurs manquant à ta team seront ajoutés
+                            aléatoirement à ta team parmi ceux qui ne coûtent rien.</p>
                     </div>
                 </div>
             </div>
         </div>
-
         {{--        Quatrième section tuto : matchs --}}
         <div class="container my-5">
             <div class="row py-5">
@@ -154,7 +146,7 @@
                         <p class="card-text mb-1">Comme tu t'en doutes, la victoire de ton équipe va dépendre des performances
                             en NBA des joueurs de ton roster.</p>
                         <p class="card-text mb-1">Si la somme des scores individuels de tes joueurs dépasse celle de ton adversaire,
-                             tu gagnes.</p>
+                            tu gagnes.</p>
                         <p class="card-text mb-1">Les informations de match, l'accès à toutes les fonctionnalités
                             se fera depuis ton tableau de bord.</p>
                     </div>
@@ -165,7 +157,5 @@
                 <div class="col-12 text-center"><a href="#" class="btn btn-secondary">Let's go !</a></div>
             </div>
         </div>
-
     </div>
-
 @endsection

@@ -79,7 +79,7 @@
                     {{--Boutton et MDP oublié--}}
                     <div class="form-group">
                         <div class="row justify-content-center">
-                            <button type="submit" class="bouton-connexion m-2 w-50">
+                            <button type="submit" class="bouton-connexion m-2">
                                 {{ __('Sauvegarder') }}
                             </button>
                         </div>

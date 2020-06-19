@@ -1,11 +1,6 @@
 <?php
 
 namespace App\Console;
-
-
-
-
-
 use App\CustomClass\UpdateNbaPlayersScores;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

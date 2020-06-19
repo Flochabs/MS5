@@ -12,8 +12,20 @@ footer {
   width: 200px;
 }
 
+.pb-reset {
+  padding-bottom: 186px;
+}
+
+.pb-email {
+  padding-bottom: 293px;
+}
+
 .pb-connexion {
   padding-bottom: 6.1rem;
+}
+
+.pb-league {
+  padding-bottom: 7.6rem;
 }
 
 .banner {
@@ -125,6 +137,33 @@ h3 {
   color: white !important;
 }
 
+.bg-countdown-draft {
+  background: url("/../storage/images/Fond_tutos.jpg") center no-repeat;
+  width: 100%;
+  background-size: cover;
+}
+
+#draft-container .dropdown-toggle:hover,
+#draft-container #btn-allPlayers:hover {
+  color: #eb671b !important;
+}
+
+#draft-container .cardcountdown {
+  display: block;
+  position: relative;
+  padding-bottom: 0.72em;
+  font-size: 20px;
+  line-height: 0.95;
+}
+
+#draft-container .flip-clock__slot {
+  font-size: 0.7rem !important;
+}
+
+#draft-container .flip-clock__piece {
+  margin: 0 2px !important;
+}
+
 #draft-container #nb-players {
   font-size: 2rem !important;
 }
@@ -164,6 +203,12 @@ h3 {
 
 #draft-container .auction-price {
   font-size: 1.2rem;
+}
+
+@media only screen and (max-device-width: 1024px) {
+  #stat-none {
+    display: none;
+  }
 }
 
 html {
@@ -405,7 +450,6 @@ h3 {
 
 #next-game-coaching .btn-quaternary:hover {
   background-color: #eb671b;
-<<<<<<< HEAD
 }
 
 body,
@@ -478,8 +522,6 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-=======
->>>>>>> coaching
 }
 
 @font-face {
@@ -568,13 +610,5 @@ label {
   min-height: auto;
   max-width: 400px;
   color: #fff;
-}
-
-.pb-reset {
-  padding-bottom: 186px;
-}
-
-.pb-email {
-  padding-bottom: 293px;
 }
 

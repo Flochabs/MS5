@@ -1,23 +1,28 @@
 @extends('layouts.master')
 
 @section('content')
-    {{--Titre de la pge--}}
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <h1 class="text-white">Tableau de bord</h1>
+    {{--Titre de la page--}}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-white">Tableau de bord</h1>
+            </div>
         </div>
     </div>
 
-    @if(isset($userPlayersTeam))
-    <div class="container">
-        <div class="row no-gutters justify-content-center my-4">
+   @if(isset($draftIsOver) && $draftIsOver===1)
 
-            <div class="col-md-5 MS5card p-0">
+    <div class="container">
+        <div class="row no-gutters justify-content-around mb-4">
+
+            <div class="col-md-5 mt-4 MS5card p-0">
 
                 <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                         <h2 class="text-white py-5">Prochain Match</h2>
                         <span class="d-flex" id="countdown"></span>
-{{--                    <div class="d-none" id="MatchDateTime">{{$userNextMatch->start_at}}</div>--}}
+                    @if(isset($userNextMatchs))
+                    <div class="d-none" id="MatchDateTime">{{$userNextMatchs->start_at}}</div>
+                    @endif
                 </div>
 
                 <div class="row justify-content-center no-gutters my-5">
@@ -61,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5 p-0 ml-4">
+            <div class="col-md-5 p-0 mt-4">
                 <div class="row no-gutters">
                     <div class="col-12">
                         <div class="row no-gutters MS5card text-center">
@@ -74,7 +79,6 @@
                                 <table class="table table-bordered bg-card m-0">
                                     <thead>
                                     <tr>
-                                        <th scope="col">Pos</th>
                                         <th scope="col">Équipe</th>
                                         <th scope="col">Stade</th>
                                         <th scope="col">%</th>
@@ -82,19 +86,16 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
                                         <td>TheBoss</td>
                                         <td>New Orleans Arena</td>
                                         <td>0.889</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">2</th>
                                         <td>Puma</td>
                                         <td>United Center</td>
                                         <td>0.760</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">3</th>
                                         <td>Elchikitopouet</td>
                                         <td>Madisson Square Garden</td>
                                         <td>0.512</td>
@@ -148,9 +149,9 @@
 
     <div class="container">
 
-            <div class="row no-gutters justify-content-center my-4">
+            <div class="row no-gutters justify-content-around mb-4">
 
-                <div class="col-md-5 MS5card p-0">
+                <div class="col-md-5 MS5card mt-4 p-0">
                     <div class="row no-gutters">
                         <div class="col-12 text-center my-2">
                             <h2 class="text-white">Dernier Match</h2>
@@ -195,7 +196,7 @@
                     </div>
 
                     <div class="col-12">
-                        <table class="table table-bordered bg-card m-0">
+                        <table class="table table-bordered bg-card my-2">
                             <thead>
                             <tr class="text-center w-100">
                                 <th class="w-50">Domicile</th>
@@ -228,7 +229,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-5 ml-4 MS5card">
+                <div class="col-md-5 mt-4 MS5card">
                     @if($userTwitterFeed !== null)
                         <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
                             Tweets</a>
@@ -240,18 +241,56 @@
                 </div>
             </div>
     </div>
-    @else
+    @elseif (!isset($draftIsOver) || $draftIsOver===0)
+
         <div class="container">
             <div class="row no-gutters justify-content-center my-4">
 
                 <div class="col-md-5 MS5card p-0">
+                    @if(isset($league))
+                        @if(isset($team) && $team->exists()=== true)
+                            @if($team->getLeague->isActive === 1)
 
-                    <div class="row flex-column text-center bg-countdown no-gutters pb-5">
-                        <h2 class="text-white py-5">Rejoidre une league</h2>
-                    </div>
-                    <div class="row no-gutters justify-content-center mt-5">
-                        <a href="{{route('leagues.index')}}" class="text-white bouton-inscription">Rejoidre une league</a>
-                    </div>
+                                @if(isset($draftIsOver) && $draftIsOver === 0)
+                                    <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                        <h2 class="text-white py-5">Finis ta draft !</h2>
+                                    </div>
+                                    <div class="row no-gutters justify-content-center mt-5">
+                                        <a href="{{route('draft.index')}}" class="text-white bouton-inscription">Continuer ma draft</a>
+                                    </div>
+                                @else
+                                    <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                        <h2 class="text-white py-5">Rejoins la draft !</h2>
+                                    </div>
+                                    <div class="row no-gutters justify-content-center mt-5">
+                                        <a href="{{route('leagues.show', $league->league_id)}}" class="text-white bouton-inscription">Rejoindre la draft</a>
+                                    </div>
+                                @endif
+                            @else
+                            <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                <h2 class="text-white py-5">En attente du lancement de la league</h2>
+                            </div>
+                            <div class="row no-gutters justify-content-center mt-5">
+                                <a href="{{route('leagues.show', $league->league_id)}}" class="text-white bouton-inscription">Check ta league</a>
+                            </div>
+                            @endif
+                        @else
+                            <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                <h2 class="text-white py-5">Créer une team</h2>
+                            </div>
+                            <div class="row no-gutters justify-content-center mt-5">
+                                <a href="{{route('leagues.index')}}" class="text-white bouton-inscription">Créer une team</a>
+                            </div>
+                        @endif
+                    @else
+                        <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                            <h2 class="text-white py-5">Rejoindre une league</h2>
+                        </div>
+                        <div class="row no-gutters justify-content-center mt-5">
+                            <a href="{{route('leagues.index')}}" class="text-white bouton-inscription">Rejoindre une league</a>
+                        </div>
+                    @endif
+
                 </div>
 
                 <div class="col-md-5 ml-4 MS5card">
@@ -351,7 +390,7 @@
         var matchDate = document.querySelector('#MatchDateTime').textContent;
         var deadline = new Date(matchDate);
         var c = new Clock(deadline, function () {
-            alert('countdown complete')
+            //alert('countdown complete')
         });
         document.getElementById('countdown').appendChild(c.el);
         var clock = new Clock();

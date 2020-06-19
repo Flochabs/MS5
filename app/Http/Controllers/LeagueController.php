@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Register;
+use App\Model\Draft;
 use App\Model\League;
 use App\Model\Match;
 use App\Model\Team;
@@ -22,8 +23,21 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        $leagues = League::all();
-        return view('leagues.index');
+        $userId = Auth::user()->id;
+        $usersInleagues = DB::table('league_user')
+            ->where('league_user.user_id', $userId)
+            ->exists();
+//dd($usersInleagues);
+        if($usersInleagues === true){
+            $userLeagueId = DB::table('league_user')
+                ->where('league_user.user_id', $userId)
+                ->first()->league_id;
+            return redirect()->route('leagues.show', $userLeagueId);
+        }else{
+            $leagues = League::all();
+            return view('leagues.index');
+        }
+
     }
 
     /**
@@ -141,11 +155,24 @@ class LeagueController extends Controller
                 $teamVictoryRatio[$team] = 'l\'équipe n\'a pas joué de match';
             }
 
+
+        }
+        // Check du statut de la draft
+        if($league->isActive === 1){
+            $draftStatus = $league->draft->is_over;
+            return view('leagues.show')
+                ->with('league', $league)
+                ->with('teamVictoryRatio', $teamVictoryRatio)
+                ->with('draftStatus', $draftStatus);
+        }else{
+            $draftStatus = 0;
+            return view('leagues.show')
+                ->with('league', $league)
+                ->with('teamVictoryRatio', $teamVictoryRatio)
+                ->with('draftStatus', $draftStatus);
         }
 
-        return view('leagues.show')
-            ->with('league', $league)
-            ->with('teamVictoryRatio', $teamVictoryRatio);
+
     }
 
     /**
@@ -169,11 +196,19 @@ class LeagueController extends Controller
     public function update(Request $request, $id)
     {
         $data = League::find($id);
-        if($data->number_teams === $data->users->count()){
+        if($data->teams->count() === $data->users->count()){
             if ($data->users->count()% 2 == 0){
 
                 $data->isActive = $request->isActive;
                 $data->save();
+
+                //enregistrement du début de la draft avec heure de fin
+                $draftEnd = now()->addDay();
+                $draft = new Draft();
+                $draft->league_id = $data->id;
+                $draft->is_over = 0;
+                $draft->ends_at = $draftEnd->format('Y-m-d 20:00:00');
+                $draft->save();
 
                 //Récupération des emails des membres de la league
                 $userEmails = [];
@@ -196,9 +231,9 @@ class LeagueController extends Controller
 
                 return redirect(route('draft.index'))->with('success', 'La draft commence !');
             } else{
-
+                return redirect(route('leagues.show', $id))->withErrors('Le nombre joueurs n\' est pas pair !');
             }
-        }else{
+        } else{
             return redirect(route('leagues.show', $id))->withErrors('Tous les joueurs n\'ont pas créé leur équipe !');
         }
 

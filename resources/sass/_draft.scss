@@ -5,7 +5,31 @@
 h1, h2, h3 {
     color: white !important;
 }
+.bg-countdown-draft{
+    background: url("/../storage/images/Fond_tutos.jpg") center no-repeat;
+    width: 100%;
+    background-size: cover;
+}
 #draft-container{
+    $halfHeight: 0.72em;
+    $borderRadius: 0.15em;
+    .dropdown-toggle:hover, #btn-allPlayers:hover  {
+        color: $quaternary !important;
+    }
+
+    .cardcountdown {
+        display: block;
+        position: relative;
+        padding-bottom: $halfHeight;
+        font-size: 20px;
+        line-height: 0.95;
+    }
+    .flip-clock__slot {
+        font-size: 0.7rem !important;
+    }
+    .flip-clock__piece {
+        margin: 0 2px !important;
+    }
     #nb-players {
         font-size: 2rem !important;
     }
@@ -36,5 +60,11 @@ h1, h2, h3 {
     }
     .auction-price {
         font-size: 1.2rem;
+    }
+}
+
+@media only screen and (max-device-width: 1024px) {
+    #stat-none {
+        display: none;
     }
 }
