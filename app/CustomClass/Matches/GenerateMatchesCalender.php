@@ -118,11 +118,10 @@ class GenerateMatchesCalender extends Command
 // ---------------- ENVOI D'EMAIL AUX UTILISATEURS PRESENTS DANS LA LIGUE  --------------------------//
                 $leagueId = $draft->league;
                 //Récupération des emails des membres de la league
-dd($leagueId);
                 $userEmails = [];
                 $users = DB::table('league_user')
                     ->leftjoin('users', 'id', '=', 'league_user.user_id')
-                    ->where('league_user.league_id', (int)$leagueId)
+                    ->where('league_user.league_id', (int)$leagueId->id)
                     ->get();
                 foreach ($users as $user) {
                     $userEmails[]= $user->email;
