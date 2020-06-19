@@ -6,8 +6,8 @@
             <div class="col-12">
                 <h1 class="text-center">DRAFT</h1>
             </div>
-            {{-----------------------VALIDER DRAFT ---------------------}}
         </div>
+        {{-----------------------VALIDER DRAFT ---------------------}}
         <div class="row">
             @if(session()->get('success'))
                 <div class="alert alert-success">
@@ -151,13 +151,13 @@
                             <tr>
                                 <th scope="col" width="35%">Joueur</th>
                                 <th scope="col">Poste</th>
-                                <th scope="col">Min</th>
-                                <th scope="col">Pts</th>
-                                <th scope="col">Pass</th>
-                                <th scope="col">Reb</th>
-                                <th scope="col">Blk</th>
-                                <th scope="col">Int</th>
-                                <th scope="col">PdB</th>
+                                <th id="stat-none" scope="col">Min</th>
+                                <th id="stat-none" scope="col">Pts</th>
+                                <th id="stat-none" scope="col">Pass</th>
+                                <th id="stat-none" scope="col">Reb</th>
+                                <th id="stat-none" scope="col">Blk</th>
+                                <th id="stat-none" scope="col">Int</th>
+                                <th id="stat-none" scope="col">PdB</th>
                                 <th scope="col">Prix initial</th>
                                 <th scope="col">Prix Actuel</th>
                                 <th scope="col">Statut Enchère</th>
@@ -191,13 +191,13 @@
                                         </a>
                                     </th>
                                     <td class="align-middle">{{$position}}</td>
-                                    <td class="align-middle">{{$currentSeasonStats->min}}</td>
-                                    <td class="align-middle">{{$currentSeasonStats->pts}}</td>
-                                    <td class="align-middle">{{$currentSeasonStats->ast}}</td>
-                                    <td class="align-middle">{{$currentSeasonStats->reb}}</td>
-                                    <td class="align-middle">{{$currentSeasonStats->stl}}</td>
-                                    <td class="align-middle">{{$currentSeasonStats->blk}}</td>
-                                    <td class="align-middle">{{$currentSeasonStats->tov}}</td>
+                                    <td id="stat-none" class="align-middle">{{$currentSeasonStats->min}}</td>
+                                    <td id="stat-none" class="align-middle">{{$currentSeasonStats->pts}}</td>
+                                    <td id="stat-none" class="align-middle">{{$currentSeasonStats->ast}}</td>
+                                    <td id="stat-none" class="align-middle">{{$currentSeasonStats->reb}}</td>
+                                    <td id="stat-none" class="align-middle">{{$currentSeasonStats->stl}}</td>
+                                    <td id="stat-none" class="align-middle">{{$currentSeasonStats->blk}}</td>
+                                    <td id="stat-none" class="align-middle">{{$currentSeasonStats->tov}}</td>
                                     <td class="align-middle">{{$player->price}}</td>
                                     @php $indicator = true; @endphp
                                     @foreach($auctionsOnPlayers as $auctionsOnPlayer)

@@ -15,7 +15,7 @@
             <span class="d-flex" id="countdown"></span>
             <div class="d-none" id="MatchDateTime">{{$userNextMatch->start_at}}</div>
         </div>
-        <div class="row m-auto mt-5">
+        <div class="row m-auto justify-content-around mt-5">
             {{-----------            TABLEAU DES JOUEURS DE LEQUIPE----------------}}
             <div class="col-md-7 text-white">
                 <div class="bg-card-title text-center py-1 mb-3">
@@ -28,12 +28,12 @@
                         <th scope="col" width="35%">Joueur</th>
                         <th scope="col">Poste</th>
                         <th scope="col">Min</th>
-                        <th scope="col">Pts</th>
-                        <th scope="col">Pass</th>
-                        <th scope="col">Reb</th>
-                        <th scope="col">Blk</th>
-                        <th scope="col">Int</th>
-                        <th scope="col">PdB</th>
+                        <th id="stat-none" scope="col">Pts</th>
+                        <th id="stat-none" scope="col">Pass</th>
+                        <th id="stat-none" scope="col">Reb</th>
+                        <th id="stat-none" scope="col">Blk</th>
+                        <th id="stat-none" scope="col">Int</th>
+                        <th id="stat-none" scope="col">PdB</th>
                         <th scope="col">Dernier Score</th>
                         <th scope="col">Blessé</th>
                         <th scope="col">choisir</th>
@@ -70,12 +70,12 @@
                             </th>
                             <td class="align-middle">{{$position}}</td>
                             <td class="align-middle">{{$currentSeasonStats->min}}</td>
-                            <td class="align-middle">{{$currentSeasonStats->pts}}</td>
-                            <td class="align-middle">{{$currentSeasonStats->ast}}</td>
-                            <td class="align-middle">{{$currentSeasonStats->reb}}</td>
-                            <td class="align-middle">{{$currentSeasonStats->stl}}</td>
-                            <td class="align-middle">{{$currentSeasonStats->blk}}</td>
-                            <td class="align-middle">{{$currentSeasonStats->tov}}</td>
+                            <td id="stat-none" class="align-middle">{{$currentSeasonStats->pts}}</td>
+                            <td id="stat-none" class="align-middle">{{$currentSeasonStats->ast}}</td>
+                            <td id="stat-none" class="align-middle">{{$currentSeasonStats->reb}}</td>
+                            <td id="stat-none" class="align-middle">{{$currentSeasonStats->stl}}</td>
+                            <td id="stat-none" class="align-middle">{{$currentSeasonStats->blk}}</td>
+                            <td id="stat-none" class="align-middle">{{$currentSeasonStats->tov}}</td>
                             <td class="align-middle">{{$player->score}}</td>
                             <td class="align-middle">{{($player->injured === 0)? 'Non' : 'Oui' }}</td>
                             <td colspan="2" class="align-middle">
@@ -133,8 +133,8 @@
 
                                 </td>
                                 <td>{{$position}}</td>
-                                <td>{{$playerDatas->fn}}</td>
-                                <td>{{$playerDatas->ln}}</td>
+                                <td class="ml-3">{{$playerDatas->fn}}</td>
+                                <td class="ml-3">{{$playerDatas->ln}}</td>
                             </tr>
                         </tbody>
                         @endforeach
@@ -283,7 +283,7 @@
                         });
                         document.getElementById('countdown').appendChild(c.el);
                         var clock = new Clock();
-                        document.body.appendChild(clock.el);
+                        //document.body.appendChild(clock.el);
 
 
 //-------------- ENREGISTREMENT DES JOUEURS DANS LA COMPOSITION ------------------------//
@@ -458,8 +458,8 @@
                                     '<td width="50%">' + '<img src="https://nba-players.herokuapp.com/players/' + data.lastname + "/" + data.name + '"' + ' class="w-100 rounded-circle pr-1">' + '</td>' +
                                     '<td>' +
                                     '<td>' + position + '</td>' +
-                                    '<td>' + data.name + '</td>' +
-                                    '<td>' + data.lastname + '</td>' +
+                                    '<td class="ml-3">' + data.name + '</td>' +
+                                    '<td class="ml-3">' + data.lastname + '</td>' +
                                     '</tr>');
                             };
                             let newError = function (errors) {

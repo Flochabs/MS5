@@ -49,7 +49,7 @@
         </div>
 
 
-        <div class="row my-5">
+        <div class="row my-5 pb-league">
             <table class="table table-striped text-white">
                 <thead class="font-weight-bold">
                 <tr>
