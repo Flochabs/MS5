@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    @php @endphp
     <div class="container text-white" id="draft-container">
         <div class="row">
             <div class="col-12">
@@ -8,23 +7,23 @@
             </div>
             {{-----------------------VALIDER DRAFT ---------------------}}
         </div>
-        <div class="row">
+        <div class="row alert-div">
             @if(session()->get('success'))
                 <div class="alert alert-success">
                     {{ session()->get('success') }}
                 </div><br/>
             @endif
         </div>
-        <div class="row">
+        <div class="row alert-div">
             @if(session()->get('errors'))
-                <div class="alert alert-success">
+                <div class="alert alert-danger">
                     {{ session()->get('errors') }}
                 </div><br/>
             @endif
         </div>
         {{-----------------------INFOS SUR EQUIPE---------------------}}
         <div class="row my-5">
-            <div class="col-lg-3">
+            <div class="col-lg-3 px-0">
                 <div class="col-md-12 MS5card d-flex flex-column align-items-center h-100">
                     <div class="col-6">
                         <img
@@ -72,7 +71,7 @@
                 </div>
             </div>
             {{----------------------- NOMBRE JOUEURS DRAFTES ---------------------}}
-            <div class="col-md-2">
+            <div class="col-md-2 px-0">
                 <div class="col-md-12 MS5card h-100 d-flex justify-content-center align-items-center flex-column">
                     <p id="nb-players">{{count($team->getPlayers)}}</p>
                     <p>Joueurs</p>
@@ -80,10 +79,11 @@
                 </div>
             </div>
             {{-----------------------DONNEES SUR LA FIN DE DRAFT ---------------------}}
-            <div class="col-md-3">
-                <div class="col-md-12 MS5card h-100">
-                    <h4 class="text-center">Fin de la draft dans :</h4>
-
+            <div class="col-md-3 flex-column text-center px-0">
+                <div class="col-12 bg-countdown-draft h-100 d-flex flex-column justify-content-center">
+                    <h2 class="text-white">Fin de la Draft dans :</h2>
+                    <div class="d-flex w-100" id="countdown"></div>
+                    <div class="d-none" id="DraftEndTime">{{$draftEnd}}</div>
                 </div>
             </div>
         </div>
@@ -115,17 +115,6 @@
                                 <a href="/draft?position=G" class="btn btn-secondary p-1 dropdown-item">arrieres</a>
                                 <a href="/draft?position=F" class="btn btn-secondary p-1 dropdown-item">ailiers</a>
                                 <a href="/draft?position=C" class="btn btn-secondary p-1 dropdown-item">Pivot</a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button"
-                                    id="dropdownMenuButtonPosition" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                joueurs draftés
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonPosition">
-                                <a href="/draft" class="btn btn-secondary p-1 dropdown-item">montrer</a>
-                                <a href="/draft?hide" class="btn btn-secondary p-1 dropdown-item">cacher</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -167,27 +156,28 @@
                             @foreach($players as $player)
                                 @php
                                     $playerStats = json_decode($player->data)->pl;
-
-                                        $currentSeasonStats = $playerStats->ca->sa;
-                                        $currentSeasonStats = last($currentSeasonStats);
-
-                                    $position  = substr($playerStats->pos, 0,1);
-                                    if($position === "G") {
-                                        $position = 'Arrière';
-                                    } else if ($position === "F") {
-                                        $position = 'Ailier';
+                                    if(isset($playerStats->ca->sa)) {
+                                       $currentSeasonStats = $playerStats->ca->sa;
+                                       $currentSeasonStats = last($currentSeasonStats);
                                     } else {
-                                        $position = 'Pivot';
+                                        $currentSeasonStats = $playerStats->ca;
                                     }
+
+                                        $position  = substr($playerStats->pos, 0,1);
+                                        if($position === "G") {
+                                            $position = 'Arrière';
+                                        } else if ($position === "F") {
+                                            $position = 'Ailier';
+                                        } else {
+                                            $position = 'Pivot';
+                                        }
                                 @endphp
                                 <tr>
                                     <th scope="row" class="align-middle pr-0">
-                                        <a href="/draft/{{$player->id}}" class="text-white">
-                                            <img
-                                                src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
-                                                class="w-25 rounded-circle pr-1">
-                                            {{$playerStats->fn}} {{$playerStats->ln}}
-                                        </a>
+                                        <img
+                                            src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
+                                            class="w-25 rounded-circle pr-1">
+                                        {{$playerStats->fn}} {{$playerStats->ln}}
                                     </th>
                                     <td class="align-middle">{{$position}}</td>
                                     <td class="align-middle">{{$currentSeasonStats->min}}</td>
@@ -333,16 +323,6 @@
                         </div>
                     </div>
                 </div>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <br/>
-                @endif
                 @foreach($auctions as $auction)
                     @php $playerData = json_decode($auction->getPlayerData->data, false);
                                         $position  = substr($playerData->pl->pos, 0,1);
@@ -436,6 +416,122 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script-footer')
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        setInterval( function () {
+
+            $('.alert-div').empty();
+        }, 3000);
+
+
+        // --------------------- DECOMPTE AVANT Fin de Draft --------------------------------------//
+        function CountdownTracker(label, value) {
+            var el = document.createElement('span');
+            el.className = 'flip-clock__piece';
+            el.innerHTML = '<b class="flip-clock__card cardcountdown"><b class="card__top"></b><b class="card__bottom"></b>' +
+                '<b class="card__back"><b class="card__bottom"></b></b></b>' + '<span class="flip-clock__slot">' + label + '</span>';
+            this.el = el;
+            var top = el.querySelector('.card__top'),
+                bottom = el.querySelector('.card__bottom'),
+                back = el.querySelector('.card__back'),
+                backBottom = el.querySelector('.card__back .card__bottom');
+            this.update = function (val) {
+                val = ('0' + val).slice(-2);
+                if (val !== this.currentValue) {
+                    if (this.currentValue >= 0) {
+                        back.setAttribute('data-value', this.currentValue);
+                        bottom.setAttribute('data-value', this.currentValue);
+                    }
+                    this.currentValue = val;
+                    top.innerText = this.currentValue;
+                    backBottom.setAttribute('data-value', this.currentValue);
+                    this.el.classList.remove('flip');
+                    void this.el.offsetWidth;
+                    this.el.classList.add('flip');
+                }
+            };
+            this.update(value);
+        }
+
+        // Calculation adapted from https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+
+            return {
+                'Total': t,
+                'Jours': Math.floor(t / (1000 * 60 * 60 * 24)),
+                'Heures': Math.floor((t / (1000 * 60 * 60)) % 24),
+                'Mins': Math.floor((t / 1000 / 60) % 60),
+                'Secs': Math.floor((t / 1000) % 60)
+            };
+        }
+
+        function getTime() {
+            var t = new Date();
+            return {
+                'Total': t,
+                'Hours': t.getHours() % 12,
+                'Minutes': t.getMinutes(),
+                'Seconds': t.getSeconds()
+            };
+        }
+
+        function Clock(countdown, callback) {
+            countdown = countdown ? new Date(Date.parse(countdown)) : false;
+            callback = callback || function () {
+            };
+            var updateFn = countdown ? getTimeRemaining : getTime;
+            this.el = document.createElement('div');
+            this.el.className = 'flip-clock';
+            var trackers = {},
+                t = updateFn(countdown),
+                key, timeinterval;
+            for (key in t) {
+                if (key === 'Total') {
+                    continue;
+                }
+                trackers[key] = new CountdownTracker(key, t[key]);
+                this.el.appendChild(trackers[key].el);
+            }
+            var i = 0;
+
+            function updateClock() {
+                timeinterval = requestAnimationFrame(updateClock);
+                // throttle so it's not constantly updating the time.
+                if (i++ % 10) {
+                    return;
+                }
+                var t = updateFn(countdown);
+                if (t.Total < 0) {
+                    cancelAnimationFrame(timeinterval);
+                    for (key in trackers) {
+                        trackers[key].update(0);
+                    }
+                    callback();
+                    return;
+                }
+                for (key in trackers) {
+                    trackers[key].update(t[key]);
+                }
+            }
+
+            setTimeout(updateClock, 500);
+        }
+
+        var draftEndTime = document.querySelector('#DraftEndTime').textContent;
+        var deadline = new Date(draftEndTime);
+        var c = new Clock(deadline, function () {
+           // alert('countdown complete')
+        });
+        document.getElementById('countdown').appendChild(c.el);
+        var clock = new Clock();
+        //document.body.appendChild(clock.el);
+    </script>
 @endsection
 
 

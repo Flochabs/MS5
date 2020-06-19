@@ -1,14 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-    @php
-        //fonction pour vérifier que la réponse retournée par l'api image soit bien une photo
-        function check_304($url) {
-            $headers=get_headers($url, 1);
-            if ($headers[0]!='HTTP/1.1 200 OK') return false; else return true;
-        }
-
-    @endphp
 
     <div class="container text-white" id="next-game-coaching">
         <div class="row flex-column text-center bg-countdown no-gutters pb-5 mb-3">

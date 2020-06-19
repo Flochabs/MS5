@@ -32,7 +32,7 @@ class GenerateMatchesCalender extends Command
             if($draft->is_over === 1 && $limitTime <= now()) {
 
             // booléen bought pour enregistrer la draft comme terminée
-           // $draft->update(['is_over' => 1]);
+           $draft->update(['is_over' => 1]);
 
             //récupérer tous les ID des équipes présentes dans la ligue
             $matches = [];
@@ -181,24 +181,24 @@ class GenerateMatchesCalender extends Command
             }
 
 // ---------------- ENVOI D'EMAIL AUX UTILISATEURS PRESENTS DANS LA LIGUE  --------------------------//
-//                $leagueId = $draft->league;
-//
-//                //Récupération des emails des membres de la league
-//                $userEmails = [];
-//                $users = DB::table('league_user')
-//                    ->leftjoin('users', 'id', '=', 'league_user.user_id')
-//                    ->where('league_user.league_id', (int)$leagueId->id)
-//                    ->get();
-//                foreach ($users as $user) {
-//                    $userEmails[]= $user->email;
-//                }
-//
-//                // Envoi d'un mail de lancement de la draft
-//                $title = 'Fin de la draft !';
-//                $content = 'Salut, ta league ' . $leagueId->name .
-//                    ' viens de terminer sa draft ! Tu peux dès à présent faire ta composition pour ton prochain match';
+                $leagueId = $draft->league;
 
-               // Mail::to($userEmails)->send(new Register($title, $content));
+                //Récupération des emails des membres de la league
+                $userEmails = [];
+                $users = DB::table('league_user')
+                    ->leftjoin('users', 'id', '=', 'league_user.user_id')
+                    ->where('league_user.league_id', (int)$leagueId->id)
+                    ->get();
+                foreach ($users as $user) {
+                    $userEmails[]= $user->email;
+                }
+
+                // Envoi d'un mail de lancement de la draft
+                $title = 'Fin de la draft !';
+                $content = 'Salut, ta league ' . $leagueId->name .
+                    ' viens de terminer sa draft ! Tu peux dès à présent faire ta composition pour ton prochain match';
+
+                Mail::to($userEmails)->send(new Register($title, $content));
 
             }
         }
