@@ -22,10 +22,14 @@
             <div class="col-md-6 text-left"><h2
                     class="mb-3 text-white">{{$league->number_teams - $league->users->count()}} place(s) restante(s)
                     sur {{$league->number_teams}}</h2></div>
-            @if(Auth::user()->id === $league->user->id)
-                <div class="col-md-6 text-right">
-                    <div class="row">
-                        @if($league->isActive === 0)
+
+            <div class="col-md-6 text-right">
+                <div class="row">
+{{--                    {{dd($draftStatus)}}--}}
+                    @if($league->isActive === 1 && $draftStatus === 0)
+                        <a href="{{route('draft.index')}}" class="btn btn-outline-secondary">Rejoindre la draft</a>
+                    @else($league->isActive === 0)
+                        @if(Auth::user()->id === $league->user->id && $draftStatus === 0)
                             <form action="{{ route('leagues.update', $league->id)}}" method="post">
                                 @csrf
                                 @method('PATCH')
@@ -38,14 +42,13 @@
                                 <button class="bouton-connexion" type="submit">Supprimer la league</button>
                             </form>
                         @endif
-                        @if($league->isActive === 1)
-                                <a href="{{route('draft.index')}}" class="btn btn-outline-secondary">Rejoindre la draft</a>
-                        @endif
-
-                    </div>
+                    @endif
 
                 </div>
-            @endif
+
+            </div>
+
+
         </div>
 
 
@@ -73,7 +76,7 @@
                                 @if($user->team !== null)
                                     {{$user->team->name}}
                                 @else
-                                    Création de l'équipe en cours !
+                                    Création de l'équipe en cours.
                                 @endif
                             @endif
                         </td>
@@ -81,7 +84,7 @@
                             @if($league->isActive === 1)
                                 {{$i++}}
                             @else
-                                draft en cours
+                                En attente du lancement de la league !
                             @endif
                         </td>
                         <td>
