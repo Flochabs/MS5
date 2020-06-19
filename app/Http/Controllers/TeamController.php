@@ -31,7 +31,9 @@ class TeamController extends Controller
      */
     public function create()
     {
+
         $user = Auth::user();
+
         $userId = $user->id;
         $userLeague = DB::table('league_user')
             ->leftjoin('leagues', 'leagues.id', '=', 'league_user.league_id')
@@ -48,8 +50,15 @@ class TeamController extends Controller
             if ($hasTeam = $user->team()->exists()) {
                 return redirect()->route('leagues.show', $userLeagueId)->withErrors('Tu as déjà une team !');
             } else {
-                $nbaTeams = Nbateam::all();
-                return view('teams.create')->with('nbaTeams', $nbaTeams);
+                //récupérer l'équipe favorite du joueur pour lui afficher le logo correspondant
+                $userHasLogo = $user->nbaTeams;
+                if(!$userHasLogo) {
+                    $userLogo ='/storage/images/leagues_portal/picto_league_publique.png';
+                    return view('teams.create')->with('userLogo', $userLogo);
+                } else {
+                    $userLogo ='/storage/images/logos/' . $user->nbaTeams->name . '.png';
+                    return view('teams.create')->with('userLogo', $userLogo);
+                }
             }
         }else{
             return redirect()->route('leagues.index')->withErrors('Tu dois d\'abord rejoindre ou créer une league !');

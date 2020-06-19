@@ -38,20 +38,10 @@
                         <div class="form-group">
                             <div class="row my-5">
                                 <div class="col-md-4">
-                                    <label for="nbateam_id" class="tertiary col-form-label">Logo de ta team :</label>
+                                    <p class="tertiary">Logo de ta team :</p>
                                 </div>
-                                <div class="col-md-8">
-                                    <select class="form-control input"
-                                            id="nbateam_id @error('nbateam_id') is-invalid @enderror"
-                                            name="nbateam_id" autocomplete="nbateam_id">
-
-                                        <option value="">aucune</option>
-
-                                        @foreach($nbaTeams as  $nbaTeam)
-                                            <option
-                                                value="{{$nbaTeam->id}}">{{$nbaTeam->name }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="col-md-8 text-center" style="max-height: 10rem">
+                                    <img class="h-100" src="{{$userLogo}}">
                                 </div>
                             </div>
                             @error('nbateam_id')
