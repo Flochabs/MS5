@@ -25,10 +25,11 @@
 
             <div class="col-md-6 text-right">
                 <div class="row">
-                    @if($league->isActive === 1)
+{{--                    {{dd($draftStatus)}}--}}
+                    @if($league->isActive === 1 && $draftStatus === 0)
                         <a href="{{route('draft.index')}}" class="btn btn-outline-secondary">Rejoindre la draft</a>
                     @else($league->isActive === 0)
-                        @if(Auth::user()->id === $league->user->id)
+                        @if(Auth::user()->id === $league->user->id && $draftStatus === 0)
                             <form action="{{ route('leagues.update', $league->id)}}" method="post">
                                 @csrf
                                 @method('PATCH')

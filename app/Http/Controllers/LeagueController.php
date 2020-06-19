@@ -142,11 +142,15 @@ class LeagueController extends Controller
                 $teamVictoryRatio[$team] = 'l\'équipe n\'a pas joué de match';
             }
 
+            // Check du statut de la draft
+            $draftStatus = $league->draft->is_over;
+
         }
 
         return view('leagues.show')
             ->with('league', $league)
-            ->with('teamVictoryRatio', $teamVictoryRatio);
+            ->with('teamVictoryRatio', $teamVictoryRatio)
+            ->with('draftStatus', $draftStatus);
     }
 
     /**
