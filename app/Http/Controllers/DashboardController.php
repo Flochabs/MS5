@@ -31,7 +31,7 @@ class DashboardController extends Controller
         //récupérer l'équipe favorite du joueur pour lui afficher le logo correspondant
 
         $userHasLogo = $user->nbaTeams;
-        //dd($userHasLogo);
+
         if(!$userHasLogo) {
             $userLogo ='/storage/images/leagues_portal/picto_league_publique.png';
         } else {
@@ -48,7 +48,7 @@ class DashboardController extends Controller
             $userLeagueId = $userLeague->league_id;
             $userCurrentLeague = League::where('leagues.id', '=', $userLeagueId)->first();
 
-//            $userHasTeam = $user->team->exists();
+
             $userHasTeam = DB::table('teams')
                 ->where('teams.user_id', '=', $userId)
                 ->exists();
@@ -66,25 +66,50 @@ class DashboardController extends Controller
                     if ($draftIsOver === 1) {
                         // league à laquelle appartient l'utilisateur
                         $userLeagueId = $user->team->league_id;
-                        //dd($userLeagueId);
 
-                        // Le nom de la league à laquelle appartient l'utilisateur
+                        //$userNameLeague récupére Le nom de la league à laquelle appartient l'utilisateur
                         $userNameLeague = $user->team->getLeague->name;
-                        //dd($userNameLeague);
 
-                        // $team récupère l'équipe de l'utilisateur
-                        $userTeam = Team::where('user_id', $user->id)->first();
-                        //dd($userTeam);
+                        // $userLeagueTeams récupére le nombre d'équipe dans la league
+                        $userLeagueTeams = $user->leagues[0]->teams;
+                        //dd($userLeagueTeams);
 
-                        $userPlayersTeam = $userTeam->getPlayers;
-                        //dd($userPlayersTeam);
+                        $userLeague = $user->leagues[0];
+
+
+                        //Récupération des matchs associés à chaque team de la league
+                        $allLeagueMatches = Match::where('league_id', $userLeagueId)->get();
+
+                        //recupération des équipes de la league
+                        $allLeagueTeams = Team::where('league_id', $userLeagueId)->get();
+                        $teamsID = [];
+                        //stocakge des ID de chaque équipe depuis Team dans un tableau
+                        foreach ($allLeagueTeams as $leagueTeam) {
+                            $teamsID[]= $leagueTeam->id;
+                        }
+                        // Calcul du pourcentage de victoire de chaque équipe de la league
+                        $teamVictoryRatio = [];
+                        foreach ($teamsID as $team){
+
+                            $teamWiningCount2 = Match::where('team_wining', '=', $team)->count();
+                            $teamHomeCount = Match::where('home_team_id', $team)->count();
+                            $teamAwayCount = Match::where('away_team_id', $team)->count();
+                            $teamCountSum = $teamHomeCount + $teamAwayCount;
+                            if ($teamCountSum !== 0) {
+                                $teamVictoryRatio[$team] = number_format((($teamWiningCount2 /  $teamCountSum) * 100), 2, '.', '');
+                            } else {
+                                $teamVictoryRatio[$team] = '0%';
+                            }
+                        }
+
 
                         //-------------------------  RECUPERATION  DONNES JOEURS DE LA TEAM DE L'UTILISATEUR -------------------------//
 
+                        // $team récupère l'équipe de l'utilisateur
+                        $userTeam = Team::where('user_id', $user->id)->first();
 
-                        // $userPlayersTeam récupère tout joueurs de l'utilisateur dans ça team
-                        $userPlayersTeam = $userTeam->getPlayers;
-
+                        // $userBestPlayersTeam récupère les 5 meilleurs joueurs de l'utilisateur dans son équipe
+                        $userBestPlayersTeam = $userTeam->getPlayers->sortByDesc('score')->take(5);
 
                         //------------------------------------------  RECUPERATION DONNES  MATCH --------------------------------------//
 
@@ -92,29 +117,8 @@ class DashboardController extends Controller
                         $allMatchs = Match::all();
                         //dd($allMatchs);
 
-                        //  $AllHomeTeamsNames récupère tout les noms des équipes qui sont à domicile dans les matchs
-                        // $AllTeamsNames permet d'avoir un tableau avec tout les noms de tout les équipes.
-
-                        //$AllHomeTeamsNames = [];
-                        //$AllTeamsNames =  [];
-                        //foreach ( $allMatchs as $match) {
-                        //  $AllHomeTeamsNames[] = $match->homeTeamName;
-                        //$AllTeamsNames[] =  $AllHomeTeamsNames;
-                        //}
-
-                        //  $AllAwayTeamsNames  récupère tout les noms des équipes qui sont en tant que visiteur dans les matchs
-                        //$AllAwayTeamsNames = [];
-                        //foreach ( $allMatchs as $match) {
-                        //  $AllAwayTeamsNames[] = $match->awayTeamName;
-                        //$AllTeamsNames[] =   $AllAwayTeamsNames;
-                        //}
-                        //dd($AllTeamsNames);
-
                         // $userMatchs récupère tout les matchs jouer par l'utilisateur dans match
                         $userMatchs = Match::where([['league_id', $userLeagueId], ['away_team_id', $userTeam->id]])->orwhere([['league_id', $userLeagueId], ['home_team_id', $userTeam->id]])->get();
-
-                        $homeTeamNextMatch = 0;
-
 
                         //----------------------------------  RECUPERATION DONNES DU  PROCHAIN  MATCH --------------------------------//
 
@@ -158,7 +162,6 @@ class DashboardController extends Controller
 
                             // $userAwayNextMatchLogo récupère le logo de l'utilisateur de l'équipe home qui à joue dans prochain matchs
                             $userAwayNextMatchHasLogo = $user->nbaTeams;
-
                             if (!$userAwayNextMatchHasLogo) {
                                 $userAwayNextMatchLogo = '/storage/images/leagues_portal/picto_league_publique.png';
                             } else {
@@ -243,9 +246,12 @@ class DashboardController extends Controller
                             ->with('userTwitterFeed', $userTwitterFeed)
                             ->with('userLogo', $userLogo)
                             ->with('league', $userLeague)
+                            ->with('userLeagueTeams', $userLeagueTeams)
+                            ->with('teamVictoryRatio', $teamVictoryRatio)
+                            ->with('userLeague', $userLeague)
                             ->with('team', $user->team)
                             ->with('draftIsOver', $draftIsOver)
-                            ->with('userPlayersTeam',  $userPlayersTeam)
+                            ->with('userBestPlayersTeam', $userBestPlayersTeam)
                             ->with('homeTeamNextMatch', $homeTeamNextMatch)
                             ->with('userHomeNextMatch', $userHomeNextMatch)
                             ->with('awayTeamNextMatch', $awayTeamNextMatch)
@@ -285,8 +291,6 @@ class DashboardController extends Controller
                 ->with('userTwitterFeed', $userTwitterFeed)
                 ;
         }
-
-
     }
 
     public function profile($id)
@@ -295,9 +299,7 @@ class DashboardController extends Controller
         return view('dashboard.profile', compact('user'));
     }
 
-    public function  match_result()
-    {
-        return view('dashboard.match_result');
-    }
+
+
 
 }
