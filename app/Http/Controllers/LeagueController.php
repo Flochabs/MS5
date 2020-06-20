@@ -247,10 +247,24 @@ class LeagueController extends Controller
      */
     public function destroy($id)
     {
-        $league = League::findOrFail($id);
-        $league->delete();
 
-        return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
+        $league = League::findOrFail($id);
+        $teamsToDestroy = $league->teams;
+        if (isset($teamsToDestroy)){
+            // d'abord détruire les équipes avant de supprimer la league
+            foreach ($teamsToDestroy as $team){
+                $team->delete();
+            }
+            // suppression de la league
+            $league->delete();
+
+            return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
+        }else{
+            // suppression de la league
+            $league->delete();
+
+            return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
+        }
     }
 
     public function publicLeagues()
