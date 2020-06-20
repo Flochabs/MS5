@@ -17,31 +17,29 @@
     @yield('scripts-header')
 </head>
 <body>
-
+{{--Navbar--}}
 <nav class="container navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
 
     <div class="row">
+        {{--Logo--}}
         <div class="col-md-4 w-75">
             <a href="{{ route('dashboard.index') }}">
                 <img class="img-fluid" width="50%" src="{{asset('storage/images/Logo.png')}}" alt="logo">
             </a>
         </div>
 
-
+        {{--Bouton responsive--}}
         <button class="navbar-toggler h-50" type="button" data-toggle="collapse"
-
                 data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- Colonne droite -->
         <div class="col-md-8 collapse navbar-collapse" id="navbarSupportedContent">
-
-            <!-- Right Side Of Navbar -->
+            <!-- Bouton de navigation -->
             <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-
                 <li class="nav-item active">
                     <a class="nav-link bouton-header"
                        href="{{ route('dashboard.profile', Auth::user()->id)}}">{{ __('Profil') }}</a>
@@ -78,7 +76,7 @@
 <div id="id">
     @yield('content')
 </div>
-
+{{--Footer--}}
 <footer>
     <div class="container pt-5">
         <div class="row">

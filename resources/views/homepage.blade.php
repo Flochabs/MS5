@@ -2,8 +2,9 @@
 
 @section('content')
 
-    {{--Règles--}}
+
     <div class="container-fluid p-0">
+        {{--Règles--}}
         <div class="row no-gutters">
             <div class="col-md-6">
                 <img class="w-100" src="{{asset('storage/images/image_tutos.jpg')}}" alt="photo">
@@ -19,7 +20,6 @@
                     Les stats réels des joueurs sont prisent en compte pour calculer le score des match alors fais
                     les bons choix ! <br>
                     Une lutte sans merci commence jusqu'au titre de champion de <b class="quaternary">MS5</b>.</p>
-
             </div>
         </div>
     </div>
@@ -102,6 +102,7 @@
     </div>
 
     <hr class="bg-white">
+
     {{--Dev Teams--}}
     <div class="container">
         {{--Titre--}}
@@ -110,8 +111,8 @@
                 <h1 class="text-white">Rencontrez l'équipe !</h1>
             </div>
         </div>
+        {{--Équipe dev--}}
         <div class="row pt-2">
-
             <div class="col-md-6 d-flex justify-content-around">
                 <div class="p-5">
                     <div>

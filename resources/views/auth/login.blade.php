@@ -73,7 +73,7 @@
                             <div class="form-group pb-connexion">
                                 <div class="row justify-content-center">
 
-                                    <button type="submit" class="bouton-connexion m-2 w-50">
+                                    <button type="submit" class="bouton-connexion m-2">
                                         {{ __('Connexion') }}
                                     </button>
 

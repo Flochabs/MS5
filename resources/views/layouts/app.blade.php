@@ -23,9 +23,10 @@
 </head>
 <body>
 <div id="app">
+    {{--Navbar--}}
     <nav class="navbar navbar-expand-md bg-primary shadow-sm">
         <div class="container">
-            <span>
+            <span class="w-50">
                 <a href="{{ url('/') }}">
                     <img class="logo-header" src="{{asset('storage/images/logo_footer.png')}}" alt="logo">
                 </a>
@@ -44,14 +45,14 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto d-flex justify-content-around">
                     <!-- Authentication Links -->
                     @guest
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link bouton-connexion" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                         </li>
                         @if (Route::has('register'))
-                            <li class="nav-item ml-2">
+                            <li class="nav-item active">
                                 <a class="nav-link bouton-inscription" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                             </li>
                         @endif
@@ -85,6 +86,7 @@
         @yield('content')
     </main>
 
+    {{--Footer--}}
     <footer>
         <div class="container">
             <div class="row">
