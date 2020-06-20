@@ -203,7 +203,7 @@ class LeagueController extends Controller
                 $data->save();
 
                 //enregistrement du début de la draft avec heure de fin
-                $draftEnd = now()->addDay();
+                $draftEnd = now()->addMinutes(2);
                 $draft = new Draft();
                 $draft->league_id = $data->id;
                 $draft->is_over = 0;

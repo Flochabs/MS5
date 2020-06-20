@@ -10,183 +10,207 @@
         </div>
     </div>
 
-   @if(isset($draftIsOver) && $draftIsOver===1)
+    {{-- Dashboard Match --}}
+    @if(isset($draftIsOver) && $draftIsOver===1)
 
-    <div class="container">
-        <div class="row no-gutters justify-content-around mb-4">
+        <div class="container">
+            <div class="row no-gutters justify-content-around mb-4">
+                {{-- Card prochain match --}}
+                <div class="col-md-5 mt-4 MS5card p-0">
 
-            <div class="col-md-5 mt-4 MS5card p-0">
-
-                <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                    <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                         <h2 class="text-white py-5">Prochain Match</h2>
                         <span class="d-flex" id="countdown"></span>
-                    @if(isset($userNextMatchs))
-                    <div class="d-none" id="MatchDateTime">{{$userNextMatchs->start_at}}</div>
-                    @endif
-                </div>
-
-                <div class="row justify-content-center no-gutters my-5">
-
-                    <div class="col-md-4 d-flex justify-content-between">
-                        @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
-                        <div class="text-right">
-                            <img class="radius25" src="http://placehold.it/50/50" alt="logo">
-                        </div>
-                        <div class="text-right">
-                            <h4 class="text-white">{{$homeTeamNextMatch->name}}</h4>
-                            @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
-                            <p class="tertiary">{{$userHomeNextMatch->pseudo}}</p>
-                            @else
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <img style="height: 50px; width: 50px;"  src="{{asset('storage/images/vs_dashboard.png')}}" alt="">
-                    </div>
-
-                    <div class="col-md-4 d-flex justify-content-between">
-                        <div class="text-left">
-                            <h4 class="text-white">{{$awayTeamNextMatch->name}}</h4>
-                            @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
-                            <p class="tertiary">{{$userAwayNextMatch->pseudo}}</p>
-                            @else
-                            @endif
-                        </div>
-                        <div>
-                            <img class="radius25" src="http://placehold.it/50/50" alt="logo">
-                        </div>
-                        @else
-                            <h1>Match fini</h1>
+                        @if(isset($userNextMatchs))
+                            <div class="d-none" id="MatchDateTime">{{$userNextMatchs->start_at}}</div>
                         @endif
                     </div>
-                </div>
-                <div class="row no-gutters justify-content-center mt-5">
-                    <a href="{{route('match.index')}}" class="text-white bouton-inscription">Préparation de l'équipe</a>
-                </div>
-            </div>
 
-            <div class="col-md-5 p-0 mt-4">
-                <div class="row no-gutters">
-                    <div class="col-12">
-                        <div class="row no-gutters MS5card text-center">
-                            <div class="col-12">
-                                <h2 class="text-white">League</h2>
-                            </div>
+                    <div class="row justify-content-center no-gutters my-1">
 
+                        <div class="col-md-12">
+                            @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
+                                <div class="row flex-wrap justify-content-between pt-4">
 
-                            <div class="col-12">
-                                <table class="table table-bordered bg-card m-0">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Équipe</th>
-                                        <th scope="col">Stade</th>
-                                        <th scope="col">%</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>TheBoss</td>
-                                        <td>New Orleans Arena</td>
-                                        <td>0.889</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Puma</td>
-                                        <td>United Center</td>
-                                        <td>0.760</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Elchikitopouet</td>
-                                        <td>Madisson Square Garden</td>
-                                        <td>0.512</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-12 pb-2">
+                                            @if ( ( $userHomeNextMatchLogo  !== 'Pas de logo' ||  $userAwayNextMatchLogo !== 'Pas de logo' ))
+                                            <img class="w-100" src="{{$userHomeNextMatchLogo}}">
+                                            @else
+                                            @endif
+                                        </div>
+                                        <div class="col-md-12 ">
+                                            <h4 class="text-white text-center">{{$homeTeamNextMatch->name}}</h4>
+                                            @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
+                                                <p class="tertiary text-center">{{$userHomeNextMatch->pseudo}}</p>
+                                            @else
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="col-md-12 text-center pt-1">
+                                            <img style="height: 75px; width: 75px;"  src="{{asset('storage/images/vs_dashboard.png')}}" alt="">
+                                        </div>
+                                    </div>
+                                   <div class="col-md-4">
+                                       <div class="col-md-12 text-center pb-2">
+                                           @if ( ( $userHomeNextMatchLogo  !== 'Pas de logo' ||  $userAwayNextMatchLogo !== 'Pas de logo' ))
+                                           <img class="w-100" src="{{$userAwayNextMatchLogo}}">
+                                           @else
+                                           @endif
+                                       </div>
+                                       <div class="col-md-12">
+                                           <h4 class="text-white text-center">{{$awayTeamNextMatch->name}}</h4>
+                                           @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
+                                               <p class="tertiary text-center">{{$userAwayNextMatch->pseudo}}</p>
+                                           @else
+                                           @endif
+                                       </div>
+                                   </div>
+                                </div>
+                            @else
+                                <h1>Match fini</h1>
+                            @endif
                         </div>
-                        <div class="row no-gutters MS5card text-center mt-4">
-                            <div class="col-12">
-                                <h2 class="text-white">Équipe</h2>
+                    </div>
+                    <div class="row no-gutters justify-content-center mt-4">
+                        <a href="{{route('match.index')}}" class="text-white bouton-inscription">Préparation de l'équipe</a>
+                    </div>
+                </div>
+
+                {{-- Card League --}}
+                <div class="col-md-5 p-0 mt-4">
+                    <div class="row no-gutters">
+                        <div class="col-12">
+                            <div class="row no-gutters MS5card text-center">
+                                <div class="col-12">
+                                    <h2 class="text-white">League</h2>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <table class="table table-bordered bg-card m-0">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Équipe</th>
+                                            <th scope="col">Stade</th>
+                                            <th scope="col">%</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>TheBoss</td>
+                                            <td>New Orleans Arena</td>
+                                            <td>0.889</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Puma</td>
+                                            <td>United Center</td>
+                                            <td>0.760</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Elchikitopouet</td>
+                                            <td>Madisson Square Garden</td>
+                                            <td>0.512</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <table class="table table-bordered bg-card w-100 m-0">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Position</th>
-                                        <th scope="col">Joueur</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>MJ</td>
-                                        <td>Chris Paul</td>
-                                    </tr>
-                                    <tr>
-                                        <td>A</td>
-                                        <td>James Harden</td>
-                                    </tr>
-                                    <tr>
-                                        <td>AI</td>
-                                        <td>Lebron James</td>
-                                    </tr>
-                                    <tr>
-                                        <td>AF</td>
-                                        <td class="">Giannis Antetokounmpo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>P</td>
-                                        <td>Demarcus Cousins</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row no-gutters MS5card text-center mt-4">
+                                <div class="col-12">
+                                    <h2 class="text-white">Équipe</h2>
+                                </div>
+                                <div class="col-12">
+                                    <table class="table table-bordered bg-card w-100 m-0">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Position</th>
+                                            <th scope="col">Joueur</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>MJ</td>
+                                            <td>Chris Paul</td>
+                                        </tr>
+                                        <tr>
+                                            <td>A</td>
+                                            <td>James Harden</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AI</td>
+                                            <td>Lebron James</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AF</td>
+                                            <td class="">Giannis Antetokounmpo</td>
+                                        </tr>
+                                        <tr>
+                                            <td>P</td>
+                                            <td>Demarcus Cousins</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
+        <div class="container">
 
             <div class="row no-gutters justify-content-around mb-4">
-
+                {{-- Card Dernier Match --}}
                 <div class="col-md-5 MS5card mt-4 p-0">
+
                     <div class="row no-gutters">
                         <div class="col-12 text-center my-2">
                             <h2 class="text-white">Dernier Match</h2>
                         </div>
-                    </div>
+
+
                     <div class="row justify-content-center no-gutters my-4">
-                        <div class="col-md-4 d-flex justify-content-around">
+                        <div class="col-md-12 d-flex justify-content-around">
                             @if ( $homeTeamLastMatch  !== 'Match pas fini' || $awayTeamLastMatch !== 'Match pas fini' )
-                            <div class="text-right">
-                                <img class="radius25" src="http://placehold.it/50/50" alt="logo">
-                            </div>
-                            <div class="text-right">
-                                <h4 class="text-white">{{$homeTeamLastMatch->name}}</h4>
-                                @if ( $homeTeamLastMatch  !== 'Match pas fini' || $awayTeamLastMatch !== 'Match pas fini' )
-                                <p class="tertiary">{{$userHomeLastMatch->pseudo}}</p>
-                                @else
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 text-center">
-                            <h1 class="tertiary">{{ $userLastMatch->home_team_score }} - {{$userLastMatch->away_team_score}}</h1>
-                        </div>
-
-                        <div class="col-md-4 d-flex justify-content-around">
-                            <div class="text-left">
-                                <h4 class="text-white">{{$awayTeamLastMatch->name}}</h4>
-                                @if ( $homeTeamLastMatch  !== 'Match pas fini' || $awayTeamLastMatch !== 'Match pas fini' )
-                                    <p class="tertiary">{{$userAwayLastMatch->pseudo}}</p>
-                                @else
-                                @endif
-                            </div>
-                            <div>
-                                <img class="radius25" src="http://placehold.it/50/50" alt="logo">
-                            </div>
+                                <div class="row flex-wrap justify-content-between">
+                                    <div class="col-md-4">
+                                        <div class="col-md-12 pb-2 ">
+                                            @if ( ( $userHomeLastMatchLogo  !== 'Pas de logo' ||  $userAwayLastMatchLogo !== 'Pas de logo' ))
+                                            <img class="w-100" src="{{$userHomeLastMatchLogo}}">
+                                            @else
+                                            @endif
+                                        </div>
+                                        <div class="col-md-12 ">
+                                                <h4 class="text-white">{{$homeTeamLastMatch->name}}</h4>
+                                                @if ( ($homeTeamLastMatch  !== 'Match pas fini' || $awayTeamLastMatch !== 'Match pas fini' ))
+                                                    <p class="tertiary">{{$userHomeLastMatch->pseudo}}</p>
+                                                @else
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <h1 class="tertiary">{{ $userLastMatch->home_team_score }} - {{$userLastMatch->away_team_score}}</h1>
+                                    </div>
+                                    <div class="col-md-4">
+                                            <div class="col-md-12 pb-2 ">
+                                                @if ( ( $userHomeLastMatchLogo  !== 'Pas de logo' ||  $userAwayLastMatchLogo !== 'Pas de logo' ))
+                                                <img class="w-100" src="{{$userAwayLastMatchLogo}}">
+                                                @else
+                                                @endif
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <h4 class="text-white">{{$awayTeamLastMatch->name}}</h4>
+                                                @if ( $homeTeamLastMatch  !== 'Match pas fini' || $awayTeamLastMatch !== 'Match pas fini' )
+                                                    <p class="tertiary">{{$userAwayLastMatch->pseudo}}</p>
+                                                @else
+                                                @endif
+                                            </div>
+                                    </div>
+                                </div>
                             @else
                                 <div class="col-md-12">
                                     <h3>Match pas commencer</h3>
@@ -195,7 +219,8 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                        {{-- Card Equipe --}}
+                   <div class="col-12">
                         <table class="table table-bordered bg-card my-2">
                             <thead>
                             <tr class="text-center w-100">
@@ -227,26 +252,30 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-                <div class="col-md-5 mt-4 MS5card">
+                </div>
+            </div>
+                {{-- Card Tweets si il y des matchs --}}
+                <div class="col-md-5 mt-5 MS5card">
                     @if($userTwitterFeed !== null)
                         <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
                             Tweets</a>
                         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                        @else
+                    @else
                         <a class="twitter-timeline" data-width="500" data-height="600" data-theme="dark" href="https://twitter.com/NBAFRANCE?ref_src=twsrc%5Etfw">Tweets
                         </a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     @endif
                 </div>
-            </div>
-    </div>
+
+        </div>
+
+            {{-- Dashboard Evolutif--}}
     @elseif (!isset($draftIsOver) || $draftIsOver===0)
 
         <div class="container">
-            <div class="row no-gutters justify-content-center my-4">
-
-                <div class="col-md-5 MS5card p-0">
+            <div class="row no-gutters justify-content-center my-3">
+                {{-- Card Evolutif--}}
+                <div class="col-md-5 MS5card ">
                     @if(isset($league))
                         @if(isset($team) && $team->exists()=== true)
                             @if($team->getLeague->isActive === 1)
@@ -267,12 +296,12 @@
                                     </div>
                                 @endif
                             @else
-                            <div class="row flex-column text-center bg-countdown no-gutters pb-5">
-                                <h2 class="text-white py-5">En attente du lancement de la league</h2>
-                            </div>
-                            <div class="row no-gutters justify-content-center mt-5">
-                                <a href="{{route('leagues.show', $league->league_id)}}" class="text-white bouton-inscription">Check ta league</a>
-                            </div>
+                                <div class="row flex-column text-center bg-countdown no-gutters pb-5">
+                                    <h2 class="text-white py-5">En attente du lancement de la league</h2>
+                                </div>
+                                <div class="row no-gutters justify-content-center mt-5">
+                                    <a href="{{route('leagues.show', $league->league_id)}}" class="text-white bouton-inscription">Check ta league</a>
+                                </div>
                             @endif
                         @else
                             <div class="row flex-column text-center bg-countdown no-gutters pb-5">
@@ -292,10 +321,10 @@
                     @endif
 
                 </div>
-
+                {{-- Card SI il n'y pas de matchs Tweets --}}
                 <div class="col-md-5 ml-4 MS5card">
                     @if($userTwitterFeed !== null)
-                        <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
+                        <a class="twitter-timeline" data-width="600" data-height="600" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
                             Tweets</a>
                         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     @else

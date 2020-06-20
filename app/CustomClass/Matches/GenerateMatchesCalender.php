@@ -73,19 +73,20 @@ class GenerateMatchesCalender extends Command
                 foreach ($scheduleGames as $scheduleGame) {
 
                     if ($i === 0) {
-                        $matchTime = now()->addDay();
+                        $matchTime = now()->addMinutes(2);
                     } else {
-                        $matchTime = now()->addWeeks($i);
+                        $matchTime = now()->addMinutes($i);
                     }
 
 
                     foreach ($scheduleGame as $game) {
+                        date_default_timezone_set ( 	'Europe/Paris' );
                         $matchDatas = [
                             [
                                 'home_team_id' => $game[0],
                                 'away_team_id' => $game[1],
                                 'league_id' => $draft->league_id,
-                                'start_at' => $matchTime->format('Y-m-d 20:00:00'),
+                                'start_at' => $matchTime,
                             ]
                         ];
                         //insert les données des matchs dans
