@@ -17,7 +17,7 @@ class UpdateSalaryCapTeamsTable extends Migration
             $table->dropColumn('salary_cap');
         });
         Schema::table('teams', function (Blueprint $table) {
-            $table->addColumn('integer', 'salary_cap')->default(110);
+            $table->addColumn('integer', 'salary_cap')->default(200);
         });
     }
 
