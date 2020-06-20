@@ -76,6 +76,9 @@ class DashboardController extends Controller
 
                         $userLeague = $user->leagues[0];
 
+                        // $userTeamId récupère l'id de la team de l'utilisateur
+                        $userTeamId = $user->team->id;
+                        //dd($userTeamId );
 
                         //Récupération des matchs associés à chaque team de la league
                         $allLeagueMatches = Match::where('league_id', $userLeagueId)->get();
@@ -255,7 +258,7 @@ class DashboardController extends Controller
                             ->with('teamVictoryRatio', $teamVictoryRatio)
                             ->with('userLeague', $userLeague)
                             ->with('team', $user->team)
-                            ->with('userTeamId ', $userTeamId )
+                            ->with('userTeamId',$userTeamId)
                             ->with('draftIsOver', $draftIsOver)
                             ->with('userBestPlayersTeam', $userBestPlayersTeam)
                             ->with('homeTeamNextMatch', $homeTeamNextMatch)
