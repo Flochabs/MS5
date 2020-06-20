@@ -76,8 +76,7 @@
                         </div>
                     </div>
                     <div class="row no-gutters justify-content-center mt-4">
-                        <a href="{{route('match.index')}}" class="text-white bouton-inscription">Préparation de
-                            l'équipe</a>
+                        <a href="{{route('match.index')}}" class="text-white bouton-inscription">Coaching</a>
                     </div>
                 </div>
 
@@ -163,6 +162,11 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="row no-gutters justify-content-center mt-4">
+                                        <a href="{{route('teams.show', $userLeague)}}" class="text-white bouton-inscription">
+                                            Roster
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

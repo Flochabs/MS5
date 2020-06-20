@@ -108,6 +108,11 @@ class DashboardController extends Controller
                         // $team récupère l'équipe de l'utilisateur
                         $userTeam = Team::where('user_id', $user->id)->first();
 
+
+                        // $userTeamId récupère l'id de la team de l'utilisateur
+                        $userTeamId = $user->team->id;
+
+
                         // $userBestPlayersTeam récupère les 5 meilleurs joueurs de l'utilisateur dans son équipe
                         $userBestPlayersTeam = $userTeam->getPlayers->sortByDesc('score')->take(5);
 
@@ -250,6 +255,7 @@ class DashboardController extends Controller
                             ->with('teamVictoryRatio', $teamVictoryRatio)
                             ->with('userLeague', $userLeague)
                             ->with('team', $user->team)
+                            ->with('userTeamId ', $userTeamId )
                             ->with('draftIsOver', $draftIsOver)
                             ->with('userBestPlayersTeam', $userBestPlayersTeam)
                             ->with('homeTeamNextMatch', $homeTeamNextMatch)
