@@ -3,7 +3,7 @@
     <div class="container mb-5">
         <div class="row mt-5">
             <div class="col-md-6">
-                <img src="/../storage/images/image_tutos.jpg" alt="image tuto">
+                <img id="img-tuto" src="/../storage/images/image_tutos.jpg" alt="image tuto">
             </div>
             <div class="col-md-6">
                 <div class="row my-5">
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="container-fluid mt-5 py-5" id="first-banner">
-        <div class="container my-5 bg-white rounded" style="height: 10rem">
+        <div class="container my-5 bg-white rounded">
             <div class="row">
                 <div class="col-12">
                     <h2 class="text-dark">Tout se déroule en 4 steps :</h2>

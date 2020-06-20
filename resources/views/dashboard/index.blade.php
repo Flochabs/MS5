@@ -11,12 +11,12 @@
     </div>
 
    @if(isset($draftIsOver) && $draftIsOver===1)
-
+       {{--1er Section draft fini--}}
     <div class="container">
         <div class="row no-gutters justify-content-around mb-4">
-
+            {{--Colonne de gauche--}}
             <div class="col-md-5 mt-4 MS5card p-0">
-
+                {{--Card prochain match--}}
                 <div class="row flex-column text-center bg-countdown no-gutters pb-5">
                         <h2 class="text-white py-5">Prochain Match</h2>
                         <span class="d-flex" id="countdown"></span>
@@ -25,8 +25,8 @@
                     @endif
                 </div>
 
+                {{--Card Match Fini--}}
                 <div class="row justify-content-center no-gutters my-5">
-
                     <div class="col-md-4 d-flex justify-content-between">
                         @if ($homeTeamNextMatch !== 'Match fini' || $awayTeamNextMatch !== 'Match fini' )
                         <div class="text-right">
@@ -65,15 +65,15 @@
                     <a href="{{route('match.index')}}" class="text-white bouton-inscription">Préparation de l'équipe</a>
                 </div>
             </div>
-
+            {{--Colonne de droite--}}
             <div class="col-md-5 p-0 mt-4">
+                {{--Card League--}}
                 <div class="row no-gutters">
                     <div class="col-12">
                         <div class="row no-gutters MS5card text-center">
                             <div class="col-12">
                                 <h2 class="text-white">League</h2>
                             </div>
-
 
                             <div class="col-12">
                                 <table class="table table-bordered bg-card m-0">
@@ -147,10 +147,11 @@
         </div>
     </div>
 
+    {{--2iem section--}}
     <div class="container">
 
             <div class="row no-gutters justify-content-around mb-4">
-
+                {{--Card dernier match--}}
                 <div class="col-md-5 MS5card mt-4 p-0">
                     <div class="row no-gutters">
                         <div class="col-12 text-center my-2">
@@ -228,7 +229,7 @@
                         </table>
                     </div>
                 </div>
-
+                {{--Card tweeter--}}
                 <div class="col-md-5 mt-4 MS5card">
                     @if($userTwitterFeed !== null)
                         <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
@@ -242,11 +243,12 @@
             </div>
     </div>
     @elseif (!isset($draftIsOver) || $draftIsOver===0)
-
+        {{--Section draft non fini--}}
         <div class="container">
-            <div class="row no-gutters justify-content-center my-4">
-
-                <div class="col-md-5 MS5card p-0">
+            <div class="row no-gutters justify-content-around my-4">
+                {{--Colonne de gauche--}}
+                {{--Card draft--}}
+                <div class="col-md-5 MS5card mt-2 p-0">
                     @if(isset($league))
                         @if(isset($team) && $team->exists()=== true)
                             @if($team->getLeague->isActive === 1)
@@ -292,8 +294,9 @@
                     @endif
 
                 </div>
-
-                <div class="col-md-5 ml-4 MS5card">
+                {{--Colonne de droite--}}
+                {{--Card tweeter--}}
+                <div class="col-md-5 mt-2 MS5card">
                     @if($userTwitterFeed !== null)
                         <a class="twitter-timeline" data-width="460" data-height="460" data-theme="dark" href="{{$userTwitterFeed->twitter_feed}}">
                             Tweets</a>
@@ -308,6 +311,7 @@
     @endif
 
 @endsection
+{{--JS pour le countdown--}}
 @section('script-footer')
     <script>
         function CountdownTracker(label, value) {

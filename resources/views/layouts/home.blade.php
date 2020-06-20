@@ -26,22 +26,25 @@
 <body>
 
 <div id="app">
-
+    {{--Header--}}
     <header class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-md-12">
                 <div class="banner justify-content-center h-100 w-100">
                     <div class="container">
+                        {{--Réseaux Sociaux--}}
                         <div class="row no-gutters justify-content-end py-5">
                             <a class="text-dark" href="https://www.instagram.com/nbafra/"><i class="fab fa-instagram fa-2x icon text-center pt-1 m-2"></i></a>
                             <a class="text-dark" href="https://www.facebook.com/NBAFrance"><i class="fab fa-facebook fa-2x icon text-center pt-1 m-2"></i></a>
                             <a class="text-dark" href="https://twitter.com/starting5fr"><i class="fab fa-twitter fa-2x icon text-center pt-1 m-2"></i></a>
                         </div>
+                        {{--Logo Header--}}
                         <div class="row no-gutters justify-content-center py-4">
                             <div class="col-md-12">
                                 <img class="img-fluid mt-5" src="{{asset('storage/images/Logo.png')}}" alt="logo">
                             </div>
                         </div>
+                        {{--Bouton--}}
                         <div class="row no-gutters justify-content-center py-5">
                             <li class="nav-item">
                                 <a class="bouton-connexion"
@@ -63,6 +66,7 @@
     <main class="">
         @yield('content')
     </main>
+    {{--Footer--}}
     <footer>
         <div class="container pt-5">
             <div class="row">
