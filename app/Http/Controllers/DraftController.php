@@ -322,7 +322,7 @@ class DraftController extends Controller
 
         if(empty($isAlreadyDrafted) && $moneyAvailable >= $player->price
             && $moneyAvailable >= $playerLatestAuction && $nbDraftedPlayers < 12 && $nbPosition < $limit) {
-            $auctionTimeLimit = Carbon::parse(now())->addMinutes(2)->format('Y-m-d H:i:s');
+            $auctionTimeLimit = Carbon::parse(now())->addSeconds(30)->format('Y-m-d H:i:s');
 
             $data = [[
                 'team_id' => $team->id,
@@ -498,22 +498,10 @@ class DraftController extends Controller
 
         //l'enchere doit être supérieur à la dernière valeur proposée par un joueur de la ligue
         if(empty($isAlreadyDrafted) && $auctionUpdateDelta <= $moneyAvailable && $nbDraftedPlayers < 15 && $nbPosition < $limit && $auctionValue > $player->price) {
-            $auctionTimeLimit = Carbon::parse(now())->addMinutes(1)->format('Y-m-d H:i:s');
+            $auctionTimeLimit = Carbon::parse(now())->addSeconds(30)->format('Y-m-d H:i:s');
             Auction::where([['player_id',$id], ['team_id', $team->id]])->update(['auction' => $auctionValue,'auction_time_limit' => $auctionTimeLimit ]);
             return back()->with('succes', 'Enchère Enregistrée !');
         }
         return back()->with('errors','Tu n\'as pas assez d\'argent !');
     }
-
-
-    public function confirmDraft(){
-
-    }
-    /**
-     * Supprime l'enchère de l'utilisateur sur le joueur sélectionné
-     *
-     * @param int $id
-     * @return Response
-     */
-
 }

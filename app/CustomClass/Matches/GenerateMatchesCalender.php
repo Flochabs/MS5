@@ -73,7 +73,7 @@ class GenerateMatchesCalender extends Command
                 foreach ($scheduleGames as $scheduleGame) {
 
                     if ($i === 0) {
-                        $matchTime = now()->addDay();
+                        $matchTime = now()->addMinutes(1);
                     } else {
                         $matchTime = now()->addWeeks($i);
                     }
