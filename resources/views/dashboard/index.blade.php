@@ -120,37 +120,52 @@
                             </div>
                             <div class="row no-gutters MS5card text-center mt-4">
                                 <div class="col-12">
-                                    <h2 class="text-white">Équipe</h2>
+                                    <h2 class="text-white">Team</h2>
                                 </div>
                                 <div class="col-12">
                                     <table class="table table-bordered bg-card w-100 m-0">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Position</th>
                                             <th scope="col">Joueur</th>
+                                            <th scope="col">Position</th>
+                                            <th scope="col">Score</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>MJ</td>
-                                            <td>Chris Paul</td>
-                                        </tr>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>James Harden</td>
-                                        </tr>
-                                        <tr>
-                                            <td>AI</td>
-                                            <td>Lebron James</td>
-                                        </tr>
-                                        <tr>
-                                            <td>AF</td>
-                                            <td class="">Giannis Antetokounmpo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>P</td>
-                                            <td>Demarcus Cousins</td>
-                                        </tr>
+                                        @foreach($userBestPlayersTeam as $player)
+                                            @php
+
+                                                $playerStats = json_decode($player->data)->pl;
+                                                    if(isset($playerStats->ca->sa)) {
+                                                       $currentSeasonStats = $playerStats->ca->sa;
+                                                       $currentSeasonStats = last($currentSeasonStats);
+                                                    } else {
+                                                        $currentSeasonStats = $playerStats->ca;
+                                                    }
+
+                                                $position  = substr($playerStats->pos, 0,1);
+                                                if($position === "G") {
+                                                    $position = 'Arrière';
+                                                } else if ($position === "F") {
+                                                    $position = 'Ailier';
+                                                } else {
+                                                    $position = 'Pivot';
+                                                }
+                                            @endphp
+                                            <tr>
+                                                <th scope="row" class="align-middle pr-0">
+
+                                                    <img
+                                                        src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
+                                                        class="w-25 rounded-circle pr-1">
+
+
+                                                    {{$playerStats->fn}} {{$playerStats->ln}}
+                                                </th>
+                                                <td class="align-middle">{{$position}}</td>
+                                                <td class="align-middle">{{$player->score}}</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -219,7 +234,7 @@
                         </div>
                     </div>
 
-                        {{-- Card Equipe --}}
+                        {{-- Card  Dernier Match Team--}}
                    <div class="col-12">
                         <table class="table table-bordered bg-card my-2">
                             <thead>
