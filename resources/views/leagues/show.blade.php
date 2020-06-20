@@ -25,7 +25,6 @@
 
             <div class="col-md-6 text-right">
                 <div class="row">
-{{--                    {{dd($draftStatus)}}--}}
                     @if($league->isActive === 1 && $draftStatus === 0)
                         <a href="{{route('draft.index')}}" class="btn btn-outline-secondary">Rejoindre la draft</a>
                     @else($league->isActive === 0)
