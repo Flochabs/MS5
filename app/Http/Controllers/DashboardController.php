@@ -63,7 +63,7 @@ class DashboardController extends Controller
                 if ($userLeagueActive === 1 && $userHasPlayers === true){
                     $draftIsOver = $userCurrentLeague->draft->is_over;
 
-                    if ($draftIsOver === 1){
+                    if ($draftIsOver === 1) {
                         // league à laquelle appartient l'utilisateur
                         $userLeagueId = $user->team->league_id;
                         //dd($userLeagueId);
@@ -84,6 +84,7 @@ class DashboardController extends Controller
 
                         // $userPlayersTeam récupère tout joueurs de l'utilisateur dans ça team
                         $userPlayersTeam = $userTeam->getPlayers;
+
 
                         //------------------------------------------  RECUPERATION DONNES  MATCH --------------------------------------//
 
@@ -110,21 +111,25 @@ class DashboardController extends Controller
                         //dd($AllTeamsNames);
 
                         // $userMatchs récupère tout les matchs jouer par l'utilisateur dans match
-                        $userMatchs  = Match::where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])->get();
+                        $userMatchs = Match::where([['league_id', $userLeagueId], ['away_team_id', $userTeam->id]])->orwhere([['league_id', $userLeagueId], ['home_team_id', $userTeam->id]])->get();
 
                         $homeTeamNextMatch = 0;
+
 
                         //----------------------------------  RECUPERATION DONNES DU  PROCHAIN  MATCH --------------------------------//
 
                         // $userNextMatchs récupère le prochain matchs jouer par l'utilisateur dans match
-                        $userNextMatchs  = Match::whereNull('home_team_score')->where([['league_id', $userLeagueId],['away_team_id', $userTeam->id]])
-                            ->orwhere([['league_id', $userLeagueId],['home_team_id', $userTeam->id]])
-                            ->orderBy('start_at','asc')
-                            ->get()
+                        $userNextMatchs = Match::where(function ($query) use ($userLeagueId, $userTeam) {
+                            $query->where(['league_id' => $userLeagueId, 'away_team_id' => $userTeam->id])
+                                ->orwhere(['league_id' => $userLeagueId, 'home_team_id' => $userTeam->id]);
+                        })
+                            ->whereNull('home_team_score')
+                            ->whereNotNull('away_team_id')
+                            ->orderBy('start_at', 'desc')
                             ->first();
 
-                        if($userNextMatchs != null)
-                        {
+                        if ($userNextMatchs != null) {
+
                             // $homeTeamNextMatch récupère le nom de l'équipe home qui joue dans prochain matchs
                             $homeTeamNextMatch = Team::where('id', $userNextMatchs->home_team_id)
                                 ->get()
@@ -136,55 +141,54 @@ class DashboardController extends Controller
                                 ->first();
 
                             // $userHomeNextMatch récupère l'utilisateur de l'équipe home qui à joue dans prochain matchs
-                            $userHomeNextMatch =  $homeTeamNextMatch->userTeam;
+                            $userHomeNextMatch = $homeTeamNextMatch->userTeam;
 
                             // $userHomeNextMatchLogo récupère le logo de l'utilisateur de l'équipe home qui à joue dans prochain matchs
                             $userHomeNextMatchHasLogo = $user->nbaTeams;
 
-                            if(! $userHomeNextMatchHasLogo) {
-                                $userHomeNextMatchLogo ='/storage/images/leagues_portal/picto_league_publique.png';
+                            if (!$userHomeNextMatchHasLogo) {
+                                $userHomeNextMatchLogo = '/storage/images/leagues_portal/picto_league_publique.png';
                             } else {
-                                $userHomeNextMatchLogo ='/storage/images/logos/' . $userHomeNextMatch->nbaTeams->name . '.png';
+                                $userHomeNextMatchLogo = '/storage/images/logos/' . $userHomeNextMatch->nbaTeams->name . '.png';
                             }
 
 
                             // $userAwayNextMatch récupère l'utilisateur de l'équipe away qui à joue dans prochain matchs
-                            $userAwayNextMatch  =  $awayTeamNextMatch->userTeam;
+                            $userAwayNextMatch = $awayTeamNextMatch->userTeam;
 
                             // $userAwayNextMatchLogo récupère le logo de l'utilisateur de l'équipe home qui à joue dans prochain matchs
                             $userAwayNextMatchHasLogo = $user->nbaTeams;
 
-                            if(! $userAwayNextMatchHasLogo) {
-                                $userAwayNextMatchLogo ='/storage/images/leagues_portal/picto_league_publique.png';
+                            if (!$userAwayNextMatchHasLogo) {
+                                $userAwayNextMatchLogo = '/storage/images/leagues_portal/picto_league_publique.png';
                             } else {
-                                $userAwayNextMatchLogo ='/storage/images/logos/' . $userAwayNextMatch->nbaTeams->name . '.png';
+                                $userAwayNextMatchLogo = '/storage/images/logos/' . $userAwayNextMatch->nbaTeams->name . '.png';
                             }
 
-                        }else
-                        {
+                        } else {
                             $homeTeamNextMatch = 'Match fini';
                             $awayTeamNextMatch = 'Match fini';
-                            $userHomeNextMatch =  'Pas d\'utilisateur';
-                            $userAwayNextMatch =  'Pas d\'utilisateur';
+                            $userHomeNextMatch = 'Pas d\'utilisateur';
+                            $userAwayNextMatch = 'Pas d\'utilisateur';
+                            $userHomeNextMatchLogo = 'Pas de logo';
+                            $userAwayNextMatchLogo = 'Pas de logo';
 
                         }
-
 
 
                         //----------------------------------  RECUPERATION DONNES DU DERNIER  MATCH --------------------------------//
 
                         // $userLastMatch récupère le dernier match jouer par l'utilisateur dans match
-                        $userLastMatch  = Match::where(function ($query) use($userLeagueId,$userTeam) {
-                            $query->where(['league_id' => $userLeagueId , 'away_team_id' => $userTeam->id])
+                        $userLastMatch = Match::where(function ($query) use ($userLeagueId, $userTeam) {
+                            $query->where(['league_id' => $userLeagueId, 'away_team_id' => $userTeam->id])
                                 ->orwhere(['league_id' => $userLeagueId, 'home_team_id' => $userTeam->id]);
                         })
                             ->whereNotNull('home_team_score')
                             ->whereNotNull('away_team_id')
-                            ->orderBy('start_at','desc')
+                            ->orderBy('start_at', 'desc')
                             ->first();
 
-                        if( $userLastMatch != null)
-                        {
+                        if ($userLastMatch != null) {
                             // $homeTeamLastMatch récupère le nom de l'équipe home qui à jouer dans le dernier matchs
                             $homeTeamLastMatch = Team::where('id', $userLastMatch->home_team_id)
                                 ->get()
@@ -200,32 +204,35 @@ class DashboardController extends Controller
 
                             // $userHomeLastMatchLogo récupère le logo de l'utilisateur de l'équipe home qui à joue dans prochain matchs
                             $userHomeLastMatchHasLogo = $user->nbaTeams;
-                            if(! $userHomeLastMatchHasLogo) {
-                                $userHomeLastMatchLogo ='/storage/images/leagues_portal/picto_league_publique.png';
+
+                            if (!$userHomeLastMatchHasLogo) {
+                                $userHomeLastMatchLogo = '/storage/images/leagues_portal/picto_league_publique.png';
                             } else {
-                                $userHomeLastMatchLogo ='/storage/images/logos/' . $userHomeLastMatch->nbaTeams->name . '.png';
+                                $userHomeLastMatchLogo = '/storage/images/logos/' . $userHomeLastMatch->nbaTeams->name . '.png';
                             }
 
                             // $userAwayLastMatch récupère l'utilisateur de l'équipe away qui à jouer dans le dernier matchs
                             $userAwayLastMatch = $awayTeamLastMatch->userTeam;
 
-                            // $userAwayLastMatchLogo récupère le logo de l'utilisateur de l'équipe home qui à joue dans prochain matchs
+                            // $userAwayLastMatchHasLogo récupère le logo de l'utilisateur de l'équipe home qui à joue dans prochain matchs
                             $userAwayLastMatchHasLogo = $user->nbaTeams;
-                            if(! $userAwayLastMatchHasLogo) {
-                                $userAwayLastMatchLogo ='/storage/images/leagues_portal/picto_league_publique.png';
+
+                            if (!$userAwayLastMatchHasLogo) {
+                                $userAwayLastMatchLogo = '/storage/images/leagues_portal/picto_league_publique.png';
                             } else {
-                                $userAwayLastMatchLogo ='/storage/images/logos/' .  $userAwayLastMatch->nbaTeams->name . '.png';
+                                $userAwayLastMatchLogo = '/storage/images/logos/' . $userAwayLastMatch->nbaTeams->name . '.png';
                             }
 
 
-                        }else
-                        {
-                            $homeTeamLastMatch  = 'Match pas fini';
+                        } else {
+                            $homeTeamLastMatch = 'Match pas fini';
                             $awayTeamLastMatch = 'Match pas fini';
-                            $userHomeLastMatch =  'Pas d\'utilisateur';
-                            $userAwayLastMatch =  'Pas d\'utilisateur';
-
+                            $userHomeLastMatch = 'Pas d\'utilisateur';
+                            $userAwayLastMatch = 'Pas d\'utilisateur';
+                            $userHomeLastMatchLogo = 'Pas de logo';
+                            $userAwayLastMatchLogo = 'Pas de logo';
                         }
+
 
                         return view('dashboard.index')
                             ->with('user', $user)
@@ -249,6 +256,7 @@ class DashboardController extends Controller
                             ->with('userAwayLastMatch', $userAwayLastMatch)
                             ->with('userLastMatch', $userLastMatch)
                             ->with('userNextMatchs', $userNextMatchs);
+
                     }else{
                         return view('dashboard.index')
                             ->with('user', $user)
@@ -277,9 +285,6 @@ class DashboardController extends Controller
                 ->with('userTwitterFeed', $userTwitterFeed)
                 ;
         }
-
-
-
 
 
     }
