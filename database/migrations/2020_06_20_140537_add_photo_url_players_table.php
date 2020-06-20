@@ -13,7 +13,9 @@ class AddPhotoUrlPlayersTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('players', function (Blueprint $table) {
+            $table->string('photo_url', 255);
+        });
     }
 
     /**

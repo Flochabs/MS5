@@ -66,7 +66,9 @@ label {
 .quaternary {
     color: $quaternary;
 }
-
+.main-color {
+    color: $primary;
+}
 // Card
 .MS5card {
     @include MS5card
