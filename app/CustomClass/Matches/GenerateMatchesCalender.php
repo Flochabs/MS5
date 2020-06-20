@@ -73,7 +73,7 @@ class GenerateMatchesCalender extends Command
                 foreach ($scheduleGames as $scheduleGame) {
 
                     if ($i === 0) {
-                        $matchTime = now()->addMinutes(1);
+                        $matchTime = now()->addMinutes(5);
                     } else {
                         $matchTime = now()->addMinutes($i);
                     }
@@ -86,7 +86,7 @@ class GenerateMatchesCalender extends Command
                                 'home_team_id' => $game[0],
                                 'away_team_id' => $game[1],
                                 'league_id' => $draft->league_id,
-                                'start_at' => $matchTime->format('Y-m-d 20:00:00'),
+                                'start_at' => $matchTime,
                             ]
                         ];
                         //insert les données des matchs dans

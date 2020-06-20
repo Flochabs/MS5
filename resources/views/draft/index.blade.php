@@ -33,7 +33,7 @@
 
                         <img
                             src="{{$userLogo}}"
-                            class="h-auto w-100 rounded-circle">
+                            class="h-auto w-100">
                     </div>
                     <div class="px-0 col-6 d-flex flex-column align-items-center justify-content-between">
                         <h2 class="text-center font-weight-bold">{{$team->name}}</h2>
