@@ -163,7 +163,7 @@
                                         </tbody>
                                     </table>
                                     <div class="row no-gutters justify-content-center mt-4">
-                                        <a href="{{route('teams.show', $userLeague)}}" class="text-white bouton-inscription">
+                                        <a href="{{route('teams.show', $userTeamId)}}" class="text-white bouton-inscription">
                                             Roster
                                         </a>
                                     </div>

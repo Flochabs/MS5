@@ -142,16 +142,6 @@ class TeamController extends Controller
         // récupération des données user
         $user = Auth::user();
 
-        //récupération du logo d ela team de l'utilisateur
-        $userHasLogo = $user->nbaTeams;
-        if(!$userHasLogo) {
-            $userLogo ='/storage/images/leagues_portal/picto_league_publique.png';
-            return view('teams.show', $team)->with('userLogo', $userLogo);
-        } else {
-            $userLogo ='/storage/images/logos/' . $user->nbaTeams->name . '.png';
-            return view('teams.show', $team)->with('userLogo', $userLogo);
-        }
-
         // $userTeam récupère l'équipe de l'utilisateur
         $userTeam = Team::where('user_id', $user->id)->first();
 
@@ -176,12 +166,25 @@ class TeamController extends Controller
         // $userBestPlayersTeam récupère les 5 meilleurs joueurs de l'utilisateur dans son équipe
         $userBestPlayersTeam = $userTeam->getPlayers->sortByDesc('score')->take(5);
 
-        return view('teams.show')
-            ->with('team', $team)
-            ->with('logo', $userLogo)
-            ->with('userBestPlayersTeam', $userBestPlayersTeam)
-            ->with('teamValue', $teamValue)
-            ->with('teamVictoryRatio', $teamVictoryRatio);
+        //récupération du logo d ela team de l'utilisateur
+        $userHasLogo = $user->nbaTeams;
+        if(!$userHasLogo) {
+            $userLogo ='/storage/images/leagues_portal/picto_league_publique.png';
+            return view('teams.show')
+                ->with('team', $team)
+                ->with('logo', $userLogo)
+                ->with('userBestPlayersTeam', $userBestPlayersTeam)
+                ->with('teamValue', $teamValue)
+                ->with('teamVictoryRatio', $teamVictoryRatio);
+        } else {
+            $userLogo ='/storage/images/logos/' . $user->nbaTeams->name . '.png';
+            return view('teams.show')
+                ->with('team', $team)
+                ->with('logo', $userLogo)
+                ->with('userBestPlayersTeam', $userBestPlayersTeam)
+                ->with('teamValue', $teamValue)
+                ->with('teamVictoryRatio', $teamVictoryRatio);
+        }
 
     }
 

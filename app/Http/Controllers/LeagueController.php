@@ -143,7 +143,11 @@ class LeagueController extends Controller
         }
 
         // Calcul de la valeur de chaque équipe de la league
-
+        $userPlayers = $userTeam->getPlayers;
+        $teamValue = 0;
+        foreach($userPlayers as $player){
+            $teamValue += $player->price;
+        }
 
         // Calcul du pourcentage de victoire de chaque équipe de la league
         $teamVictoryRatio = [];
