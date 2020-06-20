@@ -146,33 +146,6 @@
         @section('script-footer')
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
             <script>
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                // setInterval('someFunc()', 5000);
-                //
-                // function someFunc()
-                // {
-                //
-                //     $.ajax({
-                //         async: true,
-                //         type: "get",
-                //         url: "",
-                //         //data: data,
-                //         success: function (html) {
-                //             $('body').html(html);
-                //         }
-                //     });
-                // }
-                // setInterval('someFunc()', 5000);
-                // function someFunc()
-                //  {
-                //      $('body').load(document.URL);
-                //      console.log('test');
-                //  }
-
                 // On attend le chargement du document
                 document.addEventListener("DOMContentLoaded", function () {
                     (function () {

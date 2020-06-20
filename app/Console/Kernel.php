@@ -23,7 +23,8 @@ class Kernel extends ConsoleKernel
         \App\CustomClass\UpdateNbaPlayersScores::class,
         \App\CustomClass\SaveDraftPick::class,
         \App\CustomClass\Matches\GenerateMatchesCalender::class,
-        \App\CustomClass\Matches\PlayWeeklyMatches::class
+        \App\CustomClass\Matches\PlayWeeklyMatches::class,
+        \App\CustomClass\StoreNbaPlayerPhotoUrl::class,
     ];
 
     /**

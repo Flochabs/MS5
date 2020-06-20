@@ -149,7 +149,7 @@
 
                             </tr>
                             </thead>
-                            <tbody class="table-hover">
+                            <tbody class="table-hover" id="playersToDraft">
                             @foreach($players as $player)
                                 @php
                                     $playerStats = json_decode($player->data)->pl;
@@ -168,11 +168,12 @@
                                         } else {
                                             $position = 'Pivot';
                                         }
+
                                 @endphp
                                 <tr>
                                     <th scope="row" class="align-middle pr-0">
-                                        <img
-                                            src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
+
+                                        <img src=""
                                             class="w-25 rounded-circle pr-1">
                                         {{$playerStats->fn}} {{$playerStats->ln}}
                                     </th>
@@ -404,7 +405,7 @@
                                         $nowSec = $now->format('s');
 
                                         $differenceMin = abs($nowMin - $limitTimeMin);
-                                        $differenceSec= abs($nowSec - $limitTimeSec);
+                                        $differenceSec= abs($nowSec - $limitTimeSec)
                                     @endphp
                                     <p>Fin de l'enchère dans {{ $differenceMin}} min {{$differenceSec}}</p>
                                 </div>

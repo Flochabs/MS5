@@ -154,9 +154,8 @@ class LeagueController extends Controller
             } else {
                 $teamVictoryRatio[$team] = 'l\'équipe n\'a pas joué de match';
             }
-
-
         }
+
         // Check du statut de la draft
         if($league->isActive === 1){
             $draftStatus = $league->draft->is_over;

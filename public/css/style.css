@@ -148,6 +148,10 @@ h3 {
   color: #eb671b !important;
 }
 
+#draft-container #playersToDraft {
+  max-height: 50px !important;
+}
+
 #draft-container .cardcountdown {
   display: block;
   position: relative;
