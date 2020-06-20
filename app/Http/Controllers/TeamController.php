@@ -146,10 +146,10 @@ class TeamController extends Controller
         $userHasLogo = $user->nbaTeams;
         if(!$userHasLogo) {
             $userLogo ='/storage/images/leagues_portal/picto_league_publique.png';
-            return view('teams.create')->with('userLogo', $userLogo);
+            return view('teams.show', $team)->with('userLogo', $userLogo);
         } else {
             $userLogo ='/storage/images/logos/' . $user->nbaTeams->name . '.png';
-            return view('teams.create')->with('userLogo', $userLogo);
+            return view('teams.show', $team)->with('userLogo', $userLogo);
         }
 
         // $userTeam récupère l'équipe de l'utilisateur
