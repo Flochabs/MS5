@@ -142,18 +142,20 @@ class LeagueController extends Controller
             $teamsID[]= $leagueTeam->id;
         }
 
-        // Calcul de la valeur de chaque équipe de la league
+//        // Calcul de la valeur de chaque équipe de la league
 //        $allLeaguePlayers = [];
+//        $leagueTeamsValues = [];
 //        foreach ($allLeagueTeams as $team){
-//            $allLeaguePlayers [] = $team->getPlayers->price;
+//            $allLeaguePlayers [] = $team->getPlayers;
+//            foreach ()
 //        }
-//
-//        $leagueTeamsValues = 0;
-//
-//        foreach($allLeaguePlayers as $player){
-//            $leagueTeamsValues += $player->price;
-//        }
-//        dd($allLeaguePlayers);
+
+        $teamsValues = 0;
+
+        foreach($allLeaguePlayers as $player){
+            $leagueTeamsValues += $player->price;
+        }
+        dd($allLeaguePlayers);
 
         // Calcul du pourcentage de victoire de chaque équipe de la league
         $teamVictoryRatio = [];
