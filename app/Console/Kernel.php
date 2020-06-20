@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
         \App\CustomClass\Matches\GenerateMatchesCalender::class,
         \App\CustomClass\Matches\PlayWeeklyMatches::class,
         \App\CustomClass\StoreNbaPlayerPhotoUrl::class,
+        \App\CustomClass\League\EndOfLeague::class,
     ];
 
     /**

@@ -247,9 +247,12 @@
                                     @endphp
                                     <tr class="">
                                         <td width="30%">
-                                            <img
-                                                src="https://nba-players.herokuapp.com/players/{{$playerInfos->pl->ln}}/{{$playerInfos->pl->fn}}"
-                                                class=" w-50 rounded-circle">
+                                            @if($guards->photo_url === 'image')
+                                                <i class="fas fa-user fa-2x ml-3 mr-4 main-color"></i>
+                                            @else
+                                                <img src="{{$guards->photo_url}}"
+                                                     class="w-25 rounded-circle pr-1">
+                                            @endif
                                         </td>
                                         <td>{{$position}}</td>
                                         <td>{{$playerInfos->pl->fn}}</td>
@@ -275,9 +278,12 @@
                                     @endphp
                                     <tr>
                                         <td width="30%">
-                                            <img
-                                                src="https://nba-players.herokuapp.com/players/{{$playerInfos->pl->ln}}/{{$playerInfos->pl->fn}}"
-                                                class="w-50 rounded-circle">
+                                            @if($forward->photo_url === 'image')
+                                                <i class="fas fa-user fa-2x ml-3 mr-4 main-color"></i>
+                                            @else
+                                                <img src="{{$forward->photo_url}}"
+                                                     class="w-25 rounded-circle pr-1">
+                                            @endif
                                         </td>
                                         <td>{{$position}}</td>
                                         <td>{{$playerInfos->pl->fn}}</td>
@@ -303,9 +309,12 @@
                                     @endphp
                                     <tr>
                                         <td width="30%">
-                                            <img
-                                                src="https://nba-players.herokuapp.com/players/{{$playerInfos->pl->ln}}/{{$playerInfos->pl->fn}}"
-                                                class="w-50 rounded-circle pr-1">
+                                            @if($center->photo_url === 'image')
+                                                <i class="fas fa-user fa-2x ml-3 mr-4 main-color"></i>
+                                            @else
+                                                <img src="{{$center->photo_url}}"
+                                                     class="w-25 rounded-circle pr-1">
+                                            @endif
                                         </td>
                                         <td>{{$position}}</td>
                                         <td>{{$playerInfos->pl->fn}}</td>
@@ -341,9 +350,12 @@
                         <div class="col-12 MS5card">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img
-                                        src="https://nba-players.herokuapp.com/players/{{$playerData->pl->ln}}/{{$playerData->pl->fn}}"
-                                        class="rounded-circle w-100">
+                                    @if($playerData->photo_url === 'image')
+                                        <i class="fas fa-user fa-2x ml-3 mr-4 main-color"></i>
+                                    @else
+                                        <img src="{{$playerData->photo_url}}"
+                                             class="w-25 rounded-circle pr-1">
+                                    @endif
                                 </div>
                                 <div class="col-md-6">
                                     <p>{{$position}}</p>
