@@ -142,6 +142,19 @@ class LeagueController extends Controller
             $teamsID[]= $leagueTeam->id;
         }
 
+        // Calcul de la valeur de chaque équipe de la league
+//        $allLeaguePlayers = [];
+//        foreach ($allLeagueTeams as $team){
+//            $allLeaguePlayers [] = $team->getPlayers->price;
+//        }
+//
+//        $leagueTeamsValues = 0;
+//
+//        foreach($allLeaguePlayers as $player){
+//            $leagueTeamsValues += $player->price;
+//        }
+//        dd($allLeaguePlayers);
+
         // Calcul du pourcentage de victoire de chaque équipe de la league
         $teamVictoryRatio = [];
         foreach ($teamsID as $team){
@@ -150,13 +163,12 @@ class LeagueController extends Controller
             $teamAwayCount = Match::where('away_team_id', $team)->count();
             $teamCountSum = $teamHomeCount + $teamAwayCount;
             if ($teamCountSum !== 0) {
-                $teamVictoryRatio[$team] = number_format((($teamWiningCount2 /  $teamCountSum) * 100), 2, '.', '');
+                $teamVictoryRatio[$team] =  (float) number_format((($teamWiningCount2 /  $teamCountSum) * 100), 2, '.', '');
             } else {
-                $teamVictoryRatio[$team] = 'l\'équipe n\'a pas joué de match';
+                $teamVictoryRatio[$team] = 0;
             }
-
-
         }
+
         // Check du statut de la draft
         if($league->isActive === 1){
             $draftStatus = $league->draft->is_over;
@@ -231,7 +243,7 @@ class LeagueController extends Controller
 
                 return redirect(route('draft.index'))->with('success', 'La draft commence !');
             } else{
-                return redirect(route('leagues.show', $id))->withErrors('Le nombre joueurs n\' est pas pair !');
+                return redirect(route('leagues.show', $id))->withErrors('Le nombre de joueurs n\' est pas pair !');
             }
         } else{
             return redirect(route('leagues.show', $id))->withErrors('Tous les joueurs n\'ont pas créé leur équipe !');
@@ -247,10 +259,24 @@ class LeagueController extends Controller
      */
     public function destroy($id)
     {
-        $league = League::findOrFail($id);
-        $league->delete();
 
-        return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
+        $league = League::findOrFail($id);
+        $teamsToDestroy = $league->teams;
+        if (isset($teamsToDestroy)){
+            // d'abord détruire les équipes avant de supprimer la league
+            foreach ($teamsToDestroy as $team){
+                $team->delete();
+            }
+            // suppression de la league
+            $league->delete();
+
+            return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
+        }else{
+            // suppression de la league
+            $league->delete();
+
+            return redirect(route('leagues.index'))->with('success', 'La league a bien été supprimée.');
+        }
     }
 
     public function publicLeagues()
