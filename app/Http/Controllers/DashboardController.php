@@ -67,8 +67,40 @@ class DashboardController extends Controller
                         // league à laquelle appartient l'utilisateur
                         $userLeagueId = $user->team->league_id;
 
-                        // Le nom de la league à laquelle appartient l'utilisateur
+                        //$userNameLeague récupére Le nom de la league à laquelle appartient l'utilisateur
                         $userNameLeague = $user->team->getLeague->name;
+
+                        // $userLeagueTeams récupére le nombre d'équipe dans la league
+                        $userLeagueTeams = $user->leagues[0]->teams;
+                        //dd($userLeagueTeams);
+
+                        $userLeague = $user->leagues[0];
+
+
+                        //Récupération des matchs associés à chaque team de la league
+                        $allLeagueMatches = Match::where('league_id', $userLeagueId)->get();
+
+                        //recupération des équipes de la league
+                        $allLeagueTeams = Team::where('league_id', $userLeagueId)->get();
+                        $teamsID = [];
+                        //stocakge des ID de chaque équipe depuis Team dans un tableau
+                        foreach ($allLeagueTeams as $leagueTeam) {
+                            $teamsID[]= $leagueTeam->id;
+                        }
+                        // Calcul du pourcentage de victoire de chaque équipe de la league
+                        $teamVictoryRatio = [];
+                        foreach ($teamsID as $team){
+
+                            $teamWiningCount2 = Match::where('team_wining', '=', $team)->count();
+                            $teamHomeCount = Match::where('home_team_id', $team)->count();
+                            $teamAwayCount = Match::where('away_team_id', $team)->count();
+                            $teamCountSum = $teamHomeCount + $teamAwayCount;
+                            if ($teamCountSum !== 0) {
+                                $teamVictoryRatio[$team] = number_format((($teamWiningCount2 /  $teamCountSum) * 100), 2, '.', '');
+                            } else {
+                                $teamVictoryRatio[$team] = '0%';
+                            }
+                        }
 
 
                         //-------------------------  RECUPERATION  DONNES JOEURS DE LA TEAM DE L'UTILISATEUR -------------------------//
@@ -130,7 +162,6 @@ class DashboardController extends Controller
 
                             // $userAwayNextMatchLogo récupère le logo de l'utilisateur de l'équipe home qui à joue dans prochain matchs
                             $userAwayNextMatchHasLogo = $user->nbaTeams;
-
                             if (!$userAwayNextMatchHasLogo) {
                                 $userAwayNextMatchLogo = '/storage/images/leagues_portal/picto_league_publique.png';
                             } else {
@@ -215,6 +246,9 @@ class DashboardController extends Controller
                             ->with('userTwitterFeed', $userTwitterFeed)
                             ->with('userLogo', $userLogo)
                             ->with('league', $userLeague)
+                            ->with('userLeagueTeams', $userLeagueTeams)
+                            ->with('teamVictoryRatio', $teamVictoryRatio)
+                            ->with('userLeague', $userLeague)
                             ->with('team', $user->team)
                             ->with('draftIsOver', $draftIsOver)
                             ->with('userBestPlayersTeam', $userBestPlayersTeam)
@@ -257,7 +291,6 @@ class DashboardController extends Controller
                 ->with('userTwitterFeed', $userTwitterFeed)
                 ;
         }
-
     }
 
     public function profile($id)
@@ -265,6 +298,8 @@ class DashboardController extends Controller
         $user = User::where('id', '=', $id)->first();
         return view('dashboard.profile', compact('user'));
     }
+
+
 
 
 }

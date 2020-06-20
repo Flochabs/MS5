@@ -99,21 +99,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>TheBoss</td>
-                                            <td>New Orleans Arena</td>
-                                            <td>0.889</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Puma</td>
-                                            <td>United Center</td>
-                                            <td>0.760</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Elchikitopouet</td>
-                                            <td>Madisson Square Garden</td>
-                                            <td>0.512</td>
-                                        </tr>
+                                        @foreach( $userLeague->users as $user)
+                                            <tr>
+                                                <td class="align-middle">  {{$user->team->name}}</td>
+                                                <td class="align-middle">  {{$user->team->stadium_name}}</td>
+                                                    @if($user->team !== null)
+                                                        <td class="align-middle">{{$teamVictoryRatio[$user->team->id]}}</td>
+                                                    @else
+                                                    @endif
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -134,7 +129,6 @@
                                         <tbody>
                                         @foreach($userBestPlayersTeam as $player)
                                             @php
-
                                                 $playerStats = json_decode($player->data)->pl;
                                                     if(isset($playerStats->ca->sa)) {
                                                        $currentSeasonStats = $playerStats->ca->sa;
@@ -158,7 +152,6 @@
                                                     <img
                                                         src="https://nba-players.herokuapp.com/players/{{$playerStats->ln}}/{{$playerStats->fn}}"
                                                         class="w-25 rounded-circle pr-1">
-
 
                                                     {{$playerStats->fn}} {{$playerStats->ln}}
                                                 </th>
