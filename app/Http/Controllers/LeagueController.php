@@ -198,7 +198,7 @@ class LeagueController extends Controller
         $data = League::find($id);
         if($data->teams->count() === $data->users->count()){
             if ($data->users->count()% 2 == 0){
-
+                date_default_timezone_set ( 	'Europe/Paris' );
                 $data->isActive = $request->isActive;
                 $data->save();
 
@@ -207,7 +207,7 @@ class LeagueController extends Controller
                 $draft = new Draft();
                 $draft->league_id = $data->id;
                 $draft->is_over = 0;
-                $draft->ends_at = $draftEnd->format('Y-m-d 20:00:00');
+                $draft->ends_at = $draftEnd;
                 $draft->save();
 
                 //Récupération des emails des membres de la league
