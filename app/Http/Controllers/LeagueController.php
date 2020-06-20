@@ -202,12 +202,13 @@ class LeagueController extends Controller
                 $data->isActive = $request->isActive;
                 $data->save();
 
+                date_default_timezone_set ( 	'Europe/Paris' );
                 //enregistrement du début de la draft avec heure de fin
                 $draftEnd = now()->addMinutes(2);
                 $draft = new Draft();
                 $draft->league_id = $data->id;
                 $draft->is_over = 0;
-                $draft->ends_at = $draftEnd->format('Y-m-d 20:00:00');
+                $draft->ends_at = $draftEnd;
                 $draft->save();
 
                 //Récupération des emails des membres de la league

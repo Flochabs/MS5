@@ -80,6 +80,7 @@ class GenerateMatchesCalender extends Command
 
 
                     foreach ($scheduleGame as $game) {
+                        date_default_timezone_set ( 	'Europe/Paris' );
                         $matchDatas = [
                             [
                                 'home_team_id' => $game[0],

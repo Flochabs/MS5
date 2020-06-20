@@ -237,6 +237,8 @@ class DraftController extends Controller
 
     public function auction($id)
     {
+        date_default_timezone_set ( 	'Europe/Paris' );
+
         $user = Auth::user();
         $userLeagueId = $user->team->league_id;
         $leagueTeams = Team::where('league_id', $userLeagueId)->get();
@@ -378,6 +380,8 @@ class DraftController extends Controller
      */
 
     public function updateAuction(Request $request, $id){
+        date_default_timezone_set ( 	'Europe/Paris' );
+
         $user = Auth::user();
         $userLeagueId = $user->team->league_id;
         $leagueTeams = Team::where('league_id', $userLeagueId)->get();
